@@ -1,16 +1,15 @@
 import React from "react"
-import { Header } from "./components/Header"
-// import { ImgCarousel } from "./components/ImgCarousel"
 import { TiresInput } from "./components/TiresInput"
-import { Footer } from "./components/footer/Footer"
-import { Copyright } from "./components/footer/Copyright"
+import { GoogleMap } from "./components/GoogleMap"
+import { Box } from "@mui/material"
+import { OurServices } from "./components/OurServices"
 
 export function MainPage () {
     return (
-        <>
-            <Header />
+        <Box>
             <TiresInput />
-            <Footer />
-        </>
+            <OurServices />
+            <GoogleMap />
+        </Box>
     )
 }
