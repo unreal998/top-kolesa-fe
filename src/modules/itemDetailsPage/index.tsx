@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  Button, Divider, Rating, Stack, Tooltip, Typography } from "@mui/material";
+import {  Box, Button, Divider, Rating, Stack, Tab, Tabs, Tooltip, Typography } from "@mui/material";
 import { BASE_COLORS } from "../../shared/constants";
 import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
@@ -8,12 +8,41 @@ import GppGoodIcon from '@mui/icons-material/GppGood';
 import ReplayOutlinedIcon from '@mui/icons-material/ReplayOutlined';
 import ReplayCircleFilledIcon from '@mui/icons-material/ReplayCircleFilled';
 import { SmallDescription } from "./components/SmallDescription";
+import { FullDescription } from "./components/FullDescription";
+import { ReviewPage } from "./components/ReviewPage";
+
+interface ITabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+  }
+  
+
+function CustomTabPanel(props: ITabPanelProps) {
+    const { children, value, index } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+      >
+        {value === index && (
+            children
+        )}
+      </div>
+    );
+  }
 
 export function ItemDetailsPage () {
     const [value, setValue] = useState(2);
+    const [modalValue, setModalValue] = React.useState(0);
     const [deliveryPopupHover, setDeliveryPopupHover] = useState(false);
     const [guarantiePopupHover, setGuarantiePopupHover] = useState(false);
     const [revertPopupHover, setRevertPopupHover] = useState(false);
+
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        setModalValue(newValue);
+    };
     return (
         <Stack padding='0 15% 2%' gap='10px'>
             <Stack bgcolor={BASE_COLORS.BACKGROUND_WHITE} direction='row' justifyContent='center' gap='50px' padding='7%'>
@@ -148,9 +177,18 @@ export function ItemDetailsPage () {
                     </Stack>
                 </Stack>
             </Stack>
-            <Stack direction='row' alignItems='center' justifyContent='center'>
-                <Typography> SEE MORE</Typography>
-            </Stack>
+            <Box display='flex' alignContent='center' justifyContent='center'>
+                <Tabs value={modalValue} onChange={handleChange}>
+                    <Tab label="Description" />
+                    <Tab label="Review (0)" />
+                </Tabs>
+            </Box>
+            <CustomTabPanel value={modalValue} index={0}>
+                <FullDescription />
+            </CustomTabPanel>
+            <CustomTabPanel value={modalValue} index={1}>
+                <ReviewPage />
+            </CustomTabPanel>                      
         </Stack>
     )
 }

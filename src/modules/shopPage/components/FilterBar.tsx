@@ -87,7 +87,14 @@ export function FilterBar () {
                             disablePortal
                             options={top100Films}
                             sx={{ p: '2px', border: '0px' }}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) => <TextField 
+                                disabled={params.disabled}
+                                id={params.id}
+                                size={params.size}
+                                fullWidth={params.fullWidth}
+                                InputProps={params.InputProps}
+                                inputProps={params.inputProps}
+                            />}
                         />
                     </List>
                 </Collapse>
@@ -101,7 +108,14 @@ export function FilterBar () {
                             disablePortal
                             options={top100Films}
                             sx={{ p: '2px', border: '0px' }}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) => <TextField
+                                disabled={params.disabled}
+                                id={params.id}
+                                size={params.size}
+                                fullWidth={params.fullWidth}
+                                InputProps={params.InputProps}
+                                inputProps={params.inputProps}
+                            />}
                         />
                     </List>
                 </Collapse>
@@ -115,7 +129,14 @@ export function FilterBar () {
                             disablePortal
                             options={top100Films}
                             sx={{ p: '2px', border: '0px' }}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) => <TextField
+                                disabled={params.disabled}
+                                id={params.id}
+                                size={params.size}
+                                fullWidth={params.fullWidth}
+                                InputProps={params.InputProps}
+                                inputProps={params.inputProps}
+                            />}
                         />
                     </List>
                 </Collapse>
