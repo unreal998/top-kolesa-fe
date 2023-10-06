@@ -1,12 +1,15 @@
-import { Email, Language, MapsHomeWork, Timer } from "@mui/icons-material";
-import { Box, Button, Collapse, Link, Stack, Typography } from "@mui/material";
+import { EmailOutlined, Language, MapsHomeWorkOutlined, TimerOutlined } from "@mui/icons-material";
+import { Box, Button, Link, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { TypographyWithIcon } from "../../modules/mainPage/components/TypographyWithIcon";
 import { BASE_COLORS } from "../constants";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { SyntheticEvent, useCallback, useState } from "react";
 import i18next from "i18next";
 
 export function Header () {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const {t} = useTranslation();
+    const currentLanguageCode = localStorage.getItem('i18nextLng') || 'en';
     const languages = [
         {
             code: 'en',
@@ -21,9 +24,13 @@ export function Header () {
             name: 'Українська'
         },
     ]
-    const {t} = useTranslation();
-    const currentLanguageCode = localStorage.getItem('i18nextLng') || 'en';
-    const [isLanguageModalOpen, setLanguageModalOpen] = useState(false)
+    const handleLanguageClick = useCallback((event: SyntheticEvent)=> {
+        setAnchorEl(event.target as HTMLElement);
+    }, [])
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
     return (
         <Box width='100%' display='flex' flexDirection='column' overflow='hidden'>
@@ -35,9 +42,9 @@ export function Header () {
                     width='100%' 
                     padding='11px 11px 11px 80px' 
                 >
-                    <TypographyWithIcon icon={<Email sx={{fill: '#FFF'}} />} typography={ <Typography color='#FFFFFF' variant="body2"> support@topkolesa.com </Typography>}/>
-                    <TypographyWithIcon icon={<MapsHomeWork sx={{fill: '#FFF'}} />} typography={ <Typography color='#FFFFFF' variant="body2">{t('headerAddress')}</Typography>}/>
-                    <TypographyWithIcon icon={<Timer sx={{fill: '#FFF'}} />} typography={ <Typography color='#FFFFFF' variant="body2">{t('workHours')}</Typography>}/>
+                    <TypographyWithIcon icon={<EmailOutlined sx={{fill: '#FFF', width: '20px'}} />} typography={ <Typography fontFamily='PT Sans,  sans-serif' color='#FFFFFF' variant="body2"> support@topkolesa.com </Typography>}/>
+                    <TypographyWithIcon icon={<MapsHomeWorkOutlined sx={{fill: '#FFF', width: '20px' }} />} typography={ <Typography fontFamily='PT Sans,  sans-serif' color='#FFFFFF' variant="body2">{t('headerAddress')}</Typography>}/>
+                    <TypographyWithIcon icon={<TimerOutlined sx={{fill: '#FFF', width: '20px'}} />} typography={ <Typography fontFamily='PT Sans,  sans-serif' color='#FFFFFF' variant="body2">{t('workHours')}</Typography>}/>
             </Box>
             <Box 
                 display='flex' 
@@ -48,25 +55,35 @@ export function Header () {
                 alignItems='center' 
                 justifyContent='space-between'
             >
-                <Link href="#" >
+                <Link href="/" >
                     <img src="./logo.png" alt="logo"></img>
                 </Link>
                 <Stack display='flex' flexDirection='row' gap='15px'>
-                    <Link underline="none" href='/' sx={{color: "#000"}} >Home</Link>
-                    <Link underline="none" href='/shop'sx={{color: "#000"}}>Shop</Link>
-                    <Link underline="none" sx={{color: "#000"}}>About</Link>
-                    <Link underline="none" sx={{color: "#000"}}>Contact</Link>
+                    <Link underline="none" href='/' sx={{color: "#000"}} >{t('homeLabel')}</Link>
+                    <Link underline="none" href='/shop'sx={{color: "#000"}}>{t('shopLabel')}</Link>
+                    <Link underline="none" sx={{color: "#000"}}>{t('aboutLabel')}</Link>
+                    <Link underline="none" sx={{color: "#000"}}>{t('contactLabel')}</Link>
                 </Stack>
                 <Stack alignItems='center'>
-                    <Button onClick={() => setLanguageModalOpen(true)} sx={{color: "#000"}}> <Language sx={{marginRight: '10px'}}/>{currentLanguageCode}</Button>
-                    <Collapse in={isLanguageModalOpen} timeout="auto" unmountOnExit>
+                    <Button onClick={(event) => handleLanguageClick(event)} sx={{color: "#000"}}> <Language sx={{marginRight: '10px'}}/>{currentLanguageCode}</Button>
+                    <Menu open={!!anchorEl}
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                    >
                         {languages.map((item) => 
-                            <Button onClick={() => {
-                                setLanguageModalOpen(false);
+                            <MenuItem onClick={() => {
+                                handleClose();
                                 i18next.changeLanguage(item.code);
-                            }} sx={{color: "#000"}}>{item.name}</Button>
+                            }} sx={{color: "#000"}}>{item.name}</MenuItem>
                         )}
-                    </Collapse>
+                    </Menu>
                 </Stack>
             </Box>
         </Box>

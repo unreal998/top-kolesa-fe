@@ -12,6 +12,9 @@ import {
 import { Apps, FormatAlignJustify } from "@mui/icons-material"
 import styled from "@emotion/styled";
 import { BASE_COLORS } from "../../../shared/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSortParams } from "../selectors";
+import { actions } from "../reducer";
 
 const ViewButton = styled(Box)({
     backgroundColor: BASE_COLORS.BACKGROUND_WHITE,
@@ -34,11 +37,13 @@ export function ShopHeaderBar () {
     const [isCardView, handleCardView] = useState(false);
     const tableButton = useRef();
     const cardButton = useRef();
-    const [age, setAge] = React.useState('');
+    const sortParams = useSelector(selectSortParams())
+    const dispatch = useDispatch();
 
-    const handleChange = (event: SelectChangeEvent) => {
-      setAge(event.target.value);
-    };
+    const handleChange = useCallback((event: SelectChangeEvent) => {
+        dispatch(actions.setSortParams({...sortParams, showBy: +event.target.value}))
+
+    }, [dispatch, sortParams]);
 
     const handleCardViewChange = useCallback(()=> {
         const cardButtonElement = cardButton.current as unknown as HTMLElement;
@@ -75,16 +80,13 @@ export function ShopHeaderBar () {
                                 color: BASE_COLORS.DEFAULT_GREY
                             }}>Sort By</InputLabel>
                             <Select
-                            value={age}
+                            value={''}
                             onChange={handleChange}
                             label="Age"
                             >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            <MenuItem value={0}>Default</MenuItem>
+                            <MenuItem value={1}>By Price</MenuItem>
+                            <MenuItem value={2}>By Rating</MenuItem>
                             </Select>
                         </FormControl>
                     </Stack>
@@ -94,16 +96,13 @@ export function ShopHeaderBar () {
                                     color: BASE_COLORS.DEFAULT_GREY
                                 }}>Show</InputLabel>
                                 <Select
-                                value={age}
+                                value={sortParams.showBy.toString()}
                                 onChange={handleChange}
-                                label="Age"
+                                label="ShowBy"
                                 >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                <MenuItem value={10}>10</MenuItem>
+                                <MenuItem value={20}>20</MenuItem>
+                                <MenuItem value={30}>30</MenuItem>
                                 </Select>
                             </FormControl>
                     </Stack>

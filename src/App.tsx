@@ -6,6 +6,7 @@ import { ShopPage } from './modules/shopPage';
 import { Header } from './shared/components/Header';
 import { Footer } from './shared/components/footer/Footer';
 import { ItemDetailsPage } from './modules/itemDetailsPage';
+import './App.css'
 
 function App() {
   

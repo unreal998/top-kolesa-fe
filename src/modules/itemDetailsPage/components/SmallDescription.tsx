@@ -7,6 +7,7 @@ import ExpandIcon from '@mui/icons-material/Expand';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import HeightIcon from '@mui/icons-material/Height';
 import { BASE_COLORS } from "../../../shared/constants";
+import { ShopItemAPI } from "../../shopPage/reducer";
 
 const SubDescriptionText = styled(Typography)({
     fontSize: '0.8rem',
@@ -15,37 +16,37 @@ const SubDescriptionText = styled(Typography)({
     alignItems: 'center'
 })
 
-export function SmallDescription() {
+export function SmallDescription(itemData: ShopItemAPI) {
     return (
         <Stack gap='5px'>
             <Stack direction='row' justifyContent='space-between'>
                 <SubDescriptionText variant="body1" >
                             {<ApartmentIcon />}
-                            Brand: Bridgestoun
+                            Brand: {itemData.brand}
                 </SubDescriptionText>
                 <SubDescriptionText variant="body1" >
                             {<ExtensionIcon />}
-                            Model: Wilder j540
+                            Model: {itemData.name}
                 </SubDescriptionText>
             </Stack>
             <Stack direction='row' justifyContent='space-between'>
                 <SubDescriptionText variant="body1" >
                             {<ExpandIcon />}
-                            Profile: 65
+                            Profile: {itemData.height}
                 </SubDescriptionText>
                 <SubDescriptionText variant="body1" >
                             {<HeightIcon />}
-                            Diametr: R14
+                            Diametr: {itemData.diametr}
                 </SubDescriptionText>
             </Stack>
             <Stack direction='row' justifyContent='space-between'>
             <SubDescriptionText variant="body1" >
                             {<OpenInFullIcon />}
-                            Width: 175
+                            Width: {itemData.width}
                 </SubDescriptionText>
                 <SubDescriptionText variant="body1" >
                             {<ThermostatIcon />}
-                            Season: Summer
+                            Season: {itemData.season}
                 </SubDescriptionText>
             </Stack>
         </Stack>

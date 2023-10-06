@@ -1,7 +1,9 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useEffect } from "react"
 import { Autocomplete, Box, Button, Checkbox, Collapse, FormControlLabel, FormGroup, List, ListItemButton, ListItemText, ListSubheader, Slider, Stack, TextField, styled } from "@mui/material"
 import { ExpandLess, ExpandMore } from "@mui/icons-material"
 import { BASE_COLORS } from "../../../shared/constants"
+import { useSelector } from "react-redux"
+import { selectFilterData } from "../selectors"
 
 const FilterButton = styled(ListItemButton)({
     color: '#fff',
@@ -30,12 +32,6 @@ function valuetext(value: number) {
     return `${value} uah`;
   }
 
-const top100Films = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-    { label: 'The Godfather', year: 1972 },
-    { label: 'The Godfather: Part II', year: 1974 }
-];
-
 export function FilterBar () {
     const [open, setOpen] = React.useState({
         width: false,
@@ -46,6 +42,8 @@ export function FilterBar () {
         brand: false
     } as ModalState);
 
+    const filtersParams = useSelector(selectFilterData());
+
     const handleClick = useCallback((id: string) => {
       setOpen({
             ...open,
@@ -53,11 +51,16 @@ export function FilterBar () {
         });
     }, [open]);
 
-    const [price, setPriceValue] = React.useState<number[]>([500, 20000]);
+    const [price, setPriceValue] = React.useState<number[]>([0, 0]);
 
     const handlePriceChange = (event: Event, newValue: number | number[]) => {
         setPriceValue(newValue as number[]);
     };
+
+    useEffect(() => {
+        const priceArray = [Math.min.apply(null, filtersParams.prices), Math.max.apply(null, filtersParams.prices)]
+        setPriceValue(priceArray)
+    }, [filtersParams])
 
     return (
         <Stack
@@ -77,6 +80,22 @@ export function FilterBar () {
                 }}
                 component="nav"
                 >
+                <FilterButton onClick={() => handleClick('price')}>
+                    <ListItemText primary="Price" />
+                    {open.price ? <ExpandLess /> : <ExpandMore />}
+                </FilterButton>
+                <Collapse in={open.price} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        <Slider
+                            defaultValue={0}
+                            value={price}
+                            onChange={handlePriceChange}
+                            max={Math.max.apply(null, filtersParams.prices)}
+                            step={100}
+                            valueLabelDisplay="on"
+                        />
+                    </List>
+                </Collapse>
                 <FilterButton onClick={() => handleClick('width')}>
                     <ListItemText primary="Width" />
                     {open.width ? <ExpandLess /> : <ExpandMore />}
@@ -85,7 +104,7 @@ export function FilterBar () {
                     <List component="div" disablePadding>
                         <Autocomplete
                             disablePortal
-                            options={top100Films}
+                            options={filtersParams.width}
                             sx={{ p: '2px', border: '0px' }}
                             renderInput={(params) => <TextField 
                                 disabled={params.disabled}
@@ -106,7 +125,7 @@ export function FilterBar () {
                     <List component="div" disablePadding>
                         <Autocomplete
                             disablePortal
-                            options={top100Films}
+                            options={filtersParams.height}
                             sx={{ p: '2px', border: '0px' }}
                             renderInput={(params) => <TextField
                                 disabled={params.disabled}
@@ -127,7 +146,7 @@ export function FilterBar () {
                     <List component="div" disablePadding>
                         <Autocomplete
                             disablePortal
-                            options={top100Films}
+                            options={filtersParams.diametr}
                             sx={{ p: '2px', border: '0px' }}
                             renderInput={(params) => <TextField
                                 disabled={params.disabled}
@@ -137,22 +156,6 @@ export function FilterBar () {
                                 InputProps={params.InputProps}
                                 inputProps={params.inputProps}
                             />}
-                        />
-                    </List>
-                </Collapse>
-                <FilterButton onClick={() => handleClick('price')}>
-                    <ListItemText primary="Price" />
-                    {open.price ? <ExpandLess /> : <ExpandMore />}
-                </FilterButton>
-                <Collapse in={open.price} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <Slider
-                            defaultValue={0}
-                            value={price}
-                            onChange={handlePriceChange}
-                            max={20000}
-                            step={100}
-                            valueLabelDisplay="on"
                         />
                     </List>
                 </Collapse>
@@ -176,9 +179,19 @@ export function FilterBar () {
                 <Collapse in={open.brand} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         <FormGroup>
-                            <FormControlLabel control={<Checkbox />} label="Bridgestoun" />
-                            <FormControlLabel control={<Checkbox />} label="Michelen" />
-                            <FormControlLabel color="#fff" control={<Checkbox />} label="Bosh" />
+                        <Autocomplete
+                            disablePortal
+                            options={filtersParams.brands}
+                            sx={{ p: '2px', border: '0px' }}
+                            renderInput={(params) => <TextField
+                                disabled={params.disabled}
+                                id={params.id}
+                                size={params.size}
+                                fullWidth={params.fullWidth}
+                                InputProps={params.InputProps}
+                                inputProps={params.inputProps}
+                            />}
+                        />
                         </FormGroup>
                     </List>
                 </Collapse>

@@ -4,12 +4,34 @@ import { ImgCarousel } from "../../../shared/components/ImgCarousel";
 import { SliderItem } from "../../../shared/types";
 import { ElectricBolt } from "@mui/icons-material";
 import { BASE_COLORS } from "../../../shared/constants";
+import { useTranslation } from "react-i18next";
 
 const SecDividerContainer = styled('div')({
     width: '100px',
     height: '3px',
     textAlign: 'center',
     backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+})
+
+const StyledServiceDescriptionTypography = styled(Typography)({
+    padding:'20px 60px',
+    backgroundColor: BASE_COLORS.DEFAULT_BLUE ,
+    alignSelf: 'flex-end',
+    fontWeight:'700',
+    fontFamily:'Montserrat, sans-serif',
+    color: '#fff'
+})
+
+const StyledServiceHoverDescriptionStack = styled(Stack)({
+    color: '#fff', 
+    justifyContent: 'center', 
+    alignItems: 'center',  
+    width: '100%', 
+    textAlign: 'center',
+    backgroundColor: 'rgba(0,0,0, 0.5)', 
+    padding: '20% 10% 30% 0%',
+    gap: "15px",
+    marginBottom: '45px'
 })
 
 const SecDividerAnimation = styled('div')({
@@ -79,111 +101,64 @@ function SliderItemElement(props: SliderItem)
 const sliderData: SliderItem[] = [
     {
         imgSource: './imgs/ourServiceImgs/sr-img-1-1.jpg',
-        description: <Typography 
-                        padding='20px' 
-                        bgcolor={BASE_COLORS.DEFAULT_BLUE} 
-                        alignSelf='flex-end' 
-                        variant="h5" 
-                        color='#fff'>
+        description: 
+                    <StyledServiceDescriptionTypography 
+                        variant="h5" >
                             Stock Wheels
-                        </Typography>,
-        hoverDescription: <Stack 
-                color='#fff' 
-                justifyContent='center' 
-                alignItems='center'  
-                width='100%' 
-                textAlign='center'
-                bgcolor='rgba(0,0,0, 0.5)' 
-                padding= '20% 10% 30% 10%'
-                gap="15px"
-                marginBottom='45px'
-            >
-                        <ElectricBolt sx={{width: '40px', height:'40px', marginBottom: '20px'}}/>
-                        <Typography variant="h5">Stock Wheels</Typography>
+                        </StyledServiceDescriptionTypography>,
+        hoverDescription: 
+                    <StyledServiceHoverDescriptionStack >
+                        <ElectricBolt sx={{width: '70px', height:'70px', marginBottom: '20px'}}/>
+                        <Typography fontWeight='700' fontFamily='Montserrat, sans-serif' variant="h5">Stock Wheels</Typography>
                         <Typography variant="subtitle1" maxWidth="85%">Quickly reconceptualize standardized web services for interdependent products incentivize e-business</Typography>
-                    </Stack>
+                    </StyledServiceHoverDescriptionStack>
     },
     {
         imgSource: './imgs/ourServiceImgs/sr-img-1-2.jpg',
-        description: <Typography 
-                        padding='20px' 
-                        bgcolor={BASE_COLORS.DEFAULT_BLUE}
-                        alignSelf='flex-end' 
-                        variant="h5" 
-                        color='#fff'>
+        description: 
+                    <StyledServiceDescriptionTypography 
+                        variant="h5">
                             Stock Wheels
-                    </Typography>,
-        hoverDescription: <Stack 
-                color='#fff' 
-                justifyContent='center' 
-                alignItems='center'
-                textAlign='center'
-                width='100%' 
-                bgcolor='rgba(0,0,0, 0.5)' 
-                padding= '20% 10% 30% 10%'
-                gap="15px"
-                marginBottom='45px'
-            >
-                        <ElectricBolt sx={{width: '40px', height:'40px', marginBottom: '20px'}}/>
-                        <Typography variant="h5">Stock Wheels</Typography>
+                    </StyledServiceDescriptionTypography>,
+        hoverDescription: 
+                    <StyledServiceHoverDescriptionStack >
+                        <ElectricBolt sx={{width: '70px', height:'70px', marginBottom: '20px'}}/>
+                        <Typography fontWeight='700' fontFamily='Montserrat, sans-serif' variant="h5">Stock Wheels</Typography>
                         <Typography variant="subtitle1" maxWidth="85%">Quickly reconceptualize standardized web services for interdependent products incentivize e-business</Typography>
-                    </Stack>
+                    </StyledServiceHoverDescriptionStack>
     },
     {
         imgSource: './imgs/ourServiceImgs/sr-img-1-3.jpg',
-        description: <Typography 
-                        padding='20px' 
-                        bgcolor={BASE_COLORS.DEFAULT_BLUE}
-                        alignSelf='flex-end' 
-                        variant="h5" 
-                        color='#fff'>
+        description: 
+                    <StyledServiceDescriptionTypography 
+                        variant="h5" >
                             Stock Wheels
-                    </Typography>,
-        hoverDescription: <Stack
-                color='#fff' 
-                justifyContent='center' 
-                alignItems='center'
-                textAlign='center'
-                width='100%' 
-                bgcolor='rgba(0,0,0, 0.5)' 
-                padding= '20% 10% 30% 10%'
-                gap="15px"
-                marginBottom='45px'
-            >
-                        <ElectricBolt sx={{width: '40px', height:'40px', marginBottom: '20px'}}/>
-                        <Typography variant="h5">Stock Wheels</Typography>
+                    </StyledServiceDescriptionTypography>,
+        hoverDescription: 
+                <StyledServiceHoverDescriptionStack>
+                        <ElectricBolt sx={{width: '70px', height:'70px', marginBottom: '20px'}}/>
+                        <Typography fontWeight='700' fontFamily='Montserrat, sans-serif' variant="h5">Stock Wheels</Typography>
                         <Typography variant="subtitle1" maxWidth="85%">Quickly reconceptualize standardized web services for interdependent products incentivize e-business</Typography>
-                    </Stack>
+                </StyledServiceHoverDescriptionStack>
     },
     {
         imgSource: './imgs/ourServiceImgs/sr-img-1-4.jpg',
-        description: <Typography 
-                        padding='20px' 
-                        bgcolor={BASE_COLORS.DEFAULT_BLUE}
-                        alignSelf='flex-end' 
-                        variant="h5" 
-                        color='#fff'>
+        description: 
+                    <StyledServiceDescriptionTypography 
+                        variant="h5">
                             Stock Wheels
-                    </Typography>,
-        hoverDescription: <Stack
-                color='#fff' 
-                justifyContent='center' 
-                alignItems='center'
-                textAlign='center'
-                width='100%' 
-                bgcolor='rgba(0,0,0, 0.5)' 
-                padding= '20% 10% 30% 10%'
-                gap="15px"
-                marginBottom='45px'
-            >
-                        <ElectricBolt sx={{width: '40px', height:'40px', marginBottom: '20px'}}/>
-                        <Typography variant="h5">Stock Wheels</Typography>
-                        <Typography variant="subtitle1" maxWidth="85%">Quickly reconceptualize standardized web services for interdependent products incentivize e-business</Typography>
-                    </Stack>
+                    </StyledServiceDescriptionTypography>,
+        hoverDescription: 
+                <StyledServiceHoverDescriptionStack>
+                        <ElectricBolt sx={{width: '70px', height:'70px', marginBottom: '20px'}}/>
+                        <Typography fontWeight='700' variant="h5">Stock Wheels</Typography>
+                        <Typography fontFamily='PT Sans, sans-serif' variant="subtitle1" maxWidth="85%">Quickly reconceptualize standardized web services for interdependent products incentivize e-business</Typography>
+                </StyledServiceHoverDescriptionStack>
     }
 ]
 
 export function OurServices() {
+    const {t} = useTranslation();
     return (
         <Box 
             display='flex' 
@@ -196,7 +171,7 @@ export function OurServices() {
                 backgroundSize: 'contain'
             }}>
             <Stack justifyContent='center' alignItems='center' gap='15px'>
-                <Typography variant="h2" color='#000' fontWeight='800'>Our Services</Typography>
+                <Typography variant="h2" color='#000' fontFamily='Montserrat, sans-serif' fontWeight='800'>{t('ourServices')}</Typography>
                 <SecDividerContainer>
                     <SecDividerAnimation />
                 </SecDividerContainer>
@@ -206,7 +181,7 @@ export function OurServices() {
                     width='60%' 
                     color={BASE_COLORS.DEFAULT_GREY}
                 >
-                    Dramatically target proactive infrastructures before interactive growth strategies. Compellingly fashion global leadership skills and multidisciplinary infrastructures.</Typography>
+                </Typography>
             </Stack>
             <ImgCarousel gap="10px" outerWidth="100%" innerWidth={1530} sliderData={sliderData} ItemElement={SliderItemElement}/>
         </Box> 

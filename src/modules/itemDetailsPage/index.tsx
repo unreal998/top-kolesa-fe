@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {  Box, Button, Divider, Rating, Stack, Tab, Tabs, Tooltip, Typography } from "@mui/material";
 import { BASE_COLORS } from "../../shared/constants";
 import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded';
@@ -10,6 +10,10 @@ import ReplayCircleFilledIcon from '@mui/icons-material/ReplayCircleFilled';
 import { SmallDescription } from "./components/SmallDescription";
 import { FullDescription } from "./components/FullDescription";
 import { ReviewPage } from "./components/ReviewPage";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "../shopPage/reducer";
+import { selectSelectedItemData } from "../shopPage/selectors";
+import { SHOP_ITEM_TIRES_IMG_PREFIX } from "../../constants";
 
 interface ITabPanelProps {
     children?: React.ReactNode;
@@ -34,11 +38,19 @@ function CustomTabPanel(props: ITabPanelProps) {
   }
 
 export function ItemDetailsPage () {
-    const [value, setValue] = useState(2);
     const [modalValue, setModalValue] = React.useState(0);
     const [deliveryPopupHover, setDeliveryPopupHover] = useState(false);
     const [guarantiePopupHover, setGuarantiePopupHover] = useState(false);
     const [revertPopupHover, setRevertPopupHover] = useState(false);
+    const selectedItemData = useSelector(selectSelectedItemData())
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(document.location.search)
+        const selectedItemId = searchParams.get('id')
+        dispatch(actions.getShopItems(1))
+        dispatch(actions.setSelectedItemId(selectedItemId || ''))
+    }, [dispatch])
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setModalValue(newValue);
@@ -47,7 +59,7 @@ export function ItemDetailsPage () {
         <Stack padding='0 15% 2%' gap='10px'>
             <Stack bgcolor={BASE_COLORS.BACKGROUND_WHITE} direction='row' justifyContent='center' gap='50px' padding='7%'>
                 <Stack sx={{
-                    backgroundImage: 'url("./imgs/tempImgs/tire.jpg")',
+                    backgroundImage: selectedItemData?.image_file ? `url("${ SHOP_ITEM_TIRES_IMG_PREFIX}${selectedItemData.image_file}")` : `url("./imgs/noPhotoImg.jpg")`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'contain',
                     minHeight: '300px',
@@ -66,9 +78,9 @@ export function ItemDetailsPage () {
                         gap='5px' 
                         width='100%'
                     > 
-                        <Rating name="read-only" value={value} readOnly />
-                        <Typography variant="h3" >Legend Series</Typography>
-                        <Typography variant="h3" fontWeight='600' fontSize='30px' color={BASE_COLORS.DEFAULT_BLUE} >$900</Typography>
+                        <Rating name="read-only" value={selectedItemData?.rate} readOnly />
+                        <Typography variant="h3" > {selectedItemData?.name}</Typography>
+                        <Typography variant="h3" fontWeight='600' fontSize='30px' color={BASE_COLORS.DEFAULT_BLUE} >${selectedItemData?.price_uah}</Typography>
                     </Stack>
                     <Divider sx={{
                             width:'100%',
@@ -92,12 +104,12 @@ export function ItemDetailsPage () {
                                 color={BASE_COLORS.DEFAULT_GREY} 
                                 variant="body1" 
                             >
-                                <b>ARTICLE:</b> 123760756
+                                <b>ARTICLE:</b> {selectedItemData?.id}
                             </Typography>
                         </Stack>
                     </Stack>
                     <Button variant="contained">BUY</Button>
-                    <SmallDescription />
+                    {selectedItemData && <SmallDescription {...selectedItemData}/> }
                     <Stack justifyContent='space-between' direction='row'>
                         <Tooltip
                             onMouseEnter={() => setDeliveryPopupHover(true)}
@@ -184,7 +196,7 @@ export function ItemDetailsPage () {
                 </Tabs>
             </Box>
             <CustomTabPanel value={modalValue} index={0}>
-                <FullDescription />
+                {selectedItemData && <FullDescription {...selectedItemData}/> }
             </CustomTabPanel>
             <CustomTabPanel value={modalValue} index={1}>
                 <ReviewPage />

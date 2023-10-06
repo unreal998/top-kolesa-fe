@@ -4,8 +4,10 @@ import { ButtonWithIcon } from "../../../modules/mainPage/components/ButtonWithI
 import { FooterStrocedText } from "./FooterStrocedText";
 import { Copyright } from "./Copyright";
 import { BASE_COLORS } from "../../constants";
+import { useTranslation } from "react-i18next";
 
 export function Footer () {
+    const {t} = useTranslation();
     return (
         <Box 
         display='flex' 
@@ -16,8 +18,8 @@ export function Footer () {
         >
             <Stack padding='4% 6%' justifyContent='space-between' direction='row'>
                 <Stack width='30%' gap='25px'>
-                    <FooterStrocedText text={ <Typography variant="h4" fontWeight='600' color='#fff'> About Company</Typography>}/>
-                    <Typography lineHeight="1.7" color={BASE_COLORS.DEFAULT_GREY} variant="body1">Conveniently integrate proactive resources after flexible total linkage. Globally reintermediate unique value with client-centric interfaces. Holisticly repurposee.</Typography>
+                    <FooterStrocedText text={ <Typography variant="h4" fontFamily='Montserrat, sans-serif' fontWeight='700' fontSize='24px' color='#fff'> {t('about')}</Typography>}/>
+                    <Typography lineHeight="1.7" fontFamily='PT Sans, sans-serif' color={BASE_COLORS.DEFAULT_GREY} variant="body1"> {t('aboutSubtitle')}</Typography>
                     <ButtonWithIcon 
                         button={
                             <Button 
@@ -25,25 +27,26 @@ export function Footer () {
                                 sx={{
                                     backgroundColor: BASE_COLORS.DEFAULT_BLUE, 
                                     fontWeight: '600', 
+                                    fontFamily: 'PT Sans, sans-serif',
                                     borderRadius: '999px',
-                                    padding:'20px 40px'
-                                }}>View Map</Button>
+                                    padding:'16px 40px'
+                                }}>{t('viewOnMap')}</Button>
                         }
-                        icon={<MapsHomeWork />}
+                        icon={<MapsHomeWork sx={{height: '14px', width: '14px'}} />}
                     ></ButtonWithIcon>
                 </Stack>
                 <Stack width='30%' gap='25px'>
-                    <FooterStrocedText text={ <Typography variant="h4" fontWeight='600' color='#fff'> Connect With Us</Typography>}/>
+                    <FooterStrocedText text={ <Typography variant="h4" fontFamily='Montserrat, sans-serif' fontWeight='700' fontSize='24px' color='#fff'> {t('connectWithUs')}</Typography>}/>
                     <Stack gap="10px">
-                        <Typography lineHeight="1.7" color={BASE_COLORS.DEFAULT_GREY} variant="body1">We are working 24/7 !</Typography>
-                        <Stack direction='row' flexWrap='wrap' gap="10px">
-                            <Typography variant="h6" fontWeight='400' color='#fff'> (097) 273-77-44</Typography>
-                            <Typography variant="h6" fontWeight='400' color='#fff'> (099) 273-77-44</Typography>
-                            <Typography variant="h6" fontWeight='400' color='#fff'> (063) 253-77-44</Typography>
+                        <Typography lineHeight="1.7" fontFamily='Montserrat, sans-serif' color='#fff' variant="body1">{t('waitingForCall')}</Typography>
+                        <Stack gap="6px">
+                            <Typography variant="body1" fontFamily='PT Sans, sans-serif' fontWeight='400' color={BASE_COLORS.DEFAULT_GREY}> (097) 273-77-44</Typography>
+                            <Typography variant="body1" fontFamily='PT Sans, sans-serif' fontWeight='400' color={BASE_COLORS.DEFAULT_GREY}> (099) 273-77-44</Typography>
+                            <Typography variant="body1" fontFamily='PT Sans, sans-serif' fontWeight='400' color={BASE_COLORS.DEFAULT_GREY}> (063) 253-77-44</Typography>
                         </Stack>
                     </Stack>
                     <Stack direction='row' gap='5px'>
-                        <Typography variant="h6" fontWeight='600' color='#fff'> Follow on:</Typography>
+                        <Typography fontFamily='Montserrat, sans-serif' variant="h6" fontWeight='600' color='#fff'> {t('followUs')}</Typography>
                     </Stack>
                 </Stack>
             </Stack>
