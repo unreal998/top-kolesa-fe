@@ -1,17 +1,16 @@
 import { combineReducers } from "redux";
 import { StateType } from "typesafe-actions";
 import { shopPageSlice } from "../modules/shopPage/reducer";
+import { mainPageSlice } from "../modules/mainPage/reducer";
 
-const slices = [
-    shopPageSlice
-];
+const slices = [shopPageSlice, mainPageSlice];
 
 const toolkitReducers = Object.fromEntries(
-    slices.map(({name, reducer}) => [name, reducer])
+  slices.map(({ name, reducer }) => [name, reducer]),
 );
 
 export const rootReducer = combineReducers({
-    ...toolkitReducers
-})
+  ...toolkitReducers,
+});
 
-export type AppSate = StateType<typeof rootReducer>
+export type AppSate = StateType<typeof rootReducer>;

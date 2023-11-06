@@ -26,8 +26,9 @@
   "viewOnMap": "View map",
   "connectWithUs": "Connect With Us",
   "followUs": "Follow On:",
-  "tireSelectionService": "Подбор шин",
-  "tireSelectionServiceSubtitle": "Подбор шин",
-  "diskSelectionService": "Подбор дисков",
-  "diskSelectionServiceSubtitle": "Подбор шин"
+  "tireSelectionService": "Tire selection",
+  "tireSelectionServiceSubtitle": "Tire selection assist",
+  "diskSelectionService": "Disk selection",
+  "diskSelectionServiceSubtitle": "Disk selection assist",
+  "serviceStation": "Service station"
 }

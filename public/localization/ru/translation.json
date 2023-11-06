@@ -15,7 +15,7 @@
   "brand": "Бренд",
   "popularBrands": "Популярные Бренды",
   "popularBrandsSubtitle": "У нас большой выбор шин популярных брендов.",
-  "ourServices": "Наши Сервисы",
+  "ourServices": "Наши Услуги",
   "ourServicesSubtitle": "В первую очередь ориентируйтесь на проактивную инфраструктуру, а не на интерактивные стратегии роста. Убедительно модифицируйте глобальные лидерские навыки и междисциплинарную инфраструктуру.",
   "officeBased": "Наш центральный офис находится в Виннице:",
   "waitingForCall": "Ждём вашего звонка!",
@@ -27,7 +27,8 @@
   "connectWithUs": "Свяжитесь с нами",
   "followUs": "Мы в:",
   "tireSelectionService": "Подбор шин",
-  "tireSelectionServiceSubtitle": "Подбор шин",
+  "tireSelectionServiceSubtitle": "Помощь в подборе шин",
   "diskSelectionService": "Подбор дисков",
-  "diskSelectionServiceSubtitle": "Подбор шин"
+  "diskSelectionServiceSubtitle": "Помощь в подборе дисков",
+  "serviceStation": "СТО"
 }
