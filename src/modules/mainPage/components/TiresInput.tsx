@@ -112,11 +112,11 @@ export function TiresInput() {
         Math.min.apply(null, filtersParams.prices),
         Math.max.apply(null, filtersParams.prices),
       ])}&width=${JSON.stringify(width)}&profile=${JSON.stringify(
-        profile,
+        profile
       )}&diametr=${JSON.stringify(diametr)}&season=${JSON.stringify(
-        season,
+        season
       )}&brand=${JSON.stringify(brand)}`,
-      { replace: true },
+      { replace: true }
     );
   }, [brand, diametr, filtersParams.prices, history, profile, season, width]);
 
@@ -311,6 +311,7 @@ export function TiresInput() {
                 {t("popularBrandsSubtitle")}
               </Typography>
             </Stack>
+
             <ImgCarousel
               gap="10px"
               innerWidth={600}
