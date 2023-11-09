@@ -24,27 +24,29 @@ export function ImgCarousel({
   return (
     <Box
       ref={containerRef}
-      overflow="auto"
-      width={outerWidth}
-      display="flex"
-      flexDirection="row"
+      sx={{
+        overflowX: "auto",
+        width: outerWidth,
+        display: "flex",
+        flexDirection: "row",
+        "&::-webkit-scrollbar": {
+          display: "none", // for Safari and Chrome
+        },
+        scrollbarWidth: "none", // for Firefox
+        msOverflowStyle: "none", // for Internet Explorer 10+
+      }}
     >
       <Stack
         direction="row"
         gap={gap}
         ref={sliderRef}
-        width={`${innerWidth.toString()}px`}
         sx={{
           marginTop: "-1px",
+          flexWrap: "nowrap",
         }}
       >
         {sliderData.map((item, i) => (
-          <ItemElement
-            key={i}
-            imgSource={item.imgSource}
-            description={item.description}
-            hoverDescription={item.hoverDescription}
-          />
+          <ItemElement key={i} {...item} />
         ))}
       </Stack>
     </Box>
