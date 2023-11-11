@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 import { ShopContainer } from "./components/ShopContainer";
+import { FilterBarNew } from "./components/FilterBarNew";
 import { FilterBar } from "./components/FilterBar";
 import { actions } from "./reducer";
 import { actions as mainActions } from "../mainPage/reducer";
@@ -21,7 +22,7 @@ export function ShopPage() {
           diametr: searchParams.get("diametr"),
           season: searchParams.get("season"),
           brand: searchParams.get("brand"),
-        }),
+        })
       );
     } else {
       dispatch(actions.getShopItems(""));
@@ -36,7 +37,9 @@ export function ShopPage() {
       display="flex"
       flexDirection="row"
     >
-      <FilterBar />
+      <FilterBarNew />
+      {/* <FilterBar /> */}
+
       <ShopContainer />
     </Box>
   );

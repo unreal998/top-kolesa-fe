@@ -2,39 +2,52 @@ import React, { SyntheticEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Autocomplete,
-  Box,
-  Button,
-  Checkbox,
   Collapse,
-  FormControlLabel,
-  FormGroup,
   List,
   ListItemButton,
   ListItemText,
-  ListSubheader,
-  Slider,
   Stack,
   TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  FormControlLabel,
+  Checkbox,
+  FormGroup,
+  Slider,
   styled,
 } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { BASE_COLORS } from "../../../shared/constants";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../reducer";
+import { useSelector } from "react-redux";
 import { selectFilterData } from "../../mainPage/selectors";
-import { CLIENT_URL, SERVER_URL } from "../../../constants";
+import { AiOutlineColumnWidth, AiOutlineDollarCircle } from "react-icons/ai";
+import { LuCircleOff } from "react-icons/lu";
+import { GiAlliedStar, GiTireTracks } from "react-icons/gi";
+import { BsSnow } from "react-icons/bs";
 
 const FilterButton = styled(ListItemButton)({
-  color: "#fff",
+  color: BASE_COLORS.TEXT,
   padding: "15px",
-  borderRadius: 0,
   "&:hover": {
-    backgroundColor: "#1565c0",
+    backgroundColor: "transparent",
   },
-  "&:focus": {
-    border: `1px solid ${BASE_COLORS.DEFAULT_BLUE}`,
-    backgroundColor: "#fff",
-    color: BASE_COLORS.DEFAULT_BLUE,
+  fontWeight: "bold",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "252px",
+  height: "58px",
+  borderLeft: `2px solid ${BASE_COLORS.BORDER}`,
+  borderRight: `2px solid ${BASE_COLORS.BORDER}`,
+  "&:not(:last-child)": {
+    borderBottom: `2px solid ${BASE_COLORS.BORDER}`,
+  },
+  "&:first-child": {
+    borderTop: `2px solid ${BASE_COLORS.BORDER}`,
+  },
+  "&:last-child": {
+    borderBottom: `2px solid ${BASE_COLORS.BORDER}`,
   },
 });
 
@@ -51,7 +64,7 @@ function valuetext(value: number) {
   return `${value} uah`;
 }
 
-export function FilterBar() {
+export function FilterBarNew() {
   const [open, setOpen] = React.useState({
     width: false,
     profile: false,
@@ -74,8 +87,32 @@ export function FilterBar() {
     allSeason: false,
   });
   const [brand, setBrandValue] = useState("");
-  const dispatch = useDispatch();
   const filtersParams = useSelector(selectFilterData());
+
+  const [openWidthDialog, setOpenWidthDialog] = useState(false);
+  const [openProfileDialog, setOpenProfileDialog] = useState(false);
+  const [openDiametrDialog, setOpenDiametrDialog] = useState(false);
+  const [openPriceDialog, setOpenPriceDialog] = useState(false);
+  const [openSeasonDialog, setOpenSeasonDialog] = useState(false);
+  const [openBrandDialog, setOpenBrandDialog] = useState(false);
+
+  const handleOpenWidthDialog = () => setOpenWidthDialog(true);
+  const handleCloseWidthDialog = () => setOpenWidthDialog(false);
+
+  const handleOpenProfileDialog = () => setOpenProfileDialog(true);
+  const handleCloseProfileDialog = () => setOpenProfileDialog(false);
+
+  const handleOpenDiametrDialog = () => setOpenDiametrDialog(true);
+  const handleCloseDiametrDialog = () => setOpenDiametrDialog(false);
+
+  const handleOpenPriceDialog = () => setOpenPriceDialog(true);
+  const handleClosePriceDialog = () => setOpenPriceDialog(false);
+
+  const handleOpenSeasonDialog = () => setOpenSeasonDialog(true);
+  const handleCloseSeasonDialog = () => setOpenSeasonDialog(false);
+
+  const handleOpenBrandDialog = () => setOpenBrandDialog(true);
+  const handleCloseBrandDialog = () => setOpenBrandDialog(false);
 
   const handleClick = useCallback(
     (id: string) => {
@@ -155,40 +192,27 @@ export function FilterBar() {
   return (
     <Stack
       sx={{
-        width: "360px",
         position: "sticky",
-        top: "0px",
-        bgcolor: BASE_COLORS.DEFAULT_BLUE,
-        borderRadius: "2px",
+        width: `calc(252px + 4px)`,
+        "& .MuiList-root": {
+          width: "100%",
+          "& .MuiListItemButton-root": {},
+        },
       }}
       direction="column"
     >
       <List
         sx={{
           width: "100%",
-          maxWidth: 360,
         }}
         component="nav"
       >
-        <FilterButton onClick={() => handleClick("price")}>
-          <ListItemText primary="Price" />
-          {open.price ? <ExpandLess /> : <ExpandMore />}
-        </FilterButton>
-        <Collapse in={open.price} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <Slider
-              defaultValue={0}
-              value={price}
-              onChange={handlePriceChange}
-              max={Math.max.apply(null, filtersParams.prices)}
-              step={100}
-              valueLabelDisplay="on"
-            />
-          </List>
-        </Collapse>
-        <FilterButton onClick={() => handleClick("width")}>
+        <FilterButton onClick={handleOpenWidthDialog}>
+          <AiOutlineColumnWidth
+            style={{ marginRight: "6px", width: "38px", height: "38px" }}
+          />
           <ListItemText primary="Width" />
-          {open.width ? <ExpandLess /> : <ExpandMore />}
+          <NavigateNextIcon />
         </FilterButton>
         <Collapse in={open.width} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -210,9 +234,16 @@ export function FilterBar() {
             />
           </List>
         </Collapse>
-        <FilterButton onClick={() => handleClick("profile")}>
+        <FilterButton onClick={handleOpenProfileDialog}>
+          <GiTireTracks
+            style={{
+              marginRight: "6px",
+              width: "28px",
+              height: "28px",
+            }}
+          />
           <ListItemText primary="Profile" />
-          {open.profile ? <ExpandLess /> : <ExpandMore />}
+          <NavigateNextIcon />
         </FilterButton>
         <Collapse in={open.profile} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -234,9 +265,16 @@ export function FilterBar() {
             />
           </List>
         </Collapse>
-        <FilterButton onClick={() => handleClick("diametr")}>
+        <FilterButton onClick={handleOpenDiametrDialog}>
+          <LuCircleOff
+            style={{
+              marginRight: "6px",
+              width: "28px",
+              height: "28px",
+            }}
+          />
           <ListItemText primary="Diametr" />
-          {open.diametr ? <ExpandLess /> : <ExpandMore />}
+          <NavigateNextIcon />
         </FilterButton>
         <Collapse in={open.diametr} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -258,9 +296,39 @@ export function FilterBar() {
             />
           </List>
         </Collapse>
+        <FilterButton onClick={() => handleClick("price")}>
+          <AiOutlineDollarCircle
+            style={{
+              marginRight: "6px",
+              width: "31px",
+              height: "31px",
+            }}
+          />
+          <ListItemText primary="Price" />
+          {open.price ? <NavigateNextIcon /> : <NavigateNextIcon />}
+        </FilterButton>
+        <Collapse in={open.price} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <Slider
+              defaultValue={0}
+              value={price}
+              onChange={handlePriceChange}
+              max={Math.max.apply(null, filtersParams.prices)}
+              step={100}
+              valueLabelDisplay="on"
+            />
+          </List>
+        </Collapse>
         <FilterButton onClick={() => handleClick("season")}>
+          <BsSnow
+            style={{
+              marginRight: "6px",
+              width: "26px",
+              height: "26px",
+            }}
+          />
           <ListItemText primary="Season" />
-          {open.season ? <ExpandLess /> : <ExpandMore />}
+          {open.season ? <NavigateNextIcon /> : <NavigateNextIcon />}
         </FilterButton>
         <Collapse in={open.season} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -291,8 +359,15 @@ export function FilterBar() {
           </List>
         </Collapse>
         <FilterButton onClick={() => handleClick("brand")}>
+          <GiAlliedStar
+            style={{
+              marginRight: "6px",
+              width: "29px",
+              height: "29px",
+            }}
+          />
           <ListItemText primary="Brand" />
-          {open.brand ? <ExpandLess /> : <ExpandMore />}
+          {open.brand ? <NavigateNextIcon /> : <NavigateNextIcon />}
         </FilterButton>
         <Collapse in={open.brand} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -317,10 +392,54 @@ export function FilterBar() {
           </List>
         </Collapse>
       </List>
-      <Stack gap="10px" direction="row">
-        <Button>Clear</Button>
-        <Button onClick={handleApplyButtonPress}>Apply</Button>
-      </Stack>
+      <Dialog
+        open={openWidthDialog}
+        onClose={handleCloseWidthDialog}
+        maxWidth="md"
+      >
+        <DialogTitle>Choose Width</DialogTitle>
+        <DialogContent>
+          {filtersParams.width.map((widthOption, index) => (
+            <FormControlLabel
+              key={index}
+              control={<Checkbox />}
+              label={widthOption}
+            />
+          ))}
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={openProfileDialog}
+        onClose={handleCloseProfileDialog}
+        maxWidth="md"
+      >
+        <DialogTitle>Choose Profile</DialogTitle>
+        <DialogContent>
+          {filtersParams.height.map((heightOption, index) => (
+            <FormControlLabel
+              key={index}
+              control={<Checkbox />}
+              label={heightOption}
+            />
+          ))}
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={openDiametrDialog}
+        onClose={handleCloseDiametrDialog}
+        maxWidth="md"
+      >
+        <DialogTitle>Choose Diametr</DialogTitle>
+        <DialogContent>
+          {filtersParams.diametr.map((diametrOption, index) => (
+            <FormControlLabel
+              key={index}
+              control={<Checkbox />}
+              label={diametrOption}
+            />
+          ))}
+        </DialogContent>
+      </Dialog>
     </Stack>
   );
 }
