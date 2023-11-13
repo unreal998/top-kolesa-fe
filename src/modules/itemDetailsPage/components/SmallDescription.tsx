@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Typography, styled } from "@mui/material";
+import { Stack, Typography, styled, Box } from "@mui/material";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import ExtensionIcon from "@mui/icons-material/Extension";
@@ -19,36 +19,36 @@ const SubDescriptionText = styled(Typography)({
 export function SmallDescription(itemData: ShopItemAPI) {
   return (
     <Stack gap="5px">
-      <Stack direction="row" justifyContent="space-between">
-        <SubDescriptionText variant="body1">
-          {<ApartmentIcon />}
-          Brand: {itemData.brand}
-        </SubDescriptionText>
-        <SubDescriptionText variant="body1">
-          {<ExtensionIcon />}
-          Model: {itemData.name}
-        </SubDescriptionText>
-      </Stack>
-      <Stack direction="row" justifyContent="space-between">
-        <SubDescriptionText variant="body1">
-          {<ExpandIcon />}
-          Profile: {itemData.height}
-        </SubDescriptionText>
-        <SubDescriptionText variant="body1">
-          {<HeightIcon />}
-          Diametr: {itemData.diametr}
-        </SubDescriptionText>
-      </Stack>
-      <Stack direction="row" justifyContent="space-between">
-        <SubDescriptionText variant="body1">
-          {<OpenInFullIcon />}
-          Width: {itemData.width}
-        </SubDescriptionText>
-        <SubDescriptionText variant="body1">
-          {<ThermostatIcon />}
-          Season: {itemData.season}
-        </SubDescriptionText>
-      </Stack>
+      <Box display="flex" justifyContent="space-between">
+        <Stack>
+          <SubDescriptionText variant="body1">
+            {<ApartmentIcon />}
+            Brand: {itemData.brand}
+          </SubDescriptionText>
+          <SubDescriptionText variant="body1">
+            {<ExpandIcon />}
+            Profile: {itemData.height}
+          </SubDescriptionText>
+          <SubDescriptionText variant="body1">
+            {<OpenInFullIcon />}
+            Width: {itemData.width}
+          </SubDescriptionText>
+        </Stack>
+        <Stack alignItems="flex-start">
+          <SubDescriptionText variant="body1">
+            {<ExtensionIcon />}
+            Model: {itemData.name}
+          </SubDescriptionText>
+          <SubDescriptionText variant="body1">
+            {<HeightIcon />}
+            Diametr: {itemData.diametr}
+          </SubDescriptionText>
+          <SubDescriptionText variant="body1">
+            {<ThermostatIcon />}
+            Season: {itemData.season}
+          </SubDescriptionText>
+        </Stack>
+      </Box>
     </Stack>
   );
 }

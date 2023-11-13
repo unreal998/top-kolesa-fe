@@ -43,10 +43,10 @@ export function ShopHeaderBar() {
   const handleChange = useCallback(
     (event: SelectChangeEvent) => {
       dispatch(
-        actions.setSortParams({ ...sortParams, showBy: +event.target.value }),
+        actions.setSortParams({ ...sortParams, showBy: +event.target.value })
       );
     },
-    [dispatch, sortParams],
+    [dispatch, sortParams]
   );
 
   const handleCardViewChange = useCallback(() => {
