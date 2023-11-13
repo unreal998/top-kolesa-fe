@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -22,8 +22,10 @@ import { FullDescription } from "./components/FullDescription";
 import { ReviewPage } from "./components/ReviewPage";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../shopPage/reducer";
+import { actions as itemDetailsActions } from "./reducer"
 import { selectSelectedItemData } from "../shopPage/selectors";
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from "../../constants";
+import { itemBuyDataBuilder } from "./utils/itemBuyDataBuilder";
 
 interface ITabPanelProps {
   children?: React.ReactNode;
@@ -48,13 +50,19 @@ export function ItemDetailsPage() {
   const [revertPopupHover, setRevertPopupHover] = useState(false);
   const selectedItemData = useSelector(selectSelectedItemData());
   const dispatch = useDispatch();
-
+  console.log(selectedItemData);
   useEffect(() => {
     const searchParams = new URLSearchParams(document.location.search);
     const selectedItemId = searchParams.get("id");
     dispatch(actions.getShopItems(""));
     dispatch(actions.setSelectedItemId(selectedItemId || ""));
   }, [dispatch]);
+
+  const handleBuy = useCallback(() => {
+    if (selectedItemData) {
+      dispatch(itemDetailsActions.fetchBuyItemAction(itemBuyDataBuilder(selectedItemData)))
+    }
+  }, [dispatch, selectedItemData])
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setModalValue(newValue);
@@ -135,7 +143,7 @@ export function ItemDetailsPage() {
               </Typography>
             </Stack>
           </Stack>
-          <Button variant="contained">BUY</Button>
+          <Button variant="contained" onClick={handleBuy}>BUY</Button>
           {selectedItemData && <SmallDescription {...selectedItemData} />}
           <Stack justifyContent="space-between" direction="row">
             <Tooltip

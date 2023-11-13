@@ -24,6 +24,9 @@ export type ShopItemAPI = {
   year: number;
   price_uah: number;
   image_file: string;
+  brand_id: number;
+  size_id: number;
+  supplier_id: number;
 };
 
 export type ShopData = {
