@@ -7,9 +7,9 @@ export function CheckoutPage() {
         <Stack>
           <Typography>Контактні дані</Typography>
           <Stack>
-            <TextField 
+            <TextField
               label="Телефон"
-              required={true}       
+              required={true}
             />
             <TextField 
               label="Електронна пошта"
