@@ -6,6 +6,7 @@ import { ShopPage } from "./modules/shopPage";
 import { Header } from "./shared/components/Header";
 import { Footer } from "./shared/components/footer/Footer";
 import { ItemDetailsPage } from "./modules/itemDetailsPage";
+import { CheckoutPage } from "./modules/checkoutPage";
 import "./App.css";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/item" element={<ItemDetailsPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
         </Routes>
       </BrowserRouter>
       <Footer />
