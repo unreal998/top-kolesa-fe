@@ -5,6 +5,13 @@ import { SliderItem } from "../../../shared/types";
 import { ElectricBolt } from "@mui/icons-material";
 import { BASE_COLORS } from "../../../shared/constants";
 import { useTranslation } from "react-i18next";
+import StoreIcon from '@mui/icons-material/Store';
+import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
+import HandymanIcon from '@mui/icons-material/Handyman';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
+
+
+
 
 const SecDividerContainer = styled("div")({
   width: "100px",
@@ -108,7 +115,7 @@ export function OurServices() {
       ),
       hoverDescription: (
         <StyledServiceHoverDescriptionStack>
-          <ElectricBolt
+          <StoreIcon
             sx={{ width: "70px", height: "70px", marginBottom: "20px" }}
           />
           <Typography
@@ -119,8 +126,7 @@ export function OurServices() {
             {t("tireSelectionService")}
           </Typography>
           <Typography variant="subtitle1" maxWidth="85%">
-            Quickly reconceptualize standardized web services for interdependent
-            products incentivize e-business
+          {t("tireSelectionServiceDesription")}
           </Typography>
         </StyledServiceHoverDescriptionStack>
       ),
@@ -134,7 +140,7 @@ export function OurServices() {
       ),
       hoverDescription: (
         <StyledServiceHoverDescriptionStack>
-          <ElectricBolt
+          <ScreenSearchDesktopIcon
             sx={{ width: "70px", height: "70px", marginBottom: "20px" }}
           />
           <Typography
@@ -145,8 +151,7 @@ export function OurServices() {
             {t("diskSelectionService")}
           </Typography>
           <Typography variant="subtitle1" maxWidth="85%">
-            Quickly reconceptualize standardized web services for interdependent
-            products incentivize e-business
+          {t("tireSelectionServiceSubtitleDescription")}
           </Typography>
         </StyledServiceHoverDescriptionStack>
       ),
@@ -160,7 +165,7 @@ export function OurServices() {
       ),
       hoverDescription: (
         <StyledServiceHoverDescriptionStack>
-          <ElectricBolt
+          <HandymanIcon
             sx={{ width: "70px", height: "70px", marginBottom: "20px" }}
           />
           <Typography
@@ -171,8 +176,7 @@ export function OurServices() {
             {t("serviceStation")}
           </Typography>
           <Typography variant="subtitle1" maxWidth="85%">
-            Quickly reconceptualize standardized web services for interdependent
-            products incentivize e-business
+          {t("serviceStationDescription")}
           </Typography>
         </StyledServiceHoverDescriptionStack>
       ),
@@ -181,24 +185,23 @@ export function OurServices() {
       imgSource: "./imgs/ourServiceImgs/sr-img-1-4.jpg",
       description: (
         <StyledServiceDescriptionTypography variant="h5">
-          Stock Wheels
+          {t("storage")}
         </StyledServiceDescriptionTypography>
       ),
       hoverDescription: (
         <StyledServiceHoverDescriptionStack>
-          <ElectricBolt
+          <WarehouseIcon
             sx={{ width: "70px", height: "70px", marginBottom: "20px" }}
           />
           <Typography fontWeight="700" variant="h5">
-            Stock Wheels
+          {t("storage")}
           </Typography>
           <Typography
             fontFamily="PT Sans, sans-serif"
             variant="subtitle1"
             maxWidth="85%"
           >
-            Quickly reconceptualize standardized web services for interdependent
-            products incentivize e-business
+            {t("storageDescription")}
           </Typography>
         </StyledServiceHoverDescriptionStack>
       ),

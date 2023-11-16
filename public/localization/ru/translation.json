@@ -26,9 +26,13 @@
   "viewOnMap": "Показать на карте",
   "connectWithUs": "Свяжитесь с нами",
   "followUs": "Мы в:",
-  "tireSelectionService": "Подбор шин",
-  "tireSelectionServiceSubtitle": "Помощь в подборе шин",
-  "diskSelectionService": "Подбор дисков",
+  "tireSelectionService": "Продажа шин",
+  "tireSelectionServiceDesription":"Подбор и продажа шин для грузовых и лековых автомобилей",
+  "tireSelectionServiceSubtitleDescription":"Подбор и продажа дисков для грузовых и легковых автомобилей",
+  "diskSelectionService": "Продажа дисков",
   "diskSelectionServiceSubtitle": "Помощь в подборе дисков",
-  "serviceStation": "СТО"
+  "serviceStation": "Шиномонтаж",
+  "serviceStationDescription": "Грузовой и легковой шиномонтаж, ремонт шин и дисков любой сложности, нарезка протектора грузовых шин",
+  "storage":"Хранение",
+  "storageDescription":"Cезонное хранение шин и колес в сборе"
 }
