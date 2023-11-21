@@ -22,7 +22,7 @@ export const selectCurrentPageItemList =
         : 0;
     const newArray = shopPageSliceData.itemsList.slice(
       prevPageValues,
-      shopPageSliceData.currentPage * shopPageSliceData.sortParams.showBy,
+      shopPageSliceData.currentPage * shopPageSliceData.sortParams.showBy
     );
     return newArray;
   };
@@ -44,6 +44,34 @@ export const selectPagesCount =
   () =>
   ({ shopPageSliceData }: ShopSliceStore) => {
     return Math.ceil(
-      shopPageSliceData.itemsList.length / shopPageSliceData.sortParams.showBy,
+      shopPageSliceData.itemsList.length / shopPageSliceData.sortParams.showBy
     );
   };
+
+//FILTERS
+export const selectSelectedWidth = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.selectedWidth;
+
+export const selectIsFullMenuOpen = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.isFullMenuOpen;
+
+export const selectActiveTabIndex = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.activeTabIndex;
+
+export const selectSearchInput = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.searchInput;
+
+export const selectSelectedProfile = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.selectedProfile;
+
+export const selectSelectedDiametr = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.selectedDiametr;
+
+export const selectSelectedPrice = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.selectedPrice;
+
+export const selectSelectedSeason = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.selectedSeason;
+
+export const selectSelectedBrand = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.selectedBrand;
