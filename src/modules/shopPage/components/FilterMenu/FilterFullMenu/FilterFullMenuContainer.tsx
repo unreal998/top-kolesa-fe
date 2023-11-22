@@ -86,6 +86,7 @@ function FilterFullMenuContainer() {
 
   function handleChange(event: React.SyntheticEvent, newValue: number) {
     setValue(newValue);
+    dispatch(actions.setClearSearchInput());
   }
 
   function handleCloseMenu() {
