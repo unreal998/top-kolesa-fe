@@ -163,6 +163,7 @@ function FilterShortMenuColumnPrice({
         params.map((param) => (
           <>
             <StyledButtonSecondary
+              key={param}
               disableRipple={true}
               sx={{
                 borderTop: visableParams
