@@ -7,7 +7,7 @@ import { styled } from "@mui/material/styles";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 
-import { FILTER_COLORS, FILTER_FONT } from "../constants";
+import { FILTER_COLORS, FONTS } from "../../../../../shared/constants";
 
 const InputSearch = styled("input")({
   width: "100%",
@@ -15,7 +15,7 @@ const InputSearch = styled("input")({
   border: "1px solid #ccc",
   boxSizing: "border-box",
   paddingLeft: "10px",
-  fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+  fontFamily: FONTS.MAIN_TEXT_FAMILY,
   "&:focus": {
     outline: "none",
   },

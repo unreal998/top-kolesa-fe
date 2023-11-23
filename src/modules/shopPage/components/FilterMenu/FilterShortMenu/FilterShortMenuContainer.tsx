@@ -47,29 +47,27 @@ const FilterShortMenuContainer = () => {
     selectedBrand.length > 0;
 
   function handleClearSelectedWidth(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
     e.stopPropagation();
     dispatch(actions.setClearSelectedWidth());
   }
 
   function handleClearSelectedProfile(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
     e.stopPropagation();
     dispatch(actions.setClearSelectedProfile());
   }
 
   function handleClearSelectedDiametr(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
     e.stopPropagation();
     dispatch(actions.setClearSelectedDiametr());
   }
 
-  function handleClearPrice(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
+  function handleClearPrice(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     e.stopPropagation();
     dispatch(actions.initializePriceRange([minPrice, maxPrice]));
   }

@@ -1,8 +1,8 @@
 import { Button, styled, Box } from "@mui/material";
 
-import { FILTER_COLORS, FILTER_FONT } from "../constants";
+import { FILTER_COLORS, FONTS } from "../../../../../shared/constants";
 
-const StyledButton = styled(Button)({
+const StyledButton = styled(Box)({
   display: "flex",
   padding: "0 0 0 12px",
   boxSizing: "border-box",
@@ -13,12 +13,12 @@ const StyledButton = styled(Button)({
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_MAIN,
-  fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
   background: FILTER_COLORS.SHORT_MENU_RESET_BUTTON_BACKGROUND,
   borderBottom: "none",
   cursor: "pointer",
   "& span": {
-    fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+    fontFamily: FONTS.MAIN_TEXT_FAMILY,
     fontWeight: "400",
     fontSize: "16px",
     color: `${FILTER_COLORS.TEXT_MAIN}`,
@@ -41,9 +41,7 @@ const StyledButton = styled(Button)({
 
 type FilterShortMenuRowProps = {
   icon: React.ReactNode;
-  onClick: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void | undefined;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 };
 
 function FilterShortMenuReset({ icon, onClick }: FilterShortMenuRowProps) {

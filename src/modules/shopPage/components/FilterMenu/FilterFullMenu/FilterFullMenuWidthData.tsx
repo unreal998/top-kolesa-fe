@@ -8,7 +8,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { Box, Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-import { FILTER_COLORS, FILTER_FONT } from "../constants";
+import { FILTER_COLORS, FONTS } from "../../../../../shared/constants";
 
 const ButtonsContainer = styled("div")({
   display: "grid",
@@ -22,10 +22,10 @@ const StyledButton = styled(Button)({
   height: "59px",
   border: "none",
   fontSize: "1.2rem",
-  fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
   color: `${FILTER_COLORS.TEXT_MAIN}`,
   "&:hover": {
-    backgroundColor: `${FILTER_COLORS.BUTTON_HOVER}`,
+    backgroundColor: `${FILTER_COLORS.BACKGROUND_GREY}`,
     border: "none",
     borderColor: "transparent",
   },
@@ -87,9 +87,9 @@ function FilterFullMenuWidthData() {
           }}
         />
         <Typography
+          variant="subtitle2"
           sx={{
-            fontSize: "14px",
-            fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+            fontFamily: FONTS.MAIN_TEXT_FAMILY,
           }}
         >
           Reset Filter
@@ -105,7 +105,7 @@ function FilterFullMenuWidthData() {
               style={{
                 backgroundColor:
                   widthOption === selectedWidth
-                    ? `${FILTER_COLORS.BUTTON_HOVER}`
+                    ? `${FILTER_COLORS.BACKGROUND_GREY}`
                     : "transparent",
               }}
             >
@@ -114,9 +114,9 @@ function FilterFullMenuWidthData() {
           ))
         ) : (
           <Typography
+            variant="subtitle2"
             sx={{
-              fontSize: "14px",
-              fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+              fontFamily: FONTS.MAIN_TEXT_FAMILY,
               marginTop: "20px",
             }}
           >

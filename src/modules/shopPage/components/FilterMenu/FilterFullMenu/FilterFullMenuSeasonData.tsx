@@ -14,7 +14,11 @@ import {
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 
-import { FILTER_COLORS, FILTER_FONT } from "../constants";
+import {
+  FILTER_COLORS,
+  FONTS,
+  BASE_COLORS,
+} from "../../../../../shared/constants";
 
 const CheckBoxContainer = styled(FormGroup)({
   display: "grid",
@@ -90,7 +94,7 @@ function FilterFullMenuSeasonData() {
         <Typography
           sx={{
             fontSize: "14px",
-            fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+            fontFamily: FONTS.MAIN_TEXT_FAMILY,
           }}
         >
           Reset Filter
@@ -106,9 +110,9 @@ function FilterFullMenuSeasonData() {
                   onChange={(e) => handleSeasonChange(e, seasonName)}
                   sx={{
                     "&.Mui-checked": {
-                      color: FILTER_COLORS.DEFAULT_BLUE,
+                      color: BASE_COLORS.DEFAULT_BLUE,
                       "&:after": {
-                        backgroundColor: FILTER_COLORS.DEFAULT_BLUE,
+                        backgroundColor: BASE_COLORS.DEFAULT_BLUE,
                       },
                     },
                   }}
@@ -118,7 +122,7 @@ function FilterFullMenuSeasonData() {
               key={seasonName}
               sx={{
                 "& .MuiTypography-root": {
-                  fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+                  fontFamily: FONTS.MAIN_TEXT_FAMILY,
                 },
               }}
             />
@@ -127,7 +131,7 @@ function FilterFullMenuSeasonData() {
           <Typography
             sx={{
               fontSize: "14px",
-              fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+              fontFamily: FONTS.MAIN_TEXT_FAMILY,
               marginTop: "20px",
             }}
           >
@@ -140,11 +144,11 @@ function FilterFullMenuSeasonData() {
         variant="contained"
         sx={{
           marginTop: "18px",
-          fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+          fontFamily: FONTS.BOLD_TEXT_FAMILY,
           fontWeight: "bold",
-          background: FILTER_COLORS.DEFAULT_BLUE,
+          background: BASE_COLORS.DEFAULT_BLUE,
           "&:hover": {
-            background: FILTER_COLORS.DEFAULT_BLUE,
+            background: BASE_COLORS.DEFAULT_BLUE,
           },
         }}
       >

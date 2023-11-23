@@ -5,7 +5,11 @@ import { selectFilterData } from "../../../../mainPage/selectors";
 import { actions } from "../../../reducer";
 import { selectSelectedPrice } from "../../../selectors";
 import { useState } from "react";
-import { FILTER_COLORS, FILTER_FONT } from "../constants";
+import {
+  FILTER_COLORS,
+  FONTS,
+  BASE_COLORS,
+} from "../../../../../shared/constants";
 
 function FilterFullMenuPriceData() {
   const dispatch = useDispatch();
@@ -95,7 +99,7 @@ function FilterFullMenuPriceData() {
         <Typography
           sx={{
             fontSize: "14px",
-            fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+            fontFamily: FONTS.MAIN_TEXT_FAMILY,
           }}
         >
           Reset Filter
@@ -111,23 +115,23 @@ function FilterFullMenuPriceData() {
           sx={{
             width: "150px",
             "& .MuiInputBase-input": {
-              fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+              fontFamily: FONTS.MAIN_TEXT_FAMILY,
             },
             "& .MuiInputLabel-input": {
-              fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+              fontFamily: FONTS.MAIN_TEXT_FAMILY,
             },
             "& .MuiInputLabel-root.Mui-focused": {
-              color: FILTER_COLORS.DEFAULT_BLUE,
+              color: BASE_COLORS.DEFAULT_BLUE,
             },
             "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
               {
-                borderColor: FILTER_COLORS.DEFAULT_BLUE,
+                borderColor: BASE_COLORS.DEFAULT_BLUE,
               },
             "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-              borderColor: FILTER_COLORS.DEFAULT_BLUE,
+              borderColor: BASE_COLORS.DEFAULT_BLUE,
             },
             "&:hover .MuiInputLabel-root": {
-              color: FILTER_COLORS.DEFAULT_BLUE,
+              color: BASE_COLORS.DEFAULT_BLUE,
             },
           }}
         />
@@ -140,23 +144,23 @@ function FilterFullMenuPriceData() {
           sx={{
             width: "150px",
             "& .MuiInputBase-input": {
-              fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+              fontFamily: FONTS.MAIN_TEXT_FAMILY,
             },
             "& .MuiInputLabel-input": {
-              fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+              fontFamily: FONTS.MAIN_TEXT_FAMILY,
             },
             "& .MuiInputLabel-root.Mui-focused": {
-              color: FILTER_COLORS.DEFAULT_BLUE,
+              color: BASE_COLORS.DEFAULT_BLUE,
             },
             "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
               {
-                borderColor: FILTER_COLORS.DEFAULT_BLUE,
+                borderColor: BASE_COLORS.DEFAULT_BLUE,
               },
             "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-              borderColor: FILTER_COLORS.DEFAULT_BLUE,
+              borderColor: BASE_COLORS.DEFAULT_BLUE,
             },
             "&:hover .MuiInputLabel-root": {
-              color: FILTER_COLORS.DEFAULT_BLUE,
+              color: BASE_COLORS.DEFAULT_BLUE,
             },
           }}
         />
@@ -171,9 +175,9 @@ function FilterFullMenuPriceData() {
         sx={{
           width: "90%",
           margin: "0 auto",
-          color: FILTER_COLORS.DEFAULT_BLUE,
+          color: BASE_COLORS.DEFAULT_BLUE,
           "& .MuiSlider-valueLabel": {
-            fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+            fontFamily: FONTS.MAIN_TEXT_FAMILY,
           },
         }}
       />
@@ -182,11 +186,11 @@ function FilterFullMenuPriceData() {
         variant="contained"
         sx={{
           marginTop: "18px",
-          fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+          fontFamily: FONTS.BOLD_TEXT_FAMILY,
           fontWeight: "bold",
-          background: FILTER_COLORS.DEFAULT_BLUE,
+          background: BASE_COLORS.DEFAULT_BLUE,
           "&:hover": {
-            background: FILTER_COLORS.DEFAULT_BLUE,
+            background: BASE_COLORS.DEFAULT_BLUE,
           },
         }}
       >

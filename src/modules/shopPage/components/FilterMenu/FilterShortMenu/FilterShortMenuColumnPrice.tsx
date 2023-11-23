@@ -2,11 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../../reducer";
 import { selectFilterData } from "../../../../mainPage/selectors";
 
-import { Button, IconButton, styled, Box, ButtonGroup } from "@mui/material";
+import { Button, styled, Box, ButtonGroup } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ClearIcon from "@mui/icons-material/Clear";
 
-import { FILTER_COLORS, FILTER_FONT } from "../constants";
+import {
+  FILTER_COLORS,
+  FONTS,
+  BASE_COLORS,
+} from "../../../../../shared/constants";
 
 const StyledButtonMain = styled(Button)({
   display: "flex",
@@ -19,10 +23,10 @@ const StyledButtonMain = styled(Button)({
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
-  fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
   borderTop: "none",
   "& span": {
-    fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+    fontFamily: FONTS.MAIN_TEXT_FAMILY,
     fontWeight: "400",
     fontSize: "10px",
     transition: "color 0.2s ease",
@@ -52,7 +56,7 @@ const StyledButtonSecondary = styled(Button)({
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
-  fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
   borderTop: "none",
   cursor: "default",
   "& p": {
@@ -60,7 +64,7 @@ const StyledButtonSecondary = styled(Button)({
     margin: 0,
     color: FILTER_COLORS.TEXT_MAIN,
     fontSize: "13px",
-    fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+    fontFamily: FONTS.MAIN_TEXT_FAMILY,
     textTransform: "lowercase",
   },
   "&:hover": {
@@ -74,12 +78,12 @@ const StyledButtonSecondary = styled(Button)({
   },
 });
 
-type FilterShortMenuRowProps = {
+type FilterShortMenuColumnPriceProps = {
   filterName: "Price";
   icon: React.ReactNode;
   params: number[];
   onClick?: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => void | undefined;
 };
 
@@ -88,7 +92,7 @@ function FilterShortMenuColumnPrice({
   filterName,
   params,
   onClick,
-}: FilterShortMenuRowProps) {
+}: FilterShortMenuColumnPriceProps) {
   const dispatch = useDispatch();
   const filtersParams = useSelector(selectFilterData());
   const minPrice = Math.min(...filtersParams.prices);
@@ -144,7 +148,7 @@ function FilterShortMenuColumnPrice({
             alignItems="center"
             sx={{
               color: visableParams
-                ? FILTER_COLORS.DEFAULT_BLUE
+                ? BASE_COLORS.DEFAULT_BLUE
                 : FILTER_COLORS.TEXT_SHORT_MENU,
               transition: "color 0.2s ease",
             }}
@@ -155,7 +159,7 @@ function FilterShortMenuColumnPrice({
             style={{
               marginLeft: "11px",
               color: visableParams
-                ? FILTER_COLORS.DEFAULT_BLUE
+                ? BASE_COLORS.DEFAULT_BLUE
                 : FILTER_COLORS.TEXT_SHORT_MENU,
               transition: "color 0.2s ease",
             }}
@@ -185,16 +189,23 @@ function FilterShortMenuColumnPrice({
           }}
         >
           <Box display="flex" alignItems="center" sx={{ padding: "0 12px" }}>
-            <IconButton
-              onClick={onClick}
-              size="small"
+            <Box
+              display="flex"
+              alignItems="center"
               sx={{
+                padding: "1px",
                 color: "red",
-                padding: "2px",
+                cursor: "pointer",
+                borderRadius: "50%",
+                "&:hover": {
+                  backgroundColor: FILTER_COLORS.BACKGROUND_GREY,
+                  transition: "all 0.5s",
+                },
               }}
+              onClick={onClick}
             >
               <ClearIcon fontSize="inherit" />
-            </IconButton>
+            </Box>
             <p>
               from {params[0]} to {params[1]}
             </p>

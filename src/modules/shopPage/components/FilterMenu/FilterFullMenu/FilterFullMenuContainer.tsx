@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectActiveTabIndex } from "../../../selectors";
 import { actions } from "../../../reducer";
@@ -25,18 +26,16 @@ import BrandIcon from "../../../../../shared/components/Icons/BrandIcon";
 import PriceIcon from "../../../../../shared/components/Icons/PriceIcon";
 import DiametrIcon from "../../../../../shared/components/Icons/DiametrIcon";
 
-import { FilterFullMenuData } from "../../../../../services/FilterFullMenuData";
-import { FILTER_COLORS, FILTER_FONT } from "../constants";
+import FilterFullMenuData from "../../../../../config/FilterFullMenuData.json";
+import { FONTS, BASE_COLORS } from "../../../../../shared/constants";
 
-interface TabPanelProps {
+type TabPanelProps = {
   children?: React.ReactNode;
   index: number;
   value: number;
-}
+};
 
-type MenuData = {
-  inputComponent?: React.ElementType;
-  dataComponent: React.ElementType;
+type FilterData = {
   headerTitle?: string;
   asideHeader?: string;
   text1?: string;
@@ -46,10 +45,24 @@ type MenuData = {
   textForParametr?: string;
 };
 
+type FilterFullMenuDataType = {
+  Width?: FilterData;
+  Profile?: FilterData;
+  Diametr?: FilterData;
+  Price?: FilterData;
+  Season?: FilterData;
+  Brand?: FilterData;
+};
+
+type MenuData = {
+  inputComponent?: React.ElementType;
+  dataComponent: React.ElementType;
+} & FilterData;
+
 const StyledText = styled(Typography)({
   fontSize: "14px",
   marginTop: "18px",
-  fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+  fontFamily: FONTS.MAIN_TEXT_FAMILY,
 });
 
 function TabPanel(props: TabPanelProps) {
@@ -65,7 +78,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 0 }}>
-          <Typography>{children}</Typography>
+          <Box>{children}</Box>
         </Box>
       )}
     </div>
@@ -83,6 +96,7 @@ function FilterFullMenuContainer() {
   const dispatch = useDispatch();
   const activeTabIndex = useSelector(selectActiveTabIndex);
   const [value, setValue] = React.useState(activeTabIndex);
+  const [textData, setTextData] = useState<FilterFullMenuDataType>({});
 
   function handleChange(event: React.SyntheticEvent, newValue: number) {
     setValue(newValue);
@@ -93,26 +107,41 @@ function FilterFullMenuContainer() {
     dispatch(actions.toggleFullMenu());
   }
 
-  function getMenuDetails(key: keyof typeof FilterFullMenuData) {
-    const {
-      headerTitle,
-      asideHeader,
-      text1,
-      text2,
-      text3,
-      parametr,
-      textForParametr,
-    } = FilterFullMenuData[key];
-    return {
-      headerTitle,
-      asideHeader,
-      text1,
-      text2,
-      text3,
-      parametr,
-      textForParametr,
-    };
-  }
+  useEffect(() => {
+    setTextData(FilterFullMenuData);
+  }, []);
+
+  const menuData: { [key: string]: MenuData } = {
+    Width: {
+      inputComponent: FilterFullMenuInput,
+      dataComponent: FilterFullMenuWidthData,
+      ...textData.Width,
+    },
+    Profile: {
+      inputComponent: FilterFullMenuInput,
+      dataComponent: FilterFullMenuProfileData,
+      ...textData.Profile,
+    },
+    Diametr: {
+      inputComponent: FilterFullMenuInput,
+      dataComponent: FilterFullMenuDiametrData,
+      ...textData.Diametr,
+    },
+    Price: {
+      dataComponent: FilterFullMenuPriceData,
+      ...textData.Price,
+    },
+    Season: {
+      inputComponent: FilterFullMenuInput,
+      dataComponent: FilterFullMenuSeasonData,
+      ...textData.Season,
+    },
+    Brand: {
+      inputComponent: FilterFullMenuInput,
+      dataComponent: FilterFullMenuBrandData,
+      ...textData.Brand,
+    },
+  };
 
   function renderBoldText(key: keyof typeof FilterFullMenuData) {
     if (menuData[key].parametr && menuData[key].textForParametr) {
@@ -126,38 +155,6 @@ function FilterFullMenuContainer() {
     }
     return null;
   }
-
-  const menuData: { [key: string]: MenuData } = {
-    Width: {
-      inputComponent: FilterFullMenuInput,
-      dataComponent: FilterFullMenuWidthData,
-      ...getMenuDetails("Width"),
-    },
-    Profile: {
-      inputComponent: FilterFullMenuInput,
-      dataComponent: FilterFullMenuProfileData,
-      ...getMenuDetails("Profile"),
-    },
-    Diametr: {
-      inputComponent: FilterFullMenuInput,
-      dataComponent: FilterFullMenuDiametrData,
-      ...getMenuDetails("Diametr"),
-    },
-    Price: {
-      dataComponent: FilterFullMenuPriceData,
-      ...getMenuDetails("Price"),
-    },
-    Season: {
-      inputComponent: FilterFullMenuInput,
-      dataComponent: FilterFullMenuSeasonData,
-      ...getMenuDetails("Season"),
-    },
-    Brand: {
-      inputComponent: FilterFullMenuInput,
-      dataComponent: FilterFullMenuBrandData,
-      ...getMenuDetails("Brand"),
-    },
-  };
 
   const tabsIcons = [
     { label: <WidthIcon /> },
@@ -187,14 +184,14 @@ function FilterFullMenuContainer() {
         scrollButtons={false}
         TabIndicatorProps={{
           style: {
-            backgroundColor: FILTER_COLORS.DEFAULT_BLUE,
+            backgroundColor: BASE_COLORS.DEFAULT_BLUE,
           },
         }}
         sx={{
           borderRight: 1,
           borderColor: "divider",
           "& .MuiTab-root.Mui-selected": {
-            color: FILTER_COLORS.DEFAULT_BLUE,
+            color: BASE_COLORS.DEFAULT_BLUE,
           },
         }}
       >
@@ -221,12 +218,12 @@ function FilterFullMenuContainer() {
                 }}
               >
                 <Typography
+                  variant="h5"
                   sx={{
                     padding: 0,
                     fontWeight: "bold",
-                    fontSize: "22px",
                     paddingBottom: "16px",
-                    fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+                    fontFamily: FONTS.BOLD_TEXT_FAMILY,
                   }}
                 >
                   {headerTitle}
@@ -260,8 +257,7 @@ function FilterFullMenuContainer() {
                   gutterBottom
                   sx={{
                     fontWeight: "bold",
-                    fontSize: "24px",
-                    fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+                    fontFamily: FONTS.BOLD_TEXT_FAMILY,
                   }}
                 >
                   {menuData[key].asideHeader}
@@ -277,7 +273,7 @@ function FilterFullMenuContainer() {
                 <StyledText>{menuData[key].text1}</StyledText>
                 <StyledText>{menuData[key].text2}</StyledText>
                 <StyledText>{menuData[key].text3}</StyledText>
-                {renderBoldText(key)}
+                {renderBoldText(key as keyof typeof FilterFullMenuData)}
               </Box>
             </Box>
           </TabPanel>

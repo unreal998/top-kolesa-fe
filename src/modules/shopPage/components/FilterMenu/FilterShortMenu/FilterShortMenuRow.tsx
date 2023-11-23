@@ -3,9 +3,13 @@ import { actions } from "../../../reducer";
 
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ClearIcon from "@mui/icons-material/Clear";
-import { Button, IconButton, styled, Box } from "@mui/material";
+import { Button, styled, Box } from "@mui/material";
 
-import { FILTER_COLORS, FILTER_FONT } from "../constants";
+import {
+  FILTER_COLORS,
+  FONTS,
+  BASE_COLORS,
+} from "../../../../../shared/constants";
 
 const StyledButton = styled(Button)(({ params }: { params: string }) => ({
   display: "flex",
@@ -18,10 +22,10 @@ const StyledButton = styled(Button)(({ params }: { params: string }) => ({
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
-  fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
   borderBottom: "none",
   "& span": {
-    fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+    fontFamily: FONTS.MAIN_TEXT_FAMILY,
     fontWeight: "400",
     fontSize: "16px",
     color: `${FILTER_COLORS.TEXT_MAIN}`,
@@ -30,7 +34,7 @@ const StyledButton = styled(Button)(({ params }: { params: string }) => ({
     fontSize: "16px",
     color:
       params && params.length > 0
-        ? FILTER_COLORS.DEFAULT_BLUE
+        ? BASE_COLORS.DEFAULT_BLUE
         : FILTER_COLORS.TEXT_SHORT_MENU,
     transition: "color 0.2s ease",
   },
@@ -51,7 +55,7 @@ type FilterShortMenuRowProps = {
   icon: React.ReactNode;
   params: string;
   onClick: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => void | undefined;
 };
 
@@ -79,7 +83,7 @@ function FilterShortMenuRow({
           sx={{
             color:
               params && params.length > 0
-                ? FILTER_COLORS.DEFAULT_BLUE
+                ? BASE_COLORS.DEFAULT_BLUE
                 : FILTER_COLORS.TEXT_SHORT_MENU,
             transition: "color 0.2s ease",
           }}
@@ -103,9 +107,22 @@ function FilterShortMenuRow({
       {params.length > 0 && (
         <Box display={"flex"}>
           <span>{params}</span>
-          <IconButton onClick={onClick} sx={{ padding: "1px", color: "red" }}>
+          <Box
+            display="flex"
+            alignItems="center"
+            sx={{
+              padding: "1px",
+              color: "red",
+              borderRadius: "50%",
+              "&:hover": {
+                backgroundColor: FILTER_COLORS.BACKGROUND_GREY,
+                transition: "all 0.5s",
+              },
+            }}
+            onClick={onClick}
+          >
             <ClearIcon sx={{ padding: "1px" }} />
-          </IconButton>
+          </Box>
         </Box>
       )}
       <ArrowForwardIosIcon sx={{ height: "20px" }} />

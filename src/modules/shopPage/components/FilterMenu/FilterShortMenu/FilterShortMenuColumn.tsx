@@ -2,10 +2,14 @@ import { useDispatch } from "react-redux";
 import { actions } from "../../../reducer";
 
 import ClearIcon from "@mui/icons-material/Clear";
-import { Button, IconButton, styled, Box, ButtonGroup } from "@mui/material";
+import { Button, styled, Box, ButtonGroup } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-import { FILTER_COLORS, FILTER_FONT } from "../constants";
+import {
+  FILTER_COLORS,
+  FONTS,
+  BASE_COLORS,
+} from "../../../../../shared/constants";
 
 const StyledButtonMain = styled(Button)({
   display: "flex",
@@ -18,10 +22,10 @@ const StyledButtonMain = styled(Button)({
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
-  fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
   borderTop: "none",
   "& span": {
-    fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+    fontFamily: FONTS.MAIN_TEXT_FAMILY,
     fontWeight: "400",
     fontSize: "10px",
     transition: "color 0.2s ease",
@@ -51,7 +55,7 @@ const StyledButtonSecondary = styled(Button)({
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
-  fontFamily: FILTER_FONT.BOLD_TEXT_FAMILY,
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
   cursor: "default",
   borderBottom: "none",
   "& p": {
@@ -59,7 +63,7 @@ const StyledButtonSecondary = styled(Button)({
     margin: 0,
     color: FILTER_COLORS.TEXT_MAIN,
     fontSize: "13px",
-    fontFamily: FILTER_FONT.MAIN_TEXT_FAMILY,
+    fontFamily: FONTS.MAIN_TEXT_FAMILY,
     textTransform: "none",
   },
   "&:hover": {
@@ -75,19 +79,19 @@ const StyledButtonSecondary = styled(Button)({
   },
 });
 
-type FilterShortMenuRowProps = {
+type FilterShortMenuColumnProps = {
   filterName: "Season" | "Brand";
   icon: React.ReactNode;
   params: string[];
-  onClick: (season: string) => void;
+  onClick: (param: string) => void;
 };
 
-function FilterShortMenuColumnPrice({
+function FilterShortMenuColumn({
   icon,
   filterName,
   params,
   onClick,
-}: FilterShortMenuRowProps) {
+}: FilterShortMenuColumnProps) {
   const dispatch = useDispatch();
   const visableParams = params.length > 0;
 
@@ -138,7 +142,7 @@ function FilterShortMenuColumnPrice({
             alignItems="center"
             sx={{
               color: visableParams
-                ? FILTER_COLORS.DEFAULT_BLUE
+                ? BASE_COLORS.DEFAULT_BLUE
                 : FILTER_COLORS.TEXT_SHORT_MENU,
               transition: "color 0.2s ease",
             }}
@@ -149,7 +153,7 @@ function FilterShortMenuColumnPrice({
             style={{
               marginLeft: "11px",
               color: visableParams
-                ? FILTER_COLORS.DEFAULT_BLUE
+                ? BASE_COLORS.DEFAULT_BLUE
                 : FILTER_COLORS.TEXT_SHORT_MENU,
               transition: "color 0.2s ease",
             }}
@@ -161,48 +165,52 @@ function FilterShortMenuColumnPrice({
       </StyledButtonMain>
       {visableParams &&
         params.map((param) => (
-          <>
-            <StyledButtonSecondary
-              key={param}
-              disableRipple={true}
-              sx={{
+          <StyledButtonSecondary
+            key={param}
+            disableRipple={true}
+            sx={{
+              borderTop: visableParams
+                ? "none"
+                : `1px solid ${FILTER_COLORS.BORDER}`,
+              "&:hover": {
                 borderTop: visableParams
                   ? "none"
                   : `1px solid ${FILTER_COLORS.BORDER}`,
-                "&:hover": {
-                  borderTop: visableParams
-                    ? "none"
-                    : `1px solid ${FILTER_COLORS.BORDER}`,
-                },
-                "&:active": {
-                  borderTop: visableParams
-                    ? "none"
-                    : `1px solid ${FILTER_COLORS.BORDER}`,
-                },
-              }}
-            >
+              },
+              "&:active": {
+                borderTop: visableParams
+                  ? "none"
+                  : `1px solid ${FILTER_COLORS.BORDER}`,
+              },
+            }}
+          >
+            <Box display="flex" alignItems="center" sx={{ padding: "0 12px" }}>
               <Box
                 display="flex"
                 alignItems="center"
-                sx={{ padding: "0 12px" }}
+                sx={{
+                  padding: "1px",
+                  color: "red",
+                  cursor: "pointer",
+                  borderRadius: "50%",
+                  "&:hover": {
+                    backgroundColor: FILTER_COLORS.BACKGROUND_GREY,
+                    transition: "all 0.5s",
+                  },
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClick(param);
+                }}
               >
-                <IconButton
-                  onClick={() => onClick(param)}
-                  size="small"
-                  sx={{
-                    color: "red",
-                    padding: "2px",
-                  }}
-                >
-                  <ClearIcon fontSize="inherit" />
-                </IconButton>
-                <p>{param}</p>
+                <ClearIcon fontSize="inherit" />
               </Box>
-            </StyledButtonSecondary>
-          </>
+              <p>{param}</p>
+            </Box>
+          </StyledButtonSecondary>
         ))}
     </ButtonGroup>
   );
 }
 
-export default FilterShortMenuColumnPrice;
+export default FilterShortMenuColumn;
