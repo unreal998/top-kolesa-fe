@@ -197,9 +197,10 @@ function FilterShortMenuColumnPrice({
                 color: "red",
                 cursor: "pointer",
                 borderRadius: "50%",
+                transition: "all 0.5s",
                 "&:hover": {
                   backgroundColor: FILTER_COLORS.BACKGROUND_GREY,
-                  transition: "all 0.5s",
+                  transition: "all 0.3s",
                 },
               }}
               onClick={onClick}

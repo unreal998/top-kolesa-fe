@@ -59,7 +59,6 @@ const FilterShortMenuContainer = () => {
   }
 
   function handleClearPrice(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    e.stopPropagation();
     dispatch(actions.initializePriceRange([minPrice, maxPrice]));
   }
 
