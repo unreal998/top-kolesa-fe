@@ -1,4 +1,4 @@
-import { Button, styled, Box } from "@mui/material";
+import { styled, Box } from "@mui/material";
 
 import { FILTER_COLORS, FONTS } from "../../../../../shared/constants";
 
