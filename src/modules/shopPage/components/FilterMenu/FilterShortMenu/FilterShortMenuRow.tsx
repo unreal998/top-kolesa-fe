@@ -66,7 +66,6 @@ function FilterShortMenuRow({
   onClick,
 }: FilterShortMenuRowProps) {
   const dispatch = useDispatch();
-
   function handleMenuToggle() {
     const tabIndex =
       filterName === "Width" ? 0 : filterName === "Profile" ? 1 : 2;

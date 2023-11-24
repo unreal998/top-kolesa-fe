@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { action } from "typesafe-actions";
 
 export type ShopItem = {
   id: number;

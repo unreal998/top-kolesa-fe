@@ -24,6 +24,8 @@ import PriceIcon from "../../../../../shared/components/Icons/PriceIcon";
 import SeasonIcon from "../../../../../shared/components/Icons/SeasonIcon";
 import BrandIcon from "../../../../../shared/components/Icons/BrandIcon";
 import ResetIcon from "../../../../../shared/components/Icons/ResetIcon";
+import { PayloadAction } from "typesafe-actions";
+import { PayloadAction as PayloadActionRedux } from "@reduxjs/toolkit";
 
 const FilterShortMenuContainer = () => {
   const dispatch = useDispatch();
@@ -46,25 +48,14 @@ const FilterShortMenuContainer = () => {
     selectedSeason.length > 0 ||
     selectedBrand.length > 0;
 
-  function handleClearSelectedWidth(
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) {
-    e.stopPropagation();
-    dispatch(actions.setClearSelectedWidth());
-  }
-
-  function handleClearSelectedProfile(
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) {
-    e.stopPropagation();
-    dispatch(actions.setClearSelectedProfile());
-  }
-
-  function handleClearSelectedDiametr(
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) {
-    e.stopPropagation();
-    dispatch(actions.setClearSelectedDiametr());
+  function handleClearRowsFilters() {
+    return (
+      e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+      filterAction: () => PayloadAction<string, void>
+    ) => {
+      e.stopPropagation();
+      dispatch(filterAction());
+    };
   }
 
   function handleClearPrice(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -72,14 +63,15 @@ const FilterShortMenuContainer = () => {
     dispatch(actions.initializePriceRange([minPrice, maxPrice]));
   }
 
-  function handleRemoveSeason(seasonToRemove: string) {
-    const updatedSeasons = selectedSeason.filter((s) => s !== seasonToRemove);
-    dispatch(actions.setSeasonChange(updatedSeasons));
-  }
-
-  function handleRemoveBrand(brandToRemove: string) {
-    const updatedBrands = selectedBrand.filter((s) => s !== brandToRemove);
-    dispatch(actions.setBrandChange(updatedBrands));
+  function handleClearColumnFilters<T>(
+    filterItems: T[],
+    itemToRemove: T,
+    updateAction: (updatedItems: T[]) => PayloadActionRedux<T[]>
+  ) {
+    return () => {
+      const updatedItems = filterItems.filter((item) => item !== itemToRemove);
+      dispatch(updateAction(updatedItems));
+    };
   }
 
   function handleCleareAllFilters() {
@@ -102,19 +94,25 @@ const FilterShortMenuContainer = () => {
         icon={<WidthIcon />}
         filterName="Width"
         params={selectWidth}
-        onClick={handleClearSelectedWidth}
+        onClick={(e) =>
+          handleClearRowsFilters()(e, actions.setClearSelectedWidth)
+        }
       ></FilterShortMenuRow>
       <FilterShortMenuRow
         icon={<ProfileIcon />}
         filterName="Profile"
         params={selectProfile}
-        onClick={handleClearSelectedProfile}
+        onClick={(e) =>
+          handleClearRowsFilters()(e, actions.setClearSelectedProfile)
+        }
       ></FilterShortMenuRow>
       <FilterShortMenuRow
         icon={<DiametrIcon />}
         filterName="Diametr"
         params={selectDiametr}
-        onClick={handleClearSelectedDiametr}
+        onClick={(e) =>
+          handleClearRowsFilters()(e, actions.setClearSelectedDiametr)
+        }
       ></FilterShortMenuRow>
       <FilterShortMenuColumnPrice
         icon={<PriceIcon />}
@@ -126,13 +124,25 @@ const FilterShortMenuContainer = () => {
         icon={<SeasonIcon />}
         filterName="Season"
         params={selectedSeason}
-        onClick={handleRemoveSeason}
+        onClick={(param) =>
+          handleClearColumnFilters(
+            selectedSeason,
+            param,
+            actions.setSeasonChange
+          )()
+        }
       ></FilterShortMenuColumn>
       <FilterShortMenuColumn
         icon={<BrandIcon />}
         filterName="Brand"
         params={selectedBrand}
-        onClick={handleRemoveBrand}
+        onClick={(param) =>
+          handleClearColumnFilters(
+            selectedBrand,
+            param,
+            actions.setBrandChange
+          )()
+        }
       ></FilterShortMenuColumn>
       {visableResetButton && (
         <FilterShortMenuReset
