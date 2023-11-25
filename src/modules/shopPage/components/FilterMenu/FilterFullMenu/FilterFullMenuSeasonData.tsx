@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSearchInput, selectSelectedSeason } from "../../../selectors";
 import { actions } from "../../../reducer";
-
 import styled from "@emotion/styled";
 import {
   Box,
