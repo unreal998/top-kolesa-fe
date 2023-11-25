@@ -26,13 +26,11 @@ export const selectCurrentPageItemList =
     );
     return newArray;
   };
-export const selectSelectedItemData =
-  () =>
-  ({ shopPageSliceData }: ShopSliceStore) => {
-    return shopPageSliceData.itemsList.find((value) => {
-      return value.id.toString() === shopPageSliceData.selectedItemId;
-    });
-  };
+export const selectSelectedItemData = () => ({ shopPageSliceData }: ShopSliceStore) => {
+  return shopPageSliceData.itemsList.find((value) => {
+    return value.id.toString() === shopPageSliceData.selectedItemId;
+  });
+};
 
 export const selectSortParams =
   () =>
