@@ -14,7 +14,7 @@ export function ShopContainer() {
     (event: ChangeEvent<unknown>, page: number) => {
       dispatch(actions.setCurrentPage(page));
     },
-    [dispatch],
+    [dispatch]
   );
   return (
     <Stack padding="20px 2%" width="100%" gap="20px" alignItems="center">

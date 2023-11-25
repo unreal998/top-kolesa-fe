@@ -43,6 +43,15 @@ type ShopPageState = {
   itemsList: ShopItemAPI[];
   selectedItemId: string;
   sortParams: SortParams;
+  isFullMenuOpen: boolean;
+  activeTabIndex: number;
+  searchInput: string;
+  selectedWidth: string;
+  selectedProfile: string;
+  selectedDiametr: string;
+  selectedPrice: number[];
+  selectedSeason: string[];
+  selectedBrand: string[];
 };
 
 const initialState: ShopPageState = {
@@ -53,6 +62,15 @@ const initialState: ShopPageState = {
     showBy: 20,
     sortBy: "default",
   },
+  isFullMenuOpen: false,
+  activeTabIndex: 0,
+  searchInput: "",
+  selectedWidth: "",
+  selectedProfile: "",
+  selectedDiametr: "",
+  selectedPrice: [0, 0],
+  selectedSeason: [],
+  selectedBrand: [],
 };
 
 export const shopPageSlice = createSlice({
@@ -74,6 +92,62 @@ export const shopPageSlice = createSlice({
     },
     setCurrentPage(state, { payload }: PayloadAction<number>) {
       state.currentPage = payload;
+    },
+    //FILTERS
+    toggleFullMenu: (state, action: PayloadAction<number | undefined>) => {
+      state.isFullMenuOpen = !state.isFullMenuOpen;
+      if (action.payload !== undefined) {
+        state.activeTabIndex = action.payload;
+      }
+    },
+    setSearchInput: (
+      state,
+      action: PayloadAction<React.ChangeEvent<HTMLInputElement>>
+    ) => {
+      const inputValue = action.payload.target.value;
+      state.searchInput = inputValue;
+    },
+    setClearSearchInput(state) {
+      state.searchInput = "";
+    },
+    setSelectedWidth(state, action: PayloadAction<string>) {
+      state.selectedWidth = action.payload;
+    },
+    setClearSelectedWidth(state) {
+      state.selectedWidth = "";
+    },
+    setSelectedProfile(state, action: PayloadAction<string>) {
+      state.selectedProfile = action.payload;
+    },
+    setClearSelectedProfile(state) {
+      state.selectedProfile = "";
+    },
+    setSelectedDiametr(state, action: PayloadAction<string>) {
+      state.selectedDiametr = action.payload;
+    },
+    setClearSelectedDiametr(state) {
+      state.selectedDiametr = "";
+    },
+    initializePriceRange: (state, action: PayloadAction<number[]>) => {
+      state.selectedPrice = action.payload;
+    },
+    setPriceChange: (state, action: PayloadAction<number[]>) => {
+      state.selectedPrice = action.payload;
+    },
+    setResetPriceRange: (state) => {
+      state.selectedPrice = [0, 0];
+    },
+    setSeasonChange: (state, action: PayloadAction<string[]>) => {
+      state.selectedSeason = action.payload;
+    },
+    setResetSeason: (state) => {
+      state.selectedSeason = [];
+    },
+    setBrandChange: (state, action: PayloadAction<string[]>) => {
+      state.selectedBrand = action.payload;
+    },
+    setResetBrand: (state) => {
+      state.selectedBrand = [];
     },
   },
 });
