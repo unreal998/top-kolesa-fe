@@ -27,8 +27,14 @@
     "connectWithUs": "Зв'яжіться з нами",
     "followUs": "Ми у",
     "tireSelectionService": "Підбір шин",
+    "tireSelectionServiceDesription":"Подбор и продажа шин для грузовых и лековых автомобилей",
+    "tireSelectionServiceSubtitleDescription":"Подбор и продажа дисков для грузовых и легковых автомобилей",
     "tireSelectionServiceSubtitle": "Допомога у підборі шин ",
     "diskSelectionService": "Підбір дисків",
     "diskSelectionServiceSubtitle": "Допомога у підборі дисків",
-    "serviceStation": "СТО"
+    "serviceStation": "Шиномонтаж",
+    "serviceStationDescription": "Грузовой и легковой шиномонтаж, ремонт шин и дисков любой сложности, нарезка протектора грузовых шин",
+    "storage":"Хранение",
+    "storageDescription":"Cезонное хранение шин и колес в сборе"
+    
 }

@@ -126,7 +126,7 @@ export function OurServices() {
             {t("tireSelectionService")}
           </Typography>
           <Typography variant="subtitle1" maxWidth="85%">
-          {t("tireSelectionServiceDesription")}
+            {t("tireSelectionServiceDesription")}
           </Typography>
         </StyledServiceHoverDescriptionStack>
       ),
