@@ -152,7 +152,7 @@ function FilterFullMenuSeasonData() {
           },
         }}
       >
-        Show
+        Set
       </Button>
     </>
   );

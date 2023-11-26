@@ -26,6 +26,7 @@ import { actions as itemDetailsActions } from "./reducer"
 import { selectSelectedItemData } from "../shopPage/selectors";
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from "../../constants";
 import { itemBuyDataBuilder } from "./utils/itemBuyDataBuilder";
+import { useNavigate } from "react-router";
 
 interface ITabPanelProps {
   children?: React.ReactNode;
@@ -50,7 +51,8 @@ export function ItemDetailsPage() {
   const [revertPopupHover, setRevertPopupHover] = useState(false);
   const selectedItemData = useSelector(selectSelectedItemData());
   const dispatch = useDispatch();
-  console.log(selectedItemData);
+  const history = useNavigate();
+  
   useEffect(() => {
     const searchParams = new URLSearchParams(document.location.search);
     const selectedItemId = searchParams.get("id");
@@ -59,10 +61,11 @@ export function ItemDetailsPage() {
   }, [dispatch]);
 
   const handleBuy = useCallback(() => {
-    if (selectedItemData) {
-      dispatch(itemDetailsActions.fetchBuyItemAction(itemBuyDataBuilder(selectedItemData)))
-    }
-  }, [dispatch, selectedItemData])
+    const searchParams = new URLSearchParams(document.location.search);
+    const selectedItemId = searchParams.get("id");
+    history(`/checkout?id=${selectedItemId}`,
+    { replace: true })
+  }, [history])
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setModalValue(newValue);
@@ -143,7 +146,8 @@ export function ItemDetailsPage() {
               </Typography>
             </Stack>
           </Stack>
-          <Button variant="contained" onClick={handleBuy}>BUY</Button>
+          <Button variant="contained" onClick={handleBuy}>Придбати</Button>
+          <Button variant="contained" onClick={handleBuy}>Додати у кошик</Button>
           {selectedItemData && <SmallDescription {...selectedItemData} />}
           <Stack justifyContent="space-between" direction="row">
             <Tooltip

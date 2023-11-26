@@ -21,7 +21,7 @@
     "textForParametr": " is the diameter value in inches"
   },
   "Price": {
-    "headerTitle": "INDICATE THE PRICE",
+    "headerTitle": "SET THE PRICE",
     "asideHeader": "Do you know how much you are willing to pay for new tires?",
     "text1": "Set this parameter with the help of two 'sliders' and you will see suitable options."
   },

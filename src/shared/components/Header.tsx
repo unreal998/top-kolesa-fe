@@ -64,22 +64,37 @@ export function Header() {
               variant="body2"
             >
               {" "}
-              support@topkolesa.com{" "}
+              topkolesa@gmail.com{" "}
             </Typography>
           }
         />
-        <TypographyWithIcon
-          icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "20px" }} />}
-          typography={
-            <Typography
-              fontFamily="PT Sans,  sans-serif"
-              color="#FFFFFF"
-              variant="body2"
-            >
-              {t("headerAddress")}
-            </Typography>
-          }
-        />
+        <Stack>
+          <TypographyWithIcon
+            icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "20px" }} />}
+            typography={
+              <Typography
+                fontFamily="PT Sans,  sans-serif"
+                color="#FFFFFF"
+                variant="body2"
+              >
+                {t("headerAddress")}
+              </Typography>
+            }
+          />
+          <TypographyWithIcon
+            icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "20px" }} />}
+            typography={
+              <Typography
+                fontFamily="PT Sans,  sans-serif"
+                color="#FFFFFF"
+                variant="body2"
+              >
+                {t("headerAddress2")}
+              </Typography>
+            }
+          />
+        </Stack>
+
         <TypographyWithIcon
           icon={<TimerOutlined sx={{ fill: "#FFF", width: "20px" }} />}
           typography={

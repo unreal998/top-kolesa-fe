@@ -11,7 +11,7 @@ export function Copyright() {
         color={BASE_COLORS.DEFAULT_GREY}
         variant="body1"
       >
-        Copyright {<CopyrightOutlined />} 2022 TopKolesa. All Rights Reserved.
+        Copyright {<CopyrightOutlined />} 2023 TopKolesa. All Rights Reserved.
       </Typography>
     </Stack>
   );

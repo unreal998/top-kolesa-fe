@@ -194,7 +194,7 @@ function FilterFullMenuPriceData() {
           },
         }}
       >
-        Show
+        Set
       </Button>
     </Box>
   );

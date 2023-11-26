@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { AutocompleateData, CityListResponce, CityListResponceData, WarehouseListResponce } from "./types";
+import { OrderItemProps } from "../itemDetailsPage/types";
 
 type CheckoutPage = {
   cityInputData: string,
@@ -49,6 +50,15 @@ export const checkoutSlice = createSlice({
     fetchWarehouseListByInputFailed(state, { payload }: PayloadAction<string>) {
       state.error = payload
     },
+    fetchBuyItemAction(state, { payload }: PayloadAction<OrderItemProps>) {
+
+    },
+    fetchBuyItemActionSuccess(state, { payload }: PayloadAction<string>) {
+
+    },
+    fetchBuyItemActionFailed(state, { payload }: PayloadAction<string>) {
+
+    }
   },
 });
 

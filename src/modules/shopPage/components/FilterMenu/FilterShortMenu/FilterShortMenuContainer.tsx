@@ -15,7 +15,7 @@ import FilterShortMenuColumnPrice from "./FilterShortMenuColumnPrice";
 import FilterShortMenuColumn from "./FilterShortMenuColumn";
 import FilterShortMenuReset from "./FilterShortMenuReset";
 
-import { ButtonGroup } from "@mui/material";
+import { Button, ButtonGroup, Stack } from "@mui/material";
 
 import WidthIcon from "../../../../../shared/components/Icons/WidthIcon";
 import ProfileIcon from "../../../../../shared/components/Icons/ProfileIcon";
@@ -26,6 +26,8 @@ import BrandIcon from "../../../../../shared/components/Icons/BrandIcon";
 import ResetIcon from "../../../../../shared/components/Icons/ResetIcon";
 import { PayloadAction } from "typesafe-actions";
 import { PayloadAction as PayloadActionRedux } from "@reduxjs/toolkit";
+import { useCallback } from "react";
+import { useNavigate } from "react-router";
 
 const FilterShortMenuContainer = () => {
   const dispatch = useDispatch();
@@ -38,6 +40,21 @@ const FilterShortMenuContainer = () => {
   const filtersParams = useSelector(selectFilterData());
   const minPrice = Math.min(...filtersParams.prices);
   const maxPrice = Math.max(...filtersParams.prices);
+  const history = useNavigate();
+
+  const handleApplyButton = useCallback(() => {
+    history(
+      `?price=${JSON.stringify([
+        Math.min.apply(null, selectedPrice),
+        Math.max.apply(null, selectedPrice),
+      ])}&width=${JSON.stringify(selectWidth)}&profile=${JSON.stringify(
+        selectProfile
+      )}&diametr=${JSON.stringify(selectDiametr)}&season=${JSON.stringify(
+        selectedSeason
+      )}&brand=${JSON.stringify(selectedBrand)}`,
+      { replace: true }
+    );
+  }, [history, selectDiametr, selectProfile, selectWidth, selectedBrand, selectedPrice, selectedSeason]);
 
   const visableResetButton =
     selectedPrice[0] !== minPrice ||
@@ -144,10 +161,25 @@ const FilterShortMenuContainer = () => {
         }
       ></FilterShortMenuColumn>
       {visableResetButton && (
-        <FilterShortMenuReset
-          icon={<ResetIcon />}
-          onClick={handleCleareAllFilters}
-        />
+        <Stack>
+          <Button
+            variant='contained'
+            onClick={handleApplyButton}
+          >
+          <p
+            style={{
+              marginLeft: "13px",
+            }}
+          >
+            Apply
+          </p>
+          </Button>
+          <FilterShortMenuReset
+            icon={<ResetIcon />}
+            onClick={handleCleareAllFilters}
+          />
+        </Stack>
+
       )}
     </ButtonGroup>
   );

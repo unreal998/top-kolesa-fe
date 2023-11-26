@@ -115,17 +115,6 @@ export function Footer() {
               </Typography>
             </Stack>
           </Stack>
-          <Stack direction="row" gap="5px">
-            <Typography
-              fontFamily="Montserrat, sans-serif"
-              variant="h6"
-              fontWeight="600"
-              color="#fff"
-            >
-              {" "}
-              {t("followUs")}
-            </Typography>
-          </Stack>
         </Stack>
       </Stack>
       <Stack

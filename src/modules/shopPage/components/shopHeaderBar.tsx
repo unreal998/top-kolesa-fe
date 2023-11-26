@@ -114,7 +114,7 @@ export function ShopHeaderBar() {
                 color: BASE_COLORS.DEFAULT_GREY,
               }}
             >
-              Show
+              Set
             </InputLabel>
             <Select
               value={sortParams.showBy.toString()}

@@ -4,6 +4,7 @@ import { actions } from "./reducer";
 import { CityListResponce, WarehouseListResponce } from "./types";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { fetchCityByInput, fetchWarehouseByInput } from "./api";
+import { fetchItemBuy } from "../itemDetailsPage/api";
 
 export function* fetchCityByInputSaga({ payload }: ActionType<typeof actions.fetchCityListByInput>) {
     try {
@@ -23,7 +24,17 @@ export function* fetchWarehouseByInputSaga({ payload }: ActionType<typeof action
     }
 }
 
+export function* fetchBuyItemSaga({ payload }: ActionType<typeof actions.fetchBuyItemAction>) {
+  try {
+    yield call(fetchItemBuy, payload);
+    yield put(actions.fetchBuyItemActionSuccess(''));
+  } catch (error) {
+    yield put(actions.fetchBuyItemActionFailed(error as string));
+  }
+}
+
 export function* watchAdressByInputSaga() {
     yield takeLatest(getType(actions.fetchCityListByInput), fetchCityByInputSaga);
     yield takeLatest(getType(actions.fetchWarehouseListByInput), fetchWarehouseByInputSaga);
+    yield takeLatest(getType(actions.fetchBuyItemAction), fetchBuyItemSaga);
   }
