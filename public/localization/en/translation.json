@@ -30,5 +30,20 @@
   "tireSelectionServiceSubtitle": "Tire selection assist",
   "diskSelectionService": "Disk selection",
   "diskSelectionServiceSubtitle": "Disk selection assist",
-  "serviceStation": "Service station"
+  "serviceStation": "Service station",
+  "contactDestails":"Contact details",
+    "secondName":"Last Name", 
+    "name":"First Name",
+    "number":"Number",
+    "email":"Email",
+    "delivery":"Delivery",
+    "pickup":"Pickup",
+    "novaPoshta":"Nova Poshta", 
+    "city":"City", 
+    "warehouse":"Warehouse",
+    "pay":"Pay type",
+    "cash":"Cash",
+    "transfer":"Transfer",
+    "addComment":"Comment for your order",
+    "buy":"Buy"
 }
