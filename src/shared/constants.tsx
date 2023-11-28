@@ -11,6 +11,7 @@ export const FONTS = {
 };
 
 export const FILTER_COLORS = {
+  DEFAULT_BLUE_INACTIVE: "rgba(28,57,123, 0.15)",
   TEXT_SHORT_MENU: "#878787",
   BACKGROUND_GREY: "#f2f2f2",
   BORDER: "#cccccc",
