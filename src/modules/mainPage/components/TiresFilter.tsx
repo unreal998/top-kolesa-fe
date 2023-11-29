@@ -106,7 +106,11 @@ function TiresFilter() {
       ])}&width=${JSON.stringify(width)}&profile=${JSON.stringify(
         profile
       )}&diametr=${JSON.stringify(diametr)}&season=${JSON.stringify(
-        season
+        season === t("summer")
+          ? "summer"
+          : season === t("winter")
+          ? "winter"
+          : "all-season"
       )}&brand=${JSON.stringify(brand)}`,
       { replace: true }
     );
@@ -117,6 +121,7 @@ function TiresFilter() {
     history,
     profile,
     season,
+    t,
     width,
     dispatch,
   ]);
