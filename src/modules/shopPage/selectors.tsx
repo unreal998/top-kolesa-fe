@@ -26,11 +26,13 @@ export const selectCurrentPageItemList =
     );
     return newArray;
   };
-export const selectSelectedItemData = () => ({ shopPageSliceData }: ShopSliceStore) => {
-  return shopPageSliceData.itemsList.find((value) => {
-    return value.id.toString() === shopPageSliceData.selectedItemId;
-  });
-};
+export const selectSelectedItemData =
+  () =>
+  ({ shopPageSliceData }: ShopSliceStore) => {
+    return shopPageSliceData.itemsList.find((value) => {
+      return value.id.toString() === shopPageSliceData.selectedItemId;
+    });
+  };
 
 export const selectSortParams =
   () =>
@@ -45,6 +47,9 @@ export const selectPagesCount =
       shopPageSliceData.itemsList.length / shopPageSliceData.sortParams.showBy
     );
   };
+
+export const selectCardView = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.cardView;
 
 //FILTERS
 export const selectSelectedWidth = ({ shopPageSliceData }: ShopSliceStore) =>

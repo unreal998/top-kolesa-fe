@@ -15,6 +15,8 @@ import { BASE_COLORS } from "../../../shared/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSortParams } from "../selectors";
 import { actions } from "../reducer";
+import { use } from "i18next";
+import { selectCardView } from "../selectors";
 
 const ViewButton = styled(Box)({
   backgroundColor: BASE_COLORS.BACKGROUND_WHITE,
@@ -34,11 +36,11 @@ const ViewButton = styled(Box)({
 });
 
 export function ShopHeaderBar() {
-  const [isCardView, handleCardView] = useState(false);
+  const dispatch = useDispatch();
+  const cardView = useSelector(selectCardView);
   const tableButton = useRef();
   const cardButton = useRef();
   const sortParams = useSelector(selectSortParams());
-  const dispatch = useDispatch();
 
   const handleChange = useCallback(
     (event: SelectChangeEvent) => {
@@ -54,7 +56,7 @@ export function ShopHeaderBar() {
     const tableButtonElement = tableButton.current as unknown as HTMLElement;
     cardButtonElement.classList.add("isSelected");
     tableButtonElement.classList.remove("isSelected");
-    handleCardView(true);
+    dispatch(actions.setCardView(true));
   }, []);
 
   const handleTableViewChange = useCallback(() => {
@@ -62,7 +64,7 @@ export function ShopHeaderBar() {
     const tableButtonElement = tableButton.current as unknown as HTMLElement;
     cardButtonElement.classList.remove("isSelected");
     tableButtonElement.classList.add("isSelected");
-    handleCardView(false);
+    dispatch(actions.setCardView(false));
   }, []);
 
   return (
@@ -74,10 +76,20 @@ export function ShopHeaderBar() {
       gap="20px"
     >
       <Stack justifyContent="space-around" direction="row" width="15%">
-        <ViewButton ref={cardButton} onClick={handleCardViewChange}>
+        <ViewButton
+          ref={cardButton}
+          onClick={handleCardViewChange}
+          className={cardView ? "isSelected" : ""}
+          sx={{ transition: "all 0.3s ease-in-out" }}
+        >
           <Apps />
         </ViewButton>
-        <ViewButton ref={tableButton} onClick={handleTableViewChange}>
+        <ViewButton
+          ref={tableButton}
+          onClick={handleTableViewChange}
+          className={!cardView ? "isSelected" : ""}
+          sx={{ transition: "all 0.3s ease-in-out" }}
+        >
           <FormatAlignJustify />
         </ViewButton>
       </Stack>
