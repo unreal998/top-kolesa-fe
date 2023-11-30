@@ -145,6 +145,7 @@ export function Header() {
           </Button>
           <Menu
             open={!!anchorEl}
+            onClose={handleClose}
             anchorEl={anchorEl}
             anchorOrigin={{
               vertical: "bottom",
