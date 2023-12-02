@@ -6,6 +6,7 @@ import { actions as shopActions } from "../shopPage/reducer";
 import { selectSelectedCityName, selectCityListData, selectWarehoutListData } from "./selectors";
 import { selectSelectedItemData } from "../shopPage/selectors";
 import { itemBuyDataBuilder } from "../itemDetailsPage/utils/itemBuyDataBuilder";
+import { useTranslation } from "react-i18next";
 
 export function CheckoutPage() {
     const dispatch = useDispatch();
@@ -14,7 +15,8 @@ export function CheckoutPage() {
     const selectedCityName = useSelector(selectSelectedCityName())
     const selectedItemData = useSelector(selectSelectedItemData());
     const [deliveryState, changeDeliveryState] = useState('self')
-    const [paymentState, changePaymentState] = useState('cash')
+    const [paymentState, changePaymentState] = useState('cash');
+    const { t } = useTranslation();
 
     useEffect(() => {
       const searchParams = new URLSearchParams(document.location.search);
@@ -51,27 +53,27 @@ export function CheckoutPage() {
     return (
       <Stack flexDirection='column' padding="2% 10%" gap='10px'>
         <Stack gap='5px'>
-          <Typography variant="h6">Контактні дані</Typography>
+          <Typography variant="h6"> {t('contactDestails')} </Typography>
           <Stack gap='10px'>
-            <TextField
-              label="Прізвище"
+          <TextField
+              label={t('name')}
               required={true}
             />
             <TextField
-              label="Ім'я"
+              label={t('secondName')}
               required={true}
             />
             <TextField
-              label="Телефон"
+              label={t('number')}
               required={true}
             />
             <TextField 
-              label="Електронна пошта"
+              label={t('email')}
             />
           </Stack>
         </Stack>
         <Stack>
-          <Typography variant="h6">Доставка</Typography>
+          <Typography variant="h6"> {t('delivery')} </Typography>
           <FormControl>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
@@ -79,8 +81,8 @@ export function CheckoutPage() {
               name="radio-buttons-group"
               onChange={(e, value) => changeDeliveryState(value)}
             >
-              <FormControlLabel value="self" control={<Radio />} label="Самовивіз" />
-              <FormControlLabel value="post" control={<Radio />} label="Нова Пошта" />
+              <FormControlLabel value="self" control={<Radio />} label={t('pickup')} />
+              <FormControlLabel value="post" control={<Radio />} label={t('novaPoshta')} />
 
             </RadioGroup>
           </FormControl>
@@ -90,7 +92,7 @@ export function CheckoutPage() {
               disableClearable
               disablePortal
               options={optionsData}
-              renderInput={(params: any) => <TextField  onChange={(e) => handleCityTextChange(e)} {...params} label="Місто" />}
+              renderInput={(params: any) => <TextField  onChange={(e) => handleCityTextChange(e)} {...params} label={t('city')} />}
             />
             <Autocomplete
               freeSolo
@@ -98,12 +100,12 @@ export function CheckoutPage() {
               disablePortal
               onSelect={handleWarehouseTextChange}
               options={optionsWarehouseData}
-              renderInput={(params: any) => <TextField {...params} label="Відділення" />}
+              renderInput={(params: any) => <TextField {...params} label={t('warehouse')} />}
             />
           </Stack>}
         </Stack>
         <Stack>
-          <Typography variant="h6">Оплата</Typography>
+          <Typography variant="h6"> {t('pay')} </Typography>
           <FormControl>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
@@ -111,21 +113,21 @@ export function CheckoutPage() {
               name="radio-buttons-group"
               onChange={(e, value) => changePaymentState(value)}
             >
-              <FormControlLabel value="cash" control={<Radio />} label="Готівкою" />
-              <FormControlLabel value="card" control={<Radio />} label="Переказ" />
+              <FormControlLabel value="cash" control={<Radio />} label= {t('cash')} />
+              <FormControlLabel value="card" control={<Radio />} label= {t('transfer')}/>
 
             </RadioGroup>
           </FormControl>
         </Stack>
         <Stack gap='15px'>
-          <Typography variant="h6">Додати коментар</Typography>
+          <Typography variant="h6">{t('addComment')}</Typography>
           <TextField
               multiline
               label=""
               rows={4}
             />
         </Stack>
-        <Button sx={{width: '10%'}} variant="contained" onClick={handleOrder}>Придбати</Button>
+        <Button sx={{width: '10%'}} variant="contained" onClick={handleOrder}> {t('buy')}</Button>
       </Stack>
     )
 }

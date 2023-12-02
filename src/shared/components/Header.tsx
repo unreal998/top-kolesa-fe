@@ -7,12 +7,16 @@ import {
 import {
   Box,
   Button,
+  IconButton,
   Link,
   Menu,
   MenuItem,
   Stack,
   Typography,
+  styled,
 } from "@mui/material";
+import Badge from "@mui/material/Badge";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { TypographyWithIcon } from "../../modules/mainPage/components/TypographyWithIcon";
 import { BASE_COLORS } from "../constants";
 import { useTranslation } from "react-i18next";
@@ -134,7 +138,20 @@ export function Header() {
             {t("contactLabel")}
           </Link>
         </Stack>
-        <Stack alignItems="center">
+        <Stack alignItems="center" direction="row" gap={"1rem"}>
+          <IconButton aria-label="cart">
+            <Badge
+              badgeContent={4}
+              sx={{
+                color: "#FFF",
+                "& .MuiBadge-badge": {
+                  backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+                },
+              }}
+            >
+              <ShoppingCartOutlinedIcon sx={{ color: "#000" }} />
+            </Badge>
+          </IconButton>
           <Button
             onClick={(event) => handleLanguageClick(event)}
             sx={{ color: "#000" }}
@@ -145,6 +162,7 @@ export function Header() {
           </Button>
           <Menu
             open={!!anchorEl}
+            onClose={handleClose}
             anchorEl={anchorEl}
             anchorOrigin={{
               vertical: "bottom",
