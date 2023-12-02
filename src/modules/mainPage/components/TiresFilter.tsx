@@ -134,11 +134,25 @@ function TiresFilter() {
         reason: AutocompleteChangeReason
       ) => {
         if (typeof value !== "string") return;
-        if (type === "width") setWidthValue(value);
-        if (type === "profile") setProfileValue(value);
-        if (type === "diametr") setDiametrValue(value);
-        if (type === "season") setSeasonValue(value);
-        if (type === "brand") setBrandValue(value);
+        switch (type) {
+          case "width":
+            setWidthValue(value);
+            break;
+          case "profile":
+            setProfileValue(value);
+            break;
+          case "diametr":
+            setDiametrValue(value);
+            break;
+          case "season":
+            setSeasonValue(value);
+            break;
+          case "brand":
+            setBrandValue(value);
+            break;
+          default:
+            break;
+        }
       },
     []
   );
