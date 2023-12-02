@@ -42,6 +42,7 @@ type ShopPageState = {
   currentPage: number;
   itemsList: ShopItemAPI[];
   selectedItemId: string;
+  cardView: boolean;
   sortParams: SortParams;
   isFullMenuOpen: boolean;
   activeTabIndex: number;
@@ -58,6 +59,7 @@ const initialState: ShopPageState = {
   currentPage: 1,
   itemsList: [],
   selectedItemId: "",
+  cardView: true,
   sortParams: {
     showBy: 20,
     sortBy: "default",
@@ -86,6 +88,9 @@ export const shopPageSlice = createSlice({
     },
     setSelectedItemId(state, { payload }: PayloadAction<string>) {
       state.selectedItemId = payload;
+    },
+    setCardView(state, { payload }: PayloadAction<boolean>) {
+      state.cardView = payload;
     },
     setSortParams(state, { payload }: PayloadAction<SortParams>) {
       state.sortParams = payload;
