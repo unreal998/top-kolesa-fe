@@ -13,6 +13,9 @@
   "profile": "Профиль",
   "diametr": "Диаметр",
   "season": "Сезон",
+  "summer": "Лето",
+  "winter": "Зима",
+  "all-season": "Всесезонные",
   "brand": "Бренд",
   "popularBrands": "Популярные Бренды",
   "popularBrandsSubtitle": "У нас большой выбор шин популярных брендов.",
@@ -28,8 +31,8 @@
   "connectWithUs": "Свяжитесь с нами",
   "followUs": "Мы в:",
   "tireSelectionService": "Продажа шин",
-  "tireSelectionServiceDesription":"Подбор и продажа шин для грузовых и лековых автомобилей",
-  "tireSelectionServiceSubtitleDescription":"Подбор и продажа дисков для грузовых и легковых автомобилей",
+  "tireSelectionServiceDesription": "Подбор и продажа шин для грузовых и лековых автомобилей",
+  "tireSelectionServiceSubtitleDescription": "Подбор и продажа дисков для грузовых и легковых автомобилей",
   "diskSelectionService": "Продажа дисков",
   "diskSelectionServiceSubtitle": "Помощь в подборе дисков",
   "serviceStation": "Шиномонтаж",
@@ -52,3 +55,4 @@
     "addComment":"Добавить коментарий",
     "buy":"Приобрести"
 }
+
