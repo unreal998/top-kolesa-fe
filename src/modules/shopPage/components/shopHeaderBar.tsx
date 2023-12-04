@@ -15,8 +15,8 @@ import { BASE_COLORS } from "../../../shared/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSortParams } from "../selectors";
 import { actions } from "../reducer";
-import { use } from "i18next";
 import { selectCardView } from "../selectors";
+import { useTranslation } from "react-i18next";
 
 const ViewButton = styled(Box)({
   backgroundColor: BASE_COLORS.BACKGROUND_WHITE,
@@ -36,16 +36,25 @@ const ViewButton = styled(Box)({
 });
 
 export function ShopHeaderBar() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const cardView = useSelector(selectCardView);
   const tableButton = useRef();
   const cardButton = useRef();
   const sortParams = useSelector(selectSortParams());
 
-  const handleChange = useCallback(
+  const handleChangeSetBy = useCallback(
     (event: SelectChangeEvent) => {
       dispatch(
         actions.setSortParams({ ...sortParams, showBy: +event.target.value })
+      );
+    },
+    [dispatch, sortParams]
+  );
+  const handleChangeSortBy = useCallback(
+    (event: SelectChangeEvent) => {
+      dispatch(
+        actions.setSortParams({ ...sortParams, sortBy: event.target.value })
       );
     },
     [dispatch, sortParams]
@@ -99,19 +108,21 @@ export function ShopHeaderBar() {
           <FormControl
             size="small"
             variant="standard"
-            sx={{ minWidth: 120, marginTop: "-44px" }}
+            sx={{ minWidth: 180, marginTop: "-44px" }}
           >
             <InputLabel
               sx={{
                 color: BASE_COLORS.DEFAULT_GREY,
               }}
             >
-              Sort By
+              {t("sortBy")}
             </InputLabel>
-            <Select value={""} onChange={handleChange} label="Age">
-              <MenuItem value={0}>Default</MenuItem>
-              <MenuItem value={1}>By Price</MenuItem>
-              <MenuItem value={2}>By Rating</MenuItem>
+            <Select onChange={handleChangeSortBy}>
+              <MenuItem value={""}>Default</MenuItem>
+              <MenuItem value={"date"}>{t("date")}</MenuItem>
+              <MenuItem value={"rated"}>{t("rated")}</MenuItem>
+              <MenuItem value={"priceHigh"}>{t("priceHigh")}</MenuItem>
+              <MenuItem value={"priceLow"}>{t("priceLow")}</MenuItem>
             </Select>
           </FormControl>
         </Stack>
@@ -130,7 +141,7 @@ export function ShopHeaderBar() {
             </InputLabel>
             <Select
               value={sortParams.showBy.toString()}
-              onChange={handleChange}
+              onChange={handleChangeSetBy}
               label="ShowBy"
             >
               <MenuItem value={10}>10</MenuItem>
