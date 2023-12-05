@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useCallback } from "react";
-import { ShopHeaderBar } from "./shopHeaderBar";
+import { ShopHeaderBar } from "./ShopHeaderBar";
 import { Grid, Pagination, Stack } from "@mui/material";
 import { ShopItemCard } from "./ShopItemCard";
 import { ShopItemTable } from "./ShopItemTable";
@@ -8,6 +8,7 @@ import {
   selectCardView,
   selectCurrentPageItemList,
   selectPagesCount,
+  selectSortParams,
 } from "../selectors";
 import { actions } from "../reducer";
 
@@ -16,6 +17,7 @@ export function ShopContainer() {
   const pagesCount = useSelector(selectPagesCount());
   const shopItems = useSelector(selectCurrentPageItemList());
   const cardView = useSelector(selectCardView);
+  const sortParams = useSelector(selectSortParams());
 
   const handlePageChange = useCallback(
     (event: ChangeEvent<unknown>, page: number) => {
@@ -23,12 +25,31 @@ export function ShopContainer() {
     },
     [dispatch]
   );
+
+  const sorterShopItems = [...shopItems];
+  switch (sortParams.sortBy) {
+    case "priceHigh":
+      sorterShopItems.sort((a, b) => b.price_uah - a.price_uah);
+      break;
+    case "priceLow":
+      sorterShopItems.sort((a, b) => a.price_uah - b.price_uah);
+      break;
+    case "rated":
+      sorterShopItems.sort((a, b) => b.rate - a.rate);
+      break;
+    case "date":
+      sorterShopItems.sort((a, b) => b.year - a.year);
+      break;
+    default:
+      break;
+  }
+
   return (
     <Stack padding="20px 2%" width="100%" gap="20px" alignItems="center">
       <ShopHeaderBar />
       <Grid container spacing={2}>
         {shopItems &&
-          shopItems.map((item) => (
+          sorterShopItems.map((item) => (
             <Grid key={item.id} item={true} xs={cardView ? 3 : 4}>
               {cardView ? (
                 <ShopItemCard
