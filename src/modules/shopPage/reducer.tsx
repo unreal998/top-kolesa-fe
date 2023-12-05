@@ -62,7 +62,7 @@ const initialState: ShopPageState = {
   cardView: true,
   sortParams: {
     showBy: 20,
-    sortBy: "default",
+    sortBy: "rated",
   },
   isFullMenuOpen: false,
   activeTabIndex: 0,

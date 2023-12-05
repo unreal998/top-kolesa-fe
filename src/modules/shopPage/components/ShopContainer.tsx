@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useCallback } from "react";
-import { ShopHeaderBar } from "./shopHeaderBar";
+import { ShopHeaderBar } from "./ShopHeaderBar";
 import { Grid, Pagination, Stack } from "@mui/material";
 import { ShopItemCard } from "./ShopItemCard";
 import { ShopItemTable } from "./ShopItemTable";
