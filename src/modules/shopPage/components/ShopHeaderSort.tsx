@@ -47,10 +47,10 @@ export function ShopHeaderSort() {
     [dispatch, sortParams]
   );
   const handleChangeSortBy = useCallback(
-    (event: SelectChangeEvent<unknown>) => {
-      const value = event.target.value;
-      if (typeof value === "string")
-        dispatch(actions.setSortParams({ ...sortParams, sortBy: value }));
+    (event: SelectChangeEvent) => {
+      dispatch(
+        actions.setSortParams({ ...sortParams, sortBy: event.target.value })
+      );
     },
     [dispatch, sortParams]
   );
