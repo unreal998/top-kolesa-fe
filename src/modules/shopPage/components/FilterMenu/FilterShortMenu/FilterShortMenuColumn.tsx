@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { actions } from "../../../reducer";
 
 import ClearIcon from "@mui/icons-material/Clear";
-import { Button, styled, Box, ButtonGroup } from "@mui/material";
+import { Button, styled, Box, ButtonGroup, Typography } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import {
@@ -10,6 +10,7 @@ import {
   FONTS,
   BASE_COLORS,
 } from "../../../../../shared/constants";
+import { useTranslation } from "react-i18next";
 
 const StyledButtonMain = styled(Button)({
   display: "flex",
@@ -28,11 +29,6 @@ const StyledButtonMain = styled(Button)({
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
     fontWeight: "400",
     fontSize: "10px",
-    transition: "color 0.2s ease",
-  },
-  "& p": {
-    fontSize: "16px",
-
     transition: "color 0.2s ease",
   },
   "&:hover": {
@@ -59,10 +55,7 @@ const StyledButtonSecondary = styled(Button)({
   cursor: "default",
   borderBottom: "none",
   "& p": {
-    padding: 0,
-    margin: 0,
     color: FILTER_COLORS.TEXT_MAIN,
-    fontSize: "13px",
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
     textTransform: "none",
   },
@@ -80,7 +73,7 @@ const StyledButtonSecondary = styled(Button)({
 });
 
 type FilterShortMenuColumnProps = {
-  filterName: "Season" | "Brand";
+  filterName: "Season" | "Brand" | "Studded";
   icon: React.ReactNode;
   params: string[];
   onClick: (param: string) => void;
@@ -93,10 +86,12 @@ function FilterShortMenuColumn({
   onClick,
 }: FilterShortMenuColumnProps) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const visableParams = params.length > 0;
 
   function handleMenuToggle() {
-    const tabIndex = filterName === "Season" ? 4 : 5;
+    const tabIndex =
+      filterName === "Season" ? 4 : filterName === "Brand" ? 5 : 6;
     dispatch(actions.toggleFullMenu(tabIndex));
   }
 
@@ -149,17 +144,30 @@ function FilterShortMenuColumn({
           >
             {icon}
           </Box>
-          <p
+          <Typography
+            variant="body1"
+            fontFamily={FONTS.BOLD_TEXT_FAMILY}
+            fontWeight={600}
             style={{
-              marginLeft: "11px",
+              marginLeft: `${
+                filterName === "Season"
+                  ? "16px"
+                  : filterName === "Brand"
+                  ? "12px"
+                  : "16px"
+              }`,
               color: visableParams
                 ? BASE_COLORS.DEFAULT_BLUE
                 : FILTER_COLORS.TEXT_SHORT_MENU,
               transition: "color 0.2s ease",
             }}
           >
-            {filterName}
-          </p>
+            {filterName === "Season"
+              ? t("season")
+              : filterName === "Brand"
+              ? t("brand")
+              : t("studded")}
+          </Typography>
         </Box>
         <ArrowForwardIosIcon sx={{ height: "20px" }} />
       </StyledButtonMain>
@@ -206,7 +214,21 @@ function FilterShortMenuColumn({
               >
                 <ClearIcon fontSize="inherit" />
               </Box>
-              <p>{param}</p>
+              {filterName === "Season" ? (
+                <Typography variant="body2">
+                  {param === "winter"
+                    ? t("winter")
+                    : param === "summer"
+                    ? t("summer")
+                    : t("all-season")}
+                </Typography>
+              ) : filterName === "Studded" ? (
+                <Typography variant="body2">
+                  {param === "studded" ? t("studded") : t("studless")}
+                </Typography>
+              ) : (
+                <Typography variant="body2">{param}</Typography>
+              )}
             </Box>
           </StyledButtonSecondary>
         ))}

@@ -6,6 +6,7 @@ import {
   selectSelectedPrice,
   selectSelectedProfile,
   selectSelectedSeason,
+  selectSelectedStudded,
   selectSelectedWidth,
 } from "../../../selectors";
 import { selectFilterData } from "../../../../mainPage/selectors";
@@ -24,9 +25,10 @@ import PriceIcon from "../../../../../shared/components/Icons/PriceIcon";
 import SeasonIcon from "../../../../../shared/components/Icons/SeasonIcon";
 import BrandIcon from "../../../../../shared/components/Icons/BrandIcon";
 import ResetIcon from "../../../../../shared/components/Icons/ResetIcon";
+import StuddedTireIcon from "../../../../../shared/components/Icons/StuddedTireIcon";
 import { PayloadAction } from "typesafe-actions";
 import { PayloadAction as PayloadActionRedux } from "@reduxjs/toolkit";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const FilterShortMenuContainer = () => {
@@ -37,24 +39,52 @@ const FilterShortMenuContainer = () => {
   const selectedPrice = useSelector(selectSelectedPrice);
   const selectedSeason = useSelector(selectSelectedSeason);
   const selectedBrand = useSelector(selectSelectedBrand);
+  const selectedStudded = useSelector(selectSelectedStudded);
   const filtersParams = useSelector(selectFilterData());
   const minPrice = Math.min(...filtersParams.prices);
   const maxPrice = Math.max(...filtersParams.prices);
   const history = useNavigate();
 
-  const handleApplyButton = useCallback(() => {
-    history(
-      `?price=${JSON.stringify([
-        Math.min.apply(null, selectedPrice),
-        Math.max.apply(null, selectedPrice),
-      ])}&width=${JSON.stringify(selectWidth)}&profile=${JSON.stringify(
-        selectProfile
-      )}&diametr=${JSON.stringify(selectDiametr)}&season=${JSON.stringify(
-        selectedSeason
-      )}&brand=${JSON.stringify(selectedBrand)}`,
-      { replace: true }
-    );
-  }, [history, selectDiametr, selectProfile, selectWidth, selectedBrand, selectedPrice, selectedSeason]);
+  useEffect(() => {
+    const isFilterBackToInitial =
+      selectWidth.length === 0 &&
+      selectProfile.length === 0 &&
+      selectDiametr.length === 0 &&
+      selectedSeason.length === 0 &&
+      selectedBrand.length === 0 &&
+      selectedStudded.length === 0 &&
+      selectedPrice[0] === minPrice &&
+      selectedPrice[1] === maxPrice;
+
+    if (isFilterBackToInitial) {
+      history("/shop", { replace: true });
+    } else {
+      history(
+        `?price=${JSON.stringify([
+          selectedPrice[0],
+          selectedPrice[1],
+        ])}&width=${JSON.stringify(selectWidth)}&profile=${JSON.stringify(
+          selectProfile
+        )}&diametr=${JSON.stringify(selectDiametr)}&season=${JSON.stringify(
+          selectedSeason
+        )}&brand=${JSON.stringify(selectedBrand)}&studded=${JSON.stringify(
+          selectedStudded
+        )}`,
+        { replace: true }
+      );
+    }
+  }, [
+    history,
+    selectDiametr,
+    selectProfile,
+    selectWidth,
+    selectedBrand,
+    selectedPrice,
+    selectedSeason,
+    selectedStudded,
+    minPrice,
+    maxPrice,
+  ]);
 
   const visableResetButton =
     selectedPrice[0] !== minPrice ||
@@ -63,7 +93,8 @@ const FilterShortMenuContainer = () => {
     selectProfile.length > 0 ||
     selectDiametr.length > 0 ||
     selectedSeason.length > 0 ||
-    selectedBrand.length > 0;
+    selectedBrand.length > 0 ||
+    selectedStudded.length > 0;
 
   function handleClearRowsFilters() {
     return (
@@ -97,6 +128,7 @@ const FilterShortMenuContainer = () => {
     dispatch(actions.initializePriceRange([minPrice, maxPrice]));
     dispatch(actions.setResetSeason());
     dispatch(actions.setResetBrand());
+    dispatch(actions.setResetStudded());
   }
 
   return (
@@ -113,7 +145,7 @@ const FilterShortMenuContainer = () => {
         onClick={(e) =>
           handleClearRowsFilters()(e, actions.setClearSelectedWidth)
         }
-      ></FilterShortMenuRow>
+      />
       <FilterShortMenuRow
         icon={<ProfileIcon />}
         filterName="Profile"
@@ -121,7 +153,7 @@ const FilterShortMenuContainer = () => {
         onClick={(e) =>
           handleClearRowsFilters()(e, actions.setClearSelectedProfile)
         }
-      ></FilterShortMenuRow>
+      />
       <FilterShortMenuRow
         icon={<DiametrIcon />}
         filterName="Diametr"
@@ -129,13 +161,13 @@ const FilterShortMenuContainer = () => {
         onClick={(e) =>
           handleClearRowsFilters()(e, actions.setClearSelectedDiametr)
         }
-      ></FilterShortMenuRow>
+      />
       <FilterShortMenuColumnPrice
         icon={<PriceIcon />}
         filterName="Price"
         params={selectedPrice}
         onClick={handleClearPrice}
-      ></FilterShortMenuColumnPrice>
+      />
       <FilterShortMenuColumn
         icon={<SeasonIcon />}
         filterName="Season"
@@ -147,7 +179,7 @@ const FilterShortMenuContainer = () => {
             actions.setSeasonChange
           )()
         }
-      ></FilterShortMenuColumn>
+      />
       <FilterShortMenuColumn
         icon={<BrandIcon />}
         filterName="Brand"
@@ -159,27 +191,24 @@ const FilterShortMenuContainer = () => {
             actions.setBrandChange
           )()
         }
-      ></FilterShortMenuColumn>
+      />
+      <FilterShortMenuColumn
+        icon={<StuddedTireIcon />}
+        filterName="Studded"
+        params={selectedStudded}
+        onClick={(param) =>
+          handleClearColumnFilters(
+            selectedStudded,
+            param,
+            actions.setStuddedChange
+          )()
+        }
+      />
       {visableResetButton && (
-        <Stack>
-          <Button
-            variant='contained'
-            onClick={handleApplyButton}
-          >
-          <p
-            style={{
-              marginLeft: "13px",
-            }}
-          >
-            Apply
-          </p>
-          </Button>
-          <FilterShortMenuReset
-            icon={<ResetIcon />}
-            onClick={handleCleareAllFilters}
-          />
-        </Stack>
-
+        <FilterShortMenuReset
+          icon={<ResetIcon />}
+          onClick={handleCleareAllFilters}
+        />
       )}
     </ButtonGroup>
   );

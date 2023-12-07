@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../../reducer";
 import { selectFilterData } from "../../../../mainPage/selectors";
 import { selectSearchInput, selectSelectedWidth } from "../../../selectors";
+
+import { useTranslation } from "react-i18next";
 
 import ClearIcon from "@mui/icons-material/Clear";
 import { Box, Button, Typography } from "@mui/material";
@@ -36,6 +38,7 @@ const StyledButton = styled(Button)({
 
 function FilterFullMenuWidthData() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const searchInput = useSelector(selectSearchInput);
   const selectedWidth = useSelector(selectSelectedWidth);
   const filtersParams = useSelector(selectFilterData());
@@ -50,14 +53,17 @@ function FilterFullMenuWidthData() {
     setFilteredWidthOptions(filtered);
   }, [searchInput, filtersParams.width]);
 
-  function handleWidthClick(width: string) {
-    dispatch(actions.setSelectedWidth(width));
-    dispatch(actions.toggleFullMenu());
-  }
+  const handleWidthClick = useCallback(
+    (width: string) => {
+      dispatch(actions.setSelectedWidth(width));
+      dispatch(actions.toggleFullMenu());
+    },
+    [dispatch]
+  );
 
-  function handleResetFilterDiametr() {
+  const handleResetFilterDiametr = () => {
     dispatch(actions.setSelectedWidth(""));
-  }
+  };
 
   return (
     <>
@@ -88,16 +94,17 @@ function FilterFullMenuWidthData() {
         />
         <Typography
           variant="subtitle2"
+          pt={0.2}
           sx={{
             fontFamily: FONTS.MAIN_TEXT_FAMILY,
           }}
         >
-          Reset Filter
+          {t("resetFilter")}
         </Typography>
       </Box>
       <ButtonsContainer>
         {filteredWidthOptions.length > 0 ? (
-          filteredWidthOptions.map((widthOption) => (
+          filteredWidthOptions.slice(1).map((widthOption) => (
             <StyledButton
               key={widthOption}
               variant="outlined"
@@ -113,15 +120,24 @@ function FilterFullMenuWidthData() {
             </StyledButton>
           ))
         ) : (
-          <Typography
-            variant="subtitle2"
+          <Box
+            paddingLeft={1.2}
             sx={{
-              fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              marginTop: "20px",
+              display: "flex",
+              alignItems: "center",
+              width: "200px",
             }}
           >
-            No matches found
-          </Typography>
+            <Typography
+              variant="subtitle2"
+              sx={{
+                fontFamily: FONTS.MAIN_TEXT_FAMILY,
+                marginTop: "20px",
+              }}
+            >
+              {t("noMatchesFound")}
+            </Typography>
+          </Box>
         )}
       </ButtonsContainer>
     </>

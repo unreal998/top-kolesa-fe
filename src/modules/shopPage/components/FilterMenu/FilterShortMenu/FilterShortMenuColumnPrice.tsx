@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../../reducer";
 import { selectFilterData } from "../../../../mainPage/selectors";
 
-import { Button, styled, Box, ButtonGroup } from "@mui/material";
+import { Button, styled, Box, ButtonGroup, Typography } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ClearIcon from "@mui/icons-material/Clear";
 
@@ -11,6 +11,7 @@ import {
   FONTS,
   BASE_COLORS,
 } from "../../../../../shared/constants";
+import { useTranslation } from "react-i18next";
 
 const StyledButtonMain = styled(Button)({
   display: "flex",
@@ -25,17 +26,6 @@ const StyledButtonMain = styled(Button)({
   color: FILTER_COLORS.TEXT_SHORT_MENU,
   fontFamily: FONTS.BOLD_TEXT_FAMILY,
   borderTop: "none",
-  "& span": {
-    fontFamily: FONTS.MAIN_TEXT_FAMILY,
-    fontWeight: "400",
-    fontSize: "10px",
-    transition: "color 0.2s ease",
-  },
-  "& p": {
-    fontSize: "16px",
-
-    transition: "color 0.2s ease",
-  },
   "&:hover": {
     backgroundColor: "transparent",
     borderColor: FILTER_COLORS.BORDER,
@@ -60,8 +50,6 @@ const StyledButtonSecondary = styled(Button)({
   borderTop: "none",
   cursor: "default",
   "& p": {
-    padding: 0,
-    margin: 0,
     color: FILTER_COLORS.TEXT_MAIN,
     fontSize: "13px",
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
@@ -94,6 +82,7 @@ function FilterShortMenuColumnPrice({
   onClick,
 }: FilterShortMenuColumnPriceProps) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const filtersParams = useSelector(selectFilterData());
   const minPrice = Math.min(...filtersParams.prices);
   const maxPrice = Math.max(...filtersParams.prices);
@@ -155,7 +144,10 @@ function FilterShortMenuColumnPrice({
           >
             {icon}
           </Box>
-          <p
+          <Typography
+            variant="body1"
+            fontFamily={FONTS.BOLD_TEXT_FAMILY}
+            fontWeight={600}
             style={{
               marginLeft: "11px",
               color: visableParams
@@ -164,8 +156,8 @@ function FilterShortMenuColumnPrice({
               transition: "color 0.2s ease",
             }}
           >
-            {filterName}
-          </p>
+            {t("price")}
+          </Typography>
         </Box>
         <ArrowForwardIosIcon sx={{ height: "20px" }} />
       </StyledButtonMain>
@@ -207,9 +199,9 @@ function FilterShortMenuColumnPrice({
             >
               <ClearIcon fontSize="inherit" />
             </Box>
-            <p>
-              from {params[0]} to {params[1]}
-            </p>
+            <Typography variant="body2">
+              {t("from")} {params[0]} {t("to")} {params[1]}
+            </Typography>
           </Box>
         </StyledButtonSecondary>
       )}
