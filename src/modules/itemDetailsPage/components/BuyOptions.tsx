@@ -40,7 +40,12 @@ const StyledButton = styled(Button)({
   padding: "16px 40px",
 });
 
-export default function BuyOptions() {
+type CartItem = {
+  tireId: number | undefined;
+  numberOfTires: number;
+};
+
+export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const selectedItemData = useSelector(selectSelectedItemData());
@@ -71,6 +76,28 @@ export default function BuyOptions() {
     }
   };
 
+  const handleAddToCart = () => {
+    const existingCartItemsString = localStorage.getItem("cartItem");
+    let existingCartItems = existingCartItemsString
+      ? JSON.parse(existingCartItemsString)
+      : [];
+
+    const itemIndex = existingCartItems.findIndex(
+      (item: CartItem) => item.tireId === tireId
+    );
+
+    if (itemIndex > -1) {
+      existingCartItems[itemIndex].numberOfTires += numberOfTires;
+    } else {
+      existingCartItems.push({ tireId, numberOfTires });
+    }
+
+    localStorage.setItem("cartItem", JSON.stringify(existingCartItems));
+
+    const cartItems = JSON.parse(localStorage.getItem("cartItem") || "").length;
+    dispatch(actions.setCartItemCount(cartItems));
+  };
+
   return (
     <>
       <Typography
@@ -94,7 +121,9 @@ export default function BuyOptions() {
         />
         <ButtonWithIcon
           button={
-            <StyledButton variant="contained">{t("addToCart")}</StyledButton>
+            <StyledButton onClick={handleAddToCart} variant="contained">
+              {t("addToCart")}
+            </StyledButton>
           }
           icon={
             <ShoppingCartOutlinedIcon sx={{ height: "14px", width: "14px" }} />
