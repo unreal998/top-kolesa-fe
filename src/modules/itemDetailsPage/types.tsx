@@ -66,6 +66,6 @@ export type OrderItemProps = {
 };
 
 export const PRODUCT_TYPE = {
-  TIRE: "TIRE",
-  DISK: "DISK",
+  TIRE: 'TIRE',
+  DISK: 'DISK',
 };

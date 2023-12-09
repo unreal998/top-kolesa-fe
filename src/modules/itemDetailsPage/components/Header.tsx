@@ -34,7 +34,7 @@ export default function Header() {
         {selectedItemData?.width}/{selectedItemData?.height} R
         {selectedItemData?.diametr}
       </Typography>
-      <Box borderBottom={`1px dashed ${BASE_COLORS.DEFAULT_BLUE}`}></Box>
+      <Box borderBottom={`1px dashed ${BASE_COLORS.DEFAULT_BLUE}`} />
       <Box display={"flex"} justifyContent={"space-between"} mt={2}>
         <Box display={"flex"}>
           <Typography
