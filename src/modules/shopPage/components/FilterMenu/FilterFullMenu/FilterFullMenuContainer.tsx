@@ -1,8 +1,10 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectActiveTabIndex } from "../../../selectors";
 import { actions } from "../../../reducer";
+
+import { useTranslation } from "react-i18next";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -18,6 +20,7 @@ import FilterFullMenuDiametrData from "./FilterFullMenuDiametrData";
 import FilterFullMenuPriceData from "./FilterFullMenuPriceData";
 import FilterFullMenuSeasonData from "./FilterFullMenuSeasonData";
 import FilterFullMenuBrandData from "./FilterFullMenuBrandData";
+import FilterFullMenuStuddedData from "./FilterFullMenuStuddedData";
 
 import WidthIcon from "../../../../../shared/components/Icons/WidthIcon";
 import ProfileIcon from "../../../../../shared/components/Icons/ProfileIcon";
@@ -25,8 +28,8 @@ import SeasonIcon from "../../../../../shared/components/Icons/SeasonIcon";
 import BrandIcon from "../../../../../shared/components/Icons/BrandIcon";
 import PriceIcon from "../../../../../shared/components/Icons/PriceIcon";
 import DiametrIcon from "../../../../../shared/components/Icons/DiametrIcon";
+import StuddedTireIcon from "../../../../../shared/components/Icons/StuddedTireIcon";
 
-import FilterFullMenuData from "../../../../../config/FilterFullMenuData.json";
 import { FONTS, BASE_COLORS } from "../../../../../shared/constants";
 
 type TabPanelProps = {
@@ -45,15 +48,6 @@ type FilterData = {
   textForParametr?: string;
 };
 
-type FilterFullMenuDataType = {
-  Width?: FilterData;
-  Profile?: FilterData;
-  Diametr?: FilterData;
-  Price?: FilterData;
-  Season?: FilterData;
-  Brand?: FilterData;
-};
-
 type MenuData = {
   inputComponent?: React.ElementType;
   dataComponent: React.ElementType;
@@ -69,7 +63,7 @@ function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
@@ -81,7 +75,7 @@ function TabPanel(props: TabPanelProps) {
           <Box>{children}</Box>
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 
@@ -94,67 +88,85 @@ function a11yProps(index: number) {
 
 function FilterFullMenuContainer() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const activeTabIndex = useSelector(selectActiveTabIndex);
-  const [value, setValue] = React.useState(activeTabIndex);
-  const [textData, setTextData] = useState<FilterFullMenuDataType>({});
+  const [value, setValue] = useState(activeTabIndex);
 
-  function handleChange(event: React.SyntheticEvent, newValue: number) {
-    setValue(newValue);
-    dispatch(actions.setClearSearchInput());
-  }
+  const handleChange = useCallback(
+    (event: React.SyntheticEvent, newValue: number) => {
+      setValue(newValue);
+      dispatch(actions.setClearSearchInput());
+    },
+    [dispatch, setValue]
+  );
 
-  function handleCloseMenu() {
+  const handleCloseMenu = () => {
     dispatch(actions.toggleFullMenu());
-  }
-
-  useEffect(() => {
-    setTextData(FilterFullMenuData);
-  }, []);
+  };
 
   const menuData: { [key: string]: MenuData } = {
     Width: {
       inputComponent: FilterFullMenuInput,
       dataComponent: FilterFullMenuWidthData,
-      ...textData.Width,
+      headerTitle: t("filterHeaderTitleWidth"),
+      asideHeader: t("filterAsideHeaderWidth"),
+      text1: t("filterAsideText1"),
+      text2: t("filterAsideText2"),
+      parametr: "205",
+      textForParametr: t("filterAsideText3Width"),
     },
     Profile: {
       inputComponent: FilterFullMenuInput,
       dataComponent: FilterFullMenuProfileData,
-      ...textData.Profile,
+      headerTitle: t("filterHeaderTitleProfile"),
+      asideHeader: t("filterAsideHeaderProfile"),
+      text1: t("filterAsideText1"),
+      text2: t("filterAsideText2"),
+      parametr: "75",
+      textForParametr: t("filterAsideText3Profile"),
     },
     Diametr: {
       inputComponent: FilterFullMenuInput,
       dataComponent: FilterFullMenuDiametrData,
-      ...textData.Diametr,
+      headerTitle: t("filterHeaderTitleDiametr"),
+      asideHeader: t("filterAsideHeaderDiametr"),
+      text1: t("filterAsideText1"),
+      text2: t("filterAsideText2"),
+      parametr: "16",
+      textForParametr: t("filterAsideText3Diametr"),
     },
     Price: {
       dataComponent: FilterFullMenuPriceData,
-      ...textData.Price,
+      headerTitle: t("filterHeaderTitlePrice"),
+      asideHeader: t("filterAsideHeaderPrice"),
+      text1: t("filterAsideText1Price"),
     },
     Season: {
       inputComponent: FilterFullMenuInput,
       dataComponent: FilterFullMenuSeasonData,
-      ...textData.Season,
+      headerTitle: t("filterHeaderTitleSeason"),
+      asideHeader: t("filterAsideHeaderSeason"),
+      text1: t("filterAsideText1Season"),
+      text2: t("filterAsideText2Season"),
+      text3: t("filterAsideText3Season"),
     },
     Brand: {
       inputComponent: FilterFullMenuInput,
       dataComponent: FilterFullMenuBrandData,
-      ...textData.Brand,
+      headerTitle: t("filterHeaderTitleBrand"),
+      asideHeader: t("filterAsideHeaderBrand"),
+      text1: t("filterAsideText1Brand"),
+      text2: t("filterAsideText2Brand"),
+    },
+    Studded: {
+      inputComponent: FilterFullMenuInput,
+      dataComponent: FilterFullMenuStuddedData,
+      headerTitle: t("filterHeaderTitleStudded"),
+      asideHeader: t("filterAsideHeaderStudded"),
+      text1: t("filterAsideText1Studded"),
+      text2: t("filterAsideText2Studded"),
     },
   };
-
-  function renderBoldText(key: keyof typeof FilterFullMenuData) {
-    if (menuData[key].parametr && menuData[key].textForParametr) {
-      return (
-        <StyledText>
-          The size is indicated as follows: <b>205/75 R16 91T</b>, where{" "}
-          <b>{menuData[key].parametr}</b>
-          {menuData[key].textForParametr}
-        </StyledText>
-      );
-    }
-    return null;
-  }
 
   const tabsIcons = [
     { label: <WidthIcon /> },
@@ -163,6 +175,7 @@ function FilterFullMenuContainer() {
     { label: <PriceIcon /> },
     { label: <SeasonIcon /> },
     { label: <BrandIcon /> },
+    { label: <StuddedTireIcon /> },
   ];
 
   const menuKeys = Object.keys(menuData);
@@ -226,7 +239,7 @@ function FilterFullMenuContainer() {
                     fontFamily: FONTS.BOLD_TEXT_FAMILY,
                   }}
                 >
-                  {headerTitle}
+                  {headerTitle?.toUpperCase()}
                 </Typography>
                 {InputComponent && <InputComponent />}
                 {DataComponent && <DataComponent />}
@@ -271,9 +284,19 @@ function FilterFullMenuContainer() {
                   }}
                 />
                 <StyledText>{menuData[key].text1}</StyledText>
-                <StyledText>{menuData[key].text2}</StyledText>
-                <StyledText>{menuData[key].text3}</StyledText>
-                {renderBoldText(key as keyof typeof FilterFullMenuData)}
+                {key === "Width" || key === "Profile" || key === "Diametr" ? (
+                  <StyledText>
+                    {menuData[key].text2}
+                    <b>205/75 R16 91T</b> {t("where")}
+                    <b>{menuData[key].parametr}</b>{" "}
+                    {menuData[key].textForParametr}
+                  </StyledText>
+                ) : (
+                  <>
+                    <StyledText>{menuData[key].text2}</StyledText>
+                    <StyledText>{menuData[key].text3}</StyledText>
+                  </>
+                )}
               </Box>
             </Box>
           </TabPanel>

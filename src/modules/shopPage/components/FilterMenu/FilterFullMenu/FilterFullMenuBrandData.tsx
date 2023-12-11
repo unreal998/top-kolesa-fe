@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { actions } from "../../../reducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +20,7 @@ import {
   FONTS,
   BASE_COLORS,
 } from "../../../../../shared/constants";
+import { useTranslation } from "react-i18next";
 
 const CheckBoxContainer = styled("div")({
   display: "grid",
@@ -32,6 +33,7 @@ const CheckBoxContainer = styled("div")({
 
 function FilterFullMenuBrandData() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const selectedBrand = useSelector(selectSelectedBrand);
   const searchInput = useSelector(selectSearchInput);
   const filtersParams = useSelector(selectFilterData());
@@ -45,25 +47,25 @@ function FilterFullMenuBrandData() {
       .sort();
   }, [searchInput, filtersParams.brands]);
 
-  function handleBrandChange(
-    e: React.ChangeEvent<HTMLInputElement>,
-    newBrand: string
-  ) {
-    const updatedBrands = e.target.checked
-      ? [...brands, newBrand]
-      : brands.filter((s) => s !== newBrand);
-    setBrands(updatedBrands);
-  }
+  const handleBrandChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, newBrand: string) => {
+      const updatedBrands = e.target.checked
+        ? [...brands, newBrand]
+        : brands.filter((s) => s !== newBrand);
+      setBrands(updatedBrands);
+    },
+    [brands]
+  );
 
-  function handleSubmit() {
+  const handleSubmit = () => {
     dispatch(actions.setBrandChange(brands));
     dispatch(actions.toggleFullMenu());
-  }
+  };
 
-  function handleResetFilterBrand() {
+  const handleResetFilterBrand = () => {
     dispatch(actions.setResetBrand());
     setBrands([]);
-  }
+  };
 
   return (
     <>
@@ -76,24 +78,30 @@ function FilterFullMenuBrandData() {
           marginBottom: "12px",
           width: "fit-content",
           cursor: "pointer",
+          color:
+            brands.length > 0
+              ? FILTER_COLORS.TEXT_MAIN
+              : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
+          transition: "all 0.2s ease",
         }}
       >
         <ClearIcon
           style={{
             color:
-              selectedBrand.length > 0 || brands.length > 0
+              brands.length > 0 || brands.length > 0
                 ? FILTER_COLORS.BUTTON_RESET_FILTER
                 : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
             transition: "all 0.2s ease",
           }}
         />
         <Typography
+          variant="subtitle2"
+          pt={0.2}
           sx={{
-            fontSize: "14px",
             fontFamily: FONTS.MAIN_TEXT_FAMILY,
           }}
         >
-          Reset Filter
+          {t("resetFilter")}
         </Typography>
       </Box>
       <CheckBoxContainer>
@@ -125,13 +133,13 @@ function FilterFullMenuBrandData() {
           ))
         ) : (
           <Typography
+            variant="subtitle2"
             sx={{
-              fontSize: "14px",
               fontFamily: FONTS.MAIN_TEXT_FAMILY,
               marginTop: "20px",
             }}
           >
-            No matches found
+            {t("noMatchesFound")}
           </Typography>
         )}
       </CheckBoxContainer>
@@ -148,7 +156,7 @@ function FilterFullMenuBrandData() {
           },
         }}
       >
-        Set
+        {t("set")}
       </Button>
     </>
   );

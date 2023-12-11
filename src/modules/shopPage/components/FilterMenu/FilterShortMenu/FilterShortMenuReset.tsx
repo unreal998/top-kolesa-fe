@@ -1,6 +1,7 @@
-import { styled, Box } from "@mui/material";
+import { styled, Box, Typography } from "@mui/material";
 
 import { FILTER_COLORS, FONTS } from "../../../../../shared/constants";
+import { useTranslation } from "react-i18next";
 
 const StyledButton = styled(Box)({
   display: "flex",
@@ -17,16 +18,6 @@ const StyledButton = styled(Box)({
   background: FILTER_COLORS.SHORT_MENU_RESET_BUTTON_BACKGROUND,
   borderBottom: "none",
   cursor: "pointer",
-  "& span": {
-    fontFamily: FONTS.MAIN_TEXT_FAMILY,
-    fontWeight: "400",
-    fontSize: "16px",
-    color: `${FILTER_COLORS.TEXT_MAIN}`,
-  },
-  "& p": {
-    fontSize: "16px",
-    transition: "color 0.2s ease",
-  },
   "&:hover": {
     backgroundColor: FILTER_COLORS.SHORT_MENU_RESET_BUTTON_BACKGROUND,
     borderColor: FILTER_COLORS.BORDER,
@@ -45,19 +36,21 @@ type FilterShortMenuRowProps = {
 };
 
 function FilterShortMenuReset({ icon, onClick }: FilterShortMenuRowProps) {
+  const { t } = useTranslation();
   return (
     <StyledButton onClick={onClick}>
       <Box display="flex" alignItems="center" sx={{ flexGrow: 1 }}>
         <Box display="flex" justifyContent="center" alignItems="center">
           {icon}
         </Box>
-        <p
-          style={{
-            marginLeft: "13px",
-          }}
+        <Typography
+          variant="body1"
+          fontFamily={FONTS.BOLD_TEXT_FAMILY}
+          fontWeight={600}
+          ml={1.3}
         >
-          Reset All Filters
-        </p>
+          {t("resetAllFilters")}
+        </Typography>
       </Box>
     </StyledButton>
   );
