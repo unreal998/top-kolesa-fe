@@ -90,8 +90,17 @@ function FilterShortMenuColumn({
   const visableParams = params.length > 0;
 
   function handleMenuToggle() {
-    const tabIndex =
-      filterName === "Season" ? 4 : filterName === "Brand" ? 5 : 6;
+    let tabIndex;
+    switch (filterName) {
+      case "Season":
+        tabIndex = 4;
+        break;
+      case "Brand":
+        tabIndex = 5;
+        break;
+      default:
+        tabIndex = 6;
+    }
     dispatch(actions.toggleFullMenu(tabIndex));
   }
 
@@ -149,13 +158,7 @@ function FilterShortMenuColumn({
             fontFamily={FONTS.BOLD_TEXT_FAMILY}
             fontWeight={600}
             style={{
-              marginLeft: `${
-                filterName === "Season"
-                  ? "16px"
-                  : filterName === "Brand"
-                  ? "12px"
-                  : "16px"
-              }`,
+              marginLeft: `${filterName === "Brand" ? "12px" : "16px"}`,
               color: visableParams
                 ? BASE_COLORS.DEFAULT_BLUE
                 : FILTER_COLORS.TEXT_SHORT_MENU,
