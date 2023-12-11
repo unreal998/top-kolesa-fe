@@ -1,6 +1,6 @@
 import { MapsHomeWork, Timer } from "@mui/icons-material";
 import { Box, Button, Link, Stack, Typography } from "@mui/material";
-import { ButtonWithIcon } from "../../../modules/mainPage/components/ButtonWithIcon";
+import { ButtonWithIcon } from "../ButtonWithIcon";
 import { FooterStrocedText } from "./FooterStrocedText";
 import { Copyright } from "./Copyright";
 import { BASE_COLORS } from "../../constants";

@@ -27,6 +27,7 @@ export type ShopItemAPI = {
   brand_id: number;
   size_id: number;
   supplier_id: number;
+  param: string; // studded
 };
 
 export type ShopData = {

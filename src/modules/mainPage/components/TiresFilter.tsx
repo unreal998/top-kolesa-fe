@@ -17,7 +17,7 @@ import {
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { inputLabelClasses } from "@mui/material/InputLabel";
 
-import { ButtonWithIcon } from "./ButtonWithIcon";
+import { ButtonWithIcon } from "../../../shared/components/ButtonWithIcon";
 import { BASE_COLORS, FILTER_COLORS, FONTS } from "../../../shared/constants";
 
 type FieldType = "width" | "profile" | "diametr" | "season" | "brand";

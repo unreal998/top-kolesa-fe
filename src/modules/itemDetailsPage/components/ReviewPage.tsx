@@ -1,30 +1,63 @@
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import {
   Button,
-  FormControl,
   Rating,
   Stack,
   TextField,
   Typography,
+  styled,
 } from "@mui/material";
-import React, { useState } from "react";
-import { ReviewItem } from "./ReviewItem";
-import { BASE_COLORS } from "../../../shared/constants";
-import { ArrowRight, CheckBox } from "@mui/icons-material";
-import { ButtonWithIcon } from "../../mainPage/components/ButtonWithIcon";
+import { ArrowRight } from "@mui/icons-material";
 
-export function ReviewPage() {
+import { ReviewItem } from "./ReviewItem";
+import { BASE_COLORS, FONTS } from "../../../shared/constants";
+import { ButtonWithIcon } from "../../../shared/components/ButtonWithIcon";
+
+const StyledTextField = styled(TextField)({
+  fontFamily: FONTS.MAIN_TEXT_FAMILY,
+  "& input": { fontFamily: FONTS.MAIN_TEXT_FAMILY },
+  "& textarea": { fontFamily: FONTS.MAIN_TEXT_FAMILY },
+  "& .MuiOutlinedInput-root": {
+    "&:hover fieldset": {
+      borderColor: BASE_COLORS.DEFAULT_BLUE,
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: BASE_COLORS.DEFAULT_BLUE,
+    },
+  },
+});
+
+const StyledButton = styled(Button)({
+  backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+  fontWeight: "600",
+  borderRadius: "999px",
+  padding: "20px 40px",
+});
+
+export default function ReviewPage() {
+  const { t } = useTranslation();
   const [ratingValue, setRatingValue] = useState<number | null>(0);
   return (
     <Stack padding="0 15%" gap="30px">
       <ReviewItem />
       <Stack gap="15px">
-        <Typography fontWeight="600" variant="h5">
-          Add a review
+        <Typography
+          fontWeight="600"
+          variant="h5"
+          fontFamily={FONTS.BOLD_TEXT_FAMILY}
+        >
+          {t("addReviewTitle")}
         </Typography>
         <Stack gap="20px">
           <Stack direction="row" gap="10px">
-            <Typography color={BASE_COLORS.DEFAULT_GREY} component="legend">
-              Your Rating
+            <Typography
+              color={BASE_COLORS.DEFAULT_GREY}
+              component="legend"
+              fontFamily={FONTS.MAIN_TEXT_FAMILY}
+            >
+              {t("yourRating")}
             </Typography>
             <Rating
               onChange={(event, newValue) => {
@@ -34,29 +67,33 @@ export function ReviewPage() {
             />
           </Stack>
           <Stack direction="row" gap="15px">
-            <TextField sx={{ width: "45%" }} placeholder="Your name" />
-            <TextField sx={{ width: "45%" }} placeholder="Your email" />
+            <StyledTextField
+              sx={{
+                width: "45%",
+              }}
+              placeholder={t("yourName")}
+            />
+            <StyledTextField
+              sx={{
+                width: "45%",
+              }}
+              placeholder={t("yourEmail")}
+            />
           </Stack>
-          <TextField
+          <StyledTextField
             multiline
-            sx={{ width: "92%" }}
+            sx={{
+              width: "91.5%",
+            }}
             rows={4}
-            placeholder="Your comment"
+            placeholder={t("yourComment")}
           />
           <Stack>
             <ButtonWithIcon
               button={
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: BASE_COLORS.DEFAULT_BLUE,
-                    fontWeight: "600",
-                    borderRadius: "999px",
-                    padding: "20px 40px",
-                  }}
-                >
-                  Add a review
-                </Button>
+                <StyledButton variant="contained">
+                  {t("addReviewButton")}
+                </StyledButton>
               }
               icon={<ArrowRight />}
             ></ButtonWithIcon>
