@@ -20,10 +20,15 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { TypographyWithIcon } from "../../modules/mainPage/components/TypographyWithIcon";
 import { BASE_COLORS } from "../constants";
 import { useTranslation } from "react-i18next";
-import { SyntheticEvent, useCallback, useState } from "react";
-import i18next from "i18next";
+import { SyntheticEvent, useCallback, useEffect, useState } from "react";
+import i18next, { use } from "i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { selectcartItemCount } from "../../modules/shopPage/selectors";
+import { actions } from "../../modules/shopPage/reducer";
 
 export function Header() {
+  const dispatch = useDispatch();
+  const cartItemCount = useSelector(selectcartItemCount);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
   const currentLanguageCode = localStorage.getItem("i18nextLng") || "en";
@@ -41,6 +46,15 @@ export function Header() {
       name: "Українська",
     },
   ];
+
+  useEffect(() => {
+    const cartItemsCountFromStorage = JSON.parse(
+      localStorage.getItem("cartItem") || "[]"
+    ).length;
+
+    dispatch(actions.setCartItemCount(cartItemsCountFromStorage));
+  }, [dispatch]);
+
   const handleLanguageClick = useCallback((event: SyntheticEvent) => {
     setAnchorEl(event.target as HTMLElement);
   }, []);
@@ -141,7 +155,7 @@ export function Header() {
         <Stack alignItems="center" direction="row" gap={"1rem"}>
           <IconButton aria-label="cart">
             <Badge
-              badgeContent={4}
+              badgeContent={cartItemCount}
               sx={{
                 color: "#FFF",
                 "& .MuiBadge-badge": {

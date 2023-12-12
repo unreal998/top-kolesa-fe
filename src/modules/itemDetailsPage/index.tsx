@@ -58,7 +58,7 @@ export function ItemDetailsPage() {
             <TireImg />
             <Stack width={"50%"}>
               <Header />
-              <BuyOptions />
+              <BuyOptions tireId={selectedItemData?.id} />
               <Tooltips />
             </Stack>
           </Stack>
