@@ -6,7 +6,6 @@ import { BASE_COLORS } from "../../../shared/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../reducer";
 import { selectCardView } from "../selectors";
-import { useTranslation } from "react-i18next";
 import { ShopHeaderSort } from "./ShopHeaderSort";
 
 const ViewButton = styled(Box)({
@@ -27,7 +26,6 @@ const ViewButton = styled(Box)({
 });
 
 export function ShopHeaderBar() {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const cardView = useSelector(selectCardView);
   const tableButton = useRef();

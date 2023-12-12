@@ -55,6 +55,7 @@ type ShopPageState = {
   selectedSeason: string[];
   selectedBrand: string[];
   cartItemCount: number;
+  selectedStudded: string[];
 };
 
 const initialState: ShopPageState = {
@@ -76,6 +77,7 @@ const initialState: ShopPageState = {
   selectedSeason: [],
   selectedBrand: [],
   cartItemCount: 0,
+  selectedStudded: [],
 };
 
 export const shopPageSlice = createSlice({
@@ -162,6 +164,12 @@ export const shopPageSlice = createSlice({
     },
     setResetCartItemCount: (state) => {
       state.cartItemCount = 0;
+
+    setStuddedChange: (state, action: PayloadAction<string[]>) => {
+      state.selectedStudded = action.payload;
+    },
+    setResetStudded: (state) => {
+      state.selectedStudded = [];
     },
   },
 });

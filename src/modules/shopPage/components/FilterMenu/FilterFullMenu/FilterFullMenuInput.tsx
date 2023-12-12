@@ -8,6 +8,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 
 import { FILTER_COLORS, FONTS } from "../../../../../shared/constants";
+import { useTranslation } from "react-i18next";
 
 const InputSearch = styled("input")({
   width: "100%",
@@ -22,6 +23,7 @@ const InputSearch = styled("input")({
 });
 function FilterFullMenuInput() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const searchInput = useSelector(selectSearchInput);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +53,7 @@ function FilterFullMenuInput() {
         value={searchInput}
         onChange={handleInputChange}
         className="input-search"
-        placeholder="Search"
+        placeholder={t("search")}
       />
       <Box sx={{ position: "absolute", right: 10, top: 7 }}>
         {renderInputIcon()}

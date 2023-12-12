@@ -3,13 +3,14 @@ import { actions } from "../../../reducer";
 
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ClearIcon from "@mui/icons-material/Clear";
-import { Button, styled, Box } from "@mui/material";
+import { Button, styled, Box, Typography } from "@mui/material";
 
 import {
   FILTER_COLORS,
   FONTS,
   BASE_COLORS,
 } from "../../../../../shared/constants";
+import { useTranslation } from "react-i18next";
 
 const StyledButton = styled(Button)(({ params }: { params: string }) => ({
   display: "flex",
@@ -66,6 +67,8 @@ function FilterShortMenuRow({
   onClick,
 }: FilterShortMenuRowProps) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   function handleMenuToggle() {
     const tabIndex =
       filterName === "Width" ? 0 : filterName === "Profile" ? 1 : 2;
@@ -89,7 +92,10 @@ function FilterShortMenuRow({
         >
           {icon}
         </Box>
-        <p
+        <Typography
+          variant="body1"
+          fontFamily={FONTS.BOLD_TEXT_FAMILY}
+          fontWeight={600}
           style={{
             marginLeft: `${
               filterName === "Width"
@@ -100,8 +106,12 @@ function FilterShortMenuRow({
             }`,
           }}
         >
-          {filterName}
-        </p>
+          {filterName === "Width"
+            ? t("width")
+            : filterName === "Profile"
+            ? t("profile")
+            : t("diametr")}
+        </Typography>
       </Box>
       {params.length > 0 && (
         <Box display={"flex"}>
@@ -109,10 +119,10 @@ function FilterShortMenuRow({
           <Box
             display="flex"
             alignItems="center"
+            color={FILTER_COLORS.BUTTON_RESET_FILTER}
+            p={0.1}
+            borderRadius={"50%"}
             sx={{
-              padding: "1px",
-              color: "red",
-              borderRadius: "50%",
               transition: "all 0.5s",
               "&:hover": {
                 backgroundColor: FILTER_COLORS.BACKGROUND_GREY,

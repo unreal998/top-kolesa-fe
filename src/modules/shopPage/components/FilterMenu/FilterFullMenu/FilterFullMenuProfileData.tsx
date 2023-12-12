@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../../reducer";
 import { selectFilterData } from "../../../../mainPage/selectors";
 import { selectSearchInput, selectSelectedProfile } from "../../../selectors";
+
+import { useTranslation } from "react-i18next";
 
 import { Box, Button, Typography } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -36,6 +38,7 @@ const StyledButton = styled(Button)({
 
 function FilterFullMenuProfileData() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const searchInput = useSelector(selectSearchInput);
   const selectedProfile = useSelector(selectSelectedProfile);
   const filtersParams = useSelector(selectFilterData());
@@ -50,10 +53,13 @@ function FilterFullMenuProfileData() {
     setFilteredProfileOptions(filtered);
   }, [searchInput, filtersParams.height]);
 
-  const handleProfileClick = (profile: string) => {
-    dispatch(actions.setSelectedProfile(profile));
-    dispatch(actions.toggleFullMenu());
-  };
+  const handleProfileClick = useCallback(
+    (profile: string) => {
+      dispatch(actions.setSelectedProfile(profile));
+      dispatch(actions.toggleFullMenu());
+    },
+    [dispatch]
+  );
 
   const handleResetFilterDiametr = () => {
     dispatch(actions.setSelectedProfile(""));
@@ -87,17 +93,18 @@ function FilterFullMenuProfileData() {
           }}
         />
         <Typography
+          variant="subtitle2"
+          pt={0.2}
           sx={{
-            fontSize: "14px",
             fontFamily: FONTS.MAIN_TEXT_FAMILY,
           }}
         >
-          Reset Filter
+          {t("resetFilter")}
         </Typography>
       </Box>
       <ButtonsContainer>
         {filteredProfileOptions.length > 0 ? (
-          filteredProfileOptions.map((heightOption) => (
+          filteredProfileOptions.slice(1).map((heightOption) => (
             <StyledButton
               key={heightOption}
               variant="outlined"
@@ -113,15 +120,24 @@ function FilterFullMenuProfileData() {
             </StyledButton>
           ))
         ) : (
-          <Typography
+          <Box
+            paddingLeft={1.2}
             sx={{
-              fontSize: "14px",
-              fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              marginTop: "20px",
+              display: "flex",
+              alignItems: "center",
+              width: "200px",
             }}
           >
-            No matches found
-          </Typography>
+            <Typography
+              variant="subtitle2"
+              sx={{
+                fontFamily: FONTS.MAIN_TEXT_FAMILY,
+                marginTop: "20px",
+              }}
+            >
+              {t("noMatchesFound")}
+            </Typography>
+          </Box>
         )}
       </ButtonsContainer>
     </>

@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectFilterData } from "../../../../mainPage/selectors";
 import { selectSearchInput, selectSelectedDiametr } from "../../../selectors";
 import { actions } from "../../../reducer";
+
+import { useTranslation } from "react-i18next";
 
 import ClearIcon from "@mui/icons-material/Clear";
 import { Box, Button, Typography } from "@mui/material";
@@ -36,6 +38,7 @@ const StyledButton = styled(Button)({
 
 function FilterFullMenuDiametr() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const searchInput = useSelector(selectSearchInput);
   const selectedDiametr = useSelector(selectSelectedDiametr);
   const filtersParams = useSelector(selectFilterData());
@@ -51,14 +54,17 @@ function FilterFullMenuDiametr() {
     setFilteredDiamenrOptions(filtered);
   }, [searchInput, filtersParams.diametr]);
 
-  function handleDiametrClick(diametr: string) {
-    dispatch(actions.setSelectedDiametr(diametr));
-    dispatch(actions.toggleFullMenu());
-  }
+  const handleDiametrClick = useCallback(
+    (diametr: string) => {
+      dispatch(actions.setSelectedDiametr(diametr));
+      dispatch(actions.toggleFullMenu());
+    },
+    [dispatch]
+  );
 
-  function handleResetFilterDiametr() {
+  const handleResetFilterDiametr = () => {
     dispatch(actions.setSelectedDiametr(""));
-  }
+  };
 
   return (
     <>
@@ -88,17 +94,18 @@ function FilterFullMenuDiametr() {
           }}
         />
         <Typography
+          variant="subtitle2"
+          pt={0.2}
           sx={{
-            fontSize: "14px",
             fontFamily: FONTS.MAIN_TEXT_FAMILY,
           }}
         >
-          Reset Filter
+          {t("resetFilter")}
         </Typography>
       </Box>
       <ButtonsContainer>
         {filteredDiamenrOptions.length > 0 ? (
-          filteredDiamenrOptions.map((diametrOption) => (
+          filteredDiamenrOptions.slice(1).map((diametrOption) => (
             <StyledButton
               key={diametrOption}
               variant="outlined"
@@ -114,15 +121,24 @@ function FilterFullMenuDiametr() {
             </StyledButton>
           ))
         ) : (
-          <Typography
+          <Box
+            paddingLeft={1.2}
             sx={{
-              fontSize: "14px",
-              fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              marginTop: "20px",
+              display: "flex",
+              alignItems: "center",
+              width: "200px",
             }}
           >
-            No matches found
-          </Typography>
+            <Typography
+              variant="subtitle2"
+              sx={{
+                fontFamily: FONTS.MAIN_TEXT_FAMILY,
+                marginTop: "20px",
+              }}
+            >
+              {t("noMatchesFound")}
+            </Typography>
+          </Box>
         )}
       </ButtonsContainer>
     </>

@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSearchInput, selectSelectedSeason } from "../../../selectors";
+import { selectSearchInput, selectSelectedStudded } from "../../../selectors";
 import { actions } from "../../../reducer";
 
 import styled from "@emotion/styled";
@@ -33,34 +33,34 @@ const CheckBoxContainer = styled(FormGroup)({
 function FilterFullMenuSeasonData() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const selectedSeason = useSelector(selectSelectedSeason);
+  const selectedStudded = useSelector(selectSelectedStudded);
   const searchInput = useSelector(selectSearchInput);
-  const [season, setSeason] = useState(selectedSeason);
+  const [studded, setStudded] = useState(selectedStudded);
 
   const filteredSeasons = useMemo(() => {
-    return [t("winter"), t("summer"), t("all-season")].filter((season) =>
-      season.toLowerCase().includes(searchInput.toLowerCase())
+    return [t("studded"), t("studless")].filter((studded) =>
+      studded.toLowerCase().includes(searchInput.toLowerCase())
     );
   }, [searchInput]);
 
   const handleSeasonChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, seasonName: string) => {
-      const updatedSeasons = e.target.checked
-        ? [...season, seasonName]
-        : season.filter((s) => s !== seasonName);
-      setSeason(updatedSeasons);
+    (e: React.ChangeEvent<HTMLInputElement>, studdedOption: string) => {
+      const updatedStudded = e.target.checked
+        ? [...studded, studdedOption]
+        : studded.filter((s) => s !== studdedOption);
+      setStudded(updatedStudded);
     },
-    [season]
+    [studded]
   );
 
   const handleSubmit = () => {
-    dispatch(actions.setSeasonChange(season));
+    dispatch(actions.setStuddedChange(studded));
     dispatch(actions.toggleFullMenu());
   };
 
   const handleResetFilterSeason = () => {
-    dispatch(actions.setResetSeason());
-    setSeason([]);
+    dispatch(actions.setResetStudded());
+    setStudded([]);
   };
 
   return (
@@ -74,11 +74,11 @@ function FilterFullMenuSeasonData() {
           marginBottom: "12px",
           width: "fit-content",
           cursor:
-            selectedSeason.length > 0 || season.length > 0
+            studded.length > 0 || selectedStudded.length > 0
               ? "pointer"
               : "default",
           color:
-            selectedSeason.length > 0 || season.length > 0
+            studded.length > 0 || selectedStudded.length > 0
               ? FILTER_COLORS.TEXT_MAIN
               : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
           transition: "all 0.2s ease",
@@ -87,7 +87,7 @@ function FilterFullMenuSeasonData() {
         <ClearIcon
           style={{
             color:
-              selectedSeason.length > 0 || season.length > 0
+              studded.length > 0 || selectedStudded.length > 0
                 ? FILTER_COLORS.BUTTON_RESET_FILTER
                 : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
             transition: "all 0.2s ease",
@@ -105,18 +105,13 @@ function FilterFullMenuSeasonData() {
       </Box>
       <CheckBoxContainer>
         {filteredSeasons.length > 0 ? (
-          filteredSeasons.map((seasonName, i) => (
+          filteredSeasons.map((type, i) => (
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={season.includes(
-                    i === 0 ? "winter" : i === 1 ? "summer" : "all-season"
-                  )}
+                  checked={studded.includes(i === 0 ? "studded" : "studless")}
                   onChange={(e) =>
-                    handleSeasonChange(
-                      e,
-                      i === 0 ? "winter" : i === 1 ? "summer" : "all-season"
-                    )
+                    handleSeasonChange(e, i === 0 ? "studded" : "studless")
                   }
                   sx={{
                     "&.Mui-checked": {
@@ -128,8 +123,8 @@ function FilterFullMenuSeasonData() {
                   }}
                 />
               }
-              label={seasonName}
-              key={seasonName}
+              label={type}
+              key={type}
               sx={{
                 "& .MuiTypography-root": {
                   fontFamily: FONTS.MAIN_TEXT_FAMILY,
