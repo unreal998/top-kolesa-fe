@@ -56,6 +56,7 @@ type ShopPageState = {
   selectedBrand: string[];
   cartItemCount: number;
   selectedStudded: string[];
+  cartModalWindowOpen: boolean;
 };
 
 const initialState: ShopPageState = {
@@ -78,6 +79,7 @@ const initialState: ShopPageState = {
   selectedBrand: [],
   cartItemCount: 0,
   selectedStudded: [],
+  cartModalWindowOpen: false,
 };
 
 export const shopPageSlice = createSlice({
@@ -164,12 +166,15 @@ export const shopPageSlice = createSlice({
     },
     setResetCartItemCount: (state) => {
       state.cartItemCount = 0;
-
+    },
     setStuddedChange: (state, action: PayloadAction<string[]>) => {
       state.selectedStudded = action.payload;
     },
     setResetStudded: (state) => {
       state.selectedStudded = [];
+    },
+    setCartModalWindowOpen: (state, action: PayloadAction<boolean>) => {
+      state.cartModalWindowOpen = action.payload;
     },
   },
 });
