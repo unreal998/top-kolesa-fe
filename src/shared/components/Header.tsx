@@ -69,7 +69,7 @@ export function Header() {
         bgcolor={BASE_COLORS.DEFAULT_BLUE}
         display="flex"
         flexDirection="row"
-        gap="20px"
+        gap="40px"
         width="100%"
         padding="11px 11px 11px 80px"
       >
@@ -86,33 +86,20 @@ export function Header() {
             </Typography>
           }
         />
-        <Stack>
-          <TypographyWithIcon
-            icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "20px" }} />}
-            typography={
-              <Typography
-                fontFamily="PT Sans,  sans-serif"
-                color="#FFFFFF"
-                variant="body2"
-              >
-                {t("headerAddress")}
-              </Typography>
-            }
-          />
-          <TypographyWithIcon
-            icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "20px" }} />}
-            typography={
-              <Typography
-                fontFamily="PT Sans,  sans-serif"
-                color="#FFFFFF"
-                variant="body2"
-              >
-                {t("headerAddress2")}
-              </Typography>
-            }
-          />
-        </Stack>
-
+        <TypographyWithIcon
+          icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "20px" }} />}
+          typography={
+            <Typography
+              fontFamily="PT Sans,  sans-serif"
+              color="#FFFFFF"
+              variant="body2"
+            >
+              {`${t("headerCity")}, ${t("headerAddress")} / ${t(
+                "headerAddress2"
+              )}`}
+            </Typography>
+          }
+        />
         <TypographyWithIcon
           icon={<TimerOutlined sx={{ fill: "#FFF", width: "20px" }} />}
           typography={
