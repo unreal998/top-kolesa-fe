@@ -148,7 +148,7 @@ export function Header() {
           <Link underline="none" sx={{ color: "#000" }}>
             {t("aboutLabel")}
           </Link>
-          <Link underline="none" sx={{ color: "#000" }}>
+          <Link underline="none" href="/contact" sx={{ color: "#000" }}>
             {t("contactLabel")}
           </Link>
         </Stack>
