@@ -133,5 +133,8 @@
   "returnsDescription": "You can return the goods within 14 days from the date of purchase",
   "returnsDescription2": "The goods must be in the original packaging, unused, with the original labels and documents",
   "characteristics": "Characteristics",
-  "studdedCharacteristics": "Studded"
+  "studdedCharacteristics": "Studded",
+  "cart": "Cart",
+  "totalCoast": "Total coast",
+  "makeAnOrder": "Make an order"
 }

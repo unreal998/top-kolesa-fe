@@ -23,12 +23,17 @@ import { useTranslation } from "react-i18next";
 import { SyntheticEvent, useCallback, useEffect, useState } from "react";
 import i18next, { use } from "i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { selectcartItemCount } from "../../modules/shopPage/selectors";
+import {
+  selectCartModalWindowOpen,
+  selectcartItemCount,
+} from "../../modules/shopPage/selectors";
 import { actions } from "../../modules/shopPage/reducer";
+import CartModalWindow from "./CartModalWindow";
 
 export function Header() {
   const dispatch = useDispatch();
   const cartItemCount = useSelector(selectcartItemCount);
+  const cartModalWindowOpen = useSelector(selectCartModalWindowOpen);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
   const currentLanguageCode = localStorage.getItem("i18nextLng") || "en";
@@ -132,63 +137,83 @@ export function Header() {
           <Link underline="none" href="/shop" sx={{ color: "#000" }}>
             {t("shopLabel")}
           </Link>
-          <Link underline="none" sx={{ color: "#000" }}>
-            {t("aboutLabel")}
-          </Link>
-          <Link underline="none" sx={{ color: "#000" }}>
-            {t("contactLabel")}
-          </Link>
-        </Stack>
-        <Stack alignItems="center" direction="row" gap={"1rem"}>
-          <IconButton aria-label="cart">
-            <Badge
-              badgeContent={cartItemCount}
+          <Stack display="flex" flexDirection="row" gap="15px">
+            <Link underline="none" href="/" sx={{ color: "#000" }}>
+              {t("homeLabel")}
+            </Link>
+            <Link underline="none" href="/shop" sx={{ color: "#000" }}>
+              {t("shopLabel")}
+            </Link>
+            <Link underline="none" sx={{ color: "#000" }}>
+              {t("aboutLabel")}
+            </Link>
+            <Link underline="none" sx={{ color: "#000" }}>
+              {t("contactLabel")}
+            </Link>
+          </Stack>
+          <Stack alignItems="center" direction="row" gap={"1rem"}>
+            <Box
               sx={{
-                color: "#FFF",
-                "& .MuiBadge-badge": {
-                  backgroundColor: BASE_COLORS.DEFAULT_BLUE,
-                },
+                paddingRight: `${cartModalWindowOpen ? 0 : "1rem"}`,
               }}
             >
-              <ShoppingCartOutlinedIcon sx={{ color: "#000" }} />
-            </Badge>
-          </IconButton>
-          <Button
-            onClick={(event) => handleLanguageClick(event)}
-            sx={{ color: "#000" }}
-          >
-            {" "}
-            <Language sx={{ marginRight: "10px" }} />
-            {currentLanguageCode}
-          </Button>
-          <Menu
-            open={!!anchorEl}
-            onClose={handleClose}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-          >
-            {languages.map((item, index) => (
-              <MenuItem
-                key={index}
-                onClick={() => {
-                  handleClose();
-                  i18next.changeLanguage(item.code);
-                }}
-                sx={{ color: "#000" }}
+              <IconButton
+                onClick={() =>
+                  dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen))
+                }
+                aria-label="cart"
               >
-                {item.name}
-              </MenuItem>
-            ))}
-          </Menu>
-        </Stack>
+                <Badge
+                  badgeContent={cartItemCount}
+                  sx={{
+                    color: "#FFF",
+                    "& .MuiBadge-badge": {
+                      backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+                    },
+                  }}
+                >
+                  <ShoppingCartOutlinedIcon sx={{ color: "#000" }} />
+                </Badge>
+              </IconButton>
+            </Box>
+            {cartModalWindowOpen && <CartModalWindow />}
+            <Button
+              onClick={(event) => handleLanguageClick(event)}
+              sx={{ color: "#000" }}
+            >
+              {" "}
+              <Language sx={{ marginRight: "10px" }} />
+              {currentLanguageCode}
+            </Button>
+            <Menu
+              open={!!anchorEl}
+              onClose={handleClose}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+            >
+              {languages.map((item, index) => (
+                <MenuItem
+                  key={index}
+                  onClick={() => {
+                    handleClose();
+                    i18next.changeLanguage(item.code);
+                  }}
+                  sx={{ color: "#000" }}
+                >
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Menu>
+          </Stack>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
