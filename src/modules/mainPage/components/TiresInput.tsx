@@ -63,7 +63,7 @@ const sliderData: SliderItem[] = [
     description: (
       <Box
         sx={{
-          backgroundImage: "url(./imgs/tireBrands/linglong_tyre.jpg)",
+          backgroundImage: "url(./imgs/tireBrands/linglongLogo.jpg)",
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           width: "175px",
