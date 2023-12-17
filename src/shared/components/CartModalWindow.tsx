@@ -205,10 +205,14 @@ export default function CartModalWindow() {
                       </Typography>
                     </Link>
                     <Box display={"flex"} gap={"4%"}>
-                      <img
-                        src={cartItem.image}
+                      <Box
+                        component="img"
+                        sx={{
+                          width: "100px",
+                          height: "100px",
+                        }}
                         alt={cartItem.name}
-                        style={{ width: "100px", height: "100px" }}
+                        src={cartItem.image}
                       />
                       <Box
                         display={"flex"}
