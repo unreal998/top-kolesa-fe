@@ -1,6 +1,7 @@
 {
-  "headerAddress": "Винница улица Мечникова 1a Тивровское шосе 2-З",
-  "headerAddress2": "Винница улица Тивровское шосе 2-З",
+  "headerCity": "Винница",
+  "headerAddress": "ул. Мечникова 1a",
+  "headerAddress2": "ул. Тивровское шосе 2-З",
   "workHours": "Пн - Пт: 9:00 - 18:00, Сб: 10:00 - 16:00",
   "homeLabel": "Главная",
   "shopLabel": "Магазин",
@@ -152,5 +153,8 @@
   "returnsDescription": "Возврат товара возможен в течении 14 дней с момента покупки",
   "returnsDescription2": "Товар должен быть в оригинальной упаковке, не использован, с оригинальными этикетками и документами",
   "characteristics": "Характеристики",
-  "studdedCharacteristics": "Шипы"
+  "studdedCharacteristics": "Шипы",
+  "cart": "Корзина",
+  "totalCoast": "Общая стоимость",
+  "makeAnOrder": "Оформить заказ"
 }
