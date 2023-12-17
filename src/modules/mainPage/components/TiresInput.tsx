@@ -15,8 +15,40 @@ const sliderData: SliderItem[] = [
     description: (
       <Box
         sx={{
-          backgroundImage:
-            "url(https://www.logodesignlove.com/wp-content/uploads/2020/01/goodyear-logo-01.jpg)",
+          backgroundImage: "url(./imgs/tireBrands/michelinLogo.png)",
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          width: "200px",
+          height: "70px",
+          userSelect: "none",
+          backgroundColor: "#fff",
+        }}
+      />
+    ),
+  },
+  {
+    imgSource: "",
+    description: (
+      <Box
+        sx={{
+          backgroundImage: "url(./imgs/tireBrands/goodyearLogo.png)",
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          width: "180px",
+          height: "70px",
+          userSelect: "none",
+          backgroundColor: "#06469d",
+        }}
+      />
+    ),
+  },
+  {
+    imgSource: "",
+    description: (
+      <Box
+        sx={{
+          backgroundImage: "url(./imgs/tireBrands/continentalLogo.png)",
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           width: "200px",
@@ -31,13 +63,14 @@ const sliderData: SliderItem[] = [
     description: (
       <Box
         sx={{
-          backgroundImage:
-            "url(https://s19532.pcdn.co/wp-content/uploads/2018/08/Linglong-Tire-logo.png)",
+          backgroundImage: "url(./imgs/tireBrands/linglong_tyre.jpg)",
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
-          width: "200px",
-          height: "80px",
+          width: "175px",
+          height: "70px",
           userSelect: "none",
+          backgroundColor: "#fff",
+          backgroundPosition: "center",
         }}
       />
     ),
@@ -47,28 +80,11 @@ const sliderData: SliderItem[] = [
     description: (
       <Box
         sx={{
-          backgroundImage:
-            "url(https://1000logos.net/wp-content/uploads/2020/07/Momo-logo.jpg)",
+          backgroundImage: "url(./imgs/tireBrands/fuldaLogo.jpg)",
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
-          width: "200px",
-          height: "80px",
-          userSelect: "none",
-        }}
-      />
-    ),
-  },
-  {
-    imgSource: "",
-    description: (
-      <Box
-        sx={{
-          backgroundImage:
-            "url(https://www.logodesignlove.com/wp-content/uploads/2020/01/goodyear-logo-01.jpg)",
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          width: "200px",
-          height: "80px",
+          width: "175px",
+          height: "70px",
           userSelect: "none",
         }}
       />
