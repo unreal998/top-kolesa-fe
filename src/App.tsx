@@ -9,6 +9,7 @@ import { ItemDetailsPage } from "./modules/itemDetailsPage";
 import { CheckoutPage } from "./modules/checkoutPage";
 import { ContactPage } from "./modules/contactPage";
 import "./App.css";
+import AboutPage from "./modules/aboutPage";
 
 function App() {
   useEffect(() => {
@@ -27,7 +28,8 @@ function App() {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/item" element={<ItemDetailsPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />  
         </Routes>
       </BrowserRouter>
       <Footer />
