@@ -1,6 +1,7 @@
 {
-  "headerAddress": "Vinnytsia Mechnikova str 1a",
-  "headerAddress2": "Vinnytsia Tyvrivske shose str 2-3",
+  "headerCity": "Vinnytsia",
+  "headerAddress": "Mechnikova str 1a",
+  "headerAddress2": "Tyvrivske shose str 2-3",
   "workHours": "Mon-Fri: 9:00 - 18:00, Sat: 10:00 - 16:00",
   "homeLabel": "Home",
   "shopLabel": "Shop",

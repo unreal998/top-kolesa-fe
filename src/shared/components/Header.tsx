@@ -69,83 +69,73 @@ export function Header() {
   };
 
   return (
-    <>
-      <Box width="100%" display="flex" flexDirection="column" overflow="hidden">
-        <Box
-          bgcolor={BASE_COLORS.DEFAULT_BLUE}
-          display="flex"
-          flexDirection="row"
-          gap="20px"
-          width="100%"
-          padding="11px 11px 11px 80px"
-        >
-          <TypographyWithIcon
-            icon={<EmailOutlined sx={{ fill: "#FFF", width: "20px" }} />}
-            typography={
-              <Typography
-                fontFamily="PT Sans,  sans-serif"
-                color="#FFFFFF"
-                variant="body2"
-              >
-                {" "}
-                topkolesa@gmail.com{" "}
-              </Typography>
-            }
-          />
-          <Stack>
-            <TypographyWithIcon
-              icon={
-                <MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "20px" }} />
-              }
-              typography={
-                <Typography
-                  fontFamily="PT Sans,  sans-serif"
-                  color="#FFFFFF"
-                  variant="body2"
-                >
-                  {t("headerAddress")}
-                </Typography>
-              }
-            />
-            <TypographyWithIcon
-              icon={
-                <MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "20px" }} />
-              }
-              typography={
-                <Typography
-                  fontFamily="PT Sans,  sans-serif"
-                  color="#FFFFFF"
-                  variant="body2"
-                >
-                  {t("headerAddress2")}
-                </Typography>
-              }
-            />
-          </Stack>
-          <TypographyWithIcon
-            icon={<TimerOutlined sx={{ fill: "#FFF", width: "20px" }} />}
-            typography={
-              <Typography
-                fontFamily="PT Sans,  sans-serif"
-                color="#FFFFFF"
-                variant="body2"
-              >
-                {t("workHours")}
-              </Typography>
-            }
-          />
-        </Box>
-        <Box
-          display="flex"
-          flexDirection="row"
-          gap="20px"
-          width="92%"
-          padding="30px 4%"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Link href="/">
-            <img src="./logo.png" alt="logo" />
+    <Box width="100%" display="flex" flexDirection="column" overflow="hidden">
+      <Box
+        bgcolor={BASE_COLORS.DEFAULT_BLUE}
+        display="flex"
+        flexDirection="row"
+        gap="40px"
+        width="100%"
+        padding="11px 11px 11px 80px"
+      >
+        <TypographyWithIcon
+          icon={<EmailOutlined sx={{ fill: "#FFF", width: "20px" }} />}
+          typography={
+            <Typography
+              fontFamily="PT Sans,  sans-serif"
+              color="#FFFFFF"
+              variant="body2"
+            >
+              {" "}
+              topkolesa@gmail.com{" "}
+            </Typography>
+          }
+        />
+        <TypographyWithIcon
+          icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "20px" }} />}
+          typography={
+            <Typography
+              fontFamily="PT Sans,  sans-serif"
+              color="#FFFFFF"
+              variant="body2"
+            >
+              {`${t("headerCity")}, ${t("headerAddress")} / ${t(
+                "headerAddress2"
+              )}`}
+            </Typography>
+          }
+        />
+        <TypographyWithIcon
+          icon={<TimerOutlined sx={{ fill: "#FFF", width: "20px" }} />}
+          typography={
+            <Typography
+              fontFamily="PT Sans,  sans-serif"
+              color="#FFFFFF"
+              variant="body2"
+            >
+              {t("workHours")}
+            </Typography>
+          }
+        />
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="row"
+        gap="20px"
+        width="92%"
+        padding="30px 4%"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Link href="/">
+          <img src="./logo.png" alt="logo"></img>
+        </Link>
+        <Stack display="flex" flexDirection="row" gap="15px">
+          <Link underline="none" href="/" sx={{ color: "#000" }}>
+            {t("homeLabel")}
+          </Link>
+          <Link underline="none" href="/shop" sx={{ color: "#000" }}>
+            {t("shopLabel")}
           </Link>
           <Stack display="flex" flexDirection="row" gap="15px">
             <Link underline="none" href="/" sx={{ color: "#000" }}>
