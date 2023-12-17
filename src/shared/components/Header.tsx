@@ -137,22 +137,17 @@ export function Header() {
           <Link underline="none" href="/shop" sx={{ color: "#000" }}>
             {t("shopLabel")}
           </Link>
-          <Stack display="flex" flexDirection="row" gap="15px">
-            <Link underline="none" href="/" sx={{ color: "#000" }}>
-              {t("homeLabel")}
-            </Link>
-            <Link underline="none" href="/shop" sx={{ color: "#000" }}>
-              {t("shopLabel")}
-            </Link>
-            <Link underline="none" sx={{ color: "#000" }}>
-              {t("aboutLabel")}
-            </Link>
-            <Link underline="none" sx={{ color: "#000" }}>
-              {t("contactLabel")}
-            </Link>
-          </Stack>
-          <Stack alignItems="center" direction="row" gap={"1rem"}>
-            <Box
+          <Link underline="none" href="/about" sx={{ color: "#000" }}>
+            {t("aboutLabel")}
+          </Link>
+          <Link underline="none" sx={{ color: "#000" }}>
+            {t("contactLabel")}
+          </Link>
+        </Stack>
+        <Stack alignItems="center" direction="row" gap={"1rem"}>
+          <IconButton aria-label="cart">
+            <Badge
+              badgeContent={cartItemCount}
               sx={{
                 paddingRight: `${cartModalWindowOpen ? 0 : "1rem"}`,
               }}
