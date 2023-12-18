@@ -1,11 +1,30 @@
 import { Wrapper } from "@googlemaps/react-wrapper";
 import { GoogleMaps } from "./GoogleMaps";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, styled } from "@mui/material";
 import { useState } from "react";
 import { BASE_COLORS, FONTS } from "../../../shared/constants";
 import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
-import { t } from "i18next";
 import { useTranslation } from "react-i18next";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+
+const StyledHeadingText = styled(Typography)({
+  fontFamily: `${FONTS.BOLD_TEXT_FAMILY}`,
+  textAlign: "start",
+  fontSize: "1.2rem",
+  fontWeight: "600",
+});
+
+const StyledSubHeading = styled(Typography)({
+  fontFamily: `${FONTS.BOLD_TEXT_FAMILY}`,
+  textAlign: "start",
+  fontSize: "1rem",
+  fontWeight: "600",
+});
+const StyledText = styled(Typography)({
+  fontFamily: `${FONTS.MAIN_TEXT_FAMILY}`,
+  textAlign: "start",
+  fontSize: "1rem",
+});
 
 function GoogleMapBox() {
   const { t } = useTranslation();
@@ -32,10 +51,10 @@ function GoogleMapBox() {
         <Typography
           variant="h4"
           fontFamily={`${FONTS.BOLD_TEXT_FAMILY}`}
-          fontWeight="700"
+          fontWeight="600"
           ml={1}
         >
-          Наші магазини та пункти видачі
+          {t("ourStores")}
         </Typography>
       </Box>
       <Box
@@ -60,9 +79,40 @@ function GoogleMapBox() {
                   borderTopLeftRadius: "20px",
                 }}
                 display={"flex"}
+                flexDirection={"column"}
                 p={2}
               >
-                adress1
+                <StyledHeadingText>{t("headerCity")},</StyledHeadingText>
+                <StyledHeadingText>{t("headerAddress")}</StyledHeadingText>
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  pt={2.5}
+                  pb={1.5}
+                >
+                  <CalendarMonthIcon
+                    sx={{
+                      color: BASE_COLORS.DEFAULT_BLUE,
+                      paddingRight: "0.5rem",
+                    }}
+                  />
+                  <StyledSubHeading>{t("openingHours")}:</StyledSubHeading>
+                </Box>
+                <Box display={"flex"} flexDirection={"column"}>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <StyledText>{t("workDays")}:</StyledText>
+                    <StyledText>9:00 - 18:00</StyledText>
+                  </Box>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <StyledText>{t("st")}:</StyledText>
+                    <StyledText>9:00 - 16:00</StyledText>
+                  </Box>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <StyledText>{t("su")}:</StyledText>
+                    <StyledText>{t("closed")}</StyledText>
+                  </Box>
+                </Box>
               </Box>
               <Box
                 onClick={handleChangeShowAddress}
@@ -71,8 +121,41 @@ function GoogleMapBox() {
                 sx={{
                   borderBottomLeftRadius: "20px",
                 }}
+                display={"flex"}
+                flexDirection={"column"}
+                p={2}
               >
-                adress2
+                <StyledHeadingText>{t("headerCity")},</StyledHeadingText>
+                <StyledHeadingText>{t("headerAddress2")}</StyledHeadingText>
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  pt={2.5}
+                  pb={1.5}
+                >
+                  <CalendarMonthIcon
+                    sx={{
+                      color: BASE_COLORS.DEFAULT_BLUE,
+                      paddingRight: "0.5rem",
+                    }}
+                  />
+                  <StyledSubHeading>{t("openingHours")}:</StyledSubHeading>
+                </Box>
+                <Box display={"flex"} flexDirection={"column"}>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <StyledText>{t("workDays")}:</StyledText>
+                    <StyledText>9:00 - 18:00</StyledText>
+                  </Box>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <StyledText>{t("st")}:</StyledText>
+                    <StyledText>9:00 - 16:00</StyledText>
+                  </Box>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <StyledText>{t("su")}:</StyledText>
+                    <StyledText>{t("closed")}</StyledText>
+                  </Box>
+                </Box>
               </Box>
             </Box>
           </Grid>

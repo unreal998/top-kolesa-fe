@@ -13,7 +13,6 @@ import {
   MenuItem,
   Stack,
   Typography,
-  styled,
 } from "@mui/material";
 import Badge from "@mui/material/Badge";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -145,70 +144,66 @@ export function Header() {
           </Link>
         </Stack>
         <Stack alignItems="center" direction="row" gap={"1rem"}>
-          <IconButton aria-label="cart">
-            <Badge
-              badgeContent={cartItemCount}
+          <Box display="flex" flexDirection="row">
+            <IconButton
+              onClick={() =>
+                dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen))
+              }
+              aria-label="cart"
               sx={{
-                paddingRight: `${cartModalWindowOpen ? 0 : "1rem"}`,
+                marginRight: cartModalWindowOpen ? "0px" : "1rem",
               }}
             >
-              <IconButton
-                onClick={() =>
-                  dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen))
-                }
-                aria-label="cart"
+              <Badge
+                badgeContent={cartItemCount}
+                sx={{
+                  color: "#FFF",
+                  "& .MuiBadge-badge": {
+                    backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+                  },
+                }}
               >
-                <Badge
-                  badgeContent={cartItemCount}
-                  sx={{
-                    color: "#FFF",
-                    "& .MuiBadge-badge": {
-                      backgroundColor: BASE_COLORS.DEFAULT_BLUE,
-                    },
-                  }}
-                >
-                  <ShoppingCartOutlinedIcon sx={{ color: "#000" }} />
-                </Badge>
-              </IconButton>
-            </Box>
-            {cartModalWindowOpen && <CartModalWindow />}
-            <Button
-              onClick={(event) => handleLanguageClick(event)}
-              sx={{ color: "#000" }}
-            >
-              {" "}
-              <Language sx={{ marginRight: "10px" }} />
-              {currentLanguageCode}
-            </Button>
-            <Menu
-              open={!!anchorEl}
-              onClose={handleClose}
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-            >
-              {languages.map((item, index) => (
-                <MenuItem
-                  key={index}
-                  onClick={() => {
-                    handleClose();
-                    i18next.changeLanguage(item.code);
-                  }}
-                  sx={{ color: "#000" }}
-                >
-                  {item.name}
-                </MenuItem>
-              ))}
-            </Menu>
-          </Stack>
-        </Box>
+                <ShoppingCartOutlinedIcon sx={{ color: "#000" }} />
+              </Badge>
+            </IconButton>
+          </Box>
+          {cartModalWindowOpen && <CartModalWindow />}
+          <Button
+            onClick={(event) => handleLanguageClick(event)}
+            sx={{ color: "#000" }}
+          >
+            {" "}
+            <Language sx={{ marginRight: "10px" }} />
+            {currentLanguageCode}
+          </Button>
+          <Menu
+            open={!!anchorEl}
+            onClose={handleClose}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+          >
+            {languages.map((item, index) => (
+              <MenuItem
+                key={index}
+                onClick={() => {
+                  handleClose();
+                  i18next.changeLanguage(item.code);
+                }}
+                sx={{ color: "#000" }}
+              >
+                {item.name}
+              </MenuItem>
+            ))}
+          </Menu>
+        </Stack>
       </Box>
-    </>
+    </Box>
   );
 }
