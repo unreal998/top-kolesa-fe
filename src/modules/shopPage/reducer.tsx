@@ -2,10 +2,17 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type ShopItem = {
   id: number;
+  brand: string;
   name: string;
+  width: string;
+  height: number;
+  diametr: string;
   imgName: string;
   rating: number;
   price: number;
+  country: string;
+  season: string;
+  year: number;
 };
 
 export type ShopItemAPI = {

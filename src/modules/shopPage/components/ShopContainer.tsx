@@ -54,18 +54,32 @@ export function ShopContainer() {
               {cardView ? (
                 <ShopItemCard
                   id={item.id}
+                  brand={item.brand}
                   name={item.name}
+                  width={item.width}
+                  height={item.height}
+                  diametr={item.diametr}
                   rating={item.rate}
                   price={item.price_uah}
                   imgName={item.image_file}
+                  country={item.country}
+                  season={item.season}
+                  year={item.year}
                 />
               ) : (
                 <ShopItemTable
                   id={item.id}
+                  brand={item.brand}
                   name={item.name}
+                  width={item.width}
+                  height={item.height}
+                  diametr={item.diametr}
                   rating={item.rate}
                   price={item.price_uah}
                   imgName={item.image_file}
+                  country={item.country}
+                  season={item.season}
+                  year={item.year}
                 />
               )}
             </Grid>
