@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export type FilterParams = {
   width: string[];
@@ -27,7 +27,7 @@ const initialState: MainPageState = {
 };
 
 export const mainPageSlice = createSlice({
-  name: "mainPageSliceData",
+  name: 'mainPageSliceData',
   initialState,
   reducers: {
     getFilterData(state) {},

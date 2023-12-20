@@ -1,24 +1,24 @@
-import { actions } from "../../../reducer";
-import { useDispatch, useSelector } from "react-redux";
-import { selectSearchInput } from "../../../selectors";
+import { actions } from '../../../reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectSearchInput } from '../../../selectors';
 
-import { Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { AiOutlineClose } from "react-icons/ai";
-import { BsSearch } from "react-icons/bs";
+import { Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { AiOutlineClose } from 'react-icons/ai';
+import { BsSearch } from 'react-icons/bs';
 
-import { FILTER_COLORS, FONTS } from "../../../../../shared/constants";
-import { useTranslation } from "react-i18next";
+import { FILTER_COLORS, FONTS } from '../../../../../shared/constants';
+import { useTranslation } from 'react-i18next';
 
-const InputSearch = styled("input")({
-  width: "100%",
-  height: "31px",
-  border: "1px solid #ccc",
-  boxSizing: "border-box",
-  paddingLeft: "10px",
+const InputSearch = styled('input')({
+  width: '100%',
+  height: '31px',
+  border: '1px solid #ccc',
+  boxSizing: 'border-box',
+  paddingLeft: '10px',
   fontFamily: FONTS.MAIN_TEXT_FAMILY,
-  "&:focus": {
-    outline: "none",
+  '&:focus': {
+    outline: 'none',
   },
 });
 function FilterFullMenuInput() {
@@ -47,15 +47,15 @@ function FilterFullMenuInput() {
   };
 
   return (
-    <Box sx={{ position: "relative", marginBottom: "10px" }}>
+    <Box sx={{ position: 'relative', marginBottom: '10px' }}>
       <InputSearch
         type="text"
         value={searchInput}
         onChange={handleInputChange}
         className="input-search"
-        placeholder={t("search")}
+        placeholder={t('search')}
       />
-      <Box sx={{ position: "absolute", right: 10, top: 7 }}>
+      <Box sx={{ position: 'absolute', right: 10, top: 7 }}>
         {renderInputIcon()}
       </Box>
     </Box>

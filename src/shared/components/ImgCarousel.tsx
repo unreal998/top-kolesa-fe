@@ -1,7 +1,7 @@
-import { Box, Stack } from "@mui/material";
-import { SliderItem } from "../types";
-import { useRef } from "react";
-import "./ImgCarousel.css";
+import { Box, Stack } from '@mui/material';
+import { SliderItem } from '../types';
+import { useRef } from 'react';
+import './ImgCarousel.css';
 
 interface IImgCarousel {
   sliderData: SliderItem[];
@@ -25,26 +25,24 @@ export function ImgCarousel({
     <Box
       ref={containerRef}
       sx={{
-        overflowX: "auto",
+        overflowX: 'auto',
         width: outerWidth,
-        display: "flex",
-        flexDirection: "row",
-        "&::-webkit-scrollbar": {
-          display: "none", // for Safari and Chrome
+        display: 'flex',
+        flexDirection: 'row',
+        '&::-webkit-scrollbar': {
+          display: 'none', // for Safari and Chrome
         },
-        scrollbarWidth: "none", // for Firefox
-        msOverflowStyle: "none", // for Internet Explorer 10+
-      }}
-    >
+        scrollbarWidth: 'none', // for Firefox
+        msOverflowStyle: 'none', // for Internet Explorer 10+
+      }}>
       <Stack
         direction="row"
         gap={gap}
         ref={sliderRef}
         sx={{
-          marginTop: "-1px",
-          flexWrap: "nowrap",
-        }}
-      >
+          marginTop: '-1px',
+          flexWrap: 'nowrap',
+        }}>
         {sliderData.map((item, i) => (
           <ItemElement key={i} {...item} />
         ))}

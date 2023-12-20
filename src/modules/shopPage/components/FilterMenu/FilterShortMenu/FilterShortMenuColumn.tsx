@@ -1,79 +1,79 @@
-import { useDispatch } from "react-redux";
-import { actions } from "../../../reducer";
+import { useDispatch } from 'react-redux';
+import { actions } from '../../../reducer';
 
-import ClearIcon from "@mui/icons-material/Clear";
-import { Button, styled, Box, ButtonGroup, Typography } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ClearIcon from '@mui/icons-material/Clear';
+import { Button, styled, Box, ButtonGroup, Typography } from '@mui/material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import {
   FILTER_COLORS,
   FONTS,
   BASE_COLORS,
-} from "../../../../../shared/constants";
-import { useTranslation } from "react-i18next";
+} from '../../../../../shared/constants';
+import { useTranslation } from 'react-i18next';
 
 const StyledButtonMain = styled(Button)({
-  display: "flex",
-  padding: "0 0 0 12px",
-  boxSizing: "border-box",
-  alignItems: "center",
-  fontWeight: "600",
-  height: "59px",
-  width: "252px",
+  display: 'flex',
+  padding: '0 0 0 12px',
+  boxSizing: 'border-box',
+  alignItems: 'center',
+  fontWeight: '600',
+  height: '59px',
+  width: '252px',
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
   fontFamily: FONTS.BOLD_TEXT_FAMILY,
-  borderTop: "none",
-  "& span": {
+  borderTop: 'none',
+  '& span': {
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
-    fontWeight: "400",
-    fontSize: "10px",
-    transition: "color 0.2s ease",
+    fontWeight: '400',
+    fontSize: '10px',
+    transition: 'color 0.2s ease',
   },
-  "&:hover": {
-    backgroundColor: "transparent",
+  '&:hover': {
+    backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
-    borderTop: "none",
+    borderTop: 'none',
   },
-  "&:active": {
-    backgroundColor: "transparent",
+  '&:active': {
+    backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
-    borderTop: "none",
+    borderTop: 'none',
   },
 });
 
 const StyledButtonSecondary = styled(Button)({
-  boxSizing: "border-box",
-  display: "flex",
-  justifyContent: "flex-start",
+  boxSizing: 'border-box',
+  display: 'flex',
+  justifyContent: 'flex-start',
   padding: 0,
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
   fontFamily: FONTS.BOLD_TEXT_FAMILY,
-  cursor: "default",
-  borderBottom: "none",
-  "& p": {
+  cursor: 'default',
+  borderBottom: 'none',
+  '& p': {
     color: FILTER_COLORS.TEXT_MAIN,
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
-    textTransform: "none",
+    textTransform: 'none',
   },
-  "&:hover": {
-    backgroundColor: "transparent",
+  '&:hover': {
+    backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
-    borderBottom: "none",
+    borderBottom: 'none',
   },
-  "&:active": {
-    backgroundColor: "transparent",
+  '&:active': {
+    backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
-    boxShadow: "none",
-    borderBottom: "none",
+    boxShadow: 'none',
+    borderBottom: 'none',
   },
 });
 
 type FilterShortMenuColumnProps = {
-  filterName: "Season" | "Brand" | "Studded";
+  filterName: 'Season' | 'Brand' | 'Studded';
   icon: React.ReactNode;
   params: string[];
   onClick: (param: string) => void;
@@ -92,10 +92,10 @@ function FilterShortMenuColumn({
   function handleMenuToggle() {
     let tabIndex;
     switch (filterName) {
-      case "Season":
+      case 'Season':
         tabIndex = 4;
         break;
-      case "Brand":
+      case 'Brand':
         tabIndex = 5;
         break;
       default:
@@ -111,34 +111,32 @@ function FilterShortMenuColumn({
       variant="outlined"
       aria-label="vertical contained button group"
       sx={{
-        borderTop: "none",
+        borderTop: 'none',
         borderBottom: visableParams
           ? `1px solid ${FILTER_COLORS.BORDER}`
-          : "none",
+          : 'none',
         borderRadius: 0,
-        "&:hover": {
-          borderTop: "none",
+        '&:hover': {
+          borderTop: 'none',
         },
-      }}
-    >
+      }}>
       <StyledButtonMain
         onClick={handleMenuToggle}
         sx={{
           borderBottom: visableParams
-            ? "none"
+            ? 'none'
             : `1px solid ${FILTER_COLORS.BORDER}`,
-          "&:hover": {
+          '&:hover': {
             borderBottom: visableParams
-              ? "none"
+              ? 'none'
               : `1px solid ${FILTER_COLORS.BORDER}`,
           },
-          "&:active": {
+          '&:active': {
             borderBottom: visableParams
-              ? "none"
+              ? 'none'
               : `1px solid ${FILTER_COLORS.BORDER}`,
           },
-        }}
-      >
+        }}>
         <Box display="flex" alignItems="center" sx={{ flexGrow: 1 }}>
           <Box
             display="flex"
@@ -148,9 +146,8 @@ function FilterShortMenuColumn({
               color: visableParams
                 ? BASE_COLORS.DEFAULT_BLUE
                 : FILTER_COLORS.TEXT_SHORT_MENU,
-              transition: "color 0.2s ease",
-            }}
-          >
+              transition: 'color 0.2s ease',
+            }}>
             {icon}
           </Box>
           <Typography
@@ -158,21 +155,20 @@ function FilterShortMenuColumn({
             fontFamily={FONTS.BOLD_TEXT_FAMILY}
             fontWeight={600}
             style={{
-              marginLeft: `${filterName === "Brand" ? "12px" : "16px"}`,
+              marginLeft: `${filterName === 'Brand' ? '12px' : '16px'}`,
               color: visableParams
                 ? BASE_COLORS.DEFAULT_BLUE
                 : FILTER_COLORS.TEXT_SHORT_MENU,
-              transition: "color 0.2s ease",
-            }}
-          >
-            {filterName === "Season"
-              ? t("season")
-              : filterName === "Brand"
-              ? t("brand")
-              : t("studded")}
+              transition: 'color 0.2s ease',
+            }}>
+            {filterName === 'Season'
+              ? t('season')
+              : filterName === 'Brand'
+              ? t('brand')
+              : t('studded')}
           </Typography>
         </Box>
-        <ArrowForwardIosIcon sx={{ height: "20px" }} />
+        <ArrowForwardIosIcon sx={{ height: '20px' }} />
       </StyledButtonMain>
       {visableParams &&
         params.map((param) => (
@@ -181,53 +177,51 @@ function FilterShortMenuColumn({
             disableRipple={true}
             sx={{
               borderTop: visableParams
-                ? "none"
+                ? 'none'
                 : `1px solid ${FILTER_COLORS.BORDER}`,
-              "&:hover": {
+              '&:hover': {
                 borderTop: visableParams
-                  ? "none"
+                  ? 'none'
                   : `1px solid ${FILTER_COLORS.BORDER}`,
               },
-              "&:active": {
+              '&:active': {
                 borderTop: visableParams
-                  ? "none"
+                  ? 'none'
                   : `1px solid ${FILTER_COLORS.BORDER}`,
               },
-            }}
-          >
-            <Box display="flex" alignItems="center" sx={{ padding: "0 12px" }}>
+            }}>
+            <Box display="flex" alignItems="center" sx={{ padding: '0 12px' }}>
               <Box
                 display="flex"
                 alignItems="center"
                 sx={{
-                  padding: "1px",
-                  color: "red",
-                  cursor: "pointer",
-                  borderRadius: "50%",
-                  transition: "all 0.5s",
-                  "&:hover": {
+                  padding: '1px',
+                  color: 'red',
+                  cursor: 'pointer',
+                  borderRadius: '50%',
+                  transition: 'all 0.5s',
+                  '&:hover': {
                     backgroundColor: FILTER_COLORS.BACKGROUND_GREY,
-                    transition: "all 0.3s",
+                    transition: 'all 0.3s',
                   },
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
                   onClick(param);
-                }}
-              >
+                }}>
                 <ClearIcon fontSize="inherit" />
               </Box>
-              {filterName === "Season" ? (
+              {filterName === 'Season' ? (
                 <Typography variant="body2">
-                  {param === "winter"
-                    ? t("winter")
-                    : param === "summer"
-                    ? t("summer")
-                    : t("all-season")}
+                  {param === 'winter'
+                    ? t('winter')
+                    : param === 'summer'
+                    ? t('summer')
+                    : t('all-season')}
                 </Typography>
-              ) : filterName === "Studded" ? (
+              ) : filterName === 'Studded' ? (
                 <Typography variant="body2">
-                  {param === "studded" ? t("studded") : t("studless")}
+                  {param === 'studded' ? t('studded') : t('studless')}
                 </Typography>
               ) : (
                 <Typography variant="body2">{param}</Typography>

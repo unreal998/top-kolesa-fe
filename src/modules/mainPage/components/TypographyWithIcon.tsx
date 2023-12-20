@@ -1,5 +1,5 @@
-import { Stack } from "@mui/material";
-import { ReactNode } from "react";
+import { Stack } from '@mui/material';
+import { ReactNode } from 'react';
 
 type TypographyWithIconProps = {
   typography: ReactNode;

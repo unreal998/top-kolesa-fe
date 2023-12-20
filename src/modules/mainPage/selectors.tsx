@@ -1,4 +1,4 @@
-import { mainPageReducerState, mainPageSlice } from "./reducer";
+import { mainPageReducerState, mainPageSlice } from './reducer';
 
 export type ManPageSliceStore = {
   [mainPageSlice.name]: mainPageReducerState;

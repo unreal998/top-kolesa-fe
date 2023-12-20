@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
-import { Box, Rating, Typography } from "@mui/material";
+import { Box, Rating, Typography } from '@mui/material';
 
-import { selectSelectedItemData } from "../../shopPage/selectors";
-import { BASE_COLORS, FONTS } from "../../../shared/constants";
+import { selectSelectedItemData } from '../../shopPage/selectors';
+import { BASE_COLORS, FONTS } from '../../../shared/constants';
 
 export default function Header() {
   const { t } = useTranslation();
@@ -12,15 +12,14 @@ export default function Header() {
 
   return (
     <>
-      <Box display={"flex"} alignItems={"center"} mb={1}>
+      <Box display={'flex'} alignItems={'center'} mb={1}>
         <Rating name="read-only" value={selectedItemData?.rate} readOnly />
         <Typography
           variant="subtitle1"
           fontFamily={FONTS.MAIN_TEXT_FAMILY}
           color={BASE_COLORS.DEFAULT_BLUE}
-          pl={1}
-        >
-          (1 {t("review")})
+          pl={1}>
+          (1 {t('review')})
         </Typography>
       </Box>
       <Typography
@@ -28,51 +27,46 @@ export default function Header() {
         fontFamily={FONTS.BOLD_TEXT_FAMILY}
         fontWeight={600}
         pb={2}
-        width={"fit-content"}
-      >
-        {selectedItemData?.brand} {selectedItemData?.name}{" "}
+        width={'fit-content'}>
+        {selectedItemData?.brand} {selectedItemData?.name}{' '}
         {selectedItemData?.width}/{selectedItemData?.height} R
         {selectedItemData?.diametr}
       </Typography>
       <Box borderBottom={`1px dashed ${BASE_COLORS.DEFAULT_BLUE}`} />
-      <Box display={"flex"} justifyContent={"space-between"} mt={2}>
-        <Box display={"flex"}>
+      <Box display={'flex'} justifyContent={'space-between'} mt={2}>
+        <Box display={'flex'}>
           <Typography
             fontSize="0.8rem"
             fontFamily={FONTS.BOLD_TEXT_FAMILY}
             fontWeight={600}
             color={BASE_COLORS.DEFAULT_GREY}
-            variant="body1"
-          >
-            {t("availability")}:
+            variant="body1">
+            {t('availability')}:
           </Typography>
           <Typography
             fontSize="0.8rem"
             color={BASE_COLORS.DEFAULT_GREY}
             fontFamily={FONTS.MAIN_TEXT_FAMILY}
             variant="body1"
-            pl={0.5}
-          >
-            {t("inStock")}
+            pl={0.5}>
+            {t('inStock')}
           </Typography>
         </Box>
-        <Box display={"flex"}>
+        <Box display={'flex'}>
           <Typography
             fontSize="0.8rem"
             fontFamily={FONTS.BOLD_TEXT_FAMILY}
             fontWeight={600}
             color={BASE_COLORS.DEFAULT_GREY}
-            variant="body1"
-          >
-            {t("article")}:
+            variant="body1">
+            {t('article')}:
           </Typography>
           <Typography
             fontSize="0.8rem"
             color={BASE_COLORS.DEFAULT_GREY}
             variant="body1"
             fontFamily={FONTS.MAIN_TEXT_FAMILY}
-            pl={0.5}
-          >
+            pl={0.5}>
             {selectedItemData?.id}
           </Typography>
         </Box>

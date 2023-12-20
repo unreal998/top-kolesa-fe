@@ -1,27 +1,17 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { OrderItemProps } from "./types";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { OrderItemProps } from './types';
 
-type ItemDetailsPage = {
+type ItemDetailsPage = {};
 
-}
-
-const initialState: ItemDetailsPage = {
-
-};
+const initialState: ItemDetailsPage = {};
 
 export const itemDetailsSlice = createSlice({
-  name: "itemDetailsSliceData",
+  name: 'itemDetailsSliceData',
   initialState,
   reducers: {
-      fetchBuyItemAction(state, { payload }: PayloadAction<OrderItemProps>) {
-
-      },
-      fetchBuyItemActionSuccess(state, { payload }: PayloadAction<string>) {
-
-      },
-      fetchBuyItemActionFailed(state, { payload }: PayloadAction<string>) {
-
-      }
+    fetchBuyItemAction(state, { payload }: PayloadAction<OrderItemProps>) {},
+    fetchBuyItemActionSuccess(state, { payload }: PayloadAction<string>) {},
+    fetchBuyItemActionFailed(state, { payload }: PayloadAction<string>) {},
   },
 });
 

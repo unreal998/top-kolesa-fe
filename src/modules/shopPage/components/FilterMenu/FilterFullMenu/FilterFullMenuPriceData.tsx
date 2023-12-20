@@ -1,9 +1,9 @@
-import { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../../reducer";
-import { selectSelectedPrice } from "../../../selectors";
+import { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../../../reducer';
+import { selectSelectedPrice } from '../../../selectors';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 import {
   Box,
@@ -12,35 +12,35 @@ import {
   Button,
   Slider,
   styled,
-} from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
+} from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 
-import { selectFilterData } from "../../../../mainPage/selectors";
+import { selectFilterData } from '../../../../mainPage/selectors';
 
 import {
   FILTER_COLORS,
   FONTS,
   BASE_COLORS,
-} from "../../../../../shared/constants";
+} from '../../../../../shared/constants';
 
 const StyledTextField = styled(TextField)({
-  width: "150px",
-  "& .MuiInputBase-input": {
+  width: '150px',
+  '& .MuiInputBase-input': {
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
   },
-  "& .MuiInputLabel-input": {
+  '& .MuiInputLabel-input': {
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
   },
-  "& .MuiInputLabel-root.Mui-focused": {
+  '& .MuiInputLabel-root.Mui-focused': {
     color: BASE_COLORS.DEFAULT_BLUE,
   },
-  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
     borderColor: BASE_COLORS.DEFAULT_BLUE,
   },
-  "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+  '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
     borderColor: BASE_COLORS.DEFAULT_BLUE,
   },
-  "&:hover .MuiInputLabel-root": {
+  '&:hover .MuiInputLabel-root': {
     color: BASE_COLORS.DEFAULT_BLUE,
   },
 });
@@ -59,31 +59,31 @@ function FilterFullMenuPriceData() {
     (event: Event, newValue: number | number[]) => {
       setTempPrice(newValue as number[]);
     },
-    []
+    [],
   );
 
   const handleLeftSliderChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       let newMinPrice = Math.max(
         parseInt(event.target.value, 10),
-        Math.min(...filtersParams.prices)
+        Math.min(...filtersParams.prices),
       );
       newMinPrice = Math.min(newMinPrice, tempPrice[1]);
       setTempPrice([newMinPrice, tempPrice[1]]);
     },
-    [tempPrice, filtersParams.prices] // Залежності
+    [tempPrice, filtersParams.prices], // Залежності
   );
 
   const handleRightSliderChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       let newMaxPrice = Math.min(
         parseInt(event.target.value, 10),
-        Math.max(...filtersParams.prices)
+        Math.max(...filtersParams.prices),
       );
       newMaxPrice = Math.max(newMaxPrice, tempPrice[0]);
       setTempPrice([tempPrice[0], newMaxPrice]);
     },
-    [tempPrice, filtersParams.prices]
+    [tempPrice, filtersParams.prices],
   );
 
   const handleResetFilterPrice = () => {
@@ -100,35 +100,33 @@ function FilterFullMenuPriceData() {
   return (
     <Box
       display="flex"
-      flexDirection={"column"}
+      flexDirection={'column'}
       sx={{
-        width: "352px",
-        padding: "10px",
-      }}
-    >
+        width: '352px',
+        padding: '10px',
+      }}>
       <Box
         onClick={handleResetFilterPrice}
         sx={{
-          display: "flex",
-          alignItems: "center",
-          fontSize: "12px",
-          marginBottom: "32px",
-          width: "fit-content",
+          display: 'flex',
+          alignItems: 'center',
+          fontSize: '12px',
+          marginBottom: '32px',
+          width: 'fit-content',
           cursor:
             (minPrice !== tempPrice[0] && maxPrice !== tempPrice[1]) ||
             tempPrice[0] !== minPrice ||
             tempPrice[1] !== maxPrice
-              ? "pointer"
-              : "default",
+              ? 'pointer'
+              : 'default',
           color:
             (minPrice !== tempPrice[0] && maxPrice !== tempPrice[1]) ||
             tempPrice[0] !== minPrice ||
             tempPrice[1] !== maxPrice
               ? FILTER_COLORS.TEXT_MAIN
               : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
-          transition: "all 0.2s ease",
-        }}
-      >
+          transition: 'all 0.2s ease',
+        }}>
         <ClearIcon
           style={{
             color:
@@ -137,7 +135,7 @@ function FilterFullMenuPriceData() {
               tempPrice[1] !== maxPrice
                 ? FILTER_COLORS.BUTTON_RESET_FILTER
                 : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
-            transition: "all 0.2s ease",
+            transition: 'all 0.2s ease',
           }}
         />
         <Typography
@@ -145,21 +143,20 @@ function FilterFullMenuPriceData() {
           pt={0.2}
           sx={{
             fontFamily: FONTS.MAIN_TEXT_FAMILY,
-          }}
-        >
-          {t("resetFilter")}
+          }}>
+          {t('resetFilter')}
         </Typography>
       </Box>
       <Box display="flex" justifyContent="space-around" marginBottom="20px">
         <StyledTextField
-          label={t("minPrice")}
+          label={t('minPrice')}
           variant="outlined"
           value={tempPrice[0]}
           onChange={handleLeftSliderChange}
           type="number"
         />
         <StyledTextField
-          label={t("maxPrice")}
+          label={t('maxPrice')}
           variant="outlined"
           value={tempPrice[1]}
           onChange={handleRightSliderChange}
@@ -174,10 +171,10 @@ function FilterFullMenuPriceData() {
         min={Math.min.apply(null, filtersParams.prices)}
         max={Math.max.apply(null, filtersParams.prices)}
         sx={{
-          width: "90%",
-          margin: "0 auto",
+          width: '90%',
+          margin: '0 auto',
           color: BASE_COLORS.DEFAULT_BLUE,
-          "& .MuiSlider-valueLabel": {
+          '& .MuiSlider-valueLabel': {
             fontFamily: FONTS.MAIN_TEXT_FAMILY,
           },
         }}
@@ -186,16 +183,15 @@ function FilterFullMenuPriceData() {
         onClick={handleApplyFilterPrice}
         variant="contained"
         sx={{
-          marginTop: "18px",
+          marginTop: '18px',
           fontFamily: FONTS.BOLD_TEXT_FAMILY,
-          fontWeight: "bold",
+          fontWeight: 'bold',
           background: BASE_COLORS.DEFAULT_BLUE,
-          "&:hover": {
+          '&:hover': {
             background: BASE_COLORS.DEFAULT_BLUE,
           },
-        }}
-      >
-        {t("set")}
+        }}>
+        {t('set')}
       </Button>
     </Box>
   );

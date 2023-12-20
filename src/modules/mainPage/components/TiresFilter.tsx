@@ -1,9 +1,9 @@
-import { SyntheticEvent, useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../shopPage/reducer";
-import { useNavigate } from "react-router-dom";
-import { selectFilterData } from "../selectors";
-import { useTranslation } from "react-i18next";
+import { SyntheticEvent, useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../../shopPage/reducer';
+import { useNavigate } from 'react-router-dom';
+import { selectFilterData } from '../selectors';
+import { useTranslation } from 'react-i18next';
 
 import {
   Autocomplete,
@@ -13,14 +13,14 @@ import {
   TextField,
   Typography,
   styled,
-} from "@mui/material";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import { inputLabelClasses } from "@mui/material/InputLabel";
+} from '@mui/material';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { inputLabelClasses } from '@mui/material/InputLabel';
 
-import { ButtonWithIcon } from "../../../shared/components/ButtonWithIcon";
-import { BASE_COLORS, FILTER_COLORS, FONTS } from "../../../shared/constants";
+import { ButtonWithIcon } from '../../../shared/components/ButtonWithIcon';
+import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../../shared/constants';
 
-type FieldType = "width" | "profile" | "diametr" | "season" | "brand";
+type FieldType = 'width' | 'profile' | 'diametr' | 'season' | 'brand';
 
 type AutocompleteOptionType = {
   id: FieldType;
@@ -29,46 +29,46 @@ type AutocompleteOptionType = {
   onChange: (
     event: SyntheticEvent,
     value: unknown,
-    reason: AutocompleteChangeReason
+    reason: AutocompleteChangeReason,
   ) => void;
 };
 
 const StyledAutocomplete = styled(Autocomplete)({
   //LABEL COLOR/FONTS
-  "&:hover": {
+  '&:hover': {
     [`& .${inputLabelClasses.root}.${inputLabelClasses.shrink}`]: {
       color: BASE_COLORS.DEFAULT_BLUE,
     },
   },
   [`& .${inputLabelClasses.root}`]: {
-    color: "defaultColor",
+    color: 'defaultColor',
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
     [`&.${inputLabelClasses.focused}`]: {
       color: BASE_COLORS.DEFAULT_BLUE,
     },
   },
   //INPUT COLOR/FONTS
-  "& .MuiOutlinedInput-root": {
+  '& .MuiOutlinedInput-root': {
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
-    "&:hover .MuiOutlinedInput-notchedOutline": {
+    '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor: BASE_COLORS.DEFAULT_BLUE,
       color: BASE_COLORS.DEFAULT_BLUE,
     },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: BASE_COLORS.DEFAULT_BLUE,
     },
-    "&.Mui-focused .MuiInputLabel-root": {
+    '&.Mui-focused .MuiInputLabel-root': {
       color: BASE_COLORS.DEFAULT_BLUE,
     },
   },
-  "& .MuiAutocomplete-clearIndicator": {
+  '& .MuiAutocomplete-clearIndicator': {
     color: FILTER_COLORS.BUTTON_RESET_FILTER,
   },
   //OPTION COLOR/FONTS
-  "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
+  '& + .MuiAutocomplete-popper .MuiAutocomplete-option': {
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
   },
-  "& + .MuiAutocomplete-popper .MuiAutocomplete-option:hover": {
+  '& + .MuiAutocomplete-popper .MuiAutocomplete-option:hover': {
     backgroundColor: FILTER_COLORS.DEFAULT_BLUE_INACTIVE,
   },
   "& + .MuiAutocomplete-popper .MuiAutocomplete-option[aria-selected='true']:hover":
@@ -87,11 +87,11 @@ function TiresFilter() {
   const dispatch = useDispatch();
   const history = useNavigate();
   const filtersParams = useSelector(selectFilterData());
-  const [width, setWidthValue] = useState("");
-  const [profile, setProfileValue] = useState("");
-  const [diametr, setDiametrValue] = useState("");
-  const [season, setSeasonValue] = useState("");
-  const [brand, setBrandValue] = useState("");
+  const [width, setWidthValue] = useState('');
+  const [profile, setProfileValue] = useState('');
+  const [diametr, setDiametrValue] = useState('');
+  const [season, setSeasonValue] = useState('');
+  const [brand, setBrandValue] = useState('');
 
   const handleSearchButton = useCallback(() => {
     dispatch(actions.setSelectedWidth(width));
@@ -104,15 +104,15 @@ function TiresFilter() {
         Math.min.apply(null, filtersParams.prices),
         Math.max.apply(null, filtersParams.prices),
       ])}&width=${JSON.stringify(width)}&profile=${JSON.stringify(
-        profile
+        profile,
       )}&diametr=${JSON.stringify(diametr)}&season=${JSON.stringify(
-        season === t("summer")
-          ? "summer"
-          : season === t("winter")
-          ? "winter"
-          : "all-season"
+        season === t('summer')
+          ? 'summer'
+          : season === t('winter')
+          ? 'winter'
+          : 'all-season',
       )}&brand=${JSON.stringify(brand)}`,
-      { replace: true }
+      { replace: true },
     );
   }, [
     brand,
@@ -131,30 +131,30 @@ function TiresFilter() {
       (
         event: SyntheticEvent,
         value: unknown,
-        reason: AutocompleteChangeReason
+        reason: AutocompleteChangeReason,
       ) => {
-        if (typeof value !== "string") return;
+        if (typeof value !== 'string') return;
         switch (type) {
-          case "width":
+          case 'width':
             setWidthValue(value);
             break;
-          case "profile":
+          case 'profile':
             setProfileValue(value);
             break;
-          case "diametr":
+          case 'diametr':
             setDiametrValue(value);
             break;
-          case "season":
+          case 'season':
             setSeasonValue(value);
             break;
-          case "brand":
+          case 'brand':
             setBrandValue(value);
             break;
           default:
             break;
         }
       },
-    []
+    [],
   );
 
   const sortOptions = useCallback((options: (string | number)[]) => {
@@ -170,34 +170,34 @@ function TiresFilter() {
 
   const autocompleteOptions: AutocompleteOptionType[] = [
     {
-      id: "width",
+      id: 'width',
       options: filtersParams?.width,
-      label: t("width"),
-      onChange: handleAutocompleteChange("width"),
+      label: t('width'),
+      onChange: handleAutocompleteChange('width'),
     },
     {
-      id: "profile",
+      id: 'profile',
       options: filtersParams?.height,
-      label: t("profile"),
-      onChange: handleAutocompleteChange("profile"),
+      label: t('profile'),
+      onChange: handleAutocompleteChange('profile'),
     },
     {
-      id: "diametr",
+      id: 'diametr',
       options: filtersParams?.diametr,
-      label: t("diametr"),
-      onChange: handleAutocompleteChange("diametr"),
+      label: t('diametr'),
+      onChange: handleAutocompleteChange('diametr'),
     },
     {
-      id: "season",
-      options: [t("summer"), t("winter"), t("all-season")],
-      label: t("season"),
-      onChange: handleAutocompleteChange("season"),
+      id: 'season',
+      options: [t('summer'), t('winter'), t('all-season')],
+      label: t('season'),
+      onChange: handleAutocompleteChange('season'),
     },
     {
-      id: "brand",
+      id: 'brand',
       options: filtersParams?.brands,
-      label: t("brand"),
-      onChange: handleAutocompleteChange("brand"),
+      label: t('brand'),
+      onChange: handleAutocompleteChange('brand'),
     },
   ];
 
@@ -207,9 +207,8 @@ function TiresFilter() {
         variant="h3"
         color="#ffffff"
         fontWeight="600"
-        fontFamily={FONTS.BOLD_TEXT_FAMILY}
-      >
-        {t("tireSelection")}
+        fontFamily={FONTS.BOLD_TEXT_FAMILY}>
+        {t('tireSelection')}
       </Typography>
       <Stack
         bgcolor={BASE_COLORS.BACKGROUND_WHITE}
@@ -219,18 +218,17 @@ function TiresFilter() {
         flexWrap="wrap"
         width="480px"
         direction="row"
-        gap="20px"
-      >
+        gap="20px">
         {autocompleteOptions.map(({ id, options, label, onChange }) => (
           <StyledAutocomplete
             key={id}
             disablePortal
             onChange={onChange}
             options={
-              id === "width" || id === "brand" ? sortOptions(options) : options
+              id === 'width' || id === 'brand' ? sortOptions(options) : options
             }
             sx={{
-              width: id === "season" || id === "brand" ? 190 : 120,
+              width: id === 'season' || id === 'brand' ? 190 : 120,
             }}
             renderInput={(params) => (
               <TextField
@@ -252,17 +250,15 @@ function TiresFilter() {
             onClick={handleSearchButton}
             sx={{
               backgroundColor: BASE_COLORS.DEFAULT_BLUE,
-              fontWeight: "600",
+              fontWeight: '600',
               fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              borderRadius: "999px",
-              padding: "20px 40px",
-            }}
-          >
-            {t("searchButton")}
+              borderRadius: '999px',
+              padding: '20px 40px',
+            }}>
+            {t('searchButton')}
           </Button>
         }
-        icon={<ArrowRightIcon />}
-      ></ButtonWithIcon>
+        icon={<ArrowRightIcon />}></ButtonWithIcon>
     </Stack>
   );
 }

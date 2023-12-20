@@ -1,7 +1,7 @@
-import { Box, Stack, Typography } from "@mui/material";
-import { Wrapper } from "@googlemaps/react-wrapper";
-import { useEffect, useRef } from "react";
-import { useTranslation } from "react-i18next";
+import { Box, Stack, Typography } from '@mui/material';
+import { Wrapper } from '@googlemaps/react-wrapper';
+import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function MyMapComponent({
   center,
@@ -18,11 +18,14 @@ function MyMapComponent({
         center,
         zoom,
       });
-      const myLatLng = { lat: 49.238440161453745, lng: 28.403964997993405 };
+      const myLatLng = {
+        lat: 49.238440161453745,
+        lng: 28.403964997993405,
+      };
       new google.maps.Marker({
         position: myLatLng,
         map,
-        title: "Hello World!",
+        title: 'Hello World!',
       });
       const mySeccondLatLng = {
         lat: 49.207908075179304,
@@ -31,7 +34,7 @@ function MyMapComponent({
       new google.maps.Marker({
         position: mySeccondLatLng,
         map,
-        title: "Hello World!",
+        title: 'Hello World!',
       });
     }
   });
@@ -51,42 +54,37 @@ export function GoogleMap() {
       justifyContent="space-around"
       alignItems="center"
       sx={{
-        backgroundImage: "url(./imgs/ourServiceImgs/bg.jpg)",
-        backgroundSize: "contain",
-      }}
-    >
+        backgroundImage: 'url(./imgs/ourServiceImgs/bg.jpg)',
+        backgroundSize: 'contain',
+      }}>
       <Stack gap="10px">
         <Typography
           variant="h3"
           fontWeight="900"
           fontFamily="Montserrat, sans-serif"
-          color="#000"
-        >
-          {t("howToFindUS")}
+          color="#000">
+          {t('howToFindUS')}
         </Typography>
         <Stack>
           <Typography
             variant="h5"
             fontFamily="Montserrat, sans-serif"
             fontWeight="600"
-            color="#000"
-          >
-            {t("officeBased")}
+            color="#000">
+            {t('officeBased')}
           </Typography>
           <Typography
             variant="body1"
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
-            color="#000"
-          >
+            color="#000">
             Глобал
           </Typography>
           <Typography
             variant="body1"
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
-            color="#000"
-          >
+            color="#000">
             Tyre Plus
           </Typography>
         </Stack>
@@ -95,32 +93,28 @@ export function GoogleMap() {
             variant="h5"
             fontFamily="Montserrat, sans-serif"
             fontWeight="600"
-            color="#000"
-          >
-            {t("waitingForCall")}
+            color="#000">
+            {t('waitingForCall')}
           </Typography>
           <Typography
             variant="body1"
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
-            color="#000"
-          >
+            color="#000">
             (099) 273-77-44
           </Typography>
           <Typography
             variant="body1"
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
-            color="#000"
-          >
+            color="#000">
             (097) 273-77-44
           </Typography>
           <Typography
             variant="body1"
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
-            color="#000"
-          >
+            color="#000">
             (063) 253-77-44
           </Typography>
         </Stack>
@@ -129,16 +123,14 @@ export function GoogleMap() {
             variant="h5"
             fontFamily="Montserrat, sans-serif"
             fontWeight="600"
-            color="#000"
-          >
-            {t("ourMail")}
+            color="#000">
+            {t('ourMail')}
           </Typography>
           <Typography
             variant="body1"
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
-            color="#000"
-          >
+            color="#000">
             topkolesa@gmail.com
           </Typography>
         </Stack>

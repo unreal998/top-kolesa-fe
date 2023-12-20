@@ -1,9 +1,9 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from 'react';
 
-import { actions } from "../../../reducer";
-import { useDispatch, useSelector } from "react-redux";
-import { selectSearchInput, selectSelectedBrand } from "../../../selectors";
-import { selectFilterData } from "../../../../mainPage/selectors";
+import { actions } from '../../../reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectSearchInput, selectSelectedBrand } from '../../../selectors';
+import { selectFilterData } from '../../../../mainPage/selectors';
 
 import {
   Box,
@@ -12,23 +12,23 @@ import {
   FormControlLabel,
   Typography,
   styled,
-} from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
+} from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import {
   FILTER_COLORS,
   FONTS,
   BASE_COLORS,
-} from "../../../../../shared/constants";
-import { useTranslation } from "react-i18next";
+} from '../../../../../shared/constants';
+import { useTranslation } from 'react-i18next';
 
-const CheckBoxContainer = styled("div")({
-  display: "grid",
-  paddingLeft: "10px",
-  gridTemplateColumns: "repeat(2, 1fr)",
-  overflowY: "auto",
-  maxHeight: "400px",
-  width: "362px",
+const CheckBoxContainer = styled('div')({
+  display: 'grid',
+  paddingLeft: '10px',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  overflowY: 'auto',
+  maxHeight: '400px',
+  width: '362px',
 });
 
 function FilterFullMenuBrandData() {
@@ -42,7 +42,7 @@ function FilterFullMenuBrandData() {
   const filteredBrands = useMemo(() => {
     return filtersParams.brands
       .filter((brand) =>
-        brand.toLowerCase().includes(searchInput.toLowerCase())
+        brand.toLowerCase().includes(searchInput.toLowerCase()),
       )
       .sort();
   }, [searchInput, filtersParams.brands]);
@@ -54,7 +54,7 @@ function FilterFullMenuBrandData() {
         : brands.filter((s) => s !== newBrand);
       setBrands(updatedBrands);
     },
-    [brands]
+    [brands],
   );
 
   const handleSubmit = () => {
@@ -72,26 +72,25 @@ function FilterFullMenuBrandData() {
       <Box
         onClick={handleResetFilterBrand}
         sx={{
-          display: "flex",
-          alignItems: "center",
-          fontSize: "12px",
-          marginBottom: "12px",
-          width: "fit-content",
-          cursor: "pointer",
+          display: 'flex',
+          alignItems: 'center',
+          fontSize: '12px',
+          marginBottom: '12px',
+          width: 'fit-content',
+          cursor: 'pointer',
           color:
             brands.length > 0
               ? FILTER_COLORS.TEXT_MAIN
               : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
-          transition: "all 0.2s ease",
-        }}
-      >
+          transition: 'all 0.2s ease',
+        }}>
         <ClearIcon
           style={{
             color:
               brands.length > 0 || brands.length > 0
                 ? FILTER_COLORS.BUTTON_RESET_FILTER
                 : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
-            transition: "all 0.2s ease",
+            transition: 'all 0.2s ease',
           }}
         />
         <Typography
@@ -99,9 +98,8 @@ function FilterFullMenuBrandData() {
           pt={0.2}
           sx={{
             fontFamily: FONTS.MAIN_TEXT_FAMILY,
-          }}
-        >
-          {t("resetFilter")}
+          }}>
+          {t('resetFilter')}
         </Typography>
       </Box>
       <CheckBoxContainer>
@@ -113,9 +111,9 @@ function FilterFullMenuBrandData() {
                   checked={brands.includes(brand)}
                   onChange={(e) => handleBrandChange(e, brand)}
                   sx={{
-                    "&.Mui-checked": {
+                    '&.Mui-checked': {
                       color: BASE_COLORS.DEFAULT_BLUE,
-                      "&:after": {
+                      '&:after': {
                         backgroundColor: BASE_COLORS.DEFAULT_BLUE,
                       },
                     },
@@ -125,7 +123,7 @@ function FilterFullMenuBrandData() {
               label={brand}
               key={brand}
               sx={{
-                "& .MuiTypography-root": {
+                '& .MuiTypography-root': {
                   fontFamily: FONTS.MAIN_TEXT_FAMILY,
                 },
               }}
@@ -136,10 +134,9 @@ function FilterFullMenuBrandData() {
             variant="subtitle2"
             sx={{
               fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              marginTop: "20px",
-            }}
-          >
-            {t("noMatchesFound")}
+              marginTop: '20px',
+            }}>
+            {t('noMatchesFound')}
           </Typography>
         )}
       </CheckBoxContainer>
@@ -147,16 +144,15 @@ function FilterFullMenuBrandData() {
         onClick={handleSubmit}
         variant="contained"
         sx={{
-          marginTop: "18px",
+          marginTop: '18px',
           fontFamily: FONTS.BOLD_TEXT_FAMILY,
-          fontWeight: "bold",
+          fontWeight: 'bold',
           background: BASE_COLORS.DEFAULT_BLUE,
-          "&:hover": {
+          '&:hover': {
             background: BASE_COLORS.DEFAULT_BLUE,
           },
-        }}
-      >
-        {t("set")}
+        }}>
+        {t('set')}
       </Button>
     </>
   );

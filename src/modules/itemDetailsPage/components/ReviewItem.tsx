@@ -1,5 +1,5 @@
-import { Rating, Stack, Typography } from "@mui/material";
-import { BASE_COLORS, FONTS } from "../../../shared/constants";
+import { Rating, Stack, Typography } from '@mui/material';
+import { BASE_COLORS, FONTS } from '../../../shared/constants';
 
 export function ReviewItem() {
   return (
@@ -7,8 +7,7 @@ export function ReviewItem() {
       gap="5px"
       padding="5%"
       border={`1px solid ${BASE_COLORS.BORDER_WHITE}`}
-      borderRadius={2}
-    >
+      borderRadius={2}>
       <Stack direction="row" justifyContent="space-between">
         <Typography variant="h6" fontFamily={FONTS.BOLD_TEXT_FAMILY}>
           Item Name
@@ -19,8 +18,7 @@ export function ReviewItem() {
         fontWeight="600"
         color={BASE_COLORS.DEFAULT_BLUE}
         variant="body2"
-        fontFamily={FONTS.BOLD_TEXT_FAMILY}
-      >
+        fontFamily={FONTS.BOLD_TEXT_FAMILY}>
         26.04.2023
       </Typography>
       <Typography variant="body1" fontFamily={FONTS.MAIN_TEXT_FAMILY}>

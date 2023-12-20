@@ -1,16 +1,16 @@
-import React, { ChangeEvent, useCallback } from "react";
-import { ShopHeaderBar } from "./ShopHeaderBar";
-import { Grid, Pagination, Stack } from "@mui/material";
-import { ShopItemCard } from "./ShopItemCard";
-import { ShopItemTable } from "./ShopItemTable";
-import { useDispatch, useSelector } from "react-redux";
+import React, { ChangeEvent, useCallback } from 'react';
+import { ShopHeaderBar } from './ShopHeaderBar';
+import { Grid, Pagination, Stack } from '@mui/material';
+import { ShopItemCard } from './ShopItemCard';
+import { ShopItemTable } from './ShopItemTable';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCardView,
   selectCurrentPageItemList,
   selectPagesCount,
   selectSortParams,
-} from "../selectors";
-import { actions } from "../reducer";
+} from '../selectors';
+import { actions } from '../reducer';
 
 export function ShopContainer() {
   const dispatch = useDispatch();
@@ -23,21 +23,21 @@ export function ShopContainer() {
     (event: ChangeEvent<unknown>, page: number) => {
       dispatch(actions.setCurrentPage(page));
     },
-    [dispatch]
+    [dispatch],
   );
 
   const sorterShopItems = [...shopItems];
   switch (sortParams.sortBy) {
-    case "priceHigh":
+    case 'priceHigh':
       sorterShopItems.sort((a, b) => b.price_uah - a.price_uah);
       break;
-    case "priceLow":
+    case 'priceLow':
       sorterShopItems.sort((a, b) => a.price_uah - b.price_uah);
       break;
-    case "rated":
+    case 'rated':
       sorterShopItems.sort((a, b) => b.rate - a.rate);
       break;
-    case "date":
+    case 'date':
       sorterShopItems.sort((a, b) => b.year - a.year);
       break;
     default:

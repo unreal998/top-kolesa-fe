@@ -1,4 +1,4 @@
-import { shopPageReducerState, shopPageSlice } from "./reducer";
+import { shopPageReducerState, shopPageSlice } from './reducer';
 
 export type ShopSliceStore = {
   [shopPageSlice.name]: shopPageReducerState;
@@ -22,7 +22,7 @@ export const selectCurrentPageItemList =
         : 0;
     const newArray = shopPageSliceData.itemsList.slice(
       prevPageValues,
-      shopPageSliceData.currentPage * shopPageSliceData.sortParams.showBy
+      shopPageSliceData.currentPage * shopPageSliceData.sortParams.showBy,
     );
     return newArray;
   };
@@ -44,7 +44,7 @@ export const selectPagesCount =
   () =>
   ({ shopPageSliceData }: ShopSliceStore) => {
     return Math.ceil(
-      shopPageSliceData.itemsList.length / shopPageSliceData.sortParams.showBy
+      shopPageSliceData.itemsList.length / shopPageSliceData.sortParams.showBy,
     );
   };
 

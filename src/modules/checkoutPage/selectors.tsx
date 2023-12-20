@@ -1,17 +1,23 @@
-import { checkoutReducerState, checkoutSlice } from "./reducer";
+import { checkoutReducerState, checkoutSlice } from './reducer';
 
 export type CheckoutSliceStore = {
   [checkoutSlice.name]: checkoutReducerState;
 };
 
-export const selectCityListData = () => ({ checkoutSliceData }: CheckoutSliceStore) => {
+export const selectCityListData =
+  () =>
+  ({ checkoutSliceData }: CheckoutSliceStore) => {
     return checkoutSliceData.cityData;
-};
+  };
 
-export const selectWarehoutListData = () => ({ checkoutSliceData }: CheckoutSliceStore) => {
+export const selectWarehoutListData =
+  () =>
+  ({ checkoutSliceData }: CheckoutSliceStore) => {
     return checkoutSliceData.warehouseData;
-};
+  };
 
-export const selectSelectedCityName = () => ({ checkoutSliceData }: CheckoutSliceStore) => {
-  return checkoutSliceData.cityDataResponce.Addresses[0]?.MainDescription;
-};
+export const selectFetchedCityName =
+  () =>
+  ({ checkoutSliceData }: CheckoutSliceStore) => {
+    return checkoutSliceData.cityDataResponce.Addresses[0]?.MainDescription;
+  };

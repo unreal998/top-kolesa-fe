@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../../reducer";
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../../../reducer';
 import {
   selectSelectedBrand,
   selectSelectedDiametr,
@@ -8,28 +8,28 @@ import {
   selectSelectedSeason,
   selectSelectedStudded,
   selectSelectedWidth,
-} from "../../../selectors";
-import { selectFilterData } from "../../../../mainPage/selectors";
+} from '../../../selectors';
+import { selectFilterData } from '../../../../mainPage/selectors';
 
-import FilterShortMenuRow from "./FilterShortMenuRow";
-import FilterShortMenuColumnPrice from "./FilterShortMenuColumnPrice";
-import FilterShortMenuColumn from "./FilterShortMenuColumn";
-import FilterShortMenuReset from "./FilterShortMenuReset";
+import FilterShortMenuRow from './FilterShortMenuRow';
+import FilterShortMenuColumnPrice from './FilterShortMenuColumnPrice';
+import FilterShortMenuColumn from './FilterShortMenuColumn';
+import FilterShortMenuReset from './FilterShortMenuReset';
 
-import { Button, ButtonGroup, Stack } from "@mui/material";
+import { Button, ButtonGroup, Stack } from '@mui/material';
 
-import WidthIcon from "../../../../../shared/components/Icons/WidthIcon";
-import ProfileIcon from "../../../../../shared/components/Icons/ProfileIcon";
-import DiametrIcon from "../../../../../shared/components/Icons/DiametrIcon";
-import PriceIcon from "../../../../../shared/components/Icons/PriceIcon";
-import SeasonIcon from "../../../../../shared/components/Icons/SeasonIcon";
-import BrandIcon from "../../../../../shared/components/Icons/BrandIcon";
-import ResetIcon from "../../../../../shared/components/Icons/ResetIcon";
-import StuddedTireIcon from "../../../../../shared/components/Icons/StuddedTireIcon";
-import { PayloadAction } from "typesafe-actions";
-import { PayloadAction as PayloadActionRedux } from "@reduxjs/toolkit";
-import { useCallback, useEffect } from "react";
-import { useNavigate } from "react-router";
+import WidthIcon from '../../../../../shared/components/Icons/WidthIcon';
+import ProfileIcon from '../../../../../shared/components/Icons/ProfileIcon';
+import DiametrIcon from '../../../../../shared/components/Icons/DiametrIcon';
+import PriceIcon from '../../../../../shared/components/Icons/PriceIcon';
+import SeasonIcon from '../../../../../shared/components/Icons/SeasonIcon';
+import BrandIcon from '../../../../../shared/components/Icons/BrandIcon';
+import ResetIcon from '../../../../../shared/components/Icons/ResetIcon';
+import StuddedTireIcon from '../../../../../shared/components/Icons/StuddedTireIcon';
+import { PayloadAction } from 'typesafe-actions';
+import { PayloadAction as PayloadActionRedux } from '@reduxjs/toolkit';
+import { useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 const FilterShortMenuContainer = () => {
   const dispatch = useDispatch();
@@ -57,20 +57,20 @@ const FilterShortMenuContainer = () => {
       selectedPrice[1] === maxPrice;
 
     if (isFilterBackToInitial) {
-      history("/shop", { replace: true });
+      history('/shop', { replace: true });
     } else {
       history(
         `?price=${JSON.stringify([
           selectedPrice[0],
           selectedPrice[1],
         ])}&width=${JSON.stringify(selectWidth)}&profile=${JSON.stringify(
-          selectProfile
+          selectProfile,
         )}&diametr=${JSON.stringify(selectDiametr)}&season=${JSON.stringify(
-          selectedSeason
+          selectedSeason,
         )}&brand=${JSON.stringify(selectedBrand)}&studded=${JSON.stringify(
-          selectedStudded
+          selectedStudded,
         )}`,
-        { replace: true }
+        { replace: true },
       );
     }
   }, [
@@ -99,7 +99,7 @@ const FilterShortMenuContainer = () => {
   function handleClearRowsFilters() {
     return (
       e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-      filterAction: () => PayloadAction<string, void>
+      filterAction: () => PayloadAction<string, void>,
     ) => {
       e.stopPropagation();
       dispatch(filterAction());
@@ -113,7 +113,7 @@ const FilterShortMenuContainer = () => {
   function handleClearColumnFilters<T>(
     filterItems: T[],
     itemToRemove: T,
-    updateAction: (updatedItems: T[]) => PayloadActionRedux<T[]>
+    updateAction: (updatedItems: T[]) => PayloadActionRedux<T[]>,
   ) {
     return () => {
       const updatedItems = filterItems.filter((item) => item !== itemToRemove);
@@ -136,8 +136,7 @@ const FilterShortMenuContainer = () => {
       orientation="vertical"
       fullWidth
       variant="outlined"
-      aria-label="vertical contained button group"
-    >
+      aria-label="vertical contained button group">
       <FilterShortMenuRow
         icon={<WidthIcon />}
         filterName="Width"
@@ -176,7 +175,7 @@ const FilterShortMenuContainer = () => {
           handleClearColumnFilters(
             selectedSeason,
             param,
-            actions.setSeasonChange
+            actions.setSeasonChange,
           )()
         }
       />
@@ -188,7 +187,7 @@ const FilterShortMenuContainer = () => {
           handleClearColumnFilters(
             selectedBrand,
             param,
-            actions.setBrandChange
+            actions.setBrandChange,
           )()
         }
       />
@@ -200,7 +199,7 @@ const FilterShortMenuContainer = () => {
           handleClearColumnFilters(
             selectedStudded,
             param,
-            actions.setStuddedChange
+            actions.setStuddedChange,
           )()
         }
       />

@@ -1,5 +1,5 @@
-import { Box, Stack } from "@mui/material";
-import { ReactNode } from "react";
+import { Box, Stack } from '@mui/material';
+import { ReactNode } from 'react';
 
 type ButtonWithIconProps = {
   button: ReactNode;
@@ -15,8 +15,7 @@ export function ButtonWithIcon(props: ButtonWithIconProps) {
         borderRadius="9999px"
         padding="5px"
         marginLeft="-15px"
-        zIndex="9"
-      >
+        zIndex="9">
         {props.icon}
       </Box>
     </Stack>
