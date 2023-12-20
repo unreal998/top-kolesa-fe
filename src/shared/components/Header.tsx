@@ -24,14 +24,15 @@ import i18next, { use } from "i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCartModalWindowOpen,
-  selectcartItemCount,
+  selectCartItemCount,
+  selectShopItemsList,
 } from "../../modules/shopPage/selectors";
 import { actions } from "../../modules/shopPage/reducer";
 import CartModalWindow from "./CartModalWindow";
 
 export function Header() {
   const dispatch = useDispatch();
-  const cartItemCount = useSelector(selectcartItemCount);
+  const cartItemCount = useSelector(selectCartItemCount);
   const cartModalWindowOpen = useSelector(selectCartModalWindowOpen);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
@@ -57,6 +58,10 @@ export function Header() {
     ).length;
 
     dispatch(actions.setCartItemCount(cartItemsCountFromStorage));
+  }, [dispatch, cartItemCount, cartModalWindowOpen]);
+
+  useEffect(() => {
+    dispatch(actions.getShopItems(""));
   }, [dispatch]);
 
   const handleLanguageClick = useCallback((event: SyntheticEvent) => {

@@ -21,7 +21,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 type CartItem = {
@@ -41,35 +41,44 @@ export default function CartModalWindow() {
     setOpenDrawer(cartModalWindowOpen);
   }, [cartModalWindowOpen]);
 
-  const handleIncreaseQuantity = (tireId: number) => {
-    const updatedCartItems = cartItems.map((item: CartItem) =>
-      item.tireId === tireId
-        ? { ...item, numberOfTires: item.numberOfTires + 1 }
-        : item
-    );
-    localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
-    setNumberOfTires(updatedCartItems);
-  };
-
-  const handleDecreaseQuantity = (tireId: number) => {
-    const updatedCartItems = cartItems.map((item: CartItem) =>
-      item.tireId === tireId
-        ? { ...item, numberOfTires: Math.max(1, item.numberOfTires - 1) }
-        : item
-    );
-    localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
-    setNumberOfTires(updatedCartItems);
-  };
-
-  const handleDeleteItem = (tireId: number) => {
-    const updatedCartItems = cartItems.filter(
-      (item: CartItem) => item.tireId !== tireId
-    );
-    localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
-    setNumberOfTires(updatedCartItems);
-  };
-
   const cartItems = JSON.parse(localStorage.getItem("cartItem") || "[]");
+
+  const handleIncreaseQuantity = useCallback(
+    (tireId: number) => {
+      const updatedCartItems = cartItems.map((item: CartItem) =>
+        item.tireId === tireId
+          ? { ...item, numberOfTires: item.numberOfTires + 1 }
+          : item
+      );
+      localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
+      setNumberOfTires(updatedCartItems);
+    },
+    [cartItems]
+  );
+
+  const handleDecreaseQuantity = useCallback(
+    (tireId: number) => {
+      const updatedCartItems = cartItems.map((item: CartItem) =>
+        item.tireId === tireId
+          ? { ...item, numberOfTires: Math.max(1, item.numberOfTires - 1) }
+          : item
+      );
+      localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
+      setNumberOfTires(updatedCartItems);
+    },
+    [cartItems]
+  );
+
+  const handleDeleteItem = useCallback(
+    (tireId: number) => {
+      const updatedCartItems = cartItems.filter(
+        (item: CartItem) => item.tireId !== tireId
+      );
+      localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
+      setNumberOfTires(updatedCartItems);
+    },
+    [cartItems]
+  );
 
   const cartItemDetails = cartItems.map((cartItem: CartItem) => {
     const item = shopItemsList.find(
@@ -128,6 +137,7 @@ export default function CartModalWindow() {
               {t("cart")}
             </Typography>
             <IconButton
+              onClick={handleCloseCartModalWindow}
               sx={{
                 color: FILTER_COLORS.BUTTON_RESET_FILTER,
                 padding: 0,
@@ -137,7 +147,6 @@ export default function CartModalWindow() {
               }}
             >
               <CloseIcon
-                onClick={handleCloseCartModalWindow}
                 sx={{
                   height: "20px",
                   width: "20px",
@@ -166,6 +175,7 @@ export default function CartModalWindow() {
                   }}
                 >
                   <IconButton
+                    onClick={() => handleDeleteItem(cartItem.tireId)}
                     sx={{
                       padding: 0,
                       position: "absolute",
@@ -179,7 +189,6 @@ export default function CartModalWindow() {
                     }}
                   >
                     <DeleteIcon
-                      onClick={() => handleDeleteItem(cartItem.tireId)}
                       sx={{
                         height: "20px",
                         width: "20px",
@@ -190,7 +199,9 @@ export default function CartModalWindow() {
                   </IconButton>
                   <Box display={"flex"} flexDirection={"column"} mb={1}>
                     <Link
-                      href={`/item?id=${cartItem.article.toString()}`}
+                      href={`/item?id=${
+                        cartItem.article ? cartItem.article.toString() : ""
+                      }`}
                       color={"inherit"}
                       sx={{ textDecoration: "none", display: "inline" }}
                     >

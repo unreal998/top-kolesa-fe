@@ -79,7 +79,7 @@ export const selectSelectedSeason = ({ shopPageSliceData }: ShopSliceStore) =>
 export const selectSelectedBrand = ({ shopPageSliceData }: ShopSliceStore) =>
   shopPageSliceData.selectedBrand;
 
-export const selectcartItemCount = ({ shopPageSliceData }: ShopSliceStore) =>
+export const selectCartItemCount = ({ shopPageSliceData }: ShopSliceStore) =>
   shopPageSliceData.cartItemCount;
 
 export const selectSelectedStudded = ({ shopPageSliceData }: ShopSliceStore) =>
