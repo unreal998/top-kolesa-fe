@@ -19,7 +19,15 @@ export function Footer() {
       }}
     >
       <Stack padding="4% 6%" justifyContent="space-between" direction="row">
-        <Stack width="30%" gap="25px">
+        <Stack
+          width="30%"
+          gap="25px"
+          sx={{
+            "@media (max-width: 870px)": {
+              width: "40%",
+            },
+          }}
+        >
           <FooterStrocedText
             text={
               <Typography
@@ -29,7 +37,6 @@ export function Footer() {
                 fontSize="24px"
                 color="#fff"
               >
-                {" "}
                 {t("about")}
               </Typography>
             }
@@ -39,8 +46,16 @@ export function Footer() {
             fontFamily="PT Sans, sans-serif"
             color={BASE_COLORS.DEFAULT_GREY}
             variant="body1"
+            fontSize={"1rem"}
+            sx={{
+              "@media (max-width: 870px)": {
+                fontSize: "1rem",
+              },
+              "@media (max-width: 605px)": {
+                fontSize: "1.2rem",
+              },
+            }}
           >
-            {" "}
             {t("aboutSubtitle")}
           </Typography>
           <ButtonWithIcon
@@ -53,6 +68,10 @@ export function Footer() {
                   fontFamily: "PT Sans, sans-serif",
                   borderRadius: "999px",
                   padding: "16px 40px",
+                  fontSize: "0.9rem",
+                  "@media (max-width: 870px)": {
+                    fontSize: "0.9rem",
+                  },
                 }}
               >
                 {t("viewOnMap")}
@@ -61,7 +80,15 @@ export function Footer() {
             icon={<MapsHomeWork sx={{ height: "14px", width: "14px" }} />}
           ></ButtonWithIcon>
         </Stack>
-        <Stack width="30%" gap="25px">
+        <Stack
+          width="30%"
+          gap="25px"
+          sx={{
+            "@media (max-width: 770px)": {
+              width: "40%",
+            },
+          }}
+        >
           <FooterStrocedText
             text={
               <Typography

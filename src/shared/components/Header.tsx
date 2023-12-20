@@ -17,18 +17,18 @@ import {
 import Badge from "@mui/material/Badge";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { TypographyWithIcon } from "../../modules/mainPage/components/TypographyWithIcon";
-import { BASE_COLORS } from "../constants";
+import { BASE_COLORS, FONTS } from "../constants";
 import { useTranslation } from "react-i18next";
 import { SyntheticEvent, useCallback, useEffect, useState } from "react";
-import i18next, { use } from "i18next";
+import i18next from "i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCartModalWindowOpen,
   selectCartItemCount,
-  selectShopItemsList,
 } from "../../modules/shopPage/selectors";
 import { actions } from "../../modules/shopPage/reducer";
 import CartModalWindow from "./CartModalWindow";
+import MenuIcon from "@mui/icons-material/Menu";
 
 export function Header() {
   const dispatch = useDispatch();
@@ -78,12 +78,22 @@ export function Header() {
         bgcolor={BASE_COLORS.DEFAULT_BLUE}
         display="flex"
         flexDirection="row"
-        gap="40px"
-        width="100%"
-        padding="11px 11px 11px 80px"
+        justifyContent={"flex-start"}
+        gap="3rem"
+        height={"1.6rem"}
+        padding="1.1rem 4%"
+        sx={{
+          "@media (max-width: 1250px)": {
+            justifyContent: "center",
+            padding: "1.1rem 2%",
+          },
+          "@media (max-width: 870px)": {
+            display: "none",
+          },
+        }}
       >
         <TypographyWithIcon
-          icon={<EmailOutlined sx={{ fill: "#FFF", width: "20px" }} />}
+          icon={<EmailOutlined sx={{ fill: "#FFF", width: "2rem" }} />}
           typography={
             <Typography
               fontFamily="PT Sans,  sans-serif"
@@ -96,7 +106,7 @@ export function Header() {
           }
         />
         <TypographyWithIcon
-          icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "20px" }} />}
+          icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "2rem" }} />}
           typography={
             <Typography
               fontFamily="PT Sans,  sans-serif"
@@ -110,7 +120,7 @@ export function Header() {
           }
         />
         <TypographyWithIcon
-          icon={<TimerOutlined sx={{ fill: "#FFF", width: "20px" }} />}
+          icon={<TimerOutlined sx={{ fill: "#FFF", width: "2rem" }} />}
           typography={
             <Typography
               fontFamily="PT Sans,  sans-serif"
@@ -125,61 +135,129 @@ export function Header() {
       <Box
         display="flex"
         flexDirection="row"
-        gap="20px"
-        width="92%"
         padding="30px 4%"
         alignItems="center"
+        alignContent={"center"}
         justifyContent="space-between"
       >
         <Link href="/">
-          <img src="./logo.png" alt="logo"></img>
+          <Box component={"img"} src="./logo.png" alt="logo" />
         </Link>
-        <Stack display="flex" flexDirection="row" gap="15px">
-          <Link underline="none" href="/" sx={{ color: "#000" }}>
+        <Stack
+          display="flex"
+          flexDirection="row"
+          gap="1.5rem"
+          sx={{
+            "@media (max-width: 870px)": {
+              display: "none",
+            },
+          }}
+        >
+          <Link
+            underline="none"
+            href="/"
+            sx={{
+              color: "#000",
+              fontFamily: FONTS.MAIN_TEXT_FAMILY,
+              fontSize: "1.1rem",
+            }}
+          >
             {t("homeLabel")}
           </Link>
-          <Link underline="none" href="/shop" sx={{ color: "#000" }}>
+          <Link
+            underline="none"
+            href="/shop"
+            sx={{
+              color: "#000",
+              fontFamily: FONTS.MAIN_TEXT_FAMILY,
+              fontSize: "1.1rem",
+            }}
+          >
             {t("shopLabel")}
           </Link>
-          <Link underline="none" href="/about" sx={{ color: "#000" }}>
+          <Link
+            underline="none"
+            href="/about"
+            sx={{
+              color: "#000",
+              fontFamily: FONTS.MAIN_TEXT_FAMILY,
+              fontSize: "1.1rem",
+            }}
+          >
             {t("aboutLabel")}
           </Link>
-          <Link underline="none" href="/contact" sx={{ color: "#000" }}>
+          <Link
+            underline="none"
+            href="/contact"
+            sx={{
+              color: "#000",
+              fontFamily: FONTS.MAIN_TEXT_FAMILY,
+              fontSize: "1.1rem",
+            }}
+          >
             {t("contactLabel")}
           </Link>
         </Stack>
-        <Stack alignItems="center" direction="row" gap={"1rem"}>
-          <Box display="flex" flexDirection="row">
-            <IconButton
-              onClick={() =>
-                dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen))
-              }
-              aria-label="cart"
+        <Stack
+          alignItems="center"
+          direction="row"
+          gap={"1rem"}
+          width={"243px"}
+          display={"flex"}
+          justifyContent={"end"}
+          sx={{
+            "@media (max-width: 605px)": {
+              gap: "0rem",
+            },
+          }}
+        >
+          <IconButton
+            onClick={() =>
+              dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen))
+            }
+            aria-label="cart"
+            sx={{
+              marginRight: cartModalWindowOpen ? "0px" : "1rem",
+            }}
+          >
+            <Badge
+              badgeContent={cartItemCount}
               sx={{
-                marginRight: cartModalWindowOpen ? "0px" : "1rem",
+                color: "#FFF",
+                "& .MuiBadge-badge": {
+                  backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+                  fontSize: "14px",
+                },
               }}
             >
-              <Badge
-                badgeContent={cartItemCount}
-                sx={{
-                  color: "#FFF",
-                  "& .MuiBadge-badge": {
-                    backgroundColor: BASE_COLORS.DEFAULT_BLUE,
-                  },
-                }}
-              >
-                <ShoppingCartOutlinedIcon sx={{ color: "#000" }} />
-              </Badge>
-            </IconButton>
-          </Box>
+              <ShoppingCartOutlinedIcon
+                sx={{ color: "#000", width: "30px", height: "30px" }}
+              />
+            </Badge>
+          </IconButton>
           {cartModalWindowOpen && <CartModalWindow />}
           <Button
             onClick={(event) => handleLanguageClick(event)}
             sx={{ color: "#000" }}
           >
             {" "}
-            <Language sx={{ marginRight: "10px" }} />
-            {currentLanguageCode}
+            <Language
+              sx={{ paddingRight: "10px", width: "30px", height: "30px" }}
+            />
+            <Typography
+              fontFamily={FONTS.MAIN_TEXT_FAMILY}
+              fontSize={"1.1rem"}
+              sx={{
+                "@media (max-width: 870px)": {
+                  fontSize: "1.15rem",
+                },
+                "@media (max-width: 800px)": {
+                  fontSize: "1.2rem",
+                },
+              }}
+            >
+              {currentLanguageCode}
+            </Typography>
           </Button>
           <Menu
             open={!!anchorEl}
@@ -203,10 +281,43 @@ export function Header() {
                 }}
                 sx={{ color: "#000" }}
               >
-                {item.name}
+                <Typography
+                  fontFamily={FONTS.MAIN_TEXT_FAMILY}
+                  fontSize={"1.1rem"}
+                  sx={{
+                    "@media (max-width: 870px)": {
+                      fontSize: "1.15rem",
+                    },
+                    "@media (max-width: 800px)": {
+                      fontSize: "1.2rem",
+                    },
+                  }}
+                >
+                  {item.name}
+                </Typography>
               </MenuItem>
             ))}
           </Menu>
+          <Button
+            variant="text"
+            sx={{
+              padding: "0px",
+              margin: "0px",
+              "@media (min-width: 870px)": {
+                display: "none",
+                width: "40px",
+                height: "40px",
+              },
+            }}
+          >
+            <MenuIcon
+              sx={{
+                color: "#000",
+                width: "30px",
+                height: "30px",
+              }}
+            />
+          </Button>
         </Stack>
       </Box>
     </Box>

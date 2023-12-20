@@ -1,54 +1,44 @@
-import { Box, Stack } from "@mui/material";
+import Slider from "react-slick";
+import { Box } from "@mui/material";
 import { SliderItem } from "../types";
-import { useRef } from "react";
-import "./ImgCarousel.css";
+import "slick-carousel/slick/slick.css";
 
-interface IImgCarousel {
-  sliderData: SliderItem[];
-  ItemElement: (props: SliderItem) => JSX.Element;
-  gap: string;
-  innerWidth: number;
-  outerWidth: string;
-}
+const settings = {
+  slidesToShow: 5,
+  responsive: [
+    {
+      breakpoint: 1650,
+      settings: {
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 2,
+        initialSlide: 0,
+        arrows: false,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 690,
+      settings: {
+        infinite: true,
+        speed: 500,
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 0,
+        arrows: false,
+        dots: true,
+      },
+    },
+  ],
+};
 
-export function ImgCarousel({
-  sliderData,
-  ItemElement,
-  gap,
-  innerWidth,
-  outerWidth,
-}: IImgCarousel) {
-  const sliderRef = useRef(null);
-  const containerRef = useRef(null);
-
+export function ImgCarousel({ sliderData }: { sliderData: SliderItem[] }) {
   return (
-    <Box
-      ref={containerRef}
-      sx={{
-        overflowX: "auto",
-        width: outerWidth,
-        display: "flex",
-        flexDirection: "row",
-        "&::-webkit-scrollbar": {
-          display: "none", // for Safari and Chrome
-        },
-        scrollbarWidth: "none", // for Firefox
-        msOverflowStyle: "none", // for Internet Explorer 10+
-      }}
-    >
-      <Stack
-        direction="row"
-        gap={gap}
-        ref={sliderRef}
-        sx={{
-          marginTop: "-1px",
-          flexWrap: "nowrap",
-        }}
-      >
-        {sliderData.map((item, i) => (
-          <ItemElement key={i} {...item} />
-        ))}
-      </Stack>
-    </Box>
+    <Slider {...settings}>
+      {sliderData.map((item, i) => (
+        <Box key={i}>{item.description}</Box>
+      ))}
+    </Slider>
   );
 }

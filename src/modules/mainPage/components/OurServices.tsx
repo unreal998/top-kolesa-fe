@@ -8,15 +8,32 @@ import StoreIcon from "@mui/icons-material/Store";
 import ScreenSearchDesktopIcon from "@mui/icons-material/ScreenSearchDesktop";
 import HandymanIcon from "@mui/icons-material/Handyman";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
+import styled from "@emotion/styled";
 
 const settings = {
   dots: false,
   infinite: true,
   speed: 500,
   slidesToShow: 3,
-  slidesToScroll: 2,
+  slidesToScroll: 3,
   initialSlide: 0,
   arrows: false,
+  responsive: [
+    {
+      breakpoint: 1020,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 605,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 };
 
 const hoverAnimationBack = {
@@ -56,6 +73,29 @@ const hoverAnimationHeader = {
     },
   },
 };
+
+const HoverDiv = styled(motion.div)({
+  position: "absolute",
+  width: "25rem",
+  margin: "auto",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: "rgba(0,0,0,0.5)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  "@media (max-width: 1350px)": {
+    width: "20rem",
+  },
+  "@media (max-width: 650px)": {
+    width: "18rem",
+  },
+  "@media (max-width: 605px)": {
+    width: "30rem",
+  },
+});
 
 export function OurServices() {
   const { t } = useTranslation();
@@ -127,7 +167,7 @@ export function OurServices() {
     <Box
       display="flex"
       flexDirection="column"
-      padding="8%"
+      paddingY="8%"
       justifyContent="center"
       alignItems="center"
       gap="20px"
@@ -147,12 +187,46 @@ export function OurServices() {
         {t("ourServices")}
       </Typography>
       <SliderCarousel />
-      <Box width={"80%"} m={"auto"} mt={3}>
+      <Box
+        width={"80rem"}
+        m={"auto"}
+        mt={3}
+        sx={{
+          "@media (max-width: 1350px)": {
+            width: "70rem",
+          },
+          "@media (max-width: 1020px)": {
+            width: "50rem",
+          },
+          "@media (max-width: 650px)": {
+            width: "40rem",
+          },
+          "@media (max-width: 605px)": {
+            width: "100%",
+          },
+        }}
+      >
         <Slider {...settings}>
           {services.map((service, i) => (
-            <Box key={i} position="relative" mb={5}>
+            <Box key={i} position="relative" mb={5} width="25rem">
               <motion.div initial="rest" whileHover="hover" animate="rest">
-                <Box component="img" src={service.imgSrc} m={"auto"} />
+                <Box
+                  component="img"
+                  src={service.imgSrc}
+                  m={"auto"}
+                  width={"25rem"}
+                  sx={{
+                    "@media (max-width: 1350px)": {
+                      width: "20rem",
+                    },
+                    "@media (max-width: 650px)": {
+                      width: "18rem",
+                    },
+                    "@media (max-width: 605px)": {
+                      width: "30rem",
+                    },
+                  }}
+                />
                 <motion.div variants={hoverAnimationHeader}>
                   <Typography
                     variant="h5"
@@ -161,31 +235,40 @@ export function OurServices() {
                     bottom={-35}
                     left={0}
                     right={0}
-                    p={2.5}
+                    p={"1.2rem"}
                     fontFamily={FONTS.BOLD_TEXT_FAMILY}
                     bgcolor={BASE_COLORS.DEFAULT_BLUE}
-                    width={250}
+                    width={"16rem"}
                     textAlign={"center"}
                     color={"#fff"}
                     m={"auto"}
+                    sx={{
+                      "@media (max-width: 1350px)": {
+                        padding: "1rem 0.3rem",
+                        bottom: -28,
+                        width: "14.5rem",
+                        fontSize: "1.4rem",
+                      },
+                      "@media (max-width: 800px)": {
+                        padding: "1rem 0rem",
+                        width: "15rem",
+                        fontSize: "1.5rem",
+                      },
+                      "@media (max-width: 650px)": {
+                        width: "14rem",
+                        fontSize: "1.4rem",
+                      },
+                      "@media (max-width: 605px)": {
+                        padding: "1.5rem 3rem",
+                        width: "16rem",
+                        fontSize: "2rem",
+                      },
+                    }}
                   >
                     {t(service.title)}
                   </Typography>
                 </motion.div>
-                <motion.div
-                  variants={hoverAnimationBack}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 22,
-                    right: 22,
-                    bottom: 0,
-                    backgroundColor: "rgba(0,0,0,0.5)",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
+                <HoverDiv variants={hoverAnimationBack}>
                   <Box textAlign={"center"}>
                     {service.icon}
                     <Typography
@@ -211,7 +294,7 @@ export function OurServices() {
                       {t(service.description)}
                     </Typography>
                   </Box>
-                </motion.div>
+                </HoverDiv>
               </motion.div>
             </Box>
           ))}

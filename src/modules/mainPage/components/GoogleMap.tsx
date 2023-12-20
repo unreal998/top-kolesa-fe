@@ -36,7 +36,22 @@ function MyMapComponent({
     }
   });
 
-  return <Box width="50%" height="500px" ref={ref} id="map" />;
+  return (
+    <Box
+      width="50%"
+      height="500px"
+      ref={ref}
+      id="map"
+      sx={{
+        "@media (max-width: 1025px)": {
+          width: "80%",
+        },
+        "@media (max-width: 650px)": {
+          height: "400px",
+        },
+      }}
+    />
+  );
 }
 
 export function GoogleMap() {
@@ -47,12 +62,16 @@ export function GoogleMap() {
     <Box
       display="flex"
       flexDirection="row"
-      padding="40px 20px"
+      padding="4rem 2rem"
       justifyContent="space-around"
       alignItems="center"
       sx={{
         backgroundImage: "url(./imgs/ourServiceImgs/bg.jpg)",
         backgroundSize: "contain",
+        "@media (max-width: 1025px)": {
+          flexDirection: "column",
+          gap: "3rem",
+        },
       }}
     >
       <Stack gap="10px">
@@ -61,6 +80,7 @@ export function GoogleMap() {
           fontWeight="900"
           fontFamily="Montserrat, sans-serif"
           color="#000"
+          pb={"1rem"}
         >
           {t("howToFindUS")}
         </Typography>

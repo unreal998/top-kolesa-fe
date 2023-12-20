@@ -19,6 +19,7 @@ import { inputLabelClasses } from "@mui/material/InputLabel";
 
 import { ButtonWithIcon } from "../../../shared/components/ButtonWithIcon";
 import { BASE_COLORS, FILTER_COLORS, FONTS } from "../../../shared/constants";
+import { AiOutlineFontSize } from "react-icons/ai";
 
 type FieldType = "width" | "profile" | "diametr" | "season" | "brand";
 
@@ -43,6 +44,7 @@ const StyledAutocomplete = styled(Autocomplete)({
   [`& .${inputLabelClasses.root}`]: {
     color: "defaultColor",
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
+    fontSize: "16px",
     [`&.${inputLabelClasses.focused}`]: {
       color: BASE_COLORS.DEFAULT_BLUE,
     },
@@ -50,9 +52,11 @@ const StyledAutocomplete = styled(Autocomplete)({
   //INPUT COLOR/FONTS
   "& .MuiOutlinedInput-root": {
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
+    fontSize: "16px",
     "&:hover .MuiOutlinedInput-notchedOutline": {
       borderColor: BASE_COLORS.DEFAULT_BLUE,
       color: BASE_COLORS.DEFAULT_BLUE,
+      fontSize: "16px",
     },
     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: BASE_COLORS.DEFAULT_BLUE,
@@ -67,6 +71,7 @@ const StyledAutocomplete = styled(Autocomplete)({
   //OPTION COLOR/FONTS
   "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
+    fontSize: "16px",
   },
   "& + .MuiAutocomplete-popper .MuiAutocomplete-option:hover": {
     backgroundColor: FILTER_COLORS.DEFAULT_BLUE_INACTIVE,
@@ -75,10 +80,12 @@ const StyledAutocomplete = styled(Autocomplete)({
     {
       backgroundColor: `${FILTER_COLORS.DEFAULT_BLUE_INACTIVE} !important`,
       color: `${FILTER_COLORS.TEXT_MAIN} !important`,
+      fontSize: "16px",
     },
   "& + .MuiAutocomplete-popper .MuiAutocomplete-option[aria-selected='true']": {
     backgroundColor: `${BASE_COLORS.DEFAULT_BLUE} !important`,
     color: `${BASE_COLORS.BACKGROUND_WHITE}`,
+    fontSize: "16px",
   },
 });
 
@@ -171,19 +178,19 @@ function TiresFilter() {
   const autocompleteOptions: AutocompleteOptionType[] = [
     {
       id: "width",
-      options: filtersParams?.width,
+      options: filtersParams?.width.slice(1),
       label: t("width"),
       onChange: handleAutocompleteChange("width"),
     },
     {
       id: "profile",
-      options: filtersParams?.height,
+      options: filtersParams?.height.slice(1),
       label: t("profile"),
       onChange: handleAutocompleteChange("profile"),
     },
     {
       id: "diametr",
-      options: filtersParams?.diametr,
+      options: filtersParams?.diametr.slice(1),
       label: t("diametr"),
       onChange: handleAutocompleteChange("diametr"),
     },
@@ -202,12 +209,13 @@ function TiresFilter() {
   ];
 
   return (
-    <Stack gap="25px" width="60%" alignItems="center">
+    <Stack gap="25px" alignItems="center">
       <Typography
         variant="h3"
         color="#ffffff"
         fontWeight="600"
         fontFamily={FONTS.BOLD_TEXT_FAMILY}
+        textAlign={"center"}
       >
         {t("tireSelection")}
       </Typography>
@@ -217,7 +225,7 @@ function TiresFilter() {
         padding="40px 20px"
         justifyContent="center"
         flexWrap="wrap"
-        width="480px"
+        width="440px"
         direction="row"
         gap="20px"
       >
@@ -256,6 +264,13 @@ function TiresFilter() {
               fontFamily: FONTS.MAIN_TEXT_FAMILY,
               borderRadius: "999px",
               padding: "20px 40px",
+              fontSize: "0.9rem",
+              "@media (max-width: 870px)": {
+                fontSize: "0.9rem",
+              },
+              "@media (max-width: 605px)": {
+                fontSize: "1rem",
+              },
             }}
           >
             {t("searchButton")}
