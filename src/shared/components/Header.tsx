@@ -28,7 +28,7 @@ import {
 } from "../../modules/shopPage/selectors";
 import { actions } from "../../modules/shopPage/reducer";
 import CartModalWindow from "./CartModalWindow";
-import MenuIcon from "@mui/icons-material/Menu";
+import MenuModalWindow from "./MenuModalWindow";
 
 export function Header() {
   const dispatch = useDispatch();
@@ -49,6 +49,25 @@ export function Header() {
     {
       code: "ua",
       name: "Українська",
+    },
+  ];
+
+  const menu = [
+    {
+      name: "homeLabel",
+      link: "/",
+    },
+    {
+      name: "shopLabel",
+      link: "/shop",
+    },
+    {
+      name: "aboutLabel",
+      link: "/about",
+    },
+    {
+      name: "contactLabel",
+      link: "/contact",
     },
   ];
 
@@ -139,6 +158,11 @@ export function Header() {
         alignItems="center"
         alignContent={"center"}
         justifyContent="space-between"
+        sx={{
+          "@media (max-width: 550px)": {
+            padding: "20px 2%",
+          },
+        }}
       >
         <Link href="/">
           <Box
@@ -162,50 +186,20 @@ export function Header() {
             },
           }}
         >
-          <Link
-            underline="none"
-            href="/"
-            sx={{
-              color: "#000",
-              fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              fontSize: "1.1rem",
-            }}
-          >
-            {t("homeLabel")}
-          </Link>
-          <Link
-            underline="none"
-            href="/shop"
-            sx={{
-              color: "#000",
-              fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              fontSize: "1.1rem",
-            }}
-          >
-            {t("shopLabel")}
-          </Link>
-          <Link
-            underline="none"
-            href="/about"
-            sx={{
-              color: "#000",
-              fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              fontSize: "1.1rem",
-            }}
-          >
-            {t("aboutLabel")}
-          </Link>
-          <Link
-            underline="none"
-            href="/contact"
-            sx={{
-              color: "#000",
-              fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              fontSize: "1.1rem",
-            }}
-          >
-            {t("contactLabel")}
-          </Link>
+          {menu.map((menuItem, index) => (
+            <Link
+              key={index}
+              underline="none"
+              href={menuItem.link}
+              sx={{
+                color: "#000",
+                fontFamily: FONTS.MAIN_TEXT_FAMILY,
+                fontSize: "1.1rem",
+              }}
+            >
+              {t(menuItem.name)}
+            </Link>
+          ))}
         </Stack>
         <Stack
           alignItems="center"
@@ -220,6 +214,9 @@ export function Header() {
             },
             "@media (max-width: 550px)": {
               gap: "1rem",
+            },
+            "@media (max-width: 450px)": {
+              paddingRight: "1.4rem",
             },
           }}
         >
@@ -354,30 +351,7 @@ export function Header() {
               </MenuItem>
             ))}
           </Menu>
-
-          <Button
-            variant="text"
-            sx={{
-              padding: "0px",
-              margin: "0px",
-              "@media (min-width: 871px)": {
-                display: "none",
-                padding: "0px",
-                margin: "0px",
-              },
-              "@media (max-width: 871px)": {
-                minWidth: 0,
-              },
-            }}
-          >
-            <MenuIcon
-              sx={{
-                color: "#000",
-                width: "30px",
-                height: "30px",
-              }}
-            />
-          </Button>
+          <MenuModalWindow menuData={menu} />
         </Stack>
       </Box>
     </Box>
