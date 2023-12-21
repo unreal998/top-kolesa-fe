@@ -1,38 +1,38 @@
-import { useState, useEffect, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { actions } from "../../../reducer";
-import { selectFilterData } from "../../../../mainPage/selectors";
-import { selectSearchInput, selectSelectedWidth } from "../../../selectors";
+import { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from '../../../reducer';
+import { selectFilterData } from '../../../../mainPage/selectors';
+import { selectSearchInput, selectSelectedWidth } from '../../../selectors';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import ClearIcon from "@mui/icons-material/Clear";
-import { Box, Button, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import ClearIcon from '@mui/icons-material/Clear';
+import { Box, Button, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-import { FILTER_COLORS, FONTS } from "../../../../../shared/constants";
+import { FILTER_COLORS, FONTS } from '../../../../../shared/constants';
 
-const ButtonsContainer = styled("div")({
-  display: "grid",
-  gridTemplateColumns: "repeat(3, 1fr)",
-  overflowY: "auto",
-  maxHeight: "472px",
-  width: "372px",
+const ButtonsContainer = styled('div')({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)',
+  overflowY: 'auto',
+  maxHeight: '472px',
+  width: '372px',
 });
 
 const StyledButton = styled(Button)({
-  height: "59px",
-  border: "none",
-  fontSize: "1.2rem",
+  height: '59px',
+  border: 'none',
+  fontSize: '1.2rem',
   fontFamily: FONTS.BOLD_TEXT_FAMILY,
   color: `${FILTER_COLORS.TEXT_MAIN}`,
-  "&:hover": {
+  '&:hover': {
     backgroundColor: `${FILTER_COLORS.BACKGROUND_GREY}`,
-    border: "none",
-    borderColor: "transparent",
+    border: 'none',
+    borderColor: 'transparent',
   },
-  "&:focus": {
-    borderColor: "transparent",
+  '&:focus': {
+    borderColor: 'transparent',
   },
 });
 
@@ -43,7 +43,7 @@ function FilterFullMenuWidthData() {
   const selectedWidth = useSelector(selectSelectedWidth);
   const filtersParams = useSelector(selectFilterData());
   const [filteredWidthOptions, setFilteredWidthOptions] = useState(
-    filtersParams.width
+    filtersParams.width,
   );
 
   useEffect(() => {
@@ -58,11 +58,11 @@ function FilterFullMenuWidthData() {
       dispatch(actions.setSelectedWidth(width));
       dispatch(actions.toggleFullMenu());
     },
-    [dispatch]
+    [dispatch],
   );
 
   const handleResetFilterDiametr = () => {
-    dispatch(actions.setSelectedWidth(""));
+    dispatch(actions.setSelectedWidth(''));
   };
 
   return (
@@ -70,26 +70,25 @@ function FilterFullMenuWidthData() {
       <Box
         onClick={handleResetFilterDiametr}
         sx={{
-          display: "flex",
-          alignItems: "center",
-          fontSize: "12px",
-          marginBottom: "12px",
-          width: "fit-content",
-          cursor: selectedWidth.length > 0 ? "pointer" : "default",
+          display: 'flex',
+          alignItems: 'center',
+          fontSize: '12px',
+          marginBottom: '12px',
+          width: 'fit-content',
+          cursor: selectedWidth.length > 0 ? 'pointer' : 'default',
           color:
             selectedWidth.length > 0
               ? FILTER_COLORS.TEXT_MAIN
               : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
-          transition: "all 0.2s ease",
-        }}
-      >
+          transition: 'all 0.2s ease',
+        }}>
         <ClearIcon
           style={{
             color:
               selectedWidth.length > 0
                 ? FILTER_COLORS.BUTTON_RESET_FILTER
                 : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
-            transition: "all 0.2s ease",
+            transition: 'all 0.2s ease',
           }}
         />
         <Typography
@@ -97,9 +96,8 @@ function FilterFullMenuWidthData() {
           pt={0.2}
           sx={{
             fontFamily: FONTS.MAIN_TEXT_FAMILY,
-          }}
-        >
-          {t("resetFilter")}
+          }}>
+          {t('resetFilter')}
         </Typography>
       </Box>
       <ButtonsContainer>
@@ -113,9 +111,8 @@ function FilterFullMenuWidthData() {
                 backgroundColor:
                   widthOption === selectedWidth
                     ? `${FILTER_COLORS.BACKGROUND_GREY}`
-                    : "transparent",
-              }}
-            >
+                    : 'transparent',
+              }}>
               {widthOption}
             </StyledButton>
           ))
@@ -123,19 +120,17 @@ function FilterFullMenuWidthData() {
           <Box
             paddingLeft={1.2}
             sx={{
-              display: "flex",
-              alignItems: "center",
-              width: "200px",
-            }}
-          >
+              display: 'flex',
+              alignItems: 'center',
+              width: '200px',
+            }}>
             <Typography
               variant="subtitle2"
               sx={{
                 fontFamily: FONTS.MAIN_TEXT_FAMILY,
-                marginTop: "20px",
-              }}
-            >
-              {t("noMatchesFound")}
+                marginTop: '20px',
+              }}>
+              {t('noMatchesFound')}
             </Typography>
           </Box>
         )}

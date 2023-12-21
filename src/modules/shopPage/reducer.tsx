@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export type ShopItem = {
   id: number;
@@ -69,18 +69,18 @@ type ShopPageState = {
 const initialState: ShopPageState = {
   currentPage: 1,
   itemsList: [],
-  selectedItemId: "",
+  selectedItemId: '',
   cardView: true,
   sortParams: {
     showBy: 20,
-    sortBy: "rated",
+    sortBy: 'rated',
   },
   isFullMenuOpen: false,
   activeTabIndex: 0,
-  searchInput: "",
-  selectedWidth: "",
-  selectedProfile: "",
-  selectedDiametr: "",
+  searchInput: '',
+  selectedWidth: '',
+  selectedProfile: '',
+  selectedDiametr: '',
   selectedPrice: [0, 0],
   selectedSeason: [],
   selectedBrand: [],
@@ -90,7 +90,7 @@ const initialState: ShopPageState = {
 };
 
 export const shopPageSlice = createSlice({
-  name: "shopPageSliceData",
+  name: 'shopPageSliceData',
   initialState,
   reducers: {
     getShopItems(state, { payload }: PayloadAction<any>) {},
@@ -121,31 +121,31 @@ export const shopPageSlice = createSlice({
     },
     setSearchInput: (
       state,
-      action: PayloadAction<React.ChangeEvent<HTMLInputElement>>
+      action: PayloadAction<React.ChangeEvent<HTMLInputElement>>,
     ) => {
       const inputValue = action.payload.target.value;
       state.searchInput = inputValue;
     },
     setClearSearchInput(state) {
-      state.searchInput = "";
+      state.searchInput = '';
     },
     setSelectedWidth(state, action: PayloadAction<string>) {
       state.selectedWidth = action.payload;
     },
     setClearSelectedWidth(state) {
-      state.selectedWidth = "";
+      state.selectedWidth = '';
     },
     setSelectedProfile(state, action: PayloadAction<string>) {
       state.selectedProfile = action.payload;
     },
     setClearSelectedProfile(state) {
-      state.selectedProfile = "";
+      state.selectedProfile = '';
     },
     setSelectedDiametr(state, action: PayloadAction<string>) {
       state.selectedDiametr = action.payload;
     },
     setClearSelectedDiametr(state) {
-      state.selectedDiametr = "";
+      state.selectedDiametr = '';
     },
     initializePriceRange: (state, action: PayloadAction<number[]>) => {
       state.selectedPrice = action.payload;

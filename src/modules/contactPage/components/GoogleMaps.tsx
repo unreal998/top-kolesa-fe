@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { Box } from '@mui/material';
+import { useEffect, useRef } from 'react';
 
 export function GoogleMaps({
   center,
@@ -16,11 +16,14 @@ export function GoogleMaps({
         center,
         zoom,
       });
-      const myLatLng = { lat: 49.238440161453745, lng: 28.403964997993405 };
+      const myLatLng = {
+        lat: 49.238440161453745,
+        lng: 28.403964997993405,
+      };
       new google.maps.Marker({
         position: myLatLng,
         map,
-        title: "Hello World!",
+        title: 'Hello World!',
       });
       const mySeccondLatLng = {
         lat: 49.207908075179304,
@@ -29,7 +32,7 @@ export function GoogleMaps({
       new google.maps.Marker({
         position: mySeccondLatLng,
         map,
-        title: "Hello World!",
+        title: 'Hello World!',
       });
     }
   });
@@ -40,7 +43,7 @@ export function GoogleMaps({
       height="500px"
       ref={ref}
       id="map"
-      sx={{ borderBottomRightRadius: "6px", borderTopRightRadius: "6px" }}
+      sx={{ borderBottomRightRadius: '6px', borderTopRightRadius: '6px' }}
     />
   );
 }

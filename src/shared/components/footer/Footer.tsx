@@ -1,10 +1,10 @@
-import { MapsHomeWork, Timer } from "@mui/icons-material";
-import { Box, Button, Link, Stack, Typography } from "@mui/material";
-import { ButtonWithIcon } from "../ButtonWithIcon";
-import { FooterStrocedText } from "./FooterStrocedText";
-import { Copyright } from "./Copyright";
-import { BASE_COLORS } from "../../constants";
-import { useTranslation } from "react-i18next";
+import { MapsHomeWork, Timer } from '@mui/icons-material';
+import { Box, Button, Link, Stack, Typography } from '@mui/material';
+import { ButtonWithIcon } from '../ButtonWithIcon';
+import { FooterStrocedText } from './FooterStrocedText';
+import { Copyright } from './Copyright';
+import { BASE_COLORS } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 export function Footer() {
   const { t } = useTranslation();
@@ -99,8 +99,9 @@ export function Footer() {
                 {t("viewOnMap")}
               </Button>
             }
-            icon={<MapsHomeWork sx={{ height: "14px", width: "14px" }} />}
-          ></ButtonWithIcon>
+            icon={
+              <MapsHomeWork sx={{ height: '14px', width: '14px' }} />
+            }></ButtonWithIcon>
         </Stack>
         <Stack
           width="30%"

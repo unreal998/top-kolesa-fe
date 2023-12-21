@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import * as i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import HttpApi from "i18next-http-backend";
-import { Provider } from "react-redux";
-import { store } from "./store";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import * as i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import HttpApi from 'i18next-http-backend';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 //Localisation
 i18n
@@ -16,19 +16,19 @@ i18n
   .use(LanguageDetector)
   .use(HttpApi)
   .init({
-    supportedLngs: ["en", "ru", "ua"],
-    fallbackLng: "en",
+    supportedLngs: ['en', 'ru', 'ua'],
+    fallbackLng: 'en',
     detection: {
-      order: ["localStorage", "cookie", "htmlTag", "path", "subdomain"],
-      caches: ["localStorage"],
+      order: ['localStorage', 'cookie', 'htmlTag', 'path', 'subdomain'],
+      caches: ['localStorage'],
     },
     backend: {
-      loadPath: "./localization/{{lng}}/translation.json",
+      loadPath: './localization/{{lng}}/translation.json',
     },
   });
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
+  document.getElementById('root') as HTMLElement,
 );
 root.render(
   <Provider store={store}>

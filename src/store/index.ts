@@ -1,7 +1,7 @@
-import { PreloadedState, configureStore } from "@reduxjs/toolkit";
-import createSagaMiddleware from "redux-saga";
-import { AppSate, rootReducer } from "./reducers";
-import { rootSaga } from "./sagas";
+import { PreloadedState, configureStore } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
+import { AppSate, rootReducer } from './reducers';
+import { rootSaga } from './sagas';
 
 export const sagaMiddleware = createSagaMiddleware();
 

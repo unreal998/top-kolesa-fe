@@ -1,13 +1,13 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import { Box, Stack, Typography, styled } from "@mui/material";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Box, Stack, Typography, styled } from '@mui/material';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
-import { BASE_COLORS, FONTS } from "../../../shared/constants";
-import { selectCurrentPageItemList } from "../../shopPage/selectors";
-import { ShopItemCard } from "../../shopPage/components/ShopItemCard";
+import { BASE_COLORS, FONTS } from '../../../shared/constants';
+import { selectCurrentPageItemList } from '../../shopPage/selectors';
+import { ShopItemCard } from '../../shopPage/components/ShopItemCard';
 
 export default function TopRated() {
   const shopItems = useSelector(selectCurrentPageItemList());
@@ -23,15 +23,15 @@ export default function TopRated() {
   };
 
   const SlyderBox = styled(Box)({
-    ".slick-dots li button:before": {
+    '.slick-dots li button:before': {
       color: BASE_COLORS.DEFAULT_BLUE,
-      fontSize: "8px",
+      fontSize: '8px',
     },
-    ".slick-dots li.slick-active button:before": {
+    '.slick-dots li.slick-active button:before': {
       color: BASE_COLORS.DEFAULT_BLUE,
     },
-    ".slick-slide > div": {
-      margin: "0 10px",
+    '.slick-slide > div': {
+      margin: '0 10px',
     },
   });
 
@@ -40,14 +40,13 @@ export default function TopRated() {
       <Typography
         variant="h5"
         fontFamily={FONTS.BOLD_TEXT_FAMILY}
-        fontWeight={600}
-      >
+        fontWeight={600}>
         Top Rated
       </Typography>
       <SlyderBox>
         <Slider {...settings}>
           {similarItems.map((item) => (
-            <Box key={item.id} padding={1} sx={{ width: "100%" }}>
+            <Box key={item.id} padding={1} sx={{ width: '100%' }}>
               <ShopItemCard
                 id={item.id}
                 brand={item.brand}

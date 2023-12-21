@@ -1,9 +1,9 @@
-import axios, { AxiosResponse } from "axios";
-import { SERVER_URL } from "../../constants";
+import axios, { AxiosResponse } from 'axios';
+import { SERVER_URL } from '../../constants';
 
 export async function getShopPageItems(params: any) {
   let response: AxiosResponse<any, any>;
-  if (params !== "") {
+  if (params !== '') {
     const { price, width, profile, diametr, season, brand } = params;
     response = await axios.get(
       `${SERVER_URL}/shop?price=${JSON.stringify(

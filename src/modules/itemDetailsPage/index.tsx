@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../shopPage/reducer";
-import { selectSelectedItemData } from "../shopPage/selectors";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../shopPage/reducer';
+import { selectSelectedItemData } from '../shopPage/selectors';
 
-import { Box, Stack } from "@mui/material";
+import { Box, Stack } from '@mui/material';
 
-import Tooltips from "./components/Tooltips";
-import Header from "./components/Header";
-import BuyOptions from "./components/BuyOptions";
-import TireImg from "./components/TireImg";
-import FullInfo from "./components/FullInfo";
-import TopRated from "./components/TopRated";
-import Loader from "../../shared/components/Loader";
+import Tooltips from './components/Tooltips';
+import Header from './components/Header';
+import BuyOptions from './components/BuyOptions';
+import TireImg from './components/TireImg';
+import FullInfo from './components/FullInfo';
+import TopRated from './components/TopRated';
+import Loader from '../../shared/components/Loader';
 
-import { BASE_COLORS } from "../../shared/constants";
+import { BASE_COLORS } from '../../shared/constants';
 
 export function ItemDetailsPage() {
   const dispatch = useDispatch();
@@ -22,9 +22,9 @@ export function ItemDetailsPage() {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(document.location.search);
-    const selectedItemId = searchParams.get("id");
-    dispatch(actions.getShopItems(""));
-    dispatch(actions.setSelectedItemId(selectedItemId || ""));
+    const selectedItemId = searchParams.get('id');
+    dispatch(actions.getShopItems(''));
+    dispatch(actions.setSelectedItemId(selectedItemId || ''));
   }, [dispatch]);
 
   useEffect(() => {
@@ -37,11 +37,10 @@ export function ItemDetailsPage() {
     <>
       {loading ? (
         <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          height={"50vh"}
-        >
+          display={'flex'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          height={'50vh'}>
           <Loader />
         </Box>
       ) : (
@@ -50,13 +49,12 @@ export function ItemDetailsPage() {
             bgcolor={BASE_COLORS.BACKGROUND_WHITE}
             direction="row"
             justifyContent="center"
-            alignItems={"center"}
+            alignItems={'center'}
             gap="50px"
             padding="50px"
-            borderRadius={2}
-          >
+            borderRadius={2}>
             <TireImg />
-            <Stack width={"50%"}>
+            <Stack width={'50%'}>
               <Header />
               <BuyOptions tireId={selectedItemData?.id} />
               <Tooltips />

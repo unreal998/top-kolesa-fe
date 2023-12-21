@@ -1,13 +1,13 @@
-import { Box, Stack, Typography } from "@mui/material";
-import { ImgCarousel } from "../../../shared/components/ImgCarousel";
-import { SliderItem } from "../../../shared/types";
-import { BASE_COLORS } from "../../../shared/constants";
-import { useTranslation } from "react-i18next";
-import TiresFilter from "./TiresFilter";
+import { Box, Stack, Typography } from '@mui/material';
+import { ImgCarousel } from '../../../shared/components/ImgCarousel';
+import { SliderItem } from '../../../shared/types';
+import { BASE_COLORS } from '../../../shared/constants';
+import { useTranslation } from 'react-i18next';
+import TiresFilter from './TiresFilter';
 
 const sliderData: SliderItem[] = [
   {
-    imgSource: "",
+    imgSource: '',
     description: (
       <Box
         sx={{
@@ -27,7 +27,7 @@ const sliderData: SliderItem[] = [
     ),
   },
   {
-    imgSource: "",
+    imgSource: '',
     description: (
       <Box
         sx={{
@@ -48,7 +48,7 @@ const sliderData: SliderItem[] = [
     ),
   },
   {
-    imgSource: "",
+    imgSource: '',
     description: (
       <Box
         sx={{
@@ -67,7 +67,7 @@ const sliderData: SliderItem[] = [
     ),
   },
   {
-    imgSource: "",
+    imgSource: '',
     description: (
       <Box
         sx={{
@@ -89,7 +89,7 @@ const sliderData: SliderItem[] = [
     ),
   },
   {
-    imgSource: "",
+    imgSource: '',
     description: (
       <Box
         sx={{
@@ -179,11 +179,10 @@ export function TiresInput() {
       <Stack bgcolor={BASE_COLORS.DEFAULT_BLUE}>
         <Box
           sx={{
-            backgroundImage: "url(./imgs/bg-brand.png)",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-          }}
-        >
+            backgroundImage: 'url(./imgs/bg-brand.png)',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+          }}>
           <Stack
             gap="10px"
             justifyContent="space-around"
@@ -249,9 +248,9 @@ export function TiresInput() {
           <Box
             height="40px"
             sx={{
-              backgroundImage: "url(./imgs/brand-shape.png)",
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
+              backgroundImage: 'url(./imgs/brand-shape.png)',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
             }}
           />
         </Box>

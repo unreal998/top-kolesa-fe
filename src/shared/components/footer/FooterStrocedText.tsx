@@ -1,6 +1,6 @@
-import { Box, Stack } from "@mui/material";
-import { ReactNode } from "react";
-import { BASE_COLORS } from "../../constants";
+import { Box, Stack } from '@mui/material';
+import { ReactNode } from 'react';
+import { BASE_COLORS } from '../../constants';
 
 type FooterStrocedTextProps = {
   text: ReactNode;

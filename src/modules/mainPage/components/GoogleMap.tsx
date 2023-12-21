@@ -1,3 +1,4 @@
+
 import { Box, Stack, Typography } from "@mui/material";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import { useEffect, useRef, useState } from "react";
@@ -18,11 +19,14 @@ function MyMapComponent({
         center,
         zoom,
       });
-      const myLatLng = { lat: 49.238440161453745, lng: 28.403964997993405 };
+      const myLatLng = {
+        lat: 49.238440161453745,
+        lng: 28.403964997993405,
+      };
       new google.maps.Marker({
         position: myLatLng,
         map,
-        title: "Hello World!",
+        title: 'Hello World!',
       });
       const mySeccondLatLng = {
         lat: 49.207908075179304,
@@ -31,7 +35,7 @@ function MyMapComponent({
       new google.maps.Marker({
         position: mySeccondLatLng,
         map,
-        title: "Hello World!",
+        title: 'Hello World!',
       });
     }
   });
@@ -106,9 +110,8 @@ export function GoogleMap() {
             variant="h5"
             fontFamily="Montserrat, sans-serif"
             fontWeight="600"
-            color="#000"
-          >
-            {t("officeBased")}
+            color="#000">
+            {t('officeBased')}
           </Typography>
           <Typography
             variant="body1"
@@ -144,9 +147,8 @@ export function GoogleMap() {
             variant="h5"
             fontFamily="Montserrat, sans-serif"
             fontWeight="600"
-            color="#000"
-          >
-            {t("waitingForCall")}
+            color="#000">
+            {t('waitingForCall')}
           </Typography>
           <Typography
             variant="body1"
@@ -196,9 +198,8 @@ export function GoogleMap() {
             variant="h5"
             fontFamily="Montserrat, sans-serif"
             fontWeight="600"
-            color="#000"
-          >
-            {t("ourMail")}
+            color="#000">
+            {t('ourMail')}
           </Typography>
           <Typography
             variant="body1"

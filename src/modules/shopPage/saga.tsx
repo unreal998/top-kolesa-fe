@@ -1,8 +1,8 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import { getShopPageItems } from "./api";
-import { getType } from "@reduxjs/toolkit";
-import { ShopData, actions } from "./reducer";
-import { ActionType } from "typesafe-actions";
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { getShopPageItems } from './api';
+import { getType } from '@reduxjs/toolkit';
+import { ShopData, actions } from './reducer';
+import { ActionType } from 'typesafe-actions';
 
 export function* getShopItems({
   payload,

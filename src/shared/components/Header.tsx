@@ -3,7 +3,7 @@ import {
   Language,
   MapsHomeWorkOutlined,
   TimerOutlined,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -36,19 +36,19 @@ export function Header() {
   const cartModalWindowOpen = useSelector(selectCartModalWindowOpen);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
-  const currentLanguageCode = localStorage.getItem("i18nextLng") || "en";
+  const currentLanguageCode = localStorage.getItem('i18nextLng') || 'en';
   const languages = [
     {
-      code: "en",
-      name: "English",
+      code: 'en',
+      name: 'English',
     },
     {
-      code: "ru",
-      name: "Русский",
+      code: 'ru',
+      name: 'Русский',
     },
     {
-      code: "ua",
-      name: "Українська",
+      code: 'ua',
+      name: 'Українська',
     },
   ];
 
@@ -73,14 +73,14 @@ export function Header() {
 
   useEffect(() => {
     const cartItemsCountFromStorage = JSON.parse(
-      localStorage.getItem("cartItem") || "[]"
+      localStorage.getItem('cartItem') || '[]',
     ).length;
 
     dispatch(actions.setCartItemCount(cartItemsCountFromStorage));
   }, [dispatch, cartItemCount, cartModalWindowOpen]);
 
   useEffect(() => {
-    dispatch(actions.getShopItems(""));
+    dispatch(actions.getShopItems(''));
   }, [dispatch]);
 
   const handleLanguageClick = useCallback((event: SyntheticEvent) => {
@@ -117,10 +117,9 @@ export function Header() {
             <Typography
               fontFamily="PT Sans,  sans-serif"
               color="#FFFFFF"
-              variant="body2"
-            >
-              {" "}
-              topkolesa@gmail.com{" "}
+              variant="body2">
+              {' '}
+              topkolesa@gmail.com{' '}
             </Typography>
           }
         />
@@ -130,10 +129,9 @@ export function Header() {
             <Typography
               fontFamily="PT Sans,  sans-serif"
               color="#FFFFFF"
-              variant="body2"
-            >
-              {`${t("headerCity")}, ${t("headerAddress")} / ${t(
-                "headerAddress2"
+              variant="body2">
+              {`${t('headerCity')}, ${t('headerAddress')} / ${t(
+                'headerAddress2',
               )}`}
             </Typography>
           }
@@ -144,9 +142,8 @@ export function Header() {
             <Typography
               fontFamily="PT Sans,  sans-serif"
               color="#FFFFFF"
-              variant="body2"
-            >
-              {t("workHours")}
+              variant="body2">
+              {t('workHours')}
             </Typography>
           }
         />
@@ -315,14 +312,13 @@ export function Header() {
             onClose={handleClose}
             anchorEl={anchorEl}
             anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
+              vertical: 'bottom',
+              horizontal: 'left',
             }}
             transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-          >
+              vertical: 'top',
+              horizontal: 'left',
+            }}>
             {languages.map((item, index) => (
               <MenuItem
                 key={index}

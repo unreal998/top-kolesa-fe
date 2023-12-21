@@ -1,3 +1,4 @@
+
 import { Box, Typography } from "@mui/material";
 import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
@@ -42,7 +43,7 @@ const hoverAnimationBack = {
     opacity: 0,
     transition: {
       duration: 0.3,
-      ease: "easeInOut",
+      ease: 'easeInOut',
     },
   },
   hover: {
@@ -50,7 +51,7 @@ const hoverAnimationBack = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      ease: "easeInOut",
+      ease: 'easeInOut',
     },
   },
 };
@@ -61,7 +62,7 @@ const hoverAnimationHeader = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      ease: "easeInOut",
+      ease: 'easeInOut',
     },
   },
   hover: {
@@ -69,7 +70,7 @@ const hoverAnimationHeader = {
     opacity: 0,
     transition: {
       duration: 0.4,
-      ease: "easeInOut",
+      ease: 'easeInOut',
     },
   },
 };
@@ -102,61 +103,61 @@ export function OurServices() {
 
   const services = [
     {
-      title: "tireSelectionService",
-      description: "tireSelectionServiceDesription",
-      imgSrc: "./imgs/ourServiceImgs/sr-img-1-1.jpg",
+      title: 'tireSelectionService',
+      description: 'tireSelectionServiceDesription',
+      imgSrc: './imgs/ourServiceImgs/sr-img-1-1.jpg',
       icon: (
         <StoreIcon
           sx={{
-            width: "70px",
-            height: "70px",
-            marginBottom: "20px",
-            color: "#fff",
+            width: '70px',
+            height: '70px',
+            marginBottom: '20px',
+            color: '#fff',
           }}
         />
       ),
     },
     {
-      title: "diskSelectionService",
-      description: "diskSelectionServiceSubtitle",
-      imgSrc: "./imgs/ourServiceImgs/sr-img-1-2.jpg",
+      title: 'diskSelectionService',
+      description: 'diskSelectionServiceSubtitle',
+      imgSrc: './imgs/ourServiceImgs/sr-img-1-2.jpg',
       icon: (
         <ScreenSearchDesktopIcon
           sx={{
-            width: "70px",
-            height: "70px",
-            marginBottom: "20px",
-            color: "#fff",
+            width: '70px',
+            height: '70px',
+            marginBottom: '20px',
+            color: '#fff',
           }}
         />
       ),
     },
     {
-      title: "serviceStation",
-      description: "serviceStationDescription",
-      imgSrc: "./imgs/ourServiceImgs/sr-img-1-3.jpg",
+      title: 'serviceStation',
+      description: 'serviceStationDescription',
+      imgSrc: './imgs/ourServiceImgs/sr-img-1-3.jpg',
       icon: (
         <HandymanIcon
           sx={{
-            width: "70px",
-            height: "70px",
-            marginBottom: "20px",
-            color: "#fff",
+            width: '70px',
+            height: '70px',
+            marginBottom: '20px',
+            color: '#fff',
           }}
         />
       ),
     },
     {
-      title: "storage",
-      description: "storageDescription",
-      imgSrc: "./imgs/ourServiceImgs/sr-img-1-4.jpg",
+      title: 'storage',
+      description: 'storageDescription',
+      imgSrc: './imgs/ourServiceImgs/sr-img-1-4.jpg',
       icon: (
         <WarehouseIcon
           sx={{
-            width: "70px",
-            height: "70px",
-            marginBottom: "20px",
-            color: "#fff",
+            width: '70px',
+            height: '70px',
+            marginBottom: '20px',
+            color: '#fff',
           }}
         />
       ),
@@ -172,19 +173,17 @@ export function OurServices() {
       alignItems="center"
       gap="20px"
       sx={{
-        backgroundImage: "url(./imgs/bg-4.jpg)",
-        backgroundSize: "contain",
-      }}
-    >
+        backgroundImage: 'url(./imgs/bg-4.jpg)',
+        backgroundSize: 'contain',
+      }}>
       <Typography
         variant="h2"
         color="#000"
         fontFamily={FONTS.BOLD_TEXT_FAMILY}
         fontWeight="800"
-        textAlign={"center"}
-        mb={1}
-      >
-        {t("ourServices")}
+        textAlign={'center'}
+        mb={1}>
+        {t('ourServices')}
       </Typography>
       <SliderCarousel />
       <Box
@@ -276,21 +275,19 @@ export function OurServices() {
                       fontWeight="600"
                       fontFamily={FONTS.BOLD_TEXT_FAMILY}
                       width={250}
-                      textAlign={"center"}
-                      color={"#fff"}
-                      m={"auto"}
-                      pb={2}
-                    >
+                      textAlign={'center'}
+                      color={'#fff'}
+                      m={'auto'}
+                      pb={2}>
                       {t(service.title)}
                     </Typography>
                     <Typography
                       variant="subtitle1"
                       fontFamily={FONTS.MAIN_TEXT_FAMILY}
                       width={250}
-                      textAlign={"center"}
-                      color={"#fff"}
-                      m={"auto"}
-                    >
+                      textAlign={'center'}
+                      color={'#fff'}
+                      m={'auto'}>
                       {t(service.description)}
                     </Typography>
                   </Box>

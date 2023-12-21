@@ -1,7 +1,9 @@
+
 import Slider from "react-slick";
 import { Box } from "@mui/material";
 import { SliderItem } from "../types";
 import "slick-carousel/slick/slick.css";
+
 
 const settings = {
   slidesToShow: 5,

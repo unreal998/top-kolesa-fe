@@ -1,9 +1,9 @@
-import { useCallback, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectSearchInput, selectSelectedSeason } from "../../../selectors";
-import { actions } from "../../../reducer";
+import { useCallback, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectSearchInput, selectSelectedSeason } from '../../../selectors';
+import { actions } from '../../../reducer';
 
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 import {
   Box,
   Button,
@@ -11,23 +11,23 @@ import {
   FormControlLabel,
   FormGroup,
   Typography,
-} from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
+} from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import {
   FILTER_COLORS,
   FONTS,
   BASE_COLORS,
-} from "../../../../../shared/constants";
-import { useTranslation } from "react-i18next";
+} from '../../../../../shared/constants';
+import { useTranslation } from 'react-i18next';
 
 const CheckBoxContainer = styled(FormGroup)({
-  display: "grid",
-  paddingLeft: "10px",
-  gridTemplateColumns: "repeat(2, 1fr)",
-  overflowY: "auto",
-  maxHeight: "400px",
-  width: "362px",
+  display: 'grid',
+  paddingLeft: '10px',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  overflowY: 'auto',
+  maxHeight: '400px',
+  width: '362px',
 });
 
 function FilterFullMenuSeasonData() {
@@ -38,8 +38,8 @@ function FilterFullMenuSeasonData() {
   const [season, setSeason] = useState(selectedSeason);
 
   const filteredSeasons = useMemo(() => {
-    return [t("winter"), t("summer"), t("all-season")].filter((season) =>
-      season.toLowerCase().includes(searchInput.toLowerCase())
+    return [t('winter'), t('summer'), t('all-season')].filter((season) =>
+      season.toLowerCase().includes(searchInput.toLowerCase()),
     );
   }, [searchInput]);
 
@@ -50,7 +50,7 @@ function FilterFullMenuSeasonData() {
         : season.filter((s) => s !== seasonName);
       setSeason(updatedSeasons);
     },
-    [season]
+    [season],
   );
 
   const handleSubmit = () => {
@@ -68,29 +68,28 @@ function FilterFullMenuSeasonData() {
       <Box
         onClick={handleResetFilterSeason}
         sx={{
-          display: "flex",
-          alignItems: "center",
-          fontSize: "12px",
-          marginBottom: "12px",
-          width: "fit-content",
+          display: 'flex',
+          alignItems: 'center',
+          fontSize: '12px',
+          marginBottom: '12px',
+          width: 'fit-content',
           cursor:
             selectedSeason.length > 0 || season.length > 0
-              ? "pointer"
-              : "default",
+              ? 'pointer'
+              : 'default',
           color:
             selectedSeason.length > 0 || season.length > 0
               ? FILTER_COLORS.TEXT_MAIN
               : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
-          transition: "all 0.2s ease",
-        }}
-      >
+          transition: 'all 0.2s ease',
+        }}>
         <ClearIcon
           style={{
             color:
               selectedSeason.length > 0 || season.length > 0
                 ? FILTER_COLORS.BUTTON_RESET_FILTER
                 : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
-            transition: "all 0.2s ease",
+            transition: 'all 0.2s ease',
           }}
         />
         <Typography
@@ -98,9 +97,8 @@ function FilterFullMenuSeasonData() {
           pt={0.2}
           sx={{
             fontFamily: FONTS.MAIN_TEXT_FAMILY,
-          }}
-        >
-          {t("resetFilter")}
+          }}>
+          {t('resetFilter')}
         </Typography>
       </Box>
       <CheckBoxContainer>
@@ -110,18 +108,18 @@ function FilterFullMenuSeasonData() {
               control={
                 <Checkbox
                   checked={season.includes(
-                    i === 0 ? "winter" : i === 1 ? "summer" : "all-season"
+                    i === 0 ? 'winter' : i === 1 ? 'summer' : 'all-season',
                   )}
                   onChange={(e) =>
                     handleSeasonChange(
                       e,
-                      i === 0 ? "winter" : i === 1 ? "summer" : "all-season"
+                      i === 0 ? 'winter' : i === 1 ? 'summer' : 'all-season',
                     )
                   }
                   sx={{
-                    "&.Mui-checked": {
+                    '&.Mui-checked': {
                       color: BASE_COLORS.DEFAULT_BLUE,
-                      "&:after": {
+                      '&:after': {
                         backgroundColor: BASE_COLORS.DEFAULT_BLUE,
                       },
                     },
@@ -131,7 +129,7 @@ function FilterFullMenuSeasonData() {
               label={seasonName}
               key={seasonName}
               sx={{
-                "& .MuiTypography-root": {
+                '& .MuiTypography-root': {
                   fontFamily: FONTS.MAIN_TEXT_FAMILY,
                 },
               }}
@@ -142,10 +140,9 @@ function FilterFullMenuSeasonData() {
             variant="subtitle2"
             sx={{
               fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              marginTop: "20px",
-            }}
-          >
-            {t("noMatchesFound")}
+              marginTop: '20px',
+            }}>
+            {t('noMatchesFound')}
           </Typography>
         )}
       </CheckBoxContainer>
@@ -153,16 +150,15 @@ function FilterFullMenuSeasonData() {
         onClick={handleSubmit}
         variant="contained"
         sx={{
-          marginTop: "18px",
+          marginTop: '18px',
           fontFamily: FONTS.BOLD_TEXT_FAMILY,
-          fontWeight: "bold",
+          fontWeight: 'bold',
           background: BASE_COLORS.DEFAULT_BLUE,
-          "&:hover": {
+          '&:hover': {
             background: BASE_COLORS.DEFAULT_BLUE,
           },
-        }}
-      >
-        {t("set")}
+        }}>
+        {t('set')}
       </Button>
     </>
   );
