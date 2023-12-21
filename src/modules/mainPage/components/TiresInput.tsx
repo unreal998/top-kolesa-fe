@@ -18,6 +18,10 @@ const sliderData: SliderItem[] = [
           height: "70px",
           userSelect: "none",
           backgroundColor: "#fff",
+          "@media (max-width: 520px)": {
+            width: "170px",
+            height: "60px",
+          },
         }}
       />
     ),
@@ -35,6 +39,10 @@ const sliderData: SliderItem[] = [
           height: "70px",
           userSelect: "none",
           backgroundColor: "#06469d",
+          "@media (max-width: 520px)": {
+            width: "170px",
+            height: "60px",
+          },
         }}
       />
     ),
@@ -50,6 +58,10 @@ const sliderData: SliderItem[] = [
           width: "200px",
           height: "80px",
           userSelect: "none",
+          "@media (max-width: 520px)": {
+            width: "170px",
+            height: "60px",
+          },
         }}
       />
     ),
@@ -68,6 +80,10 @@ const sliderData: SliderItem[] = [
           backgroundColor: "#fff",
           backgroundPosition: "center",
           marginX: "1px",
+          "@media (max-width: 520px)": {
+            width: "170px",
+            height: "60px",
+          },
         }}
       />
     ),
@@ -83,6 +99,10 @@ const sliderData: SliderItem[] = [
           width: "180px",
           height: "70px",
           userSelect: "none",
+          "@media (max-width: 520px)": {
+            width: "170px",
+            height: "60px",
+          },
         }}
       />
     ),
@@ -200,17 +220,28 @@ export function TiresInput() {
                 "@media (max-width: 690px)": {
                   width: "35rem",
                 },
-                "@media (max-width: 500px)": {
-                  margin: "0",
+                "@media (max-width: 420px)": {
+                  margin: "auto",
+                  width: "180px",
                 },
               }}
             >
               <ImgCarousel sliderData={sliderData} />
             </Box>
             <Typography
+              variant="subtitle1"
               fontFamily="PT Sans, sans-serif"
               m={"auto"}
               color="#fff"
+              fontSize={"20px"}
+              sx={{
+                "@media (max-width: 600px)": {
+                  fontSize: "1.3rem",
+                },
+                "@media (max-width: 400px)": {
+                  fontSize: "1.3rem",
+                },
+              }}
             >
               {t("popularBrandsSubtitle")}
             </Typography>

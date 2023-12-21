@@ -18,13 +18,30 @@ export function Footer() {
         backgroundSize: "cover",
       }}
     >
-      <Stack padding="4% 6%" justifyContent="space-between" direction="row">
+      <Stack
+        padding="4% 6%"
+        justifyContent="space-between"
+        direction="row"
+        sx={{
+          "@media (max-width: 600px)": {
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            gap: "5rem",
+            paddingTop: "4rem",
+          },
+        }}
+      >
         <Stack
           width="30%"
           gap="25px"
           sx={{
             "@media (max-width: 870px)": {
               width: "40%",
+            },
+            "@media (max-width: 600px)": {
+              width: "80%",
             },
           }}
         >
@@ -34,8 +51,16 @@ export function Footer() {
                 variant="h4"
                 fontFamily="Montserrat, sans-serif"
                 fontWeight="700"
-                fontSize="24px"
+                fontSize="2.5rem"
                 color="#fff"
+                sx={{
+                  "@media (max-width: 870px)": {
+                    fontSize: "2rem",
+                  },
+                  "@media (max-width: 605px)": {
+                    fontSize: "1.8rem",
+                  },
+                }}
               >
                 {t("about")}
               </Typography>
@@ -48,10 +73,10 @@ export function Footer() {
             variant="body1"
             fontSize={"1rem"}
             sx={{
-              "@media (max-width: 870px)": {
-                fontSize: "1rem",
-              },
               "@media (max-width: 605px)": {
+                fontSize: "1.1rem",
+              },
+              "@media (max-width: 420px)": {
                 fontSize: "1.2rem",
               },
             }}
@@ -69,9 +94,6 @@ export function Footer() {
                   borderRadius: "999px",
                   padding: "16px 40px",
                   fontSize: "0.9rem",
-                  "@media (max-width: 870px)": {
-                    fontSize: "0.9rem",
-                  },
                 }}
               >
                 {t("viewOnMap")}
@@ -87,6 +109,9 @@ export function Footer() {
             "@media (max-width: 770px)": {
               width: "40%",
             },
+            "@media (max-width: 600px)": {
+              width: "80%",
+            },
           }}
         >
           <FooterStrocedText
@@ -95,8 +120,16 @@ export function Footer() {
                 variant="h4"
                 fontFamily="Montserrat, sans-serif"
                 fontWeight="700"
-                fontSize="24px"
+                fontSize="2.5rem"
                 color="#fff"
+                sx={{
+                  "@media (max-width: 870px)": {
+                    fontSize: "2rem",
+                  },
+                  "@media (max-width: 605px)": {
+                    fontSize: "1.8rem",
+                  },
+                }}
               >
                 {" "}
                 {t("connectWithUs")}
@@ -109,6 +142,12 @@ export function Footer() {
               fontFamily="Montserrat, sans-serif"
               color="#fff"
               variant="body1"
+              fontSize={"1rem"}
+              sx={{
+                "@media (max-width: 605px)": {
+                  fontSize: "1.1rem",
+                },
+              }}
             >
               {t("waitingForCall")}
             </Typography>
@@ -118,6 +157,12 @@ export function Footer() {
                 fontFamily="PT Sans, sans-serif"
                 fontWeight="400"
                 color={BASE_COLORS.DEFAULT_GREY}
+                fontSize={"1rem"}
+                sx={{
+                  "@media (max-width: 605px)": {
+                    fontSize: "1.1rem",
+                  },
+                }}
               >
                 {" "}
                 (097) 273-77-44
@@ -127,6 +172,12 @@ export function Footer() {
                 fontFamily="PT Sans, sans-serif"
                 fontWeight="400"
                 color={BASE_COLORS.DEFAULT_GREY}
+                fontSize={"1rem"}
+                sx={{
+                  "@media (max-width: 605px)": {
+                    fontSize: "1.1rem",
+                  },
+                }}
               >
                 {" "}
                 (099) 273-77-44
@@ -136,6 +187,12 @@ export function Footer() {
                 fontFamily="PT Sans, sans-serif"
                 fontWeight="400"
                 color={BASE_COLORS.DEFAULT_GREY}
+                fontSize={"1rem"}
+                sx={{
+                  "@media (max-width: 605px)": {
+                    fontSize: "1.1rem",
+                  },
+                }}
               >
                 {" "}
                 (063) 253-77-44
@@ -145,9 +202,18 @@ export function Footer() {
         </Stack>
       </Stack>
       <Stack
-        padding="2% 8%"
+        padding="1.4rem 8%"
         borderTop={`2px solid ${BASE_COLORS.DEFAULT_BLUE}`}
         direction="row"
+        sx={{
+          "@media (max-width: 1024px)": {
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            margin: "0",
+            padding: "1.4rem 0",
+          },
+        }}
       >
         <Copyright />
       </Stack>

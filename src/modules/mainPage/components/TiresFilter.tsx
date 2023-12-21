@@ -20,6 +20,7 @@ import { inputLabelClasses } from "@mui/material/InputLabel";
 import { ButtonWithIcon } from "../../../shared/components/ButtonWithIcon";
 import { BASE_COLORS, FILTER_COLORS, FONTS } from "../../../shared/constants";
 import { AiOutlineFontSize } from "react-icons/ai";
+import { Height, WidthFull } from "@mui/icons-material";
 
 type FieldType = "width" | "profile" | "diametr" | "season" | "brand";
 
@@ -36,6 +37,7 @@ type AutocompleteOptionType = {
 
 const StyledAutocomplete = styled(Autocomplete)({
   //LABEL COLOR/FONTS
+
   "&:hover": {
     [`& .${inputLabelClasses.root}.${inputLabelClasses.shrink}`]: {
       color: BASE_COLORS.DEFAULT_BLUE,
@@ -68,6 +70,7 @@ const StyledAutocomplete = styled(Autocomplete)({
   "& .MuiAutocomplete-clearIndicator": {
     color: FILTER_COLORS.BUTTON_RESET_FILTER,
   },
+
   //OPTION COLOR/FONTS
   "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
@@ -228,6 +231,14 @@ function TiresFilter() {
         width="440px"
         direction="row"
         gap="20px"
+        sx={{
+          "@media (max-width: 550px)": {
+            width: "30rem",
+          },
+          "@media (max-width: 420px)": {
+            width: "25rem",
+          },
+        }}
       >
         {autocompleteOptions.map(({ id, options, label, onChange }) => (
           <StyledAutocomplete
@@ -239,6 +250,9 @@ function TiresFilter() {
             }
             sx={{
               width: id === "season" || id === "brand" ? 190 : 120,
+              "@media (max-width: 550px)": {
+                width: "85%",
+              },
             }}
             renderInput={(params) => (
               <TextField
@@ -270,6 +284,9 @@ function TiresFilter() {
               },
               "@media (max-width: 605px)": {
                 fontSize: "1rem",
+              },
+              "@media (max-width: 500px)": {
+                fontSize: "1.1rem",
               },
             }}
           >

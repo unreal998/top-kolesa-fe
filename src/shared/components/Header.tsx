@@ -141,7 +141,16 @@ export function Header() {
         justifyContent="space-between"
       >
         <Link href="/">
-          <Box component={"img"} src="./logo.png" alt="logo" />
+          <Box
+            component={"img"}
+            src="./logo.png"
+            alt="logo"
+            sx={{
+              "@media (max-width: 550px)": {
+                height: "35px",
+              },
+            }}
+          />
         </Link>
         <Stack
           display="flex"
@@ -206,8 +215,11 @@ export function Header() {
           display={"flex"}
           justifyContent={"end"}
           sx={{
-            "@media (max-width: 605px)": {
-              gap: "0rem",
+            "@media (max-width: 870px)": {
+              gap: "0.75rem",
+            },
+            "@media (max-width: 550px)": {
+              gap: "1rem",
             },
           }}
         >
@@ -218,6 +230,18 @@ export function Header() {
             aria-label="cart"
             sx={{
               marginRight: cartModalWindowOpen ? "0px" : "1rem",
+              "@media (max-width: 871px)": {
+                width: "10px",
+                height: "10px",
+                padding: "10px",
+                margin: "10px",
+              },
+              "@media (max-width: 550px)": {
+                width: "8px",
+                height: "8px",
+                padding: "8px",
+                margin: "8px",
+              },
             }}
           >
             <Badge
@@ -227,32 +251,62 @@ export function Header() {
                 "& .MuiBadge-badge": {
                   backgroundColor: BASE_COLORS.DEFAULT_BLUE,
                   fontSize: "14px",
+                  "@media (max-width: 550px)": {
+                    fontSize: "12px",
+                  },
                 },
               }}
             >
               <ShoppingCartOutlinedIcon
-                sx={{ color: "#000", width: "30px", height: "30px" }}
+                sx={{
+                  color: "#000",
+                  width: "30px",
+                  height: "30px",
+                  "@media (max-width: 550px)": {
+                    width: "25px",
+                    height: "25px",
+                  },
+                }}
               />
             </Badge>
           </IconButton>
           {cartModalWindowOpen && <CartModalWindow />}
           <Button
             onClick={(event) => handleLanguageClick(event)}
-            sx={{ color: "#000" }}
+            sx={{
+              color: "#000",
+              "@media (max-width: 871px)": {
+                padding: "0px",
+                margin: "0px",
+                minWidth: 0,
+              },
+              "@media (max-width: 550px)": {
+                width: "20px",
+                height: "20px",
+              },
+            }}
           >
-            {" "}
             <Language
-              sx={{ paddingRight: "10px", width: "30px", height: "30px" }}
+              sx={{
+                paddingRight: "10px",
+                width: "30px",
+                height: "30px",
+                "@media (max-width: 871px)": {
+                  padding: "0px",
+                  margin: "0px",
+                },
+                "@media (max-width: 550px)": {
+                  width: "25px",
+                  height: "25px",
+                },
+              }}
             />
             <Typography
               fontFamily={FONTS.MAIN_TEXT_FAMILY}
               fontSize={"1.1rem"}
               sx={{
                 "@media (max-width: 870px)": {
-                  fontSize: "1.15rem",
-                },
-                "@media (max-width: 800px)": {
-                  fontSize: "1.2rem",
+                  display: "none",
                 },
               }}
             >
@@ -279,7 +333,9 @@ export function Header() {
                   handleClose();
                   i18next.changeLanguage(item.code);
                 }}
-                sx={{ color: "#000" }}
+                sx={{
+                  color: "#000",
+                }}
               >
                 <Typography
                   fontFamily={FONTS.MAIN_TEXT_FAMILY}
@@ -298,15 +354,19 @@ export function Header() {
               </MenuItem>
             ))}
           </Menu>
+
           <Button
             variant="text"
             sx={{
               padding: "0px",
               margin: "0px",
-              "@media (min-width: 870px)": {
+              "@media (min-width: 871px)": {
                 display: "none",
-                width: "40px",
-                height: "40px",
+                padding: "0px",
+                margin: "0px",
+              },
+              "@media (max-width: 871px)": {
+                minWidth: 0,
               },
             }}
           >

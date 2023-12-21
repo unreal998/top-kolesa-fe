@@ -30,6 +30,18 @@ const settings = {
         dots: true,
       },
     },
+    {
+      breakpoint: 421,
+      settings: {
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        initialSlide: 0,
+        arrows: true,
+        dots: false,
+      },
+    },
   ],
 };
 
