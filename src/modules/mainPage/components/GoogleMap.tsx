@@ -1,8 +1,7 @@
-
-import { Box, Stack, Typography } from "@mui/material";
-import { Wrapper } from "@googlemaps/react-wrapper";
-import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Box, Stack, Typography } from '@mui/material';
+import { Wrapper } from '@googlemaps/react-wrapper';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function MyMapComponent({
   center,
@@ -47,14 +46,14 @@ function MyMapComponent({
       ref={ref}
       id="map"
       sx={{
-        "@media (max-width: 1025px)": {
-          width: "80%",
+        '@media (max-width: 1025px)': {
+          width: '80%',
         },
-        "@media (max-width: 650px)": {
-          height: "400px",
+        '@media (max-width: 650px)': {
+          height: '400px',
         },
-        "@media (max-width: 520px)": {
-          height: "30rem",
+        '@media (max-width: 520px)': {
+          height: '30rem',
         },
       }}
     />
@@ -75,8 +74,8 @@ export function GoogleMap() {
       }
     }
     handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -87,23 +86,21 @@ export function GoogleMap() {
       justifyContent="space-around"
       alignItems="center"
       sx={{
-        backgroundImage: "url(./imgs/ourServiceImgs/bg.jpg)",
-        backgroundSize: "contain",
-        "@media (max-width: 1025px)": {
-          flexDirection: "column",
-          gap: "3rem",
+        backgroundImage: 'url(./imgs/ourServiceImgs/bg.jpg)',
+        backgroundSize: 'contain',
+        '@media (max-width: 1025px)': {
+          flexDirection: 'column',
+          gap: '3rem',
         },
-      }}
-    >
+      }}>
       <Stack gap="10px">
         <Typography
           variant="h3"
           fontWeight="900"
           fontFamily="Montserrat, sans-serif"
           color="#000"
-          pb={"1rem"}
-        >
-          {t("howToFindUS")}
+          pb={'1rem'}>
+          {t('howToFindUS')}
         </Typography>
         <Stack>
           <Typography
@@ -118,13 +115,12 @@ export function GoogleMap() {
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
             color="#000"
-            fontSize={"1rem"}
+            fontSize={'1rem'}
             sx={{
-              "@media (max-width: 605px)": {
-                fontSize: "1.1rem",
+              '@media (max-width: 605px)': {
+                fontSize: '1.1rem',
               },
-            }}
-          >
+            }}>
             Глобал
           </Typography>
           <Typography
@@ -132,13 +128,12 @@ export function GoogleMap() {
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
             color="#000"
-            fontSize={"1rem"}
+            fontSize={'1rem'}
             sx={{
-              "@media (max-width: 605px)": {
-                fontSize: "1.1rem",
+              '@media (max-width: 605px)': {
+                fontSize: '1.1rem',
               },
-            }}
-          >
+            }}>
             Tyre Plus
           </Typography>
         </Stack>
@@ -155,13 +150,12 @@ export function GoogleMap() {
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
             color="#000"
-            fontSize={"1rem"}
+            fontSize={'1rem'}
             sx={{
-              "@media (max-width: 605px)": {
-                fontSize: "1.1rem",
+              '@media (max-width: 605px)': {
+                fontSize: '1.1rem',
               },
-            }}
-          >
+            }}>
             (099) 273-77-44
           </Typography>
           <Typography
@@ -169,13 +163,12 @@ export function GoogleMap() {
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
             color="#000"
-            fontSize={"1rem"}
+            fontSize={'1rem'}
             sx={{
-              "@media (max-width: 605px)": {
-                fontSize: "1.1rem",
+              '@media (max-width: 605px)': {
+                fontSize: '1.1rem',
               },
-            }}
-          >
+            }}>
             (097) 273-77-44
           </Typography>
           <Typography
@@ -183,13 +176,12 @@ export function GoogleMap() {
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
             color="#000"
-            fontSize={"1rem"}
+            fontSize={'1rem'}
             sx={{
-              "@media (max-width: 605px)": {
-                fontSize: "1.1rem",
+              '@media (max-width: 605px)': {
+                fontSize: '1.1rem',
               },
-            }}
-          >
+            }}>
             (063) 253-77-44
           </Typography>
         </Stack>
@@ -206,13 +198,12 @@ export function GoogleMap() {
             fontFamily="PT Sans, sans-serif"
             fontWeight="400"
             color="#000"
-            fontSize={"1rem"}
+            fontSize={'1rem'}
             sx={{
-              "@media (max-width: 605px)": {
-                fontSize: "1.1rem",
+              '@media (max-width: 605px)': {
+                fontSize: '1.1rem',
               },
-            }}
-          >
+            }}>
             topkolesa@gmail.com
           </Typography>
         </Stack>
