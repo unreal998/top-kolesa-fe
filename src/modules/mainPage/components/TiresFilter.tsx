@@ -16,9 +16,10 @@ import {
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { inputLabelClasses } from '@mui/material/InputLabel';
-
-import { ButtonWithIcon } from '../../../shared/components/ButtonWithIcon';
-import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../../shared/constants';
+import { ButtonWithIcon } from "../../../shared/components/ButtonWithIcon";
+import { BASE_COLORS, FILTER_COLORS, FONTS } from "../../../shared/constants";
+import { AiOutlineFontSize } from "react-icons/ai";
+import { Height, WidthFull } from "@mui/icons-material";
 
 type FieldType = 'width' | 'profile' | 'diametr' | 'season' | 'brand';
 
@@ -35,7 +36,7 @@ type AutocompleteOptionType = {
 
 const StyledAutocomplete = styled(Autocomplete)({
   //LABEL COLOR/FONTS
-  '&:hover': {
+  "&:hover": {
     [`& .${inputLabelClasses.root}.${inputLabelClasses.shrink}`]: {
       color: BASE_COLORS.DEFAULT_BLUE,
     },
@@ -43,6 +44,7 @@ const StyledAutocomplete = styled(Autocomplete)({
   [`& .${inputLabelClasses.root}`]: {
     color: 'defaultColor',
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
+    fontSize: "16px",
     [`&.${inputLabelClasses.focused}`]: {
       color: BASE_COLORS.DEFAULT_BLUE,
     },
@@ -50,9 +52,11 @@ const StyledAutocomplete = styled(Autocomplete)({
   //INPUT COLOR/FONTS
   '& .MuiOutlinedInput-root': {
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
-    '&:hover .MuiOutlinedInput-notchedOutline': {
+    fontSize: "16px",
+    "&:hover .MuiOutlinedInput-notchedOutline": {
       borderColor: BASE_COLORS.DEFAULT_BLUE,
       color: BASE_COLORS.DEFAULT_BLUE,
+      fontSize: "16px",
     },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: BASE_COLORS.DEFAULT_BLUE,
@@ -64,9 +68,11 @@ const StyledAutocomplete = styled(Autocomplete)({
   '& .MuiAutocomplete-clearIndicator': {
     color: FILTER_COLORS.BUTTON_RESET_FILTER,
   },
+
   //OPTION COLOR/FONTS
   '& + .MuiAutocomplete-popper .MuiAutocomplete-option': {
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
+    fontSize: "16px",
   },
   '& + .MuiAutocomplete-popper .MuiAutocomplete-option:hover': {
     backgroundColor: FILTER_COLORS.DEFAULT_BLUE_INACTIVE,
@@ -75,10 +81,12 @@ const StyledAutocomplete = styled(Autocomplete)({
     {
       backgroundColor: `${FILTER_COLORS.DEFAULT_BLUE_INACTIVE} !important`,
       color: `${FILTER_COLORS.TEXT_MAIN} !important`,
+      fontSize: "16px",
     },
   "& + .MuiAutocomplete-popper .MuiAutocomplete-option[aria-selected='true']": {
     backgroundColor: `${BASE_COLORS.DEFAULT_BLUE} !important`,
     color: `${BASE_COLORS.BACKGROUND_WHITE}`,
+    fontSize: "16px",
   },
 });
 
@@ -170,22 +178,22 @@ function TiresFilter() {
 
   const autocompleteOptions: AutocompleteOptionType[] = [
     {
-      id: 'width',
-      options: filtersParams?.width,
-      label: t('width'),
-      onChange: handleAutocompleteChange('width'),
+      id: "width",
+      options: filtersParams?.width.slice(1),
+      label: t("width"),
+      onChange: handleAutocompleteChange("width"),
     },
     {
-      id: 'profile',
-      options: filtersParams?.height,
-      label: t('profile'),
-      onChange: handleAutocompleteChange('profile'),
+      id: "profile",
+      options: filtersParams?.height.slice(1),
+      label: t("profile"),
+      onChange: handleAutocompleteChange("profile"),
     },
     {
-      id: 'diametr',
-      options: filtersParams?.diametr,
-      label: t('diametr'),
-      onChange: handleAutocompleteChange('diametr'),
+      id: "diametr",
+      options: filtersParams?.diametr.slice(1),
+      label: t("diametr"),
+      onChange: handleAutocompleteChange("diametr"),
     },
     {
       id: 'season',
@@ -202,13 +210,15 @@ function TiresFilter() {
   ];
 
   return (
-    <Stack gap="25px" width="60%" alignItems="center">
+    <Stack gap="25px" alignItems="center">
       <Typography
         variant="h3"
         color="#ffffff"
         fontWeight="600"
-        fontFamily={FONTS.BOLD_TEXT_FAMILY}>
-        {t('tireSelection')}
+        fontFamily={FONTS.BOLD_TEXT_FAMILY}
+        textAlign={"center"}
+      >
+        {t("tireSelection")}
       </Typography>
       <Stack
         bgcolor={BASE_COLORS.BACKGROUND_WHITE}
@@ -216,9 +226,18 @@ function TiresFilter() {
         padding="40px 20px"
         justifyContent="center"
         flexWrap="wrap"
-        width="480px"
+        width="440px"
         direction="row"
-        gap="20px">
+        gap="20px"
+        sx={{
+          "@media (max-width: 550px)": {
+            width: "30rem",
+          },
+          "@media (max-width: 420px)": {
+            width: "25rem",
+          },
+        }}
+      >
         {autocompleteOptions.map(({ id, options, label, onChange }) => (
           <StyledAutocomplete
             key={id}
@@ -228,7 +247,10 @@ function TiresFilter() {
               id === 'width' || id === 'brand' ? sortOptions(options) : options
             }
             sx={{
-              width: id === 'season' || id === 'brand' ? 190 : 120,
+              width: id === "season" || id === "brand" ? 190 : 120,
+              "@media (max-width: 550px)": {
+                width: "85%",
+              },
             }}
             renderInput={(params) => (
               <TextField
@@ -252,10 +274,21 @@ function TiresFilter() {
               backgroundColor: BASE_COLORS.DEFAULT_BLUE,
               fontWeight: '600',
               fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              borderRadius: '999px',
-              padding: '20px 40px',
-            }}>
-            {t('searchButton')}
+              borderRadius: "999px",
+              padding: "20px 40px",
+              fontSize: "0.9rem",
+              "@media (max-width: 870px)": {
+                fontSize: "0.9rem",
+              },
+              "@media (max-width: 605px)": {
+                fontSize: "1rem",
+              },
+              "@media (max-width: 500px)": {
+                fontSize: "1.1rem",
+              },
+            }}
+          >
+            {t("searchButton")}
           </Button>
         }
         icon={<ArrowRightIcon />}></ButtonWithIcon>

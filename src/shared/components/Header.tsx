@@ -13,22 +13,22 @@ import {
   MenuItem,
   Stack,
   Typography,
-} from '@mui/material';
-import Badge from '@mui/material/Badge';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { TypographyWithIcon } from '../../modules/mainPage/components/TypographyWithIcon';
-import { BASE_COLORS } from '../constants';
-import { useTranslation } from 'react-i18next';
-import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
-import i18next, { use } from 'i18next';
-import { useDispatch, useSelector } from 'react-redux';
+} from "@mui/material";
+import Badge from "@mui/material/Badge";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { TypographyWithIcon } from "../../modules/mainPage/components/TypographyWithIcon";
+import { BASE_COLORS, FONTS } from "../constants";
+import { useTranslation } from "react-i18next";
+import { SyntheticEvent, useCallback, useEffect, useState } from "react";
+import i18next from "i18next";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectCartModalWindowOpen,
   selectCartItemCount,
-  selectShopItemsList,
-} from '../../modules/shopPage/selectors';
-import { actions } from '../../modules/shopPage/reducer';
-import CartModalWindow from './CartModalWindow';
+} from "../../modules/shopPage/selectors";
+import { actions } from "../../modules/shopPage/reducer";
+import CartModalWindow from "./CartModalWindow";
+import MenuModalWindow from "./MenuModalWindow";
 
 export function Header() {
   const dispatch = useDispatch();
@@ -49,6 +49,25 @@ export function Header() {
     {
       code: 'ua',
       name: 'Українська',
+    },
+  ];
+
+  const menu = [
+    {
+      name: "homeLabel",
+      link: "/",
+    },
+    {
+      name: "shopLabel",
+      link: "/shop",
+    },
+    {
+      name: "aboutLabel",
+      link: "/about",
+    },
+    {
+      name: "contactLabel",
+      link: "/contact",
     },
   ];
 
@@ -78,11 +97,22 @@ export function Header() {
         bgcolor={BASE_COLORS.DEFAULT_BLUE}
         display="flex"
         flexDirection="row"
-        gap="40px"
-        width="100%"
-        padding="11px 11px 11px 80px">
+        justifyContent={"flex-start"}
+        gap="3rem"
+        height={"1.6rem"}
+        padding="1.1rem 4%"
+        sx={{
+          "@media (max-width: 1250px)": {
+            justifyContent: "center",
+            padding: "1.1rem 2%",
+          },
+          "@media (max-width: 870px)": {
+            display: "none",
+          },
+        }}
+      >
         <TypographyWithIcon
-          icon={<EmailOutlined sx={{ fill: '#FFF', width: '20px' }} />}
+          icon={<EmailOutlined sx={{ fill: "#FFF", width: "2rem" }} />}
           typography={
             <Typography
               fontFamily="PT Sans,  sans-serif"
@@ -94,7 +124,7 @@ export function Header() {
           }
         />
         <TypographyWithIcon
-          icon={<MapsHomeWorkOutlined sx={{ fill: '#FFF', width: '20px' }} />}
+          icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "2rem" }} />}
           typography={
             <Typography
               fontFamily="PT Sans,  sans-serif"
@@ -107,7 +137,7 @@ export function Header() {
           }
         />
         <TypographyWithIcon
-          icon={<TimerOutlined sx={{ fill: '#FFF', width: '20px' }} />}
+          icon={<TimerOutlined sx={{ fill: "#FFF", width: "2rem" }} />}
           typography={
             <Typography
               fontFamily="PT Sans,  sans-serif"
@@ -121,57 +151,161 @@ export function Header() {
       <Box
         display="flex"
         flexDirection="row"
-        gap="20px"
-        width="92%"
         padding="30px 4%"
         alignItems="center"
-        justifyContent="space-between">
+        alignContent={"center"}
+        justifyContent="space-between"
+        sx={{
+          "@media (max-width: 550px)": {
+            padding: "20px 2%",
+          },
+        }}
+      >
         <Link href="/">
-          <img src="./logo.png" alt="logo"></img>
+          <Box
+            component={"img"}
+            src="./logo.png"
+            alt="logo"
+            sx={{
+              "@media (max-width: 550px)": {
+                height: "35px",
+              },
+            }}
+          />
         </Link>
-        <Stack display="flex" flexDirection="row" gap="15px">
-          <Link underline="none" href="/" sx={{ color: '#000' }}>
-            {t('homeLabel')}
-          </Link>
-          <Link underline="none" href="/shop" sx={{ color: '#000' }}>
-            {t('shopLabel')}
-          </Link>
-          <Link underline="none" href="/about" sx={{ color: '#000' }}>
-            {t('aboutLabel')}
-          </Link>
-          <Link underline="none" href="/contact" sx={{ color: '#000' }}>
-            {t('contactLabel')}
-          </Link>
-        </Stack>
-        <Stack alignItems="center" direction="row" gap={'1rem'}>
-          <Box display="flex" flexDirection="row">
-            <IconButton
-              onClick={() =>
-                dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen))
-              }
-              aria-label="cart"
+        <Stack
+          display="flex"
+          flexDirection="row"
+          gap="1.5rem"
+          sx={{
+            "@media (max-width: 870px)": {
+              display: "none",
+            },
+          }}
+        >
+          {menu.map((menuItem, index) => (
+            <Link
+              key={index}
+              underline="none"
+              href={menuItem.link}
               sx={{
-                marginRight: cartModalWindowOpen ? '0px' : '1rem',
-              }}>
-              <Badge
-                badgeContent={cartItemCount}
-                sx={{
-                  color: '#FFF',
-                  '& .MuiBadge-badge': {
-                    backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+                color: "#000",
+                fontFamily: FONTS.MAIN_TEXT_FAMILY,
+                fontSize: "1.1rem",
+              }}
+            >
+              {t(menuItem.name)}
+            </Link>
+          ))}
+        </Stack>
+        <Stack
+          alignItems="center"
+          direction="row"
+          gap={"1rem"}
+          width={"243px"}
+          display={"flex"}
+          justifyContent={"end"}
+          sx={{
+            "@media (max-width: 870px)": {
+              gap: "0.75rem",
+            },
+            "@media (max-width: 550px)": {
+              gap: "1rem",
+            },
+            "@media (max-width: 450px)": {
+              paddingRight: "1.4rem",
+            },
+          }}
+        >
+          <IconButton
+            onClick={() =>
+              dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen))
+            }
+            aria-label="cart"
+            sx={{
+              marginRight: cartModalWindowOpen ? "0px" : "1rem",
+              "@media (max-width: 871px)": {
+                width: "10px",
+                height: "10px",
+                padding: "10px",
+                margin: "10px",
+              },
+              "@media (max-width: 550px)": {
+                width: "8px",
+                height: "8px",
+                padding: "8px",
+                margin: "8px",
+              },
+            }}
+          >
+            <Badge
+              badgeContent={cartItemCount}
+              sx={{
+                color: "#FFF",
+                "& .MuiBadge-badge": {
+                  backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+                  fontSize: "14px",
+                  "@media (max-width: 550px)": {
+                    fontSize: "12px",
                   },
-                }}>
-                <ShoppingCartOutlinedIcon sx={{ color: '#000' }} />
-              </Badge>
-            </IconButton>
-          </Box>
+                },
+              }}
+            >
+              <ShoppingCartOutlinedIcon
+                sx={{
+                  color: "#000",
+                  width: "30px",
+                  height: "30px",
+                  "@media (max-width: 550px)": {
+                    width: "25px",
+                    height: "25px",
+                  },
+                }}
+              />
+            </Badge>
+          </IconButton>
           {cartModalWindowOpen && <CartModalWindow />}
           <Button
             onClick={(event) => handleLanguageClick(event)}
-            sx={{ color: '#000' }}>
-            {' '}
-            <Language sx={{ marginRight: '10px' }} />
-            {currentLanguageCode}
+            sx={{
+              color: "#000",
+              "@media (max-width: 871px)": {
+                padding: "0px",
+                margin: "0px",
+                minWidth: 0,
+              },
+              "@media (max-width: 550px)": {
+                width: "20px",
+                height: "20px",
+              },
+            }}
+          >
+            <Language
+              sx={{
+                paddingRight: "10px",
+                width: "30px",
+                height: "30px",
+                "@media (max-width: 871px)": {
+                  padding: "0px",
+                  margin: "0px",
+                },
+                "@media (max-width: 550px)": {
+                  width: "25px",
+                  height: "25px",
+                },
+              }}
+            />
+            <Typography
+              fontFamily={FONTS.MAIN_TEXT_FAMILY}
+              fontSize={"1.1rem"}
+              sx={{
+                "@media (max-width: 870px)": {
+                  display: "none",
+                },
+              }}
+            >
+              {currentLanguageCode}
+            </Typography>
           </Button>
           <Menu
             open={!!anchorEl}
@@ -192,11 +326,28 @@ export function Header() {
                   handleClose();
                   i18next.changeLanguage(item.code);
                 }}
-                sx={{ color: '#000' }}>
-                {item.name}
+                sx={{
+                  color: "#000",
+                }}
+              >
+                <Typography
+                  fontFamily={FONTS.MAIN_TEXT_FAMILY}
+                  fontSize={"1.1rem"}
+                  sx={{
+                    "@media (max-width: 870px)": {
+                      fontSize: "1.15rem",
+                    },
+                    "@media (max-width: 800px)": {
+                      fontSize: "1.2rem",
+                    },
+                  }}
+                >
+                  {item.name}
+                </Typography>
               </MenuItem>
             ))}
           </Menu>
+          <MenuModalWindow menuData={menu} />
         </Stack>
       </Box>
     </Box>
