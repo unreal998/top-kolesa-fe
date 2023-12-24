@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   SwipeableDrawer,
   Box,
@@ -8,11 +8,11 @@ import {
   ListItemButton,
   Typography,
   IconButton,
-} from "@mui/material/";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useTranslation } from "react-i18next";
-import { BASE_COLORS, FILTER_COLORS, FONTS } from "../constants";
-import CloseIcon from "@mui/icons-material/Close";
+} from '@mui/material/';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useTranslation } from 'react-i18next';
+import { BASE_COLORS, FILTER_COLORS, FONTS } from '../constants';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function MenuModalWindow({ menuData }: { menuData: any }) {
   const { t } = useTranslation();
@@ -24,9 +24,9 @@ export default function MenuModalWindow({ menuData }: { menuData: any }) {
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
         event &&
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
+        event.type === 'keydown' &&
+        ((event as React.KeyboardEvent).key === 'Tab' ||
+          (event as React.KeyboardEvent).key === 'Shift')
       ) {
         return;
       }
@@ -36,30 +36,28 @@ export default function MenuModalWindow({ menuData }: { menuData: any }) {
 
   const list = () => (
     <Box
-      width={"50vw"}
-      mt={"3vh"}
+      width={'50vw'}
+      mt={'3vh'}
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
-      sx={{ "@media (max-width: 500px)": { width: "100vw" } }}
-      position={"relative"}
-    >
+      sx={{ '@media (max-width: 500px)': { width: '100vw' } }}
+      position={'relative'}>
       <IconButton
         sx={{
           color: FILTER_COLORS.BUTTON_RESET_FILTER,
           padding: 0,
-          position: "absolute",
-          top: "0.1rem",
-          right: "2rem",
-          "@media (min-width: 500px)": {
-            display: "none",
+          position: 'absolute',
+          top: '0.1rem',
+          right: '2rem',
+          '@media (min-width: 500px)': {
+            display: 'none',
           },
-        }}
-      >
+        }}>
         <CloseIcon
           sx={{
-            height: "30px",
-            width: "30px",
+            height: '30px',
+            width: '30px',
             padding: 0,
           }}
         />
@@ -72,18 +70,17 @@ export default function MenuModalWindow({ menuData }: { menuData: any }) {
                 lineHeight="1.7"
                 variant="body1"
                 fontFamily={FONTS.MAIN_TEXT_FAMILY}
-                fontSize={"1.5rem"}
-                textAlign={"center"}
-                m={"auto"}
+                fontSize={'1.5rem'}
+                textAlign={'center'}
+                m={'auto'}
                 sx={{
-                  "@media (max-width: 605px)": {
-                    fontSize: "1.3rem",
+                  '@media (max-width: 605px)': {
+                    fontSize: '1.3rem',
                   },
-                  "@media (max-width: 500px)": {
-                    fontSize: "1.8rem",
+                  '@media (max-width: 500px)': {
+                    fontSize: '1.8rem',
                   },
-                }}
-              >
+                }}>
                 {t(menuItem.name)}
               </Typography>
             </ListItemButton>
@@ -99,32 +96,30 @@ export default function MenuModalWindow({ menuData }: { menuData: any }) {
         onClick={toggleDrawer(true)}
         variant="text"
         sx={{
-          padding: "0px",
-          margin: "0px",
-          "@media (min-width: 871px)": {
-            display: "none",
-            padding: "0px",
-            margin: "0px",
+          padding: '0px',
+          margin: '0px',
+          '@media (min-width: 871px)': {
+            display: 'none',
+            padding: '0px',
+            margin: '0px',
           },
-          "@media (max-width: 871px)": {
+          '@media (max-width: 871px)': {
             minWidth: 0,
           },
-        }}
-      >
+        }}>
         <MenuIcon
           sx={{
-            color: "#000",
-            width: "30px",
-            height: "30px",
+            color: '#000',
+            width: '30px',
+            height: '30px',
           }}
         />
       </Button>
       <SwipeableDrawer
-        anchor={"right"}
+        anchor={'right'}
         open={state.right}
         onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
-      >
+        onOpen={toggleDrawer(true)}>
         {list()}
       </SwipeableDrawer>
     </div>

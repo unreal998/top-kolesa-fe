@@ -36,14 +36,35 @@ export function ContactMainInfo() {
         <StyledText pt={'4rem'} pb={'2rem'}>
           {t('contactText')}
         </StyledText>
-        <Box width={'100%'}>
-          <Grid container gap={3} justifyContent={'center'}>
+        <Box>
+          <Grid
+            container
+            gap={3}
+            justifyContent={'center'}
+            sx={{
+              '@media (max-width: 690px)': {
+                flexDirection: 'column',
+                alignItems: 'center',
+                width: '100%',
+              },
+            }}>
             <Grid
               item
-              xs={5}
               bgcolor={BASE_COLORS.BACKGROUND_WHITE}
-              height={200}
-              borderRadius={2}>
+              height={'13rem'}
+              borderRadius={2}
+              width={'45%'}
+              sx={{
+                '@media (max-width: 1700px)': {
+                  height: '14rem',
+                },
+                '@media (max-width: 690px)': {
+                  width: '90%',
+                },
+                '@media (max-width: 340px)': {
+                  height: '17rem',
+                },
+              }}>
               <Box display={'flex'} flexDirection={'column'} m={3}>
                 <Box
                   display={'flex'}
@@ -53,16 +74,58 @@ export function ContactMainInfo() {
                   <StyledHeadingText>{t('contactUs')}</StyledHeadingText>
                 </Box>
                 <Box display={'flex'} flexDirection={'column'} p={2}>
-                  <Box display={'flex'} justifyContent={'space-between'}>
-                    <StyledText>Vodafone</StyledText>
+                  <Box
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    sx={{
+                      '@media (max-width: 830px)': {
+                        justifyContent: 'center',
+                      },
+                    }}>
+                    <StyledText
+                      sx={{
+                        '@media (max-width: 830px)': {
+                          display: 'none',
+                        },
+                      }}>
+                      Vodafone
+                    </StyledText>
                     <StyledText>+38 (099) 273-77-44</StyledText>
                   </Box>
-                  <Box display={'flex'} justifyContent={'space-between'}>
-                    <StyledText>Kyivstar</StyledText>
+                  <Box
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    sx={{
+                      '@media (max-width: 830px)': {
+                        justifyContent: 'center',
+                      },
+                    }}>
+                    <StyledText
+                      sx={{
+                        '@media (max-width: 830px)': {
+                          display: 'none',
+                        },
+                      }}>
+                      Kyivstar
+                    </StyledText>
                     <StyledText>+38 (097) 273-77-44</StyledText>
                   </Box>
-                  <Box display={'flex'} justifyContent={'space-between'}>
-                    <StyledText>Life</StyledText>
+                  <Box
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    sx={{
+                      '@media (max-width: 830px)': {
+                        justifyContent: 'center',
+                      },
+                    }}>
+                    <StyledText
+                      sx={{
+                        '@media (max-width: 830px)': {
+                          display: 'none',
+                        },
+                      }}>
+                      Life
+                    </StyledText>
                     <StyledText>+38 (063) 253-77-44</StyledText>
                   </Box>
                 </Box>
@@ -70,10 +133,21 @@ export function ContactMainInfo() {
             </Grid>
             <Grid
               item
-              xs={5}
               bgcolor={BASE_COLORS.BACKGROUND_WHITE}
-              height={200}
-              borderRadius={2}>
+              height={'13rem'}
+              borderRadius={2}
+              width={'45%'}
+              sx={{
+                '@media (max-width: 1700px)': {
+                  height: '14rem',
+                },
+                '@media (max-width: 690px)': {
+                  width: '90%',
+                },
+                '@media (max-width: 340px)': {
+                  height: '17rem',
+                },
+              }}>
               <Box display={'flex'} flexDirection={'column'} m={3}>
                 <Box
                   display={'flex'}
@@ -84,17 +158,43 @@ export function ContactMainInfo() {
                   />
                   <StyledHeadingText>{t('ourMail')}</StyledHeadingText>
                 </Box>
-                <Box display={'flex'} justifyContent={'space-between'} p={2}>
-                  <StyledText>E-mail</StyledText>
+                <Box
+                  display={'flex'}
+                  justifyContent={'space-between'}
+                  p={2}
+                  sx={{
+                    '@media (max-width: 830px)': {
+                      justifyContent: 'center',
+                    },
+                  }}>
+                  <StyledText
+                    sx={{
+                      '@media (max-width: 830px)': {
+                        display: 'none',
+                      },
+                    }}>
+                    E-mail
+                  </StyledText>
                   <StyledText>topkolesa@gmail.com</StyledText>
                 </Box>
               </Box>
             </Grid>
             <Grid
               item
-              xs={5}
+              width={'45%'}
               bgcolor={BASE_COLORS.BACKGROUND_WHITE}
-              height={200}
+              height={'13rem'}
+              sx={{
+                '@media (max-width: 1700px)': {
+                  height: '14rem',
+                },
+                '@media (max-width: 690px)': {
+                  width: '90%',
+                },
+                '@media (max-width: 340px)': {
+                  height: '17rem',
+                },
+              }}
               borderRadius={2}>
               <Box display={'flex'} flexDirection={'column'} m={3}>
                 <Box
@@ -105,15 +205,39 @@ export function ContactMainInfo() {
                   <StyledHeadingText>{t('openingHours')}</StyledHeadingText>
                 </Box>
                 <Box display={'flex'} flexDirection={'column'} p={2}>
-                  <Box display={'flex'} justifyContent={'space-between'}>
+                  <Box
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    sx={{
+                      '@media (max-width: 690px)': {
+                        width: '15rem',
+                        margin: '0 auto',
+                      },
+                    }}>
                     <StyledText>{t('workDays')}:</StyledText>
                     <StyledText>9:00 - 18:00</StyledText>
                   </Box>
-                  <Box display={'flex'} justifyContent={'space-between'}>
+                  <Box
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    sx={{
+                      '@media (max-width: 690px)': {
+                        width: '15rem',
+                        margin: '0 auto',
+                      },
+                    }}>
                     <StyledText>{t('st')}:</StyledText>
                     <StyledText>9:00 - 16:00</StyledText>
                   </Box>
-                  <Box display={'flex'} justifyContent={'space-between'}>
+                  <Box
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    sx={{
+                      '@media (max-width: 690px)': {
+                        width: '15rem',
+                        margin: '0 auto',
+                      },
+                    }}>
                     <StyledText>{t('su')}:</StyledText>
                     <StyledText>{t('closed')}</StyledText>
                   </Box>
@@ -122,10 +246,21 @@ export function ContactMainInfo() {
             </Grid>
             <Grid
               item
-              xs={5}
+              width={'45%'}
               bgcolor={BASE_COLORS.BACKGROUND_WHITE}
-              height={200}
-              borderRadius={2}>
+              height={'13rem'}
+              borderRadius={2}
+              sx={{
+                '@media (max-width: 1700px)': {
+                  height: '14rem',
+                },
+                '@media (max-width: 690px)': {
+                  width: '90%',
+                },
+                '@media (max-width: 340px)': {
+                  height: '17rem',
+                },
+              }}>
               <Box display={'flex'} flexDirection={'column'} m={3}>
                 <Box
                   display={'flex'}
