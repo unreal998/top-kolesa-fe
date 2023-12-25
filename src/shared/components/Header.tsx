@@ -13,8 +13,8 @@ import {
   MenuItem,
   Stack,
   Typography,
-  Badge,
 } from '@mui/material';
+import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { TypographyWithIcon } from '../../modules/mainPage/components/TypographyWithIcon';
 import { BASE_COLORS, FONTS } from '../constants';
@@ -34,6 +34,7 @@ type MenuItemData = {
   name: string;
   link: string;
 };
+
 
 export function Header() {
   const dispatch = useDispatch();
