@@ -37,7 +37,16 @@ const WhyWeList = [
 function AboutPage() {
   const { t } = useTranslation();
   return (
-    <Box m={'3% 25% 10%'}>
+    <Box
+      m={'3% 25% 10%'}
+      sx={{
+        '@media (max-width: 1024px)': {
+          margin: '3% 20% 10%',
+        },
+        '@media (max-width: 870px)': {
+          margin: '3% 12% 10%',
+        },
+      }}>
       <Typography
         variant="h2"
         fontWeight="800"

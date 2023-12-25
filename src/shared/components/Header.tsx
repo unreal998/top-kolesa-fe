@@ -13,22 +13,27 @@ import {
   MenuItem,
   Stack,
   Typography,
-} from "@mui/material";
-import Badge from "@mui/material/Badge";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { TypographyWithIcon } from "../../modules/mainPage/components/TypographyWithIcon";
-import { BASE_COLORS, FONTS } from "../constants";
-import { useTranslation } from "react-i18next";
-import { SyntheticEvent, useCallback, useEffect, useState } from "react";
-import i18next from "i18next";
-import { useDispatch, useSelector } from "react-redux";
+  Badge,
+} from '@mui/material';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { TypographyWithIcon } from '../../modules/mainPage/components/TypographyWithIcon';
+import { BASE_COLORS, FONTS } from '../constants';
+import { useTranslation } from 'react-i18next';
+import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
+import i18next from 'i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCartModalWindowOpen,
   selectCartItemCount,
-} from "../../modules/shopPage/selectors";
-import { actions } from "../../modules/shopPage/reducer";
-import CartModalWindow from "./CartModalWindow";
-import MenuModalWindow from "./MenuModalWindow";
+} from '../../modules/shopPage/selectors';
+import { actions } from '../../modules/shopPage/reducer';
+import CartModalWindow from './CartModalWindow';
+import MenuModalWindow from './MenuModalWindow';
+
+type MenuItemData = {
+  name: string;
+  link: string;
+};
 
 export function Header() {
   const dispatch = useDispatch();
@@ -52,22 +57,22 @@ export function Header() {
     },
   ];
 
-  const menu = [
+  const menu: MenuItemData[] = [
     {
-      name: "homeLabel",
-      link: "/",
+      name: 'homeLabel',
+      link: '/',
     },
     {
-      name: "shopLabel",
-      link: "/shop",
+      name: 'shopLabel',
+      link: '/shop',
     },
     {
-      name: "aboutLabel",
-      link: "/about",
+      name: 'aboutLabel',
+      link: '/about',
     },
     {
-      name: "contactLabel",
-      link: "/contact",
+      name: 'contactLabel',
+      link: '/contact',
     },
   ];
 
@@ -97,22 +102,21 @@ export function Header() {
         bgcolor={BASE_COLORS.DEFAULT_BLUE}
         display="flex"
         flexDirection="row"
-        justifyContent={"flex-start"}
+        justifyContent={'flex-start'}
         gap="3rem"
-        height={"1.6rem"}
+        height={'1.6rem'}
         padding="1.1rem 4%"
         sx={{
-          "@media (max-width: 1250px)": {
-            justifyContent: "center",
-            padding: "1.1rem 2%",
+          '@media (max-width: 1250px)': {
+            justifyContent: 'center',
+            padding: '1.1rem 2%',
           },
-          "@media (max-width: 870px)": {
-            display: "none",
+          '@media (max-width: 870px)': {
+            display: 'none',
           },
-        }}
-      >
+        }}>
         <TypographyWithIcon
-          icon={<EmailOutlined sx={{ fill: "#FFF", width: "2rem" }} />}
+          icon={<EmailOutlined sx={{ fill: '#FFF', width: '2rem' }} />}
           typography={
             <Typography
               fontFamily="PT Sans,  sans-serif"
@@ -124,7 +128,7 @@ export function Header() {
           }
         />
         <TypographyWithIcon
-          icon={<MapsHomeWorkOutlined sx={{ fill: "#FFF", width: "2rem" }} />}
+          icon={<MapsHomeWorkOutlined sx={{ fill: '#FFF', width: '2rem' }} />}
           typography={
             <Typography
               fontFamily="PT Sans,  sans-serif"
@@ -137,7 +141,7 @@ export function Header() {
           }
         />
         <TypographyWithIcon
-          icon={<TimerOutlined sx={{ fill: "#FFF", width: "2rem" }} />}
+          icon={<TimerOutlined sx={{ fill: '#FFF', width: '2rem' }} />}
           typography={
             <Typography
               fontFamily="PT Sans,  sans-serif"
@@ -153,22 +157,21 @@ export function Header() {
         flexDirection="row"
         padding="30px 4%"
         alignItems="center"
-        alignContent={"center"}
+        alignContent={'center'}
         justifyContent="space-between"
         sx={{
-          "@media (max-width: 550px)": {
-            padding: "20px 2%",
+          '@media (max-width: 550px)': {
+            padding: '20px 2%',
           },
-        }}
-      >
+        }}>
         <Link href="/">
           <Box
-            component={"img"}
+            component={'img'}
             src="./logo.png"
             alt="logo"
             sx={{
-              "@media (max-width: 550px)": {
-                height: "35px",
+              '@media (max-width: 550px)': {
+                height: '35px',
               },
             }}
           />
@@ -178,22 +181,20 @@ export function Header() {
           flexDirection="row"
           gap="1.5rem"
           sx={{
-            "@media (max-width: 870px)": {
-              display: "none",
+            '@media (max-width: 870px)': {
+              display: 'none',
             },
-          }}
-        >
+          }}>
           {menu.map((menuItem, index) => (
             <Link
               key={index}
               underline="none"
               href={menuItem.link}
               sx={{
-                color: "#000",
+                color: '#000',
                 fontFamily: FONTS.MAIN_TEXT_FAMILY,
-                fontSize: "1.1rem",
-              }}
-            >
+                fontSize: '1.1rem',
+              }}>
               {t(menuItem.name)}
             </Link>
           ))}
@@ -201,64 +202,61 @@ export function Header() {
         <Stack
           alignItems="center"
           direction="row"
-          gap={"1rem"}
-          width={"243px"}
-          display={"flex"}
-          justifyContent={"end"}
+          gap={'1rem'}
+          width={'243px'}
+          display={'flex'}
+          justifyContent={'end'}
           sx={{
-            "@media (max-width: 870px)": {
-              gap: "0.75rem",
+            '@media (max-width: 870px)': {
+              gap: '0.75rem',
             },
-            "@media (max-width: 550px)": {
-              gap: "1rem",
+            '@media (max-width: 550px)': {
+              gap: '1rem',
             },
-            "@media (max-width: 450px)": {
-              paddingRight: "1.4rem",
+            '@media (max-width: 450px)': {
+              paddingRight: '1.4rem',
             },
-          }}
-        >
+          }}>
           <IconButton
             onClick={() =>
               dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen))
             }
             aria-label="cart"
             sx={{
-              marginRight: cartModalWindowOpen ? "0px" : "1rem",
-              "@media (max-width: 871px)": {
-                width: "10px",
-                height: "10px",
-                padding: "10px",
-                margin: "10px",
+              marginRight: cartModalWindowOpen ? '0px' : '1rem',
+              '@media (max-width: 871px)': {
+                width: '10px',
+                height: '10px',
+                padding: '10px',
+                margin: '10px',
               },
-              "@media (max-width: 550px)": {
-                width: "8px",
-                height: "8px",
-                padding: "8px",
-                margin: "8px",
+              '@media (max-width: 550px)': {
+                width: '8px',
+                height: '8px',
+                padding: '8px',
+                margin: '8px',
               },
-            }}
-          >
+            }}>
             <Badge
               badgeContent={cartItemCount}
               sx={{
-                color: "#FFF",
-                "& .MuiBadge-badge": {
+                color: '#FFF',
+                '& .MuiBadge-badge': {
                   backgroundColor: BASE_COLORS.DEFAULT_BLUE,
-                  fontSize: "14px",
-                  "@media (max-width: 550px)": {
-                    fontSize: "12px",
+                  fontSize: '14px',
+                  '@media (max-width: 550px)': {
+                    fontSize: '12px',
                   },
                 },
-              }}
-            >
+              }}>
               <ShoppingCartOutlinedIcon
                 sx={{
-                  color: "#000",
-                  width: "30px",
-                  height: "30px",
-                  "@media (max-width: 550px)": {
-                    width: "25px",
-                    height: "25px",
+                  color: '#000',
+                  width: '30px',
+                  height: '30px',
+                  '@media (max-width: 550px)': {
+                    width: '25px',
+                    height: '25px',
                   },
                 }}
               />
@@ -268,42 +266,40 @@ export function Header() {
           <Button
             onClick={(event) => handleLanguageClick(event)}
             sx={{
-              color: "#000",
-              "@media (max-width: 871px)": {
-                padding: "0px",
-                margin: "0px",
+              color: '#000',
+              '@media (max-width: 871px)': {
+                padding: '0px',
+                margin: '0px',
                 minWidth: 0,
               },
-              "@media (max-width: 550px)": {
-                width: "20px",
-                height: "20px",
+              '@media (max-width: 550px)': {
+                width: '20px',
+                height: '20px',
               },
-            }}
-          >
+            }}>
             <Language
               sx={{
-                paddingRight: "10px",
-                width: "30px",
-                height: "30px",
-                "@media (max-width: 871px)": {
-                  padding: "0px",
-                  margin: "0px",
+                paddingRight: '10px',
+                width: '30px',
+                height: '30px',
+                '@media (max-width: 871px)': {
+                  padding: '0px',
+                  margin: '0px',
                 },
-                "@media (max-width: 550px)": {
-                  width: "25px",
-                  height: "25px",
+                '@media (max-width: 550px)': {
+                  width: '25px',
+                  height: '25px',
                 },
               }}
             />
             <Typography
               fontFamily={FONTS.MAIN_TEXT_FAMILY}
-              fontSize={"1.1rem"}
+              fontSize={'1.1rem'}
               sx={{
-                "@media (max-width: 870px)": {
-                  display: "none",
+                '@media (max-width: 870px)': {
+                  display: 'none',
                 },
-              }}
-            >
+              }}>
               {currentLanguageCode}
             </Typography>
           </Button>
@@ -327,21 +323,19 @@ export function Header() {
                   i18next.changeLanguage(item.code);
                 }}
                 sx={{
-                  color: "#000",
-                }}
-              >
+                  color: '#000',
+                }}>
                 <Typography
                   fontFamily={FONTS.MAIN_TEXT_FAMILY}
-                  fontSize={"1.1rem"}
+                  fontSize={'1.1rem'}
                   sx={{
-                    "@media (max-width: 870px)": {
-                      fontSize: "1.15rem",
+                    '@media (max-width: 870px)': {
+                      fontSize: '1.15rem',
                     },
-                    "@media (max-width: 800px)": {
-                      fontSize: "1.2rem",
+                    '@media (max-width: 800px)': {
+                      fontSize: '1.2rem',
                     },
-                  }}
-                >
+                  }}>
                   {item.name}
                 </Typography>
               </MenuItem>
