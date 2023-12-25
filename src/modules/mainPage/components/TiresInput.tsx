@@ -134,14 +134,15 @@ export function TiresInput() {
           left={'4%'}
           top={'36%'}
           sx={{
-            '@media (max-width: 1380px)': {
+            '@media (max-width: 1600px)': {
               width: '10rem',
               top: '20%',
             },
-            '@media (max-width: 979px)': {
+            '@media (max-width: 1100px)': {
               top: '36%',
+              fontSize: '3rem',
             },
-            '@media (max-width: 870px)': {
+            '@media (max-width: 975px)': {
               display: 'none',
             },
           }}>
@@ -156,14 +157,16 @@ export function TiresInput() {
           left={'4%'}
           top={'48%'}
           sx={{
-            '@media (max-width: 1380px)': {
+
+            '@media (max-width: 1600px)': {
               width: '10rem',
             },
-            '@media (max-width: 979px)': {
+            '@media (max-width: 1100px)': {
               top: '36%',
-              left: '80%',
+              left: '77%',
+              fontSize: '3rem',
             },
-            '@media (max-width: 870px)': {
+            '@media (max-width: 975px)': {
               display: 'none',
             },
           }}>

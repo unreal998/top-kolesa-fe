@@ -11,13 +11,17 @@ const HoverableBox = styled(motion.div)({
   position: 'absolute',
   bottom: 0,
   left: 0,
-  right: 'calc(100% - 216px)',
+  right: 'calc(100% - 50%)',
   backgroundColor: 'rgba(248,248,248,0.85)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   opacity: 0,
   height: '100%',
+
+  '@media (max-width: 2000px)': {
+    right: 'calc(100% - 45%)',
+  },
 });
 
 const hoverAnimationBack = {
@@ -119,8 +123,8 @@ export function ShopItemTable({
               backgroundImage: imgName
                 ? `url("${SHOP_ITEM_TIRES_IMG_PREFIX}${imgName}")`
                 : `url("./imgs/noPhotoImg.jpg")`,
-              width: '90%',
-              height: '200px',
+              width: '30rem',
+              height: '12rem',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'contain',
               backgroundPosition: 'center',
@@ -134,7 +138,7 @@ export function ShopItemTable({
             justifyContent="center"
             gap="5px"
             width="100%"
-            height={200}
+            height={'12rem'}
             px={'2rem'}>
             <Rating
               name="read-only"
@@ -164,7 +168,24 @@ export function ShopItemTable({
             </Typography>
           </Stack>
           <HoverableBox variants={hoverAnimationBack}>
-            <Box width={'100%'} px={'1.5rem'} mr={'0.7rem'}>
+            <Box
+              width={'130%'}
+              px={'1.5rem'}
+              mr={'0.7rem'}
+              sx={{
+                '@media (max-width: 1150px)': {
+                  px: '15%',
+                  mr: '25%',
+                },
+                '@media (max-width: 650px)': {
+                  px: '15%',
+                  mr: '15%',
+                },
+                '@media (max-width: 400px)': {
+                  px: '5%',
+                  mr: '5%',
+                },
+              }}>
               <Box
                 display={'flex'}
                 justifyContent={'center'}

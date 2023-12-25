@@ -153,7 +153,13 @@ function TiresFilter() {
             setDiametrValue(value);
             break;
           case 'season':
-            setSeasonValue(value);
+            setSeasonValue(
+              value === t('all-season')
+                ? 'all-season'
+                : value === t('summer')
+                ? 'summer'
+                : 'winter',
+            );
             break;
           case 'brand':
             setBrandValue(value);

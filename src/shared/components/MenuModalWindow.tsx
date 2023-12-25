@@ -31,6 +31,7 @@ export default function MenuModalWindow({
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      event.stopPropagation();
       if (
         event &&
         event.type === 'keydown' &&
@@ -50,9 +51,10 @@ export default function MenuModalWindow({
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
-      sx={{ '@media (max-width: 500px)': { width: '100vw' } }}
+      sx={{ '@media (max-width: 600px)': { width: '100vw' } }}
       position={'relative'}>
       <IconButton
+        onClick={toggleDrawer(false)}
         sx={{
           color: FILTER_COLORS.BUTTON_RESET_FILTER,
           padding: 0,
@@ -71,7 +73,7 @@ export default function MenuModalWindow({
           }}
         />
       </IconButton>
-      <List>
+      <List sx={{}}>
         {menuData.map((menuItem: any, i: number) => (
           <ListItem key={i}>
             <ListItemButton href={menuItem.link}>
@@ -83,10 +85,7 @@ export default function MenuModalWindow({
                 textAlign={'center'}
                 m={'auto'}
                 sx={{
-                  '@media (max-width: 605px)': {
-                    fontSize: '1.3rem',
-                  },
-                  '@media (max-width: 500px)': {
+                  '@media (max-width: 600px)': {
                     fontSize: '1.8rem',
                   },
                 }}>
@@ -107,12 +106,12 @@ export default function MenuModalWindow({
         sx={{
           padding: '0px',
           margin: '0px',
-          '@media (min-width: 871px)': {
+          '@media (min-width: 919px)': {
             display: 'none',
             padding: '0px',
             margin: '0px',
           },
-          '@media (max-width: 871px)': {
+          '@media (max-width: 918px)': {
             minWidth: 0,
           },
         }}>

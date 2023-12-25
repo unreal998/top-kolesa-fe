@@ -26,7 +26,6 @@
   "staffText": "In our team, only experienced professionals work who will enthusiastically help you choose the perfect tires and wheels. Our managers, with deep knowledge in this field, are always ready to provide you with qualified advice, ensuring a choice you can trust.",
   "productsHeader": "Products",
   "productsText": "In our online store 'Topkolesa', you will find a wide selection of tires and wheels from world brands. We pride ourselves on a transparent pricing policy that reflects our honesty and business principles. From well-known manufacturers to new market players - we have everything you might need for your vehicle.",
-
   "contactLabel": "Contacts",
   "contactText": "You can get help in choosing a product, find out about the availability of the product you are interested in, and the delivery conditions, you can contact the manager.",
   "contactUs": "Contact Us",
@@ -57,6 +56,7 @@
   "loadIndex": "Load index",
   "popularBrands": "Popular Brands",
   "sortBy": "Sort by",
+  "show": "Show",
   "priceLow": "Price low to high",
   "priceHigh": "Price high to low",
   "rated": "Rated",
@@ -168,5 +168,6 @@
   "studdedCharacteristics": "Studded",
   "cart": "Cart",
   "totalCoast": "Total coast",
-  "makeAnOrder": "Make an order"
+  "makeAnOrder": "Make an order",
+  "filters": "Filters"
 }

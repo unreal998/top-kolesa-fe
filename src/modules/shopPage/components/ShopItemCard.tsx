@@ -18,6 +18,22 @@ const HoverableBox = styled(motion.div)({
   justifyContent: 'center',
   alignItems: 'center',
   opacity: 0,
+
+  '@media (max-width: 1050px)': {
+    with: '1rem',
+  },
+  '@media (max-width: 1200px)': {
+    bottom: 'calc(100% - 195px)',
+  },
+  '@media (max-width: 800px)': {
+    bottom: 'calc(100% - 175px)',
+  },
+  '@media (max-width: 500px)': {
+    bottom: 'calc(100% - 150px)',
+  },
+  '@media (max-width: 400px)': {
+    bottom: 'calc(100% - 130px)',
+  },
 });
 
 const hoverAnimationBack = {
@@ -106,7 +122,7 @@ export function ShopItemCard({
       }}>
       <Stack
         direction="column"
-        gap="15px"
+        gap="1rem"
         alignItems="center"
         justifyContent="center"
         position="relative">
@@ -121,7 +137,7 @@ export function ShopItemCard({
                 ? `url("${SHOP_ITEM_TIRES_IMG_PREFIX}${imgName}")`
                 : `url("./imgs/noPhotoImg.jpg")`,
               width: '100%',
-              height: '200px',
+              height: '12rem',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'contain',
               backgroundPosition: 'center',
@@ -137,7 +153,21 @@ export function ShopItemCard({
             gap="5px"
             width="80%"
             padding="10%"
-            height={'7rem'}>
+            height={'5rem'}
+            sx={{
+              '@media (max-width: 2050px)': {
+                height: '4rem',
+              },
+              '@media (max-width: 550px)': {
+                height: '7rem',
+                width: '87%',
+                p: '6%',
+              },
+              '@media (max-width: 1150px)': {
+                width: '87%',
+                p: '6%',
+              },
+            }}>
             <Rating
               name="read-only"
               value={value}
@@ -166,8 +196,25 @@ export function ShopItemCard({
             </Typography>
           </Box>
           <HoverableBox variants={hoverAnimationBack}>
-            <Box width={'100%'} px={'5rem'}>
-              <Box mt={'2rem'} mb={'0.5rem'}>
+            <Box
+              width={'100%'}
+              px={'20%'}
+              sx={{
+                '@media (max-width: 1150px)': {
+                  px: '35%',
+                },
+                '@media (max-width: 550px)': {
+                  px: '28%',
+                },
+              }}>
+              <Box
+                mt={'5%'}
+                mb={'0.5rem'}
+                sx={{
+                  '@media (max-width: 1150px)': {
+                    mt: '1rem',
+                  },
+                }}>
                 <InfoOutlinedIcon
                   fontSize="large"
                   sx={{ color: BASE_COLORS.DEFAULT_BLUE }}

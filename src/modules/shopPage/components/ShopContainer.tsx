@@ -11,6 +11,7 @@ import {
   selectSortParams,
 } from '../selectors';
 import { actions } from '../reducer';
+import { MobileShopHeaderBar } from './mobileShopHeaderBar/MobileShopHeaderBar';
 
 export function ShopContainer() {
   const dispatch = useDispatch();
@@ -45,12 +46,54 @@ export function ShopContainer() {
   }
 
   return (
-    <Stack padding="20px 2%" width="100%" gap="20px" alignItems="center">
+    <Stack
+      padding="20px 2%"
+      width="100%"
+      gap="20px"
+      alignItems="center"
+      sx={{
+        '@media (max-width: 919px)': {
+          padding: '0',
+        },
+      }}>
       <ShopHeaderBar />
-      <Grid container spacing={2}>
+      <MobileShopHeaderBar />
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          '@media (min-width: 2050px)': {
+            '& .MuiGrid-item': {
+              width: '25%',
+            },
+          },
+          '@media (max-width: 2049px)': {
+            '& .MuiGrid-item': {
+              width: '33.3%',
+            },
+          },
+          '@media (max-width: 1700px)': {
+            '& .MuiGrid-item': {
+              width: '50%',
+            },
+          },
+          '@media (max-width: 1150px)': {
+            '& .MuiGrid-item': {
+              width: '50%',
+            },
+          },
+          '@media (max-width: 1149px)': {
+            '& .MuiGrid-item': {
+              width: '100%',
+            },
+          },
+          '@media (max-width: 919px)': {
+            padding: '20px 2%',
+          },
+        }}>
         {shopItems &&
           sorterShopItems.map((item) => (
-            <Grid key={item.id} item={true} xs={cardView ? 3 : 4}>
+            <Grid key={item.id} item={true}>
               {cardView ? (
                 <ShopItemCard
                   id={item.id}
