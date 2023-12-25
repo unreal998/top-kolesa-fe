@@ -9,8 +9,8 @@ import { selectFilterData } from '../mainPage/selectors';
 import { Box, Dialog } from '@mui/material';
 
 import { ShopContainer } from './components/ShopContainer';
-import FilterShortMenuContainer from './components/FilterMenu/FilterShortMenu/FilterShortMenuContainer';
-import FilterFullMenuContainer from './components/FilterMenu/FilterFullMenu/FilterFullMenuContainer';
+import FilterShortMenuContainer from './components/filterMenu/filterShortMenu/FilterShortMenuContainer';
+import FilterFullMenuContainer from './components/filterMenu/filterFullMenu/FilterFullMenuContainer';
 
 export function ShopPage() {
   const dispatch = useDispatch();
@@ -47,7 +47,15 @@ export function ShopPage() {
   };
 
   return (
-    <Box padding="0 30px" display="flex" alignItems="flex-start">
+    <Box
+      padding="0 30px"
+      display="flex"
+      alignItems="flex-start"
+      sx={{
+        '@media (max-width: 918px)': {
+          padding: '0',
+        },
+      }}>
       <Box position="relative">
         <FilterShortMenuContainer />
         {isFullMenuOpen && (

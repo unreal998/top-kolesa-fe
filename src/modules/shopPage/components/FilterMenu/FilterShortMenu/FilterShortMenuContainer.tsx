@@ -136,7 +136,12 @@ const FilterShortMenuContainer = () => {
       orientation="vertical"
       fullWidth
       variant="outlined"
-      aria-label="vertical contained button group">
+      aria-label="vertical contained button group"
+      sx={{
+        '@media (max-width: 918px)': {
+          display: 'none',
+        },
+      }}>
       <FilterShortMenuRow
         icon={<WidthIcon />}
         filterName="Width"

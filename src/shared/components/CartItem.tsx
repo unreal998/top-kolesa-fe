@@ -103,8 +103,9 @@ export const CartItem = ({
               variant="subtitle2"
               fontWeight={600}
               fontFamily={FONTS.BOLD_TEXT_FAMILY}
+              fontSize={'1.2rem'}
               mb={1}
-              p={'0 15px'}>
+              p={'0 10% 0 2.5%'}>
               {cartItemData.fullName}
             </Typography>
           </Link>
@@ -136,7 +137,7 @@ export const CartItem = ({
                 display={'flex'}
                 alignItems={'center'}
                 justifyContent={'space-between'}
-                width={'40%'}>
+                width={'7rem'}>
                 <IconButton
                   onClick={() => {
                     handleIncreaseQuantity(cartItemData.tireId);
