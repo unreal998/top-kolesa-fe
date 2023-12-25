@@ -14,7 +14,16 @@ import { useTranslation } from 'react-i18next';
 import { BASE_COLORS, FILTER_COLORS, FONTS } from '../constants';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function MenuModalWindow({ menuData }: { menuData: any }) {
+type MenuItemData = {
+  name: string;
+  link: string;
+};
+
+export default function MenuModalWindow({
+  menuData,
+}: {
+  menuData: MenuItemData[];
+}) {
   const { t } = useTranslation();
   const [state, setState] = useState({
     right: false,
@@ -91,7 +100,7 @@ export default function MenuModalWindow({ menuData }: { menuData: any }) {
   );
 
   return (
-    <div>
+    <Box>
       <Button
         onClick={toggleDrawer(true)}
         variant="text"
@@ -122,6 +131,6 @@ export default function MenuModalWindow({ menuData }: { menuData: any }) {
         onOpen={toggleDrawer(true)}>
         {list()}
       </SwipeableDrawer>
-    </div>
+    </Box>
   );
 }

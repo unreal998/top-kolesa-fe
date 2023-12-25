@@ -30,6 +30,12 @@ import { actions } from '../../modules/shopPage/reducer';
 import CartModalWindow from './CartModalWindow';
 import MenuModalWindow from './MenuModalWindow';
 
+type MenuItemData = {
+  name: string;
+  link: string;
+};
+
+
 export function Header() {
   const dispatch = useDispatch();
   const cartItemCount = useSelector(selectCartItemCount);
@@ -52,7 +58,7 @@ export function Header() {
     },
   ];
 
-  const menu = [
+  const menu: MenuItemData[] = [
     {
       name: 'homeLabel',
       link: '/',
