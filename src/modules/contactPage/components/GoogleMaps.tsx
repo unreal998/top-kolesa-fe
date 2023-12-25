@@ -43,7 +43,19 @@ export function GoogleMaps({
       height="500px"
       ref={ref}
       id="map"
-      sx={{ borderBottomRightRadius: '6px', borderTopRightRadius: '6px' }}
+      sx={{
+        borderBottomRightRadius: '6px',
+        borderTopRightRadius: '6px',
+        '@media (max-width: 800px)': {
+          width: '100%',
+          height: '300px',
+          borderBottomRightRadius: '6px',
+          borderTopRightRadius: '0px',
+        },
+        '@media (max-width: 370px)': {
+          height: '250px',
+        },
+      }}
     />
   );
 }

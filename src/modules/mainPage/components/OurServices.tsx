@@ -1,15 +1,14 @@
-
-import { Box, Typography } from "@mui/material";
-import Slider from "react-slick";
-import { useTranslation } from "react-i18next";
-import { BASE_COLORS, FONTS } from "../../../shared/constants";
-import { SliderCarousel } from "../../../shared/components/SliderCarousel";
-import { motion } from "framer-motion";
-import StoreIcon from "@mui/icons-material/Store";
-import ScreenSearchDesktopIcon from "@mui/icons-material/ScreenSearchDesktop";
-import HandymanIcon from "@mui/icons-material/Handyman";
-import WarehouseIcon from "@mui/icons-material/Warehouse";
-import styled from "@emotion/styled";
+import { Box, Typography } from '@mui/material';
+import Slider from 'react-slick';
+import { useTranslation } from 'react-i18next';
+import { BASE_COLORS, FONTS } from '../../../shared/constants';
+import { SliderCarousel } from '../../../shared/components/SliderCarousel';
+import { motion } from 'framer-motion';
+import StoreIcon from '@mui/icons-material/Store';
+import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
+import HandymanIcon from '@mui/icons-material/Handyman';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
+import styled from '@emotion/styled';
 
 const settings = {
   dots: false,
@@ -76,25 +75,25 @@ const hoverAnimationHeader = {
 };
 
 const HoverDiv = styled(motion.div)({
-  position: "absolute",
-  width: "25rem",
-  margin: "auto",
+  position: 'absolute',
+  width: '25rem',
+  margin: 'auto',
   top: 0,
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: "rgba(0,0,0,0.5)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  "@media (max-width: 1350px)": {
-    width: "20rem",
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  '@media (max-width: 1350px)': {
+    width: '20rem',
   },
-  "@media (max-width: 650px)": {
-    width: "18rem",
+  '@media (max-width: 650px)': {
+    width: '18rem',
   },
-  "@media (max-width: 605px)": {
-    width: "30rem",
+  '@media (max-width: 605px)': {
+    width: '30rem',
   },
 });
 
@@ -187,24 +186,23 @@ export function OurServices() {
       </Typography>
       <SliderCarousel />
       <Box
-        width={"80rem"}
-        m={"auto"}
+        width={'80rem'}
+        m={'auto'}
         mt={3}
         sx={{
-          "@media (max-width: 1350px)": {
-            width: "70rem",
+          '@media (max-width: 1350px)': {
+            width: '70rem',
           },
-          "@media (max-width: 1020px)": {
-            width: "50rem",
+          '@media (max-width: 1020px)': {
+            width: '50rem',
           },
-          "@media (max-width: 650px)": {
-            width: "40rem",
+          '@media (max-width: 650px)': {
+            width: '40rem',
           },
-          "@media (max-width: 605px)": {
-            width: "100%",
+          '@media (max-width: 605px)': {
+            width: '100%',
           },
-        }}
-      >
+        }}>
         <Slider {...settings}>
           {services.map((service, i) => (
             <Box key={i} position="relative" mb={5} width="25rem">
@@ -212,17 +210,17 @@ export function OurServices() {
                 <Box
                   component="img"
                   src={service.imgSrc}
-                  m={"auto"}
-                  width={"25rem"}
+                  m={'auto'}
+                  width={'25rem'}
                   sx={{
-                    "@media (max-width: 1350px)": {
-                      width: "20rem",
+                    '@media (max-width: 1350px)': {
+                      width: '20rem',
                     },
-                    "@media (max-width: 650px)": {
-                      width: "18rem",
+                    '@media (max-width: 650px)': {
+                      width: '18rem',
                     },
-                    "@media (max-width: 605px)": {
-                      width: "30rem",
+                    '@media (max-width: 605px)': {
+                      width: '30rem',
                     },
                   }}
                 />
@@ -234,41 +232,40 @@ export function OurServices() {
                     bottom={-35}
                     left={0}
                     right={0}
-                    p={"1.2rem"}
+                    p={'1.2rem'}
                     fontFamily={FONTS.BOLD_TEXT_FAMILY}
                     bgcolor={BASE_COLORS.DEFAULT_BLUE}
-                    width={"16rem"}
-                    textAlign={"center"}
-                    color={"#fff"}
-                    m={"auto"}
+                    width={'16rem'}
+                    textAlign={'center'}
+                    color={'#fff'}
+                    m={'auto'}
                     sx={{
-                      "@media (max-width: 1350px)": {
-                        padding: "1rem 0.3rem",
+                      '@media (max-width: 1350px)': {
+                        padding: '1rem 0.3rem',
                         bottom: -28,
-                        width: "14.5rem",
-                        fontSize: "1.4rem",
+                        width: '14.5rem',
+                        fontSize: '1.4rem',
                       },
-                      "@media (max-width: 800px)": {
-                        padding: "1rem 0rem",
-                        width: "15rem",
-                        fontSize: "1.5rem",
+                      '@media (max-width: 800px)': {
+                        padding: '1rem 0rem',
+                        width: '15rem',
+                        fontSize: '1.5rem',
                       },
-                      "@media (max-width: 650px)": {
-                        width: "14rem",
-                        fontSize: "1.4rem",
+                      '@media (max-width: 650px)': {
+                        width: '14rem',
+                        fontSize: '1.4rem',
                       },
-                      "@media (max-width: 605px)": {
-                        padding: "1.5rem 3rem",
-                        width: "16rem",
-                        fontSize: "2rem",
+                      '@media (max-width: 605px)': {
+                        padding: '1.5rem 3rem',
+                        width: '16rem',
+                        fontSize: '2rem',
                       },
-                    }}
-                  >
+                    }}>
                     {t(service.title)}
                   </Typography>
                 </motion.div>
                 <HoverDiv variants={hoverAnimationBack}>
-                  <Box textAlign={"center"}>
+                  <Box textAlign={'center'}>
                     {service.icon}
                     <Typography
                       variant="h5"

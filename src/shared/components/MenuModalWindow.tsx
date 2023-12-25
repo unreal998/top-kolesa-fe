@@ -14,7 +14,16 @@ import { useTranslation } from 'react-i18next';
 import { BASE_COLORS, FILTER_COLORS, FONTS } from '../constants';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function MenuModalWindow({ menuData }: { menuData: any }) {
+type MenuItemData = {
+  name: string;
+  link: string;
+};
+
+export default function MenuModalWindow({
+  menuData,
+}: {
+  menuData: MenuItemData[];
+}) {
   const { t } = useTranslation();
   const [state, setState] = useState({
     right: false,
@@ -52,6 +61,9 @@ export default function MenuModalWindow({ menuData }: { menuData: any }) {
           position: 'absolute',
           top: '0.1rem',
           right: '2rem',
+          '@media (min-width: 500px)': {
+            display: 'none',
+          },
         }}>
         <CloseIcon
           sx={{

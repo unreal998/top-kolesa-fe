@@ -157,6 +157,7 @@ export function TiresInput() {
           left={'4%'}
           top={'48%'}
           sx={{
+
             '@media (max-width: 1600px)': {
               width: '10rem',
             },
