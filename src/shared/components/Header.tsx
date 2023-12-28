@@ -30,6 +30,11 @@ import { actions } from '../../modules/shopPage/reducer';
 import CartModalWindow from './CartModalWindow';
 import MenuModalWindow from './MenuModalWindow';
 
+type MenuItemData = {
+  name: string;
+  link: string;
+};
+
 export function Header() {
   const dispatch = useDispatch();
   const cartItemCount = useSelector(selectCartItemCount);
@@ -52,7 +57,7 @@ export function Header() {
     },
   ];
 
-  const menu = [
+  const menu: MenuItemData[] = [
     {
       name: 'homeLabel',
       link: '/',
@@ -106,7 +111,7 @@ export function Header() {
             justifyContent: 'center',
             padding: '1.1rem 2%',
           },
-          '@media (max-width: 870px)': {
+          '@media (max-width: 918px)': {
             display: 'none',
           },
         }}>
@@ -152,7 +157,6 @@ export function Header() {
         flexDirection="row"
         padding="30px 4%"
         alignItems="center"
-        alignContent={'center'}
         justifyContent="space-between"
         sx={{
           '@media (max-width: 550px)': {
@@ -174,9 +178,16 @@ export function Header() {
         <Stack
           display="flex"
           flexDirection="row"
-          gap="1.5rem"
+          justifyContent="space-between"
+          gap="1rem"
           sx={{
-            '@media (max-width: 870px)': {
+            '@media (max-width: 1150px)': {
+              paddingLeft: '6rem',
+            },
+            '@media (max-width: 950px)': {
+              paddingLeft: '5rem',
+            },
+            '@media (max-width: 918px)': {
               display: 'none',
             },
           }}>
@@ -202,7 +213,7 @@ export function Header() {
           display={'flex'}
           justifyContent={'end'}
           sx={{
-            '@media (max-width: 870px)': {
+            '@media (max-width: 918px)': {
               gap: '0.75rem',
             },
             '@media (max-width: 550px)': {
@@ -219,7 +230,7 @@ export function Header() {
             aria-label="cart"
             sx={{
               marginRight: cartModalWindowOpen ? '0px' : '1rem',
-              '@media (max-width: 871px)': {
+              '@media (max-width: 918px)': {
                 width: '10px',
                 height: '10px',
                 padding: '10px',
@@ -262,7 +273,7 @@ export function Header() {
             onClick={(event) => handleLanguageClick(event)}
             sx={{
               color: '#000',
-              '@media (max-width: 871px)': {
+              '@media (max-width: 918px)': {
                 padding: '0px',
                 margin: '0px',
                 minWidth: 0,
@@ -277,7 +288,7 @@ export function Header() {
                 paddingRight: '10px',
                 width: '30px',
                 height: '30px',
-                '@media (max-width: 871px)': {
+                '@media (max-width: 918px)': {
                   padding: '0px',
                   margin: '0px',
                 },
@@ -291,7 +302,7 @@ export function Header() {
               fontFamily={FONTS.MAIN_TEXT_FAMILY}
               fontSize={'1.1rem'}
               sx={{
-                '@media (max-width: 870px)': {
+                '@media (max-width: 918px)': {
                   display: 'none',
                 },
               }}>
@@ -324,7 +335,7 @@ export function Header() {
                   fontFamily={FONTS.MAIN_TEXT_FAMILY}
                   fontSize={'1.1rem'}
                   sx={{
-                    '@media (max-width: 870px)': {
+                    '@media (max-width: 918px)': {
                       fontSize: '1.15rem',
                     },
                     '@media (max-width: 800px)': {

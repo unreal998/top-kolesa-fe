@@ -55,7 +55,8 @@
   "loadIndex": "Индекс нагрузки",
   "popularBrands": "Популярные Бренды",
   "model": "Модель",
-  "sortBy": "Сортировать по",
+  "sortBy": "Сортировать",
+  "show": "Показать",
   "priceLow": "От дешевых к дорогим",
   "priceHigh": "От дорогих к дешевым",
   "rated": "По рейтингу",
@@ -167,5 +168,6 @@
   "studdedCharacteristics": "Шипы",
   "cart": "Корзина",
   "totalCoast": "Общая стоимость",
-  "makeAnOrder": "Оформить заказ"
+  "makeAnOrder": "Оформить заказ",
+  "filters": "Фильтры"
 }

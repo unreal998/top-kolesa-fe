@@ -50,11 +50,30 @@ export function ShopHeaderBar() {
   return (
     <Stack
       alignItems="center"
-      justifyContent="center"
+      justifyContent="space-between"
       direction="row"
-      width="90%"
-      gap="20px">
-      <Stack justifyContent="space-around" direction="row" width="15%">
+      width="95%"
+      gap="2rem"
+      sx={{
+        '@media (max-width: 930px)': {
+          marginLeft: '3rem',
+        },
+        '@media (max-width: 918px)': {
+          display: 'none',
+        },
+      }}>
+      <Stack
+        justifyContent="space-around"
+        direction="row"
+        width="10%"
+        gap="1rem"
+        sx={{
+          '@media (max-width: 1400px)': {
+            width: '5rem',
+            gap: '0.75rem',
+            paddingRight: '0.5rem',
+          },
+        }}>
         <ViewButton
           ref={cardButton}
           onClick={handleCardViewChange}
@@ -70,7 +89,38 @@ export function ShopHeaderBar() {
           <FormatAlignJustify />
         </ViewButton>
       </Stack>
-      <Divider sx={{ width: '60%' }} />
+      <Divider
+        sx={{
+          width: '68%',
+          '@media (max-width: 1600px)': {
+            width: '63%',
+          },
+          '@media (max-width: 1500px)': {
+            width: '60%',
+          },
+          '@media (max-width: 1350px)': {
+            width: '55%',
+          },
+          '@media (max-width: 1250px)': {
+            width: '50%',
+          },
+          '@media (max-width: 1050px)': {
+            width: '45%',
+          },
+          '@media (max-width: 1000px)': {
+            width: '45%',
+          },
+          '@media (max-width: 990px)': {
+            width: '40%',
+          },
+          '@media (max-width: 930px)': {
+            width: '30%',
+          },
+          '@media (max-width: 870px)': {
+            maxWidth: '3rem',
+          },
+        }}
+      />
       <ShopHeaderSort />
     </Stack>
   );

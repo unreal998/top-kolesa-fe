@@ -70,11 +70,15 @@ export default function CartModalWindow() {
         onClose={handleCloseCartModalWindow}>
         <Box
           sx={{
-            width: 400,
+            width: '25vw',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
             height: '100%',
+            '@media (max-width: 1600px)': { width: '33vw' },
+            '@media (max-width: 1100px)': { width: '40vw' },
+            '@media (max-width: 950px)': { width: '50vw' },
+            '@media (max-width: 600px)': { width: '100vw' },
           }}>
           <Box
             display={'flex'}

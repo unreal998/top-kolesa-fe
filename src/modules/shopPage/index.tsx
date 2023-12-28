@@ -47,7 +47,15 @@ export function ShopPage() {
   };
 
   return (
-    <Box padding="0 30px" display="flex" alignItems="flex-start">
+    <Box
+      padding="0 30px"
+      display="flex"
+      alignItems="flex-start"
+      sx={{
+        '@media (max-width: 918px)': {
+          padding: '0',
+        },
+      }}>
       <Box position="relative">
         <FilterShortMenuContainer />
         {isFullMenuOpen && (

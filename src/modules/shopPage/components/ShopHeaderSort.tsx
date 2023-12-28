@@ -62,13 +62,13 @@ export function ShopHeaderSort() {
   );
 
   return (
-    <Stack justifyContent="space-between" direction="row" width="25%">
-      <Stack alignItems="center" width="40%" gap="10px" direction="row">
+    <Stack justifyContent="end" direction="row" width="22rem" gap="1rem">
+      <Stack alignItems="center" width="10rem" direction="row">
         <StyledFormControl
           size="small"
           variant="standard"
           sx={{
-            minWidth: 180,
+            width: '95%',
           }}>
           <StyledInputLabel>{t('sortBy')}</StyledInputLabel>
           <Select
@@ -99,16 +99,18 @@ export function ShopHeaderSort() {
           </Select>
         </StyledFormControl>
       </Stack>
-      <Stack alignItems="center" width="40%" gap="10px" direction="row">
+      <Stack alignItems="end" width="7rem" gap="10px" direction="row">
         <StyledFormControl
           size="small"
           variant="standard"
-          sx={{ minWidth: 120 }}>
+          sx={{
+            width: '60%',
+          }}>
           <StyledInputLabel
             sx={{
               color: BASE_COLORS.DEFAULT_GREY,
             }}>
-            Set
+            {t('show')}
           </StyledInputLabel>
           <Select
             value={sortParams.showBy.toString()}
