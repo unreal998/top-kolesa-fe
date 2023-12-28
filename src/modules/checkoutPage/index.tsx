@@ -29,10 +29,14 @@ import {
 } from '../shopPage/selectors';
 import { itemBuyDataBuilder } from '../itemDetailsPage/utils/itemBuyDataBuilder';
 import { useTranslation } from 'react-i18next';
-import { ShopItemAPI } from '../shopPage/reducer';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../constants';
 import { CartItem } from '../../shared/components/CartItem';
-import { CartItemData, CartStorageData } from '../../shared/types';
+import {
+  CartItemData,
+  CartStorageData,
+  CheckoutItemData,
+  ShopItemAPI,
+} from '../../shared/types';
 import { FILTER_COLORS } from '../../shared/constants';
 
 export function CheckoutPage() {
@@ -40,14 +44,20 @@ export function CheckoutPage() {
   const cityListData = useSelector(selectCityListData());
   const warehouseData = useSelector(selectWarehoutListData());
   const fetchedCityName = useSelector(selectFetchedCityName());
-  const selectedItemData = useSelector(selectSelectedItemData());
   const shopItemsList = useSelector(selectShopItemsList());
-  const [deliveryState, changeDeliveryState] = useState('self');
+  const [deliveryState, changeDeliveryState] = useState('post');
   const [numberOfTires, setNumberOfTires] = useState<number>(0);
   const [paymentState, changePaymentState] = useState('cash');
   const [cartItems, setCartItems] = useState([]);
-  const [cartItemDetails, setCartItemDetails] = useState<CartItemData[]>([]);
-  const [selectedCityName, setSelectedCityName] = useState('');
+  const [checkoutItemDetails, setСheckoutItemDetails] = useState<
+    CheckoutItemData[]
+  >([]);
+  const [inputedCityName, setInputedCityName] = useState('');
+  const [inputedEmail, setInputedEmail] = useState('');
+  const [inputedPhone, setInputedPhone] = useState('');
+  const [inputedComment, setInputedComment] = useState('');
+  const [inputedFirstName, setInputedFirstName] = useState('');
+  const [inputedLastName, setInputedLastName] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [totalAmount, setTotalAmount] = useState(0);
   const { t } = useTranslation();
@@ -58,18 +68,37 @@ export function CheckoutPage() {
       if (inputTarget.value.length > 1) {
         dispatch(actions.fetchCityListByInput(inputTarget.value));
       }
-      setSelectedCityName(inputTarget.value);
+      setInputedCityName(inputTarget.value);
     },
     [dispatch],
   );
 
   const handleOrder = useCallback(() => {
-    if (selectedItemData) {
+    if (checkoutItemDetails) {
       dispatch(
-        actions.fetchBuyItemAction(itemBuyDataBuilder(selectedItemData)),
+        actions.fetchBuyItemAction(
+          itemBuyDataBuilder(checkoutItemDetails[0], {
+            city: inputedCityName,
+            address: selectedWarehouse,
+            email: inputedEmail,
+            comment: inputedComment,
+            phone: inputedPhone,
+            userName: `${inputedFirstName} ${inputedLastName}`,
+          }),
+        ),
       );
     }
-  }, [dispatch, selectedItemData]);
+  }, [
+    dispatch,
+    checkoutItemDetails,
+    inputedCityName,
+    selectedWarehouse,
+    inputedEmail,
+    inputedComment,
+    inputedPhone,
+    inputedFirstName,
+    inputedLastName,
+  ]);
 
   const handleWarehouseTextChange = useCallback(
     (e: SyntheticEvent) => {
@@ -83,13 +112,14 @@ export function CheckoutPage() {
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem('cartItem') || '[]');
 
-    const cartItemDetails: CartItemData[] = cartItems.map(
+    const checkoutItemDetails: CheckoutItemData[] = cartItems.map(
       (cartItem: CartStorageData) => {
         const item = shopItemsList.find(
           (item: ShopItemAPI) => item.id === cartItem.tireId,
         );
         return {
           ...cartItem,
+          ...item,
           fullName: `${item?.brand} ${item?.name} ${item?.width}/${item?.height} R${item?.diametr}`,
           price: item?.price_uah,
           article: item?.id,
@@ -100,9 +130,9 @@ export function CheckoutPage() {
       },
     );
     setCartItems(cartItems);
-    setCartItemDetails(cartItemDetails);
+    setСheckoutItemDetails(checkoutItemDetails);
     let totalAmountSumm = 0;
-    cartItemDetails.forEach((element) => {
+    checkoutItemDetails.forEach((element) => {
       totalAmountSumm += element?.price;
     });
     setTotalAmount(totalAmountSumm);
@@ -122,10 +152,33 @@ export function CheckoutPage() {
         <Stack gap="5px">
           <Typography variant="h6"> {t('contactDestails')} </Typography>
           <Stack gap="10px">
-            <TextField label={t('name')} required={true} />
-            <TextField label={t('secondName')} required={true} />
-            <TextField label={t('number')} required={true} />
-            <TextField label={t('email')} />
+            <TextField
+              label={t('name')}
+              required={true}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setInputedFirstName(e.target.value)
+              }
+            />
+            <TextField
+              label={t('secondName')}
+              required={true}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setInputedLastName(e.target.value)
+              }
+            />
+            <TextField
+              label={t('number')}
+              required={true}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setInputedPhone(e.target.value)
+              }
+            />
+            <TextField
+              label={t('email')}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setInputedEmail(e.target.value)
+              }
+            />
           </Stack>
         </Stack>
         <Stack>
@@ -133,7 +186,7 @@ export function CheckoutPage() {
           <FormControl>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="self"
+              defaultValue="post"
               name="radio-buttons-group"
               onChange={(e, value) => changeDeliveryState(value)}>
               <FormControlLabel
@@ -141,6 +194,29 @@ export function CheckoutPage() {
                 control={<Radio />}
                 label={t('pickup')}
               />
+              {deliveryState === 'self' && (
+                <FormControl sx={{ ml: '20px' }}>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue={t('headerAddress')}
+                    name="radio-buttons-group"
+                    onChange={(e, value) => {
+                      setInputedCityName('м. Вінниця');
+                      setSelectedWarehouse(value);
+                    }}>
+                    <FormControlLabel
+                      value={t('headerAddress')}
+                      control={<Radio />}
+                      label={t('headerAddress')}
+                    />
+                    <FormControlLabel
+                      value={t('headerAddress2')}
+                      control={<Radio />}
+                      label={t('headerAddress2')}
+                    />
+                  </RadioGroup>
+                </FormControl>
+              )}
               <FormControlLabel
                 value="post"
                 control={<Radio />}
@@ -196,7 +272,14 @@ export function CheckoutPage() {
         </Stack>
         <Stack gap="15px">
           <Typography variant="h6">{t('addComment')}</Typography>
-          <TextField multiline label="" rows={4} />
+          <TextField
+            multiline
+            label=""
+            rows={4}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setInputedComment(e.target.value)
+            }
+          />
         </Stack>
       </Stack>
       <Stack width="40%">
@@ -204,7 +287,7 @@ export function CheckoutPage() {
           <Typography variant="h6" padding="0 15px">
             Your order
           </Typography>
-          {cartItemDetails?.map((cartItem: CartItemData, index: any) => (
+          {checkoutItemDetails?.map((cartItem: CartItemData, index: any) => (
             <CartItem
               index={index}
               cartItemData={cartItem}

@@ -11,15 +11,15 @@ import {
   selectCartModalWindowOpen,
   selectShopItemsList,
 } from '../../modules/shopPage/selectors';
-import { actions, ShopItemAPI } from '../../modules/shopPage/reducer';
+import { actions } from '../../modules/shopPage/reducer';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../constants';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../shared/constants';
 import CloseIcon from '@mui/icons-material/Close';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CartItem } from './CartItem';
-import { CartItemData } from '../types';
+import { CartItemData, ShopItemAPI } from '../types';
 
 export default function CartModalWindow() {
   const { t } = useTranslation();

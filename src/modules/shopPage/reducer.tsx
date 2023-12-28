@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { CheckoutItemData, ShopItemAPI } from '../../shared/types';
 
 export type ShopItem = {
   id: number;
@@ -13,28 +14,6 @@ export type ShopItem = {
   country: string;
   season: string;
   year: number;
-};
-
-export type ShopItemAPI = {
-  // THAT IS THE ID
-  id: number;
-  brand: string;
-  country: string;
-  diametr: string;
-  height: number;
-  width: string;
-  season: string;
-  speed: string;
-  weight: string;
-  name: string;
-  rate: number;
-  year: number;
-  price_uah: number;
-  image_file: string;
-  brand_id: number;
-  size_id: number;
-  supplier_id: number;
-  param: string; // studded
 };
 
 export type ShopData = {

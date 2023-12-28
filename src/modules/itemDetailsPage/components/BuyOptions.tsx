@@ -71,7 +71,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
 
   const handleAddToCart = () => {
     const existingCartItemsString = localStorage.getItem('cartItem');
-    let existingCartItems = existingCartItemsString
+    const existingCartItems = existingCartItemsString
       ? JSON.parse(existingCartItemsString)
       : [];
 
