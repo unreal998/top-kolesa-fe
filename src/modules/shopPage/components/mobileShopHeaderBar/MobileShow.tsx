@@ -19,7 +19,7 @@ const ViewButton = styled(Box)({
   },
 });
 
-export function Show() {
+export function MobileShow() {
   const dispatch = useDispatch();
   const cardView = useSelector(selectCardView);
 

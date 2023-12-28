@@ -158,12 +158,12 @@ export function ShopItemCard({
               '@media (max-width: 2050px)': {
                 height: '4rem',
               },
-              '@media (max-width: 550px)': {
-                height: '7rem',
+              '@media (max-width: 1150px)': {
                 width: '87%',
                 p: '6%',
               },
-              '@media (max-width: 1150px)': {
+              '@media (max-width: 550px)': {
+                height: '7rem',
                 width: '87%',
                 p: '6%',
               },

@@ -35,9 +35,9 @@ function CustomTabPanel(props: ITabPanelProps) {
   const { children, value, index } = props;
 
   return (
-    <div role="tabpanel" hidden={value !== index}>
+    <Box role="tabpanel" hidden={value !== index}>
       {value === index && children}
-    </div>
+    </Box>
   );
 }
 

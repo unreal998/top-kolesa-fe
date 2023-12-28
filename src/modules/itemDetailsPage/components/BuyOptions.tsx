@@ -39,6 +39,9 @@ const StyledButton = styled(Button)({
   fontFamily: 'PT Sans, sans-serif',
   borderRadius: '999px',
   padding: '16px 40px',
+  '@media (max-width: 630px)': {
+    width: '100%',
+  },
 });
 
 export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
@@ -91,19 +94,57 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
     dispatch(actions.setCartItemCount(cartItems));
   };
 
+  const buttonInfo = [
+    {
+      text: t('addToCart'),
+      function: handleAddToCart,
+      icon: <ShoppingCartOutlinedIcon sx={{ height: '14px', width: '14px' }} />,
+    },
+    {
+      text: t('fastBuy'),
+      function: handleFastBuy,
+      icon: <ShoppingBagOutlinedIcon sx={{ height: '14px', width: '14px' }} />,
+    },
+  ];
+
   return (
     <>
       <Typography
         variant="h3"
         fontWeight="600"
-        fontSize="30px"
+        fontSize="1.9rem"
         color={BASE_COLORS.DEFAULT_BLUE}
         fontFamily={FONTS.BOLD_TEXT_FAMILY}
-        mt={'30px'}
-        mb={'20px'}>
+        mt={'2rem'}
+        sx={{
+          '@media (max-width: 630px)': {
+            margin: 'auto',
+            marginY: '1rem',
+            fontSize: '2.2rem',
+          },
+        }}>
         {(Number(selectedItemData?.price_uah) / 4) * numberOfTires} {t('uah')}
       </Typography>
-      <Box display={'flex'} margin={'20px 0 40px'} gap={3}>
+      <Box
+        display={'flex'}
+        margin={'2.5rem 0'}
+        gap={'1rem'}
+        sx={{
+          '@media (max-width: 990px)': {
+            flexDirection: 'column',
+            gap: '3rem',
+            marginTop: '1.5rem',
+          },
+          '@media (max-width: 918px)': {
+            flexDirection: 'row',
+          },
+          '@media (max-width: 630px)': {
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+            gap: '4rem',
+          },
+        }}>
         <StyledTextField
           id="outlined-basic"
           variant="outlined"
@@ -111,26 +152,29 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
           value={numberOfTires}
           onChange={handleNumberOfTires}
         />
-        <ButtonWithIcon
-          button={
-            <StyledButton onClick={handleAddToCart} variant="contained">
-              {t('addToCart')}
-            </StyledButton>
-          }
-          icon={
-            <ShoppingCartOutlinedIcon sx={{ height: '14px', width: '14px' }} />
-          }
-        />
-        <ButtonWithIcon
-          button={
-            <StyledButton onClick={handleFastBuy} variant="contained">
-              {t('fastBuy')}
-            </StyledButton>
-          }
-          icon={
-            <ShoppingBagOutlinedIcon sx={{ height: '14px', width: '14px' }} />
-          }
-        />
+        <Box
+          display={'flex'}
+          gap={'1rem'}
+          sx={{
+            '@media (max-width: 630px)': {
+              flexDirection: 'column',
+              margin: 'auto',
+              width: '100%',
+            },
+          }}>
+          {buttonInfo.map((item, i) => (
+            <Box key={i}>
+              <ButtonWithIcon
+                button={
+                  <StyledButton onClick={item.function} variant="contained">
+                    {item.text}
+                  </StyledButton>
+                }
+                icon={item.icon}
+              />
+            </Box>
+          ))}
+        </Box>
       </Box>
     </>
   );

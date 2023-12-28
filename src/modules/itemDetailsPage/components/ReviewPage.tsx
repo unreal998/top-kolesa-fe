@@ -17,6 +17,7 @@ import { ButtonWithIcon } from '../../../shared/components/ButtonWithIcon';
 
 const StyledTextField = styled(TextField)({
   fontFamily: FONTS.MAIN_TEXT_FAMILY,
+  width: '50%',
   '& input': { fontFamily: FONTS.MAIN_TEXT_FAMILY },
   '& textarea': { fontFamily: FONTS.MAIN_TEXT_FAMILY },
   '& .MuiOutlinedInput-root': {
@@ -26,6 +27,9 @@ const StyledTextField = styled(TextField)({
     '&.Mui-focused fieldset': {
       borderColor: BASE_COLORS.DEFAULT_BLUE,
     },
+  },
+  '@media (max-width: 630px)': {
+    width: '100%',
   },
 });
 
@@ -40,9 +44,18 @@ export default function ReviewPage() {
   const { t } = useTranslation();
   const [ratingValue, setRatingValue] = useState<number | null>(0);
   return (
-    <Stack padding="0 15%" gap="30px">
+    <Stack
+      padding="0 15%"
+      gap="30px"
+      maxWidth={'85rem'}
+      m={'auto'}
+      sx={{
+        '@media (max-width: 2000px)': {
+          padding: '0 5%',
+        },
+      }}>
       <ReviewItem />
-      <Stack gap="15px">
+      <Stack gap="15px" m={'auto'} width={'100%'}>
         <Typography
           fontWeight="600"
           variant="h5"
@@ -64,24 +77,22 @@ export default function ReviewPage() {
               value={ratingValue}
             />
           </Stack>
-          <Stack direction="row" gap="15px">
-            <StyledTextField
-              sx={{
-                width: '45%',
-              }}
-              placeholder={t('yourName')}
-            />
-            <StyledTextField
-              sx={{
-                width: '45%',
-              }}
-              placeholder={t('yourEmail')}
-            />
+          <Stack
+            direction="row"
+            gap="2%"
+            sx={{
+              '@media (max-width: 630px)': {
+                flexDirection: 'column',
+                gap: '20px',
+              },
+            }}>
+            <StyledTextField placeholder={t('yourName')} />
+            <StyledTextField placeholder={t('yourEmail')} />
           </Stack>
           <StyledTextField
             multiline
             sx={{
-              width: '91.5%',
+              width: '100%',
             }}
             rows={4}
             placeholder={t('yourComment')}

@@ -2,11 +2,11 @@ import React, { useCallback, useRef } from 'react';
 import { Box, Divider, Stack } from '@mui/material';
 import { Apps, FormatAlignJustify } from '@mui/icons-material';
 import styled from '@emotion/styled';
-import { BASE_COLORS } from '../../../shared/constants';
+import { BASE_COLORS } from '../../../../shared/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../reducer';
-import { selectCardView } from '../selectors';
-import { ShopHeaderSort } from './ShopHeaderSort';
+import { actions } from '../../reducer';
+import { selectCardView } from '../../selectors';
+import { ShopHeaderSort } from '../ShopHeaderSort';
 
 const ViewButton = styled(Box)({
   backgroundColor: BASE_COLORS.BACKGROUND_WHITE,
@@ -22,6 +22,43 @@ const ViewButton = styled(Box)({
     cursor: 'pointer',
     backgroundColor: BASE_COLORS.DEFAULT_BLUE,
     color: '#fff',
+  },
+});
+
+const StyledDivider = styled(Divider)({
+  width: '75%',
+  '@media (max-width: 1900px)': {
+    width: '70%',
+  },
+  '@media (max-width: 1700px)': {
+    width: '65%',
+  },
+  '@media (max-width: 1600px)': {
+    width: '63%',
+  },
+  '@media (max-width: 1500px)': {
+    width: '60%',
+  },
+  '@media (max-width: 1350px)': {
+    width: '55%',
+  },
+  '@media (max-width: 1250px)': {
+    width: '50%',
+  },
+  '@media (max-width: 1050px)': {
+    width: '45%',
+  },
+  '@media (max-width: 1000px)': {
+    width: '45%',
+  },
+  '@media (max-width: 990px)': {
+    width: '40%',
+  },
+  '@media (max-width: 930px)': {
+    width: '30%',
+  },
+  '@media (max-width: 870px)': {
+    maxWidth: '3rem',
   },
 });
 
@@ -89,38 +126,7 @@ export function ShopHeaderBar() {
           <FormatAlignJustify />
         </ViewButton>
       </Stack>
-      <Divider
-        sx={{
-          width: '68%',
-          '@media (max-width: 1600px)': {
-            width: '63%',
-          },
-          '@media (max-width: 1500px)': {
-            width: '60%',
-          },
-          '@media (max-width: 1350px)': {
-            width: '55%',
-          },
-          '@media (max-width: 1250px)': {
-            width: '50%',
-          },
-          '@media (max-width: 1050px)': {
-            width: '45%',
-          },
-          '@media (max-width: 1000px)': {
-            width: '45%',
-          },
-          '@media (max-width: 990px)': {
-            width: '40%',
-          },
-          '@media (max-width: 930px)': {
-            width: '30%',
-          },
-          '@media (max-width: 870px)': {
-            maxWidth: '3rem',
-          },
-        }}
-      />
+      <StyledDivider />
       <ShopHeaderSort />
     </Stack>
   );

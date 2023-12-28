@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useCallback } from 'react';
-import { ShopHeaderBar } from './ShopHeaderBar';
-import { Grid, Pagination, Stack } from '@mui/material';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ShopHeaderBar } from './laptopShopHeaderBar/ShopHeaderBar';
+import { Grid, Pagination, Stack, styled } from '@mui/material';
 import { ShopItemCard } from './ShopItemCard';
 import { ShopItemTable } from './ShopItemTable';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,38 @@ import {
 } from '../selectors';
 import { actions } from '../reducer';
 import { MobileShopHeaderBar } from './mobileShopHeaderBar/MobileShopHeaderBar';
+import { BASE_COLORS, FONTS } from '../../../shared/constants';
+
+const StyledGridBox = styled(Grid)({
+  '@media (min-width: 2050px)': {
+    '& .MuiGrid-item': {
+      width: '25%',
+    },
+  },
+  '@media (max-width: 2049px)': {
+    '& .MuiGrid-item': {
+      width: '33.3%',
+    },
+  },
+  '@media (max-width: 1700px)': {
+    '& .MuiGrid-item': {
+      width: '50%',
+    },
+  },
+  '@media (max-width: 1150px)': {
+    '& .MuiGrid-item': {
+      width: '50%',
+    },
+  },
+  '@media (max-width: 1149px)': {
+    '& .MuiGrid-item': {
+      width: '100%',
+    },
+  },
+  '@media (max-width: 919px)': {
+    padding: '20px 2%',
+  },
+});
 
 export function ShopContainer() {
   const dispatch = useDispatch();
@@ -19,6 +51,21 @@ export function ShopContainer() {
   const shopItems = useSelector(selectCurrentPageItemList());
   const cardView = useSelector(selectCardView);
   const sortParams = useSelector(selectSortParams());
+  const [siblingCount, setSiblingCount] = useState(1);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 500) {
+        setSiblingCount(0);
+      } else {
+        setSiblingCount(1);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handlePageChange = useCallback(
     (event: ChangeEvent<unknown>, page: number) => {
@@ -48,52 +95,21 @@ export function ShopContainer() {
   return (
     <Stack
       padding="20px 2%"
-      width="100%"
+      width="150rem"
+      margin={'auto'}
       gap="20px"
       alignItems="center"
       sx={{
         '@media (max-width: 919px)': {
-          padding: '0',
+          padding: '20px 0',
         },
       }}>
       <ShopHeaderBar />
       <MobileShopHeaderBar />
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          '@media (min-width: 2050px)': {
-            '& .MuiGrid-item': {
-              width: '25%',
-            },
-          },
-          '@media (max-width: 2049px)': {
-            '& .MuiGrid-item': {
-              width: '33.3%',
-            },
-          },
-          '@media (max-width: 1700px)': {
-            '& .MuiGrid-item': {
-              width: '50%',
-            },
-          },
-          '@media (max-width: 1150px)': {
-            '& .MuiGrid-item': {
-              width: '50%',
-            },
-          },
-          '@media (max-width: 1149px)': {
-            '& .MuiGrid-item': {
-              width: '100%',
-            },
-          },
-          '@media (max-width: 919px)': {
-            padding: '20px 2%',
-          },
-        }}>
+      <StyledGridBox container spacing={2}>
         {shopItems &&
           sorterShopItems.map((item) => (
-            <Grid key={item.id} item={true}>
+            <Grid item={true} key={item.id}>
               {cardView ? (
                 <ShopItemCard
                   id={item.id}
@@ -127,12 +143,27 @@ export function ShopContainer() {
               )}
             </Grid>
           ))}
-      </Grid>
+      </StyledGridBox>
       <Pagination
         onChange={handlePageChange}
         count={pagesCount}
         variant="outlined"
         shape="rounded"
+        siblingCount={siblingCount}
+        sx={{
+          '& .MuiPaginationItem-root': {
+            fontFamily: FONTS.MAIN_TEXT_FAMILY,
+            fontSize: '1rem',
+          },
+          '& .Mui-selected': {
+            color: '#fff',
+            backgroundColor: BASE_COLORS.DEFAULT_BLUE + ' !important',
+          },
+          '& .MuiPaginationItem-page:hover': {
+            backgroundColor: BASE_COLORS.DEFAULT_BLUE + ' !important',
+            color: '#fff',
+          },
+        }}
       />
     </Stack>
   );

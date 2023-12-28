@@ -31,7 +31,7 @@ import { itemBuyDataBuilder } from '../itemDetailsPage/utils/itemBuyDataBuilder'
 import { useTranslation } from 'react-i18next';
 import { ShopItemAPI } from '../shopPage/reducer';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../constants';
-import { CartItem } from '../../shared/components/CartItem';
+import { CartItem } from '../../shared/components/header/CartItem';
 import { CartItemData, CartStorageData } from '../../shared/types';
 import { FILTER_COLORS } from '../../shared/constants';
 
