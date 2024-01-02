@@ -9,8 +9,8 @@ import { selectFilterData } from '../mainPage/selectors';
 import { Box, Dialog } from '@mui/material';
 
 import { ShopContainer } from './components/ShopContainer';
-import FilterShortMenuContainer from './components/filterMenu/filterShortMenu/FilterShortMenuContainer';
-import FilterFullMenuContainer from './components/filterMenu/filterFullMenu/FilterFullMenuContainer';
+import FilterShortMenuContainer from './components/FilterMenu/FilterShortMenu/FilterShortMenuContainer';
+import FilterFullMenuContainer from './components/FilterMenu/FilterFullMenu/FilterFullMenuContainer';
 
 export function ShopPage() {
   const dispatch = useDispatch();

@@ -1,8 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { BASE_COLORS, FONTS } from '../../../shared/constants';
-import { ShopItemAPI } from '../../shopPage/reducer';
 import { useTranslation } from 'react-i18next';
-
 import {
   styled,
   Table,
@@ -14,6 +12,7 @@ import {
   TableCell,
   tableCellClasses,
 } from '@mui/material';
+import { ShopItemAPI } from '../../../shared/types';
 
 const TitleText = styled(Typography)({
   fontSize: '1rem',

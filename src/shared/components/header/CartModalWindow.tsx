@@ -15,12 +15,14 @@ import {
   Typography,
   styled,
 } from '@mui/material';
+
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { CartItem } from './CartItem';
 import { CartItemData } from '../../types';
-import { actions, ShopItemAPI } from '../../../modules/shopPage/reducer';
+import { actions } from '../../../modules/shopPage/reducer';
+import { ShopItemAPI } from '../../../shared/types';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../../constants';
 import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../constants';
 

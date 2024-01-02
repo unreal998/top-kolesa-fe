@@ -1,9 +1,12 @@
-import { ShopItemAPI } from '../../shopPage/reducer';
+import { CheckoutItemData, UserData } from '../../../shared/types';
 import { OrderItemProps, PRODUCT_TYPE } from '../types';
 
-export function itemBuyDataBuilder(itemData: ShopItemAPI): OrderItemProps {
+export function itemBuyDataBuilder(
+  itemData: CheckoutItemData,
+  userData: UserData,
+): OrderItemProps {
   return {
-    modelId: itemData.id,
+    modelId: itemData.tireId,
     sizeId: itemData.size_id,
     size: `${
       itemData.width
@@ -23,7 +26,7 @@ export function itemBuyDataBuilder(itemData: ShopItemAPI): OrderItemProps {
     paymentStatusId: 0,
     shipCompId: 0,
     paymentCostType: 0,
-    paymentComment: 'test buy!!!!!',
+    paymentComment: userData.comment,
     shipmentId: 0,
     shipmentCost: '0.00',
     shipmentCostType: 0,
@@ -39,27 +42,27 @@ export function itemBuyDataBuilder(itemData: ShopItemAPI): OrderItemProps {
     sellSum: 0,
     profit: 0,
     nameFirm: 'test name firm',
-    name: 'Maksym',
+    name: userData.userName,
     tireName: itemData.name,
-    phone: '+380973373022',
+    phone: userData.phone,
     phoneIndex: '+380',
     prepay: 0,
     country: itemData.country,
     year: itemData.year,
     inWarehous: 0,
-    email: 'unreal9981@gmail.com',
-    addressCity: 'Вінниця',
-    address: 'Нова пошта 12',
+    email: userData.email,
+    addressCity: userData.city,
+    address: userData.address,
     shipment: '0000-00-00 00:00:00',
     productType: PRODUCT_TYPE.TIRE,
-    quantity: 4, // USER BUY COUNT
+    quantity: itemData.numberOfTires, // USER BUY COUNT
     priceBuy: itemData.price_uah,
     priceSell: itemData.price_uah,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     shipmentFrom: '0000-00-00 00:00:00',
     shipmentUntil: '0000-00-00 00:00:00',
-    comment: 'test comment DEVELOP!!!!!',
+    comment: userData.comment + ' test comment DEVELOP!!!!!',
     source: 'new site develop',
     referer: 'localhost',
     forPrint: 0,
