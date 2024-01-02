@@ -1,9 +1,14 @@
+import { actions } from '../../../modules/shopPage/reducer';
 import {
-  EmailOutlined,
-  Language,
-  MapsHomeWorkOutlined,
-  TimerOutlined,
-} from '@mui/icons-material';
+  selectCartModalWindowOpen,
+  selectCartItemCount,
+} from '../../../modules/shopPage/selectors';
+import { useTranslation } from 'react-i18next';
+import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
+import i18next from 'i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { TypographyWithIcon } from '../../../modules/mainPage/components/TypographyWithIcon';
+
 import {
   Box,
   Button,
@@ -13,22 +18,59 @@ import {
   MenuItem,
   Stack,
   Typography,
+  styled,
+  Badge,
 } from '@mui/material';
-import Badge from '@mui/material/Badge';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { TypographyWithIcon } from '../../modules/mainPage/components/TypographyWithIcon';
-import { BASE_COLORS, FONTS } from '../constants';
-import { useTranslation } from 'react-i18next';
-import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
-import i18next from 'i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectCartModalWindowOpen,
-  selectCartItemCount,
-} from '../../modules/shopPage/selectors';
-import { actions } from '../../modules/shopPage/reducer';
+  EmailOutlined,
+  Language,
+  MapsHomeWorkOutlined,
+  TimerOutlined,
+} from '@mui/icons-material';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+
+import { BASE_COLORS, FONTS } from '../../constants';
 import CartModalWindow from './CartModalWindow';
 import MenuModalWindow from './MenuModalWindow';
+
+const StyledTextMain = styled(Typography)({
+  fontFamily: FONTS.MAIN_TEXT_FAMILY,
+  color: '#FFFFFF',
+  fontSize: '0.9rem',
+});
+
+const StyledTextNavigation = styled(Stack)({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  gap: '1rem',
+  '@media (max-width: 1150px)': {
+    paddingLeft: '6rem',
+  },
+  '@media (max-width: 950px)': {
+    paddingLeft: '5rem',
+  },
+  '@media (max-width: 918px)': {
+    display: 'none',
+  },
+});
+
+const StyledButtonsNav = styled(Stack)({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'row',
+  gap: '1rem',
+  justifyContent: 'end',
+  '@media (max-width: 918px)': {
+    gap: '0.75rem',
+  },
+  '@media (max-width: 550px)': {
+    gap: '1rem',
+  },
+  '@media (max-width: 450px)': {
+    paddingRight: '1.4rem',
+  },
+});
 
 type MenuItemData = {
   name: string;
@@ -97,68 +139,65 @@ export function Header() {
   };
 
   return (
-    <Box width="100%" display="flex" flexDirection="column" overflow="hidden">
-      <Box
-        bgcolor={BASE_COLORS.DEFAULT_BLUE}
-        display="flex"
-        flexDirection="row"
-        justifyContent={'flex-start'}
-        gap="3rem"
-        height={'1.6rem'}
-        padding="1.1rem 4%"
-        sx={{
-          '@media (max-width: 1250px)': {
-            justifyContent: 'center',
-            padding: '1.1rem 2%',
-          },
-          '@media (max-width: 918px)': {
-            display: 'none',
-          },
-        }}>
-        <TypographyWithIcon
-          icon={<EmailOutlined sx={{ fill: '#FFF', width: '2rem' }} />}
-          typography={
-            <Typography
-              fontFamily="PT Sans,  sans-serif"
-              color="#FFFFFF"
-              variant="body2">
-              {' '}
-              topkolesa@gmail.com{' '}
-            </Typography>
-          }
-        />
-        <TypographyWithIcon
-          icon={<MapsHomeWorkOutlined sx={{ fill: '#FFF', width: '2rem' }} />}
-          typography={
-            <Typography
-              fontFamily="PT Sans,  sans-serif"
-              color="#FFFFFF"
-              variant="body2">
-              {`${t('headerCity')}, ${t('headerAddress')} / ${t(
-                'headerAddress2',
-              )}`}
-            </Typography>
-          }
-        />
-        <TypographyWithIcon
-          icon={<TimerOutlined sx={{ fill: '#FFF', width: '2rem' }} />}
-          typography={
-            <Typography
-              fontFamily="PT Sans,  sans-serif"
-              color="#FFFFFF"
-              variant="body2">
-              {t('workHours')}
-            </Typography>
-          }
-        />
+    <Box display="flex" flexDirection="column" width={'100%'}>
+      <Box bgcolor={BASE_COLORS.DEFAULT_BLUE}>
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent={'flex-start'}
+          gap="3rem"
+          height={'1.6rem'}
+          padding="1.1rem 4%"
+          maxWidth={'170rem'}
+          m={'0 auto'}
+          sx={{
+            '@media (max-width: 1250px)': {
+              justifyContent: 'center',
+              padding: '1.1rem 2%',
+            },
+            '@media (max-width: 918px)': {
+              display: 'none',
+            },
+          }}>
+          <TypographyWithIcon
+            icon={<EmailOutlined sx={{ fill: '#FFF', width: '2rem' }} />}
+            typography={
+              <StyledTextMain>
+                <Link
+                  href="mailto:topkolesa@gmail.com"
+                  color={'inherit'}
+                  style={{ textDecoration: 'none' }}>
+                  topkolesa@gmail.com
+                </Link>
+              </StyledTextMain>
+            }
+          />
+          <TypographyWithIcon
+            icon={<MapsHomeWorkOutlined sx={{ fill: '#FFF', width: '2rem' }} />}
+            typography={
+              <StyledTextMain>
+                {`${t('headerCity')}, ${t('headerAddress')} / ${t(
+                  'headerAddress2',
+                )}`}
+              </StyledTextMain>
+            }
+          />
+          <TypographyWithIcon
+            icon={<TimerOutlined sx={{ fill: '#FFF', width: '2rem' }} />}
+            typography={<StyledTextMain>{t('workHours')}</StyledTextMain>}
+          />
+        </Box>
       </Box>
       <Box
         display="flex"
-        flexDirection="row"
         padding="30px 4%"
         alignItems="center"
-        justifyContent="space-between"
+        justifyContent={'space-between'}
         sx={{
+          '@media (min-width: 2899px)': {
+            width: '160rem',
+            margin: '0 auto',
+          },
           '@media (max-width: 550px)': {
             padding: '20px 2%',
           },
@@ -175,22 +214,7 @@ export function Header() {
             }}
           />
         </Link>
-        <Stack
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-          gap="1rem"
-          sx={{
-            '@media (max-width: 1150px)': {
-              paddingLeft: '6rem',
-            },
-            '@media (max-width: 950px)': {
-              paddingLeft: '5rem',
-            },
-            '@media (max-width: 918px)': {
-              display: 'none',
-            },
-          }}>
+        <StyledTextNavigation>
           {menu.map((menuItem, index) => (
             <Link
               key={index}
@@ -204,25 +228,8 @@ export function Header() {
               {t(menuItem.name)}
             </Link>
           ))}
-        </Stack>
-        <Stack
-          alignItems="center"
-          direction="row"
-          gap={'1rem'}
-          width={'243px'}
-          display={'flex'}
-          justifyContent={'end'}
-          sx={{
-            '@media (max-width: 918px)': {
-              gap: '0.75rem',
-            },
-            '@media (max-width: 550px)': {
-              gap: '1rem',
-            },
-            '@media (max-width: 450px)': {
-              paddingRight: '1.4rem',
-            },
-          }}>
+        </StyledTextNavigation>
+        <StyledButtonsNav>
           <IconButton
             onClick={() =>
               dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen))
@@ -348,7 +355,7 @@ export function Header() {
             ))}
           </Menu>
           <MenuModalWindow menuData={menu} />
-        </Stack>
+        </StyledButtonsNav>
       </Box>
     </Box>
   );

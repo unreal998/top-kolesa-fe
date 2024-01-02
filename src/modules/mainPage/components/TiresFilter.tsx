@@ -18,8 +18,26 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { inputLabelClasses } from '@mui/material/InputLabel';
 import { ButtonWithIcon } from '../../../shared/components/ButtonWithIcon';
 import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../../shared/constants';
-import { AiOutlineFontSize } from 'react-icons/ai';
-import { Height, WidthFull } from '@mui/icons-material';
+
+const StyledFilterBox = styled(Stack)({
+  backgroundColor: BASE_COLORS.BACKGROUND_WHITE,
+  borderRadius: '20px',
+  padding: '40px 20px',
+  justifyContent: 'center',
+  flexWrap: 'wrap',
+  width: '440px',
+  flexDirection: 'row',
+  gap: '20px',
+  '@media (max-width: 550px)': {
+    width: '30rem',
+  },
+  '@media (max-width: 420px)': {
+    width: '25rem',
+  },
+  '@media (max-width: 390px)': {
+    width: '22rem',
+  },
+});
 
 type FieldType = 'width' | 'profile' | 'diametr' | 'season' | 'brand';
 
@@ -225,23 +243,7 @@ function TiresFilter() {
         textAlign={'center'}>
         {t('tireSelection')}
       </Typography>
-      <Stack
-        bgcolor={BASE_COLORS.BACKGROUND_WHITE}
-        borderRadius="20px"
-        padding="40px 20px"
-        justifyContent="center"
-        flexWrap="wrap"
-        width="440px"
-        direction="row"
-        gap="20px"
-        sx={{
-          '@media (max-width: 550px)': {
-            width: '30rem',
-          },
-          '@media (max-width: 420px)': {
-            width: '25rem',
-          },
-        }}>
+      <StyledFilterBox>
         {autocompleteOptions.map(({ id, options, label, onChange }) => (
           <StyledAutocomplete
             key={id}
@@ -268,7 +270,7 @@ function TiresFilter() {
             )}
           />
         ))}
-      </Stack>
+      </StyledFilterBox>
       <ButtonWithIcon
         button={
           <Button
@@ -281,14 +283,8 @@ function TiresFilter() {
               borderRadius: '999px',
               padding: '20px 40px',
               fontSize: '0.9rem',
-              '@media (max-width: 870px)': {
-                fontSize: '0.9rem',
-              },
-              '@media (max-width: 605px)': {
-                fontSize: '1rem',
-              },
-              '@media (max-width: 500px)': {
-                fontSize: '1.1rem',
+              '@media (max-width: 800px)': {
+                fontSize: '13px',
               },
             }}>
             {t('searchButton')}

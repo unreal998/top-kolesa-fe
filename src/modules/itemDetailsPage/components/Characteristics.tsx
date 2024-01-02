@@ -96,9 +96,23 @@ export default function Characteristics(itemData: ShopItemAPI) {
     createData(t('year'), itemData.year),
   ];
   return (
-    <Box maxWidth={600} m={'0 auto'}>
+    <Box
+      maxWidth={600}
+      m={'0 auto'}
+      sx={{
+        '@media (max-width: 650px)': {
+          width: '90%',
+        },
+      }}>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 500 }} aria-label="customized table">
+        <Table
+          sx={{
+            minWidth: 500,
+            '@media (max-width: 650px)': {
+              minWidth: '90%',
+            },
+          }}
+          aria-label="customized table">
           <TableBody>
             {rows.map((row) => (
               <StyledTableRow key={row.titles}>

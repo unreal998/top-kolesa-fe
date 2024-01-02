@@ -49,6 +49,7 @@ export function ShopHeaderSort() {
     },
     [dispatch, sortParams],
   );
+
   const handleChangeSortBy = useCallback(
     (event: SelectChangeEvent) => {
       dispatch(
@@ -60,6 +61,15 @@ export function ShopHeaderSort() {
     },
     [dispatch, sortParams],
   );
+
+  const sortItems = [
+    { value: 'rated', label: t('rated') },
+    { value: 'date', label: t('date') },
+    { value: 'priceHigh', label: t('priceHigh') },
+    { value: 'priceLow', label: t('priceLow') },
+  ];
+
+  const showItems = [10, 20, 30];
 
   return (
     <Stack justifyContent="end" direction="row" width="22rem" gap="1rem">
@@ -92,10 +102,11 @@ export function ShopHeaderSort() {
                 },
               },
             }}>
-            <MenuItem value={'rated'}>{t('rated')}</MenuItem>
-            <MenuItem value={'date'}>{t('date')}</MenuItem>
-            <MenuItem value={'priceHigh'}>{t('priceHigh')}</MenuItem>
-            <MenuItem value={'priceLow'}>{t('priceLow')}</MenuItem>
+            {sortItems.map((sortItem, i) => (
+              <MenuItem key={i} value={sortItem.value}>
+                {sortItem.label}
+              </MenuItem>
+            ))}
           </Select>
         </StyledFormControl>
       </Stack>
@@ -134,9 +145,11 @@ export function ShopHeaderSort() {
                 },
               },
             }}>
-            <MenuItem value={10}>10</MenuItem>
-            <MenuItem value={20}>20</MenuItem>
-            <MenuItem value={30}>30</MenuItem>
+            {showItems.map((showItem, i) => (
+              <MenuItem key={i} value={showItem}>
+                {showItem}
+              </MenuItem>
+            ))}
           </Select>
         </StyledFormControl>
       </Stack>

@@ -6,7 +6,8 @@ import GoogleMapBox from './components/GoogleMapBox';
 export function ContactPage() {
   return (
     <Box
-      m={'3% 25% 10%'}
+      m={'3% auto 10%'}
+      maxWidth={'60rem'}
       sx={{
         '@media (max-width: 1500px)': {
           m: '3% 20% 10%',

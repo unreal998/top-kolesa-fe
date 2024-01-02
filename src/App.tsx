@@ -3,7 +3,7 @@ import WebFont from 'webfontloader';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MainPage } from './modules/mainPage';
 import { ShopPage } from './modules/shopPage';
-import { Header } from './shared/components/Header';
+import { Header } from './shared/components/header/Header';
 import { Footer } from './shared/components/footer/Footer';
 import { ItemDetailsPage } from './modules/itemDetailsPage';
 import { CheckoutPage } from './modules/checkoutPage';

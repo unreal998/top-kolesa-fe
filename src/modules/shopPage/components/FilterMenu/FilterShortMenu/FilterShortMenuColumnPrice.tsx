@@ -19,8 +19,8 @@ const StyledButtonMain = styled(Button)({
   boxSizing: 'border-box',
   alignItems: 'center',
   fontWeight: '600',
-  height: '59px',
-  width: '252px',
+  height: '3.7rem',
+  width: '16rem',
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
@@ -90,9 +90,9 @@ function FilterShortMenuColumnPrice({
   const visableParams =
     maxPrice === params[1] && minPrice === params[0] ? false : true;
 
-  function handleMenuToggle() {
+  const handleMenuToggle = () => {
     dispatch(actions.toggleFullMenu(3));
-  }
+  };
 
   return (
     <ButtonGroup

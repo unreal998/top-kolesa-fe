@@ -8,13 +8,22 @@ import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../../constants';
 const StyledStack = styled(Stack)({
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'contain',
-  minHeight: '390px',
-  maxHeight: '650px',
-  minWidth: '390px',
-  maxWidth: '650px',
-  width: '520px',
-  height: '520px',
-  alignItems: 'flex-end',
+  maxHeight: '30rem',
+  maxWidth: '30rem',
+  minWidth: '30rem',
+  minHeight: '30rem',
+  '@media (max-width: 1300px)': {
+    maxHeight: '22rem',
+    maxWidth: '22rem',
+    minWidth: '22rem',
+    minHeight: '22rem',
+  },
+  '@media (max-width: 990px)': {
+    maxHeight: '22rem',
+    maxWidth: '22rem',
+    minWidth: '22rem',
+    minHeight: '22rem',
+  },
 });
 
 export default function TireImg() {

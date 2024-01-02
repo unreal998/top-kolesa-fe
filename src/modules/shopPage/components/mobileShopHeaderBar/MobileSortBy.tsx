@@ -13,7 +13,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import Button from '@mui/material/Button';
 import Fade from '@mui/material/Fade';
 
-export function SortBy() {
+export function MobileSortBy() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const sortParams = useSelector(selectSortParams());
@@ -86,10 +86,15 @@ export function SortBy() {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        TransitionComponent={Fade}>
-        {menueItemData.map((item) => (
+        TransitionComponent={Fade}
+        sx={{
+          '@media (min-width: 919px)': {
+            display: 'none',
+          },
+        }}>
+        {menueItemData.map((item, i) => (
           <MenuItem
-            key={item.value}
+            key={i}
             value={item.value}
             onClick={() => handleChangeSortBy(item.value)}
             sx={{

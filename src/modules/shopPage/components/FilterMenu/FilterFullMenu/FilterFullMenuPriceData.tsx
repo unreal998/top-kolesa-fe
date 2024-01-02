@@ -71,7 +71,7 @@ function FilterFullMenuPriceData() {
       newMinPrice = Math.min(newMinPrice, tempPrice[1]);
       setTempPrice([newMinPrice, tempPrice[1]]);
     },
-    [tempPrice, filtersParams.prices], // Залежності
+    [tempPrice, filtersParams.prices],
   );
 
   const handleRightSliderChange = useCallback(

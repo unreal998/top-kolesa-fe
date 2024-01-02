@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, {
+import {
   SyntheticEvent,
   useCallback,
   useEffect,
@@ -30,14 +30,10 @@ import {
 import { itemBuyDataBuilder } from '../itemDetailsPage/utils/itemBuyDataBuilder';
 import { useTranslation } from 'react-i18next';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../constants';
-import { CartItem } from '../../shared/components/CartItem';
-import {
-  CartItemData,
-  CartStorageData,
-  CheckoutItemData,
-  ShopItemAPI,
-} from '../../shared/types';
+import { CartItem } from '../../shared/components/header/CartItem';
+import { CartItemData, CartStorageData } from '../../shared/types';
 import { FILTER_COLORS } from '../../shared/constants';
+import { ShopItemAPI } from '../../shared/types';
 
 export function CheckoutPage() {
   const dispatch = useDispatch();
@@ -49,9 +45,7 @@ export function CheckoutPage() {
   const [numberOfTires, setNumberOfTires] = useState<number>(0);
   const [paymentState, changePaymentState] = useState('cash');
   const [cartItems, setCartItems] = useState([]);
-  const [checkoutItemDetails, setСheckoutItemDetails] = useState<
-    CheckoutItemData[]
-  >([]);
+  const [checkoutItemDetails, setСheckoutItemDetails] = useState<any>([]);
   const [inputedCityName, setInputedCityName] = useState('');
   const [inputedEmail, setInputedEmail] = useState('');
   const [inputedPhone, setInputedPhone] = useState('');
@@ -112,7 +106,7 @@ export function CheckoutPage() {
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem('cartItem') || '[]');
 
-    const checkoutItemDetails: CheckoutItemData[] = cartItems.map(
+    const checkoutItemDetails: any = cartItems.map(
       (cartItem: CartStorageData) => {
         const item = shopItemsList.find(
           (item: ShopItemAPI) => item.id === cartItem.tireId,
@@ -132,7 +126,7 @@ export function CheckoutPage() {
     setCartItems(cartItems);
     setСheckoutItemDetails(checkoutItemDetails);
     let totalAmountSumm = 0;
-    checkoutItemDetails.forEach((element) => {
+    checkoutItemDetails.forEach((element: any) => {
       totalAmountSumm += element?.price;
     });
     setTotalAmount(totalAmountSumm);
