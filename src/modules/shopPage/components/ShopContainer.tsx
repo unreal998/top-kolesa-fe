@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { ShopHeaderBar } from './laptopShopHeaderBar/ShopHeaderBar';
 import { Grid, Pagination, Stack, styled } from '@mui/material';
 import { ShopItemCard } from './ShopItemCard';

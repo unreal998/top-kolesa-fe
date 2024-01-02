@@ -22,7 +22,7 @@ const StyledListItem = styled(ListItem)({
   listStylePosition: 'inside',
 });
 
-const whyWeList = [
+const WHY_WE_LIST = [
   'whyWeText1',
   'whyWeText2',
   'whyWeText3',
@@ -63,7 +63,7 @@ function AboutPage() {
       <StyledText>{t('welcomeText')}</StyledText>
       <StyledHeadingText>{t('whyWeHeader')}</StyledHeadingText>
       <List>
-        {whyWeList.map((item, i) => (
+        {WHY_WE_LIST.map((item, i) => (
           <StyledListItem key={i}>
             <Stack direction="row" spacing={1}>
               <CheckIcon

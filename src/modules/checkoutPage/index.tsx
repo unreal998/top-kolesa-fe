@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, {
+import {
   SyntheticEvent,
   useCallback,
   useEffect,
