@@ -9,32 +9,57 @@ import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
 import HandymanIcon from '@mui/icons-material/Handyman';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import styled from '@emotion/styled';
+import { useRef, WheelEvent } from 'react';
 
 const settings = {
   dots: false,
   infinite: true,
   speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToShow: 4,
+  slidesToScroll: 1,
   initialSlide: 0,
   arrows: false,
   responsive: [
     {
+      breakpoint: 2400,
+      settings: {
+        slidesToShow: 3,
+      },
+    },
+    {
       breakpoint: 1020,
       settings: {
         slidesToShow: 2,
-        slidesToScroll: 2,
       },
     },
     {
       breakpoint: 605,
       settings: {
         slidesToShow: 1,
-        slidesToScroll: 1,
       },
     },
   ],
 };
+
+const StyledServicesBox = styled(Box)({
+  width: '80rem',
+  margin: '2rem auto',
+  '@media (min-width: 2400px)': {
+    width: '110rem',
+  },
+  '@media (max-width: 1350px)': {
+    width: '70rem',
+  },
+  '@media (max-width: 1020px)': {
+    width: '50rem',
+  },
+  '@media (max-width: 650px)': {
+    width: '40rem',
+  },
+  '@media (max-width: 605px)': {
+    width: '100%',
+  },
+});
 
 const hoverAnimationBack = {
   rest: {
@@ -97,8 +122,58 @@ const HoverDiv = styled(motion.div)({
   },
 });
 
+const StyledAnimatedheader = styled(Typography)({
+  fontWeight: '600',
+  position: 'absolute',
+  bottom: -35,
+  left: 0,
+  right: 0,
+  padding: '1.2rem 0.4rem',
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
+  backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+  width: '70%',
+  textAlign: 'center',
+  color: '#fff',
+  margin: 'auto',
+  '@media (max-width: 1350px)': {
+    padding: '1rem 0.3rem',
+    bottom: -28,
+    width: '14.5rem',
+    fontSize: '1.4rem',
+  },
+  '@media (max-width: 800px)': {
+    padding: '1rem 0rem',
+    width: '15rem',
+    fontSize: '1.5rem',
+  },
+  '@media (max-width: 650px)': {
+    width: '14rem',
+    fontSize: '1.4rem',
+  },
+  '@media (max-width: 605px)': {
+    padding: '1.5rem 3rem',
+    width: '17rem',
+    fontSize: '2rem',
+  },
+});
+
 export function OurServices() {
   const { t } = useTranslation();
+  const sliderRef = useRef<Slider | null>(null);
+
+  const onWheel = (e: WheelEvent<HTMLDivElement>) => {
+    if (sliderRef.current) {
+      const threshold = 10;
+
+      if (Math.abs(e.deltaX) > threshold) {
+        if (e.deltaX > 0) {
+          sliderRef.current.slickNext();
+        } else if (e.deltaX < 0) {
+          sliderRef.current.slickPrev();
+        }
+      }
+    }
+  };
 
   const services = [
     {
@@ -167,7 +242,7 @@ export function OurServices() {
     <Box
       display="flex"
       flexDirection="column"
-      paddingY="8%"
+      paddingY="4rem"
       justifyContent="center"
       alignItems="center"
       gap="20px"
@@ -185,115 +260,65 @@ export function OurServices() {
         {t('ourServices')}
       </Typography>
       <SliderCarousel />
-      <Box
-        width={'80rem'}
-        m={'auto'}
-        mt={3}
-        sx={{
-          '@media (max-width: 1350px)': {
-            width: '70rem',
-          },
-          '@media (max-width: 1020px)': {
-            width: '50rem',
-          },
-          '@media (max-width: 650px)': {
-            width: '40rem',
-          },
-          '@media (max-width: 605px)': {
-            width: '100%',
-          },
-        }}>
-        <Slider {...settings}>
-          {services.map((service, i) => (
-            <Box key={i} position="relative" mb={5} width="25rem">
-              <motion.div initial="rest" whileHover="hover" animate="rest">
-                <Box
-                  component="img"
-                  src={service.imgSrc}
-                  m={'auto'}
-                  width={'25rem'}
-                  sx={{
-                    '@media (max-width: 1350px)': {
-                      width: '20rem',
-                    },
-                    '@media (max-width: 650px)': {
-                      width: '18rem',
-                    },
-                    '@media (max-width: 605px)': {
-                      width: '30rem',
-                    },
-                  }}
-                />
-                <motion.div variants={hoverAnimationHeader}>
-                  <Typography
-                    variant="h5"
-                    fontWeight="600"
-                    position="absolute"
-                    bottom={-35}
-                    left={0}
-                    right={0}
-                    p={'1.2rem'}
-                    fontFamily={FONTS.BOLD_TEXT_FAMILY}
-                    bgcolor={BASE_COLORS.DEFAULT_BLUE}
-                    width={'16rem'}
-                    textAlign={'center'}
-                    color={'#fff'}
+      <StyledServicesBox>
+        <Box onWheel={onWheel}>
+          <Slider ref={sliderRef} {...settings}>
+            {services.map((service, i) => (
+              <Box key={i} position="relative" mb={5} width="25rem">
+                <motion.div initial="rest" whileHover="hover" animate="rest">
+                  <Box
+                    component="img"
+                    src={service.imgSrc}
                     m={'auto'}
+                    width={'25rem'}
                     sx={{
                       '@media (max-width: 1350px)': {
-                        padding: '1rem 0.3rem',
-                        bottom: -28,
-                        width: '14.5rem',
-                        fontSize: '1.4rem',
-                      },
-                      '@media (max-width: 800px)': {
-                        padding: '1rem 0rem',
-                        width: '15rem',
-                        fontSize: '1.5rem',
+                        width: '20rem',
                       },
                       '@media (max-width: 650px)': {
-                        width: '14rem',
-                        fontSize: '1.4rem',
+                        width: '18rem',
                       },
                       '@media (max-width: 605px)': {
-                        padding: '1.5rem 3rem',
-                        width: '16rem',
-                        fontSize: '2rem',
+                        width: '30rem',
                       },
-                    }}>
-                    {t(service.title)}
-                  </Typography>
-                </motion.div>
-                <HoverDiv variants={hoverAnimationBack}>
-                  <Box textAlign={'center'}>
-                    {service.icon}
-                    <Typography
-                      variant="h5"
-                      fontWeight="600"
-                      fontFamily={FONTS.BOLD_TEXT_FAMILY}
-                      width={250}
-                      textAlign={'center'}
-                      color={'#fff'}
-                      m={'auto'}
-                      pb={2}>
+                    }}
+                  />
+                  <motion.div variants={hoverAnimationHeader}>
+                    <StyledAnimatedheader variant="h5">
                       {t(service.title)}
-                    </Typography>
-                    <Typography
-                      variant="subtitle1"
-                      fontFamily={FONTS.MAIN_TEXT_FAMILY}
-                      width={250}
-                      textAlign={'center'}
-                      color={'#fff'}
-                      m={'auto'}>
-                      {t(service.description)}
-                    </Typography>
-                  </Box>
-                </HoverDiv>
-              </motion.div>
-            </Box>
-          ))}
-        </Slider>
-      </Box>
+                    </StyledAnimatedheader>
+                  </motion.div>
+                  <HoverDiv variants={hoverAnimationBack}>
+                    <Box textAlign={'center'} p={'0, 3rem'}>
+                      {service.icon}
+                      <Typography
+                        variant="h5"
+                        fontWeight="600"
+                        fontFamily={FONTS.BOLD_TEXT_FAMILY}
+                        width={250}
+                        textAlign={'center'}
+                        color={'#fff'}
+                        m={'auto'}
+                        pb={2}>
+                        {t(service.title)}
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        fontFamily={FONTS.MAIN_TEXT_FAMILY}
+                        width={250}
+                        textAlign={'center'}
+                        color={'#fff'}
+                        m={'auto'}>
+                        {t(service.description)}
+                      </Typography>
+                    </Box>
+                  </HoverDiv>
+                </motion.div>
+              </Box>
+            ))}
+          </Slider>
+        </Box>
+      </StyledServicesBox>
     </Box>
   );
 }

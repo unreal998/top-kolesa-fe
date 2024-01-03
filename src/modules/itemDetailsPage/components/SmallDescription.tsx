@@ -1,4 +1,3 @@
-import React from 'react';
 import { Stack, Typography, styled, Box } from '@mui/material';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import ApartmentIcon from '@mui/icons-material/Apartment';

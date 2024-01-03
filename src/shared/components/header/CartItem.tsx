@@ -1,3 +1,5 @@
+import { t } from 'i18next';
+
 import {
   Box,
   IconButton,
@@ -6,13 +8,36 @@ import {
   SxProps,
   Theme,
   Typography,
+  styled,
 } from '@mui/material';
-import { BASE_COLORS, FILTER_COLORS, FONTS } from '../constants';
-import { t } from 'i18next';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import { CartItemData } from '../types';
+
+import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../constants';
+import { CartItemData } from '../../types';
+import { useCallback } from 'react';
+
+const StyledCartItem = styled(Box)({
+  borderBottom: `1px solid ${BASE_COLORS.DEFAULT_BLUE}`,
+  cursor: 'default',
+  margin: '0 10px',
+  paddingTop: '10px',
+  position: 'relative',
+  width: '100%',
+});
+
+const StyledIconButton = styled(IconButton)({
+  padding: 0,
+  position: 'absolute',
+  top: 10,
+  right: 10,
+  '&:hover': {
+    '& .MuiSvgIcon-root': {
+      color: FILTER_COLORS.BUTTON_RESET_FILTER,
+    },
+  },
+});
 
 type CartItemProps = {
   index: number;
@@ -22,14 +47,14 @@ type CartItemProps = {
   containerStyles?: SxProps<Theme>;
 };
 
-export const CartItem = ({
+export function CartItem({
   index,
   cartItemData,
   setNumberOfTires,
   cartItems,
   containerStyles,
-}: CartItemProps) => {
-  const handleIncreaseQuantity = (tireId: number) => {
+}: CartItemProps) {
+  const handleIncreaseQuantity = useCallback((tireId: number) => {
     const updatedCartItems = cartItems.map((item: CartItemData) =>
       item.tireId === tireId
         ? { ...item, numberOfTires: item.numberOfTires + 1 }
@@ -37,9 +62,9 @@ export const CartItem = ({
     ).length;
     localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
     setNumberOfTires(updatedCartItems);
-  };
+  }, []);
 
-  const handleDecreaseQuantity = (tireId: number) => {
+  const handleDecreaseQuantity = useCallback((tireId: number) => {
     const updatedCartItems = cartItems.map((item: CartItemData) =>
       item.tireId === tireId
         ? {
@@ -50,42 +75,28 @@ export const CartItem = ({
     ).length;
     localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
     setNumberOfTires(updatedCartItems);
-  };
+  }, []);
 
-  const handleDeleteItem = (tireId: number) => {
+  const handleDeleteItem = useCallback((tireId: number) => {
     const updatedCartItems = cartItems.filter(
       (item: CartItemData) => item.tireId !== tireId,
-    ).length;
-    localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
-    setNumberOfTires(updatedCartItems);
-  };
+    );
+
+    if (updatedCartItems.length === 0) {
+      localStorage.removeItem('cartItem');
+    } else {
+      localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
+    }
+  }, []);
 
   return (
     <ListItem key={index} disablePadding>
-      <Box
+      <StyledCartItem
         sx={{
-          borderBottom: `1px solid ${BASE_COLORS.DEFAULT_BLUE}`,
-          cursor: 'default',
-          margin: '0 10px',
-          paddingTop: '10px',
-          position: 'relative',
-          width: '100%',
           ...containerStyles,
         }}>
-        <IconButton
-          sx={{
-            padding: 0,
-            position: 'absolute',
-            top: 10,
-            right: 10,
-            '&:hover': {
-              '& .MuiSvgIcon-root': {
-                color: FILTER_COLORS.BUTTON_RESET_FILTER,
-              },
-            },
-          }}>
+        <StyledIconButton onClick={() => handleDeleteItem(cartItemData.tireId)}>
           <DeleteIcon
-            onClick={() => handleDeleteItem(cartItemData.tireId)}
             sx={{
               height: '20px',
               width: '20px',
@@ -93,7 +104,7 @@ export const CartItem = ({
               transition: 'all 0.1s ',
             }}
           />
-        </IconButton>
+        </StyledIconButton>
         <Box display={'flex'} flexDirection={'column'} mb={1}>
           <Link
             href={`/item?id=${cartItemData.article?.toString()}`}
@@ -175,7 +186,7 @@ export const CartItem = ({
             </Box>
           </Box>
         </Box>
-      </Box>
+      </StyledCartItem>
     </ListItem>
   );
-};
+}

@@ -1,7 +1,8 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Link, Stack, Typography } from '@mui/material';
 import { Wrapper } from '@googlemaps/react-wrapper';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FONTS } from '../../../shared/constants';
 
 function MyMapComponent({
   center,
@@ -78,139 +79,165 @@ export function GoogleMap() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const contactPhones = [
+    {
+      phone: '(099) 273-77-44',
+      link: 'tel:+380992737744',
+    },
+    {
+      phone: '(097) 273-77-44',
+      link: 'tel:+380972737744',
+    },
+    {
+      phone: '(063) 253-77-44',
+      link: 'tel:+380632537744',
+    },
+  ];
+
   return (
     <Box
-      display="flex"
-      flexDirection="row"
-      padding="4rem 2rem"
-      justifyContent="space-around"
-      alignItems="center"
       sx={{
         backgroundImage: 'url(./imgs/ourServiceImgs/bg.jpg)',
         backgroundSize: 'contain',
-        '@media (max-width: 1025px)': {
-          flexDirection: 'column',
-          gap: '3rem',
-        },
       }}>
-      <Stack gap="10px">
-        <Typography
-          variant="h3"
-          fontWeight="900"
-          fontFamily="Montserrat, sans-serif"
-          color="#000"
-          pb={'1rem'}>
-          {t('howToFindUS')}
-        </Typography>
-        <Stack>
+      <Box
+        display="flex"
+        flexDirection="row"
+        padding="4rem"
+        justifyContent="space-around"
+        alignItems="center"
+        sx={{
+          '@media (min-width: 1900px)': {
+            width: '110rem',
+            margin: '0 auto',
+          },
+          '@media (max-width: 1025px)': {
+            flexDirection: 'column',
+            gap: '3rem',
+          },
+        }}>
+        <Stack
+          gap="10px"
+          pr={'1rem'}
+          sx={{
+            '@media (min-width: 2000px)': {
+              width: '80rem',
+              margin: '0 auto',
+            },
+            '@media (max-width: 500px)': {
+              paddingLeft: '2rem',
+            },
+          }}>
           <Typography
-            variant="h5"
-            fontFamily="Montserrat, sans-serif"
-            fontWeight="600"
-            color="#000">
-            {t('officeBased')}
-          </Typography>
-          <Typography
-            variant="body1"
-            fontFamily="PT Sans, sans-serif"
-            fontWeight="400"
+            variant="h3"
+            fontWeight="900"
+            fontFamily={FONTS.BOLD_TEXT_FAMILY}
             color="#000"
-            fontSize={'1rem'}
+            pb={'1rem'}
             sx={{
-              '@media (max-width: 605px)': {
-                fontSize: '1.1rem',
+              '@media (max-width: 1025px)': {
+                textAlign: 'center',
               },
             }}>
-            Глобал
+            {t('howToFindUS')}
           </Typography>
-          <Typography
-            variant="body1"
-            fontFamily="PT Sans, sans-serif"
-            fontWeight="400"
-            color="#000"
-            fontSize={'1rem'}
-            sx={{
-              '@media (max-width: 605px)': {
-                fontSize: '1.1rem',
-              },
-            }}>
-            Tyre Plus
-          </Typography>
+          <Stack>
+            <Typography
+              variant="h5"
+              fontFamily={FONTS.BOLD_TEXT_FAMILY}
+              fontWeight="600"
+              color="#000">
+              {t('officeBased')}
+            </Typography>
+            <Typography
+              variant="body1"
+              fontFamily={FONTS.MAIN_TEXT_FAMILY}
+              fontWeight="400"
+              color="#000"
+              fontSize={'1rem'}
+              sx={{
+                '@media (max-width: 605px)': {
+                  fontSize: '1.1rem',
+                },
+              }}>
+              Глобал
+            </Typography>
+            <Typography
+              variant="body1"
+              fontFamily={FONTS.MAIN_TEXT_FAMILY}
+              fontWeight="400"
+              color="#000"
+              fontSize={'1rem'}
+              sx={{
+                '@media (max-width: 605px)': {
+                  fontSize: '1.1rem',
+                },
+              }}>
+              Tyre Plus
+            </Typography>
+          </Stack>
+          <Stack>
+            <Typography
+              variant="h5"
+              fontFamily={FONTS.BOLD_TEXT_FAMILY}
+              fontWeight="600"
+              color="#000">
+              {t('waitingForCall')}
+            </Typography>
+            {contactPhones.map((phone, i) => (
+              <Typography
+                key={i}
+                variant="body1"
+                fontFamily={FONTS.MAIN_TEXT_FAMILY}
+                fontWeight="400"
+                color="#000"
+                fontSize={'1rem'}
+                sx={{
+                  '@media (max-width: 605px)': {
+                    fontSize: '1.1rem',
+                  },
+                }}>
+                <Link
+                  href={phone.link}
+                  color="inherit"
+                  style={{ textDecoration: 'none' }}>
+                  {phone.phone}
+                </Link>
+              </Typography>
+            ))}
+          </Stack>
+          <Stack>
+            <Typography
+              variant="h5"
+              fontFamily={FONTS.BOLD_TEXT_FAMILY}
+              fontWeight="600"
+              color="#000">
+              {t('ourMail')}
+            </Typography>
+            <Typography
+              variant="body1"
+              fontFamily={FONTS.MAIN_TEXT_FAMILY}
+              fontWeight="400"
+              color="#000"
+              fontSize={'1rem'}
+              sx={{
+                '@media (max-width: 605px)': {
+                  fontSize: '1.1rem',
+                },
+              }}>
+              <Link
+                href="mailto:topkolesa@gmail.com"
+                color="inherit"
+                style={{ textDecoration: 'none' }}>
+                topkolesa@gmail.com
+              </Link>
+            </Typography>
+          </Stack>
         </Stack>
-        <Stack>
-          <Typography
-            variant="h5"
-            fontFamily="Montserrat, sans-serif"
-            fontWeight="600"
-            color="#000">
-            {t('waitingForCall')}
-          </Typography>
-          <Typography
-            variant="body1"
-            fontFamily="PT Sans, sans-serif"
-            fontWeight="400"
-            color="#000"
-            fontSize={'1rem'}
-            sx={{
-              '@media (max-width: 605px)': {
-                fontSize: '1.1rem',
-              },
-            }}>
-            (099) 273-77-44
-          </Typography>
-          <Typography
-            variant="body1"
-            fontFamily="PT Sans, sans-serif"
-            fontWeight="400"
-            color="#000"
-            fontSize={'1rem'}
-            sx={{
-              '@media (max-width: 605px)': {
-                fontSize: '1.1rem',
-              },
-            }}>
-            (097) 273-77-44
-          </Typography>
-          <Typography
-            variant="body1"
-            fontFamily="PT Sans, sans-serif"
-            fontWeight="400"
-            color="#000"
-            fontSize={'1rem'}
-            sx={{
-              '@media (max-width: 605px)': {
-                fontSize: '1.1rem',
-              },
-            }}>
-            (063) 253-77-44
-          </Typography>
-        </Stack>
-        <Stack>
-          <Typography
-            variant="h5"
-            fontFamily="Montserrat, sans-serif"
-            fontWeight="600"
-            color="#000">
-            {t('ourMail')}
-          </Typography>
-          <Typography
-            variant="body1"
-            fontFamily="PT Sans, sans-serif"
-            fontWeight="400"
-            color="#000"
-            fontSize={'1rem'}
-            sx={{
-              '@media (max-width: 605px)': {
-                fontSize: '1.1rem',
-              },
-            }}>
-            topkolesa@gmail.com
-          </Typography>
-        </Stack>
-      </Stack>
-      <Wrapper apiKey="AIzaSyD4GZ_2q8aJK28ASr6ZNbpgYAymWP0Vlxw">
-        <MyMapComponent center={center} zoom={zoom} />
-      </Wrapper>
+        <Wrapper apiKey="AIzaSyD4GZ_2q8aJK28ASr6ZNbpgYAymWP0Vlxw">
+          <MyMapComponent center={center} zoom={zoom} />
+        </Wrapper>
+      </Box>
     </Box>
   );
 }

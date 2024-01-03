@@ -1,17 +1,17 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { FILTER_COLORS, FONTS } from '../../constants';
 import {
   SwipeableDrawer,
   Box,
   List,
   Button,
   ListItem,
-  ListItemButton,
   Typography,
   IconButton,
+  Link,
 } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useTranslation } from 'react-i18next';
-import { BASE_COLORS, FILTER_COLORS, FONTS } from '../constants';
 import CloseIcon from '@mui/icons-material/Close';
 
 type MenuItemData = {
@@ -61,9 +61,6 @@ export default function MenuModalWindow({
           position: 'absolute',
           top: '0.1rem',
           right: '2rem',
-          '@media (min-width: 500px)': {
-            display: 'none',
-          },
         }}>
         <CloseIcon
           sx={{
@@ -76,7 +73,11 @@ export default function MenuModalWindow({
       <List sx={{}}>
         {menuData.map((menuItem: any, i: number) => (
           <ListItem key={i}>
-            <ListItemButton href={menuItem.link}>
+            <Link
+              href={menuItem.link}
+              underline="none"
+              color={'inherit'}
+              m={'auto'}>
               <Typography
                 lineHeight="1.7"
                 variant="body1"
@@ -91,7 +92,7 @@ export default function MenuModalWindow({
                 }}>
                 {t(menuItem.name)}
               </Typography>
-            </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -127,7 +128,12 @@ export default function MenuModalWindow({
         anchor={'right'}
         open={state.right}
         onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}>
+        onOpen={toggleDrawer(true)}
+        sx={{
+          '@media (min-width: 919px)': {
+            display: 'none',
+          },
+        }}>
         {list()}
       </SwipeableDrawer>
     </Box>

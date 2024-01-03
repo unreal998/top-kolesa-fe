@@ -5,8 +5,6 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemButton,
-  Stack,
   SwipeableDrawer,
   TextField,
   Typography,
@@ -17,17 +15,18 @@ import {
   FONTS,
 } from '../../../../shared/constants';
 import Button from '@mui/material/Button';
-import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { SyntheticEvent, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { inputLabelClasses } from '@mui/material/InputLabel';
 import styled from '@emotion/styled';
 import { actions } from '../../reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import TiresFilter from '../../../mainPage/components/TiresFilter';
 import { useNavigate } from 'react-router-dom';
 import { selectFilterData } from '../../../mainPage/selectors';
+import CloseIcon from '@mui/icons-material/Close';
+import { use } from 'i18next';
+import { text } from 'stream/consumers';
 
 type FieldType =
   | 'width'
@@ -35,7 +34,7 @@ type FieldType =
   | 'diametr'
   | 'season'
   | 'brand'
-  | 'studed';
+  | 'studded';
 
 type AutocompleteOptionType = {
   id: FieldType;
@@ -49,6 +48,7 @@ type AutocompleteOptionType = {
 };
 
 const StyledAutocomplete = styled(Autocomplete)({
+  marginTop: '1rem',
   //LABEL COLOR/FONTS
   '&:hover': {
     [`& .${inputLabelClasses.root}.${inputLabelClasses.shrink}`]: {
@@ -104,7 +104,15 @@ const StyledAutocomplete = styled(Autocomplete)({
   },
 });
 
-export function Filter() {
+const StyledButton = styled(Button)({
+  marginTop: '1rem',
+  width: '40%',
+  height: '50px',
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
+  fontWeight: 'bold',
+});
+
+export function MobileFilter() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useNavigate();
@@ -114,7 +122,7 @@ export function Filter() {
   const [diametr, setDiametrValue] = useState('');
   const [season, setSeasonValue] = useState('');
   const [brand, setBrandValue] = useState('');
-  const [studed, setStudedValue] = useState('');
+  const [studded, setStuddedValue] = useState('');
   const [openFilter, setOpenFilter] = useState({
     left: false,
   });
@@ -133,13 +141,14 @@ export function Filter() {
       setOpenFilter({ left: open });
     };
 
-  const handleSearchButton = useCallback(() => {
+  const handleSearchButton = () => {
     dispatch(actions.setSelectedWidth(width));
     dispatch(actions.setSelectedProfile(profile));
     dispatch(actions.setSelectedDiametr(diametr));
     dispatch(actions.setSeasonChange([season]));
     dispatch(actions.setBrandChange([brand]));
-    dispatch(actions.setStuddedChange([studed]));
+    dispatch(actions.setStuddedChange([studded]));
+    setOpenFilter({ left: false });
     history(
       `shop/?price=${JSON.stringify([
         Math.min.apply(null, filtersParams.prices),
@@ -152,37 +161,10 @@ export function Filter() {
           : season === t('winter')
           ? 'winter'
           : 'all-season',
-      )}&brand=${JSON.stringify(brand)}&studed=${JSON.stringify(studed)}`,
+      )}&brand=${JSON.stringify(brand)}&studded=${JSON.stringify(studded)}`,
       { replace: true },
     );
-    setOpenFilter({ left: false });
-  }, [
-    brand,
-    diametr,
-    filtersParams.prices,
-    history,
-    profile,
-    season,
-    t,
-    width,
-    dispatch,
-    studed,
-  ]);
-
-  function handleCleareAllFilters() {
-    dispatch(actions.setClearSelectedWidth());
-    dispatch(actions.setClearSelectedProfile());
-    dispatch(actions.setClearSelectedDiametr());
-    dispatch(actions.setResetSeason());
-    dispatch(actions.setResetBrand());
-    dispatch(actions.setResetStudded());
-    setWidthValue('');
-    setProfileValue('');
-    setDiametrValue('');
-    setSeasonValue('');
-    setBrandValue('');
-    setStudedValue('');
-  }
+  };
 
   const handleAutocompleteChange = useCallback(
     (type: FieldType) =>
@@ -208,8 +190,8 @@ export function Filter() {
           case 'brand':
             setBrandValue(value);
             break;
-          case 'studed':
-            setStudedValue(value);
+          case 'studded':
+            setStuddedValue(value);
             break;
           default:
             break;
@@ -217,25 +199,6 @@ export function Filter() {
       },
     [],
   );
-
-  const getValueForAutocomplete = (id: string) => {
-    switch (id) {
-      case 'width':
-        return width;
-      case 'profile':
-        return profile;
-      case 'diametr':
-        return diametr;
-      case 'season':
-        return season;
-      case 'brand':
-        return brand;
-      case 'studed':
-        return studed;
-      default:
-        return '';
-    }
-  };
 
   const sortOptions = useCallback((options: (string | number)[]) => {
     const optionsCopy = [...options];
@@ -247,6 +210,21 @@ export function Filter() {
         : Number(a) - Number(b);
     });
   }, []);
+
+  const handleCleareAllFilters = () => {
+    setWidthValue('');
+    setProfileValue('');
+    setDiametrValue('');
+    setSeasonValue('');
+    setBrandValue('');
+    setStuddedValue('');
+    dispatch(actions.setClearSelectedWidth());
+    dispatch(actions.setClearSelectedProfile());
+    dispatch(actions.setClearSelectedDiametr());
+    dispatch(actions.setResetSeason());
+    dispatch(actions.setResetBrand());
+    dispatch(actions.setResetStudded());
+  };
 
   const autocompleteOptions: AutocompleteOptionType[] = [
     {
@@ -280,10 +258,10 @@ export function Filter() {
       onChange: handleAutocompleteChange('brand'),
     },
     {
-      id: 'studed',
+      id: 'studded',
       options: [t('studded'), t('studless')],
       label: t('studded'),
-      onChange: handleAutocompleteChange('studed'),
+      onChange: handleAutocompleteChange('studded'),
     },
   ];
 
@@ -299,7 +277,7 @@ export function Filter() {
             minWidth: 0,
           },
         }}>
-        <MenuIcon
+        <FilterAltOutlinedIcon
           fontSize="large"
           sx={{
             color: 'white',
@@ -315,51 +293,90 @@ export function Filter() {
         anchor={'left'}
         open={openFilter.left}
         onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}>
+        onOpen={toggleDrawer(true)}
+        sx={{
+          '@media (min-width: 918px)': {
+            display: 'none',
+          },
+        }}>
         <Box
           width={'50vw'}
           role="presentation"
-          sx={{ '@media (max-width: 600px)': { width: '100vw' } }}
-          m={'5%'}>
-          <List>
+          sx={{ '@media (max-width: 600px)': { width: '100vw' } }}>
+          <Box
+            display={'flex'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            height={'1.6rem'}
+            padding="1.1rem 4%"
+            gap={1}
+            color={'#fff'}
+            bgcolor={BASE_COLORS.DEFAULT_BLUE}>
+            <FilterAltOutlinedIcon
+              fontSize="large"
+              sx={{
+                color: 'white',
+              }}
+            />
+            <Typography
+              variant="h5"
+              fontFamily={FONTS.BOLD_TEXT_FAMILY}
+              fontWeight={600}>
+              {t('filters')}
+            </Typography>
+            <IconButton
+              onClick={toggleDrawer(false)}
+              sx={{
+                color: FILTER_COLORS.BUTTON_RESET_FILTER,
+                padding: 0,
+                position: 'absolute',
+                right: '10px',
+              }}>
+              <CloseIcon
+                sx={{
+                  height: '2rem',
+                  width: '2rem',
+                  padding: 0,
+                  color: '#fff',
+                }}
+              />
+            </IconButton>
+          </Box>
+          <List
+            sx={{
+              marginLeft: '8%',
+              marginTop: '1rem',
+            }}>
             {autocompleteOptions.map(({ id, options, label, onChange }) => (
-              <ListItem>
-                <StyledAutocomplete
-                  key={id}
-                  disablePortal
-                  onChange={onChange}
-                  options={
-                    id === 'width' || id === 'brand'
-                      ? sortOptions(options)
-                      : options
-                  }
-                  value={getValueForAutocomplete(id)}
-                  renderInput={(params) => (
-                    <TextField
-                      label={t(label)}
-                      {...params}
-                      InputLabelProps={{
-                        ...params.InputLabelProps,
-                        children: undefined,
-                      }}
-                    />
-                  )}
-                  sx={{
-                    width: '90%',
-                  }}
-                />
-              </ListItem>
+              <StyledAutocomplete
+                key={id}
+                disablePortal
+                onChange={onChange}
+                options={
+                  id === 'width' || id === 'brand'
+                    ? sortOptions(options)
+                    : options
+                }
+                renderInput={(params) => (
+                  <TextField
+                    label={t(label)}
+                    {...params}
+                    InputLabelProps={{
+                      ...params.InputLabelProps,
+                      children: undefined,
+                    }}
+                  />
+                )}
+                sx={{
+                  width: '90%',
+                }}
+              />
             ))}
             <Box display={'flex'} width={'91%'} justifyContent={'space-around'}>
-              <Button
+              <StyledButton
                 variant="contained"
                 onClick={handleCleareAllFilters}
                 sx={{
-                  mt: '1rem',
-                  width: '40%',
-                  height: '50px',
-                  fontFamily: FONTS.BOLD_TEXT_FAMILY,
-                  fontWeight: 'bold',
                   color: FILTER_COLORS.TEXT_MAIN,
                   background: FILTER_COLORS.SHORT_MENU_RESET_BUTTON_BACKGROUND,
                   fontSize: '1rem',
@@ -369,16 +386,11 @@ export function Filter() {
                   },
                 }}>
                 {t('resetFilter')}
-              </Button>
-              <Button
+              </StyledButton>
+              <StyledButton
                 variant="contained"
                 onClick={handleSearchButton}
                 sx={{
-                  mt: '1rem',
-                  width: '40%',
-                  height: '50px',
-                  fontFamily: FONTS.BOLD_TEXT_FAMILY,
-                  fontWeight: 'bold',
                   background: BASE_COLORS.DEFAULT_BLUE,
                   fontSize: '1.4rem',
                   '&:hover': {
@@ -386,7 +398,7 @@ export function Filter() {
                   },
                 }}>
                 {t('searchButton')}
-              </Button>
+              </StyledButton>
             </Box>
           </List>
         </Box>

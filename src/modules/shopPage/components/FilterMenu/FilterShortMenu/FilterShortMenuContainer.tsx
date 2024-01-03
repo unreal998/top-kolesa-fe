@@ -16,7 +16,7 @@ import FilterShortMenuColumnPrice from './FilterShortMenuColumnPrice';
 import FilterShortMenuColumn from './FilterShortMenuColumn';
 import FilterShortMenuReset from './FilterShortMenuReset';
 
-import { Button, ButtonGroup, Stack } from '@mui/material';
+import { ButtonGroup } from '@mui/material';
 
 import WidthIcon from '../../../../../shared/components/Icons/WidthIcon';
 import ProfileIcon from '../../../../../shared/components/Icons/ProfileIcon';
@@ -96,7 +96,7 @@ const FilterShortMenuContainer = () => {
     selectedBrand.length > 0 ||
     selectedStudded.length > 0;
 
-  function handleClearRowsFilters() {
+  const handleClearRowsFilters = () => {
     return (
       e: React.MouseEvent<HTMLDivElement, MouseEvent>,
       filterAction: () => PayloadAction<string, void>,
@@ -104,22 +104,30 @@ const FilterShortMenuContainer = () => {
       e.stopPropagation();
       dispatch(filterAction());
     };
-  }
+  };
 
-  function handleClearPrice(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    dispatch(actions.initializePriceRange([minPrice, maxPrice]));
-  }
+  const handleClearPrice = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      dispatch(actions.initializePriceRange([minPrice, maxPrice]));
+    },
+    [dispatch, minPrice, maxPrice],
+  );
 
-  function handleClearColumnFilters<T>(
-    filterItems: T[],
-    itemToRemove: T,
-    updateAction: (updatedItems: T[]) => PayloadActionRedux<T[]>,
-  ) {
-    return () => {
-      const updatedItems = filterItems.filter((item) => item !== itemToRemove);
-      dispatch(updateAction(updatedItems));
-    };
-  }
+  const handleClearColumnFilters = useCallback(
+    (
+      filterItems: string[],
+      itemToRemove: string,
+      updateAction: (updatedItems: string[]) => PayloadActionRedux<string[]>,
+    ) => {
+      return () => {
+        const updatedItems = filterItems.filter(
+          (item) => item !== itemToRemove,
+        );
+        dispatch(updateAction(updatedItems));
+      };
+    },
+    [dispatch],
+  );
 
   function handleCleareAllFilters() {
     dispatch(actions.setClearSelectedWidth());

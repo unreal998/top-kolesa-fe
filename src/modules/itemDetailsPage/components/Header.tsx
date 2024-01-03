@@ -12,7 +12,15 @@ export default function Header() {
 
   return (
     <>
-      <Box display={'flex'} alignItems={'center'} mb={1}>
+      <Box
+        display={'flex'}
+        alignItems={'center'}
+        m={1}
+        sx={{
+          '@media (max-width: 918px)': {
+            margin: '2rem auto 1rem',
+          },
+        }}>
         <Rating name="read-only" value={selectedItemData?.rate} readOnly />
         <Typography
           variant="subtitle1"
@@ -32,7 +40,7 @@ export default function Header() {
         {selectedItemData?.width}/{selectedItemData?.height} R
         {selectedItemData?.diametr}
       </Typography>
-      <Box borderBottom={`1px dashed ${BASE_COLORS.DEFAULT_BLUE}`} />
+      <Box borderBottom={`1px dashed ${BASE_COLORS.DEFAULT_BLUE}`} mx={1} />
       <Box display={'flex'} justifyContent={'space-between'} mt={2}>
         <Box display={'flex'}>
           <Typography

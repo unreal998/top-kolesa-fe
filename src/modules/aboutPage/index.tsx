@@ -22,7 +22,7 @@ const StyledListItem = styled(ListItem)({
   listStylePosition: 'inside',
 });
 
-const WhyWeList = [
+const WHY_WE_LIST = [
   'whyWeText1',
   'whyWeText2',
   'whyWeText3',
@@ -38,7 +38,8 @@ function AboutPage() {
   const { t } = useTranslation();
   return (
     <Box
-      m={'3% 25% 10%'}
+      m={'3% auto 10%'}
+      maxWidth={'60rem'}
       sx={{
         '@media (max-width: 1500px)': {
           m: '3% 20% 10%',
@@ -62,7 +63,7 @@ function AboutPage() {
       <StyledText>{t('welcomeText')}</StyledText>
       <StyledHeadingText>{t('whyWeHeader')}</StyledHeadingText>
       <List>
-        {WhyWeList.map((item, i) => (
+        {WHY_WE_LIST.map((item, i) => (
           <StyledListItem key={i}>
             <Stack direction="row" spacing={1}>
               <CheckIcon

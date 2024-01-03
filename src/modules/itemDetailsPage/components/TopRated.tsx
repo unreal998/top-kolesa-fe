@@ -8,43 +8,93 @@ import 'slick-carousel/slick/slick-theme.css';
 import { BASE_COLORS, FONTS } from '../../../shared/constants';
 import { selectCurrentPageItemList } from '../../shopPage/selectors';
 import { ShopItemCard } from '../../shopPage/components/ShopItemCard';
+import { useRef, WheelEvent } from 'react';
+
+const settings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1250,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 1025,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
+
+const SlyderBox = styled(Box)({
+  '.slick-dots li button:before': {
+    color: BASE_COLORS.DEFAULT_BLUE,
+    fontSize: '8px',
+  },
+  '.slick-dots li.slick-active button:before': {
+    color: BASE_COLORS.DEFAULT_BLUE,
+  },
+  '.slick-slide > div': {
+    margin: '0 10px',
+  },
+});
 
 export default function TopRated() {
   const shopItems = useSelector(selectCurrentPageItemList());
-  const similarItems = shopItems.sort((a, b) => b.rate - a.rate).slice(0, 10);
+  const similarItems = shopItems.sort((a, b) => b.rate - a.rate).slice(0, 9);
+  const sliderRef = useRef<Slider | null>(null);
 
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 3,
-    initialSlide: 0,
+  const onWheel = (e: WheelEvent<HTMLDivElement>) => {
+    if (sliderRef.current) {
+      const threshold = 10;
+
+      if (Math.abs(e.deltaX) > threshold) {
+        if (e.deltaX > 0) {
+          sliderRef.current.slickNext();
+        } else if (e.deltaX < 0) {
+          sliderRef.current.slickPrev();
+        }
+      }
+    }
   };
 
-  const SlyderBox = styled(Box)({
-    '.slick-dots li button:before': {
-      color: BASE_COLORS.DEFAULT_BLUE,
-      fontSize: '8px',
-    },
-    '.slick-dots li.slick-active button:before': {
-      color: BASE_COLORS.DEFAULT_BLUE,
-    },
-    '.slick-slide > div': {
-      margin: '0 10px',
-    },
-  });
-
   return (
-    <Stack spacing={4} mt={5}>
+    <Stack
+      spacing={'1rem'}
+      m={'2rem auto 3rem'}
+      maxWidth={'80rem'}
+      sx={{
+        '@media (max-width: 1500px)': {
+          width: '100%',
+        },
+        '@media (max-width: 1025px)': {
+          width: '90%',
+        },
+      }}>
       <Typography
-        variant="h5"
+        variant="h4"
+        pl={'10%'}
         fontFamily={FONTS.BOLD_TEXT_FAMILY}
-        fontWeight={600}>
+        fontWeight={700}
+        sx={{
+          '@media (max-width: 918px)': {
+            textAlign: 'center',
+            paddingLeft: '0',
+          },
+        }}>
         Top Rated
       </Typography>
-      <SlyderBox>
-        <Slider {...settings}>
+      <SlyderBox onWheel={onWheel}>
+        <Slider {...settings} ref={sliderRef}>
           {similarItems.map((item) => (
             <Box key={item.id} padding={1} sx={{ width: '100%' }}>
               <ShopItemCard

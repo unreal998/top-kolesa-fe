@@ -1,9 +1,52 @@
-import { Box, Stack, Typography } from '@mui/material';
-import { ImgCarousel } from '../../../shared/components/ImgCarousel';
-import { SliderItem } from '../../../shared/types';
-import { BASE_COLORS } from '../../../shared/constants';
 import { useTranslation } from 'react-i18next';
+import { ImgCarousel } from './ImgCarousel';
+
+import { Box, Stack, Typography, styled } from '@mui/material';
+
+import { SliderItem } from '../../../shared/types';
+import { BASE_COLORS, FONTS } from '../../../shared/constants';
+
 import TiresFilter from './TiresFilter';
+
+const StyledTagLine = styled(Typography)({
+  fontWeight: '800',
+  color: '#ffffff',
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
+  position: 'absolute',
+  left: '4%',
+  '@media (min-width: 2399px)': {
+    width: '35rem',
+    left: '18vw',
+  },
+  '@media (max-width: 1680px)': {
+    width: '10rem',
+  },
+  '@media (max-width: 1100px)': {
+    fontSize: '3rem',
+  },
+  '@media (max-width: 975px)': {
+    display: 'none',
+  },
+});
+
+const StyledServicesBox = styled(Box)({
+  margin: 'auto',
+  padding: '1rem 0 1rem 25px',
+  width: '70rem',
+  '@media (max-width: 1650px)': {
+    width: '40rem',
+  },
+  '@media (max-width: 1200px)': {
+    width: '50rem',
+  },
+  '@media (max-width: 740px)': {
+    width: '35rem',
+  },
+  '@media (max-width: 420px)': {
+    margin: 'auto',
+    width: '180px',
+  },
+});
 
 const sliderData: SliderItem[] = [
   {
@@ -125,53 +168,30 @@ export function TiresInput() {
           backgroundImage: 'url(./imgs/hero-1-2.jpg)',
           backgroundSize: 'cover',
         }}>
-        <Typography
+        <StyledTagLine
           variant="h2"
-          fontWeight="800"
-          color="#ffffff"
-          fontFamily="Montserrat, sans-serif"
-          position={'absolute'}
-          left={'4%'}
-          top={'36%'}
+          top={'35%'}
           sx={{
-            '@media (max-width: 1600px)': {
-              width: '10rem',
+            '@media (max-width: 1680px)': {
               top: '20%',
             },
             '@media (max-width: 1100px)': {
-              top: '36%',
-              fontSize: '3rem',
-            },
-            '@media (max-width: 975px)': {
-              display: 'none',
+              top: '35%',
             },
           }}>
           {t('tireSelectorTitle1')}
-        </Typography>
-        <Typography
+        </StyledTagLine>
+        <StyledTagLine
           variant="h2"
-          fontWeight="800"
-          color="#ffffff"
-          fontFamily="Montserrat, sans-serif"
-          position={'absolute'}
-          left={'4%'}
           top={'48%'}
           sx={{
-
-            '@media (max-width: 1600px)': {
-              width: '10rem',
-            },
             '@media (max-width: 1100px)': {
-              top: '36%',
               left: '77%',
-              fontSize: '3rem',
-            },
-            '@media (max-width: 975px)': {
-              display: 'none',
+              top: '35%',
             },
           }}>
           {t('tireSelectorTitle2')}
-        </Typography>
+        </StyledTagLine>
         <Stack direction="row" alignContent={'center'}>
           <TiresFilter />
         </Stack>
@@ -182,6 +202,13 @@ export function TiresInput() {
             backgroundImage: 'url(./imgs/bg-brand.png)',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
+
+            '@media (max-width: 1500px)': {
+              backgroundPosition: 'right',
+            },
+            '@media (max-width: 1030px)': {
+              backgroundPosition: 'center',
+            },
           }}>
           <Stack
             gap="10px"
@@ -189,44 +216,39 @@ export function TiresInput() {
             padding="2rem"
             direction="column"
             sx={{
+              '@media (min-width: 2000px)': {
+                margin: 'auto',
+              },
               '@media (max-width: 500px)': {
                 padding: '2rem 0',
               },
             }}>
             <Stack gap="10px" color="#fff">
               <Typography
-                fontFamily="Montserrat, sans-serif"
+                fontFamily={FONTS.BOLD_TEXT_FAMILY}
                 fontWeight="900"
                 variant="h2"
-                m={'auto'}>
+                m={'auto'}
+                sx={{
+                  '@media (max-width: 620px)': {
+                    fontSize: '3rem',
+                  },
+                  '@media (max-width: 430px)': {
+                    fontSize: '2.8rem',
+                  },
+                  '@media (max-width: 350px)': {
+                    fontSize: '2.5rem',
+                  },
+                }}>
                 {t('popularBrands')}
               </Typography>
             </Stack>
-            <Box
-              p={'1rem 0'}
-              width={'70rem'}
-              m={'auto'}
-              pl={'25px'}
-              sx={{
-                '@media (max-width: 1650px)': {
-                  width: '40rem',
-                },
-                '@media (max-width: 1200px)': {
-                  width: '50rem',
-                },
-                '@media (max-width: 690px)': {
-                  width: '35rem',
-                },
-                '@media (max-width: 420px)': {
-                  margin: 'auto',
-                  width: '180px',
-                },
-              }}>
+            <StyledServicesBox>
               <ImgCarousel sliderData={sliderData} />
-            </Box>
+            </StyledServicesBox>
             <Typography
               variant="subtitle1"
-              fontFamily="PT Sans, sans-serif"
+              fontFamily={FONTS.MAIN_TEXT_FAMILY}
               m={'auto'}
               color="#fff"
               fontSize={'20px'}
@@ -247,6 +269,9 @@ export function TiresInput() {
               backgroundImage: 'url(./imgs/brand-shape.png)',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
+              '@media (min-width: 2000px)': {
+                display: 'none',
+              },
             }}
           />
         </Box>

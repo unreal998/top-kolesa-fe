@@ -18,8 +18,8 @@ const StyledButtonMain = styled(Button)({
   boxSizing: 'border-box',
   alignItems: 'center',
   fontWeight: '600',
-  height: '59px',
-  width: '252px',
+  height: '3.7rem',
+  width: '16rem',
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
@@ -89,7 +89,7 @@ function FilterShortMenuColumn({
   const { t } = useTranslation();
   const visableParams = params.length > 0;
 
-  function handleMenuToggle() {
+  const handleMenuToggle = () => {
     let tabIndex;
     switch (filterName) {
       case 'Season':
@@ -102,7 +102,7 @@ function FilterShortMenuColumn({
         tabIndex = 6;
     }
     dispatch(actions.toggleFullMenu(tabIndex));
-  }
+  };
 
   return (
     <ButtonGroup

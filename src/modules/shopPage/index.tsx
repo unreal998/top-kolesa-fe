@@ -51,6 +51,8 @@ export function ShopPage() {
       padding="0 30px"
       display="flex"
       alignItems="flex-start"
+      maxWidth={'170rem'}
+      m={'0 auto'}
       sx={{
         '@media (max-width: 918px)': {
           padding: '0',

@@ -12,33 +12,19 @@ import {
 } from '../../../../../shared/constants';
 import { useTranslation } from 'react-i18next';
 
-const StyledButton = styled(Button)(({ params }: { params: string }) => ({
+const StyledButton = styled(Button)({
   display: 'flex',
   padding: '0 0 0 12px',
   boxSizing: 'border-box',
   alignItems: 'center',
   fontWeight: '600',
-  height: '59px',
-  width: '252px',
+  height: '3.7rem',
+  width: '16rem',
   borderRadius: 0,
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
   fontFamily: FONTS.BOLD_TEXT_FAMILY,
   borderBottom: 'none',
-  '& span': {
-    fontFamily: FONTS.MAIN_TEXT_FAMILY,
-    fontWeight: '400',
-    fontSize: '16px',
-    color: `${FILTER_COLORS.TEXT_MAIN}`,
-  },
-  '& p': {
-    fontSize: '16px',
-    color:
-      params && params.length > 0
-        ? BASE_COLORS.DEFAULT_BLUE
-        : FILTER_COLORS.TEXT_SHORT_MENU,
-    transition: 'color 0.2s ease',
-  },
   '&:hover': {
     backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
@@ -49,7 +35,7 @@ const StyledButton = styled(Button)(({ params }: { params: string }) => ({
     borderColor: FILTER_COLORS.BORDER,
     borderBottom: 'none',
   },
-}));
+});
 
 type FilterShortMenuRowProps = {
   filterName: 'Width' | 'Profile' | 'Diametr';
@@ -69,24 +55,28 @@ function FilterShortMenuRow({
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  function handleMenuToggle() {
+  const handleMenuToggle = () => {
     const tabIndex =
       filterName === 'Width' ? 0 : filterName === 'Profile' ? 1 : 2;
     dispatch(actions.toggleFullMenu(tabIndex));
-  }
+  };
 
   return (
-    <StyledButton onClick={handleMenuToggle} params={params}>
-      <Box display="flex" alignItems="center" sx={{ flexGrow: 1 }}>
+    <StyledButton onClick={handleMenuToggle}>
+      <Box
+        display="flex"
+        alignItems="center"
+        sx={{ flexGrow: 1 }}
+        color={
+          params && params.length > 0
+            ? BASE_COLORS.DEFAULT_BLUE
+            : FILTER_COLORS.TEXT_SHORT_MENU
+        }>
         <Box
           display="flex"
           justifyContent="center"
           alignItems="center"
           sx={{
-            color:
-              params && params.length > 0
-                ? BASE_COLORS.DEFAULT_BLUE
-                : FILTER_COLORS.TEXT_SHORT_MENU,
             transition: 'color 0.2s ease',
           }}>
           {icon}
@@ -113,7 +103,14 @@ function FilterShortMenuRow({
       </Box>
       {params.length > 0 && (
         <Box display={'flex'}>
-          <span>{params}</span>
+          <Typography
+            fontFamily={FONTS.MAIN_TEXT_FAMILY}
+            pt={'2px'}
+            fontWeight={'400'}
+            fontSize={'1rem'}
+            color={'#000'}>
+            {params}
+          </Typography>
           <Box
             display="flex"
             alignItems="center"
