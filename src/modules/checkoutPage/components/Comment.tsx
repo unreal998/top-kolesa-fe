@@ -1,10 +1,4 @@
-import {
-  Stack,
-  TextField,
-  TextareaAutosize,
-  Typography,
-  styled,
-} from '@mui/material';
+import { Stack, TextField, Typography, styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { BASE_COLORS, FONTS } from '../../../shared/constants';
 

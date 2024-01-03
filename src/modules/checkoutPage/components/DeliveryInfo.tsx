@@ -101,7 +101,7 @@ export function DeliveryInfo({
       bgcolor={BASE_COLORS.BACKGROUND_WHITE}
       p={'2rem'}
       borderRadius={'0.5rem'}
-      height={'100%'}>
+      height={'14rem'}>
       <Typography
         variant="h6"
         fontWeight={600}

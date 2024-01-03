@@ -1,16 +1,16 @@
-import {
-  Box,
-  Button,
-  List,
-  ListItem,
-  Stack,
-  Typography,
-  styled,
-} from '@mui/material';
+import { Box, Button, Stack, Typography, styled } from '@mui/material';
 import { CartItem } from '../../../shared/components/header/CartItem';
 import { CartItemData } from '../../../shared/types';
-import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../../shared/constants';
+import { BASE_COLORS, FONTS } from '../../../shared/constants';
 import { useTranslation } from 'react-i18next';
+
+type CartInfoProps = {
+  checkoutItemDetails: any;
+  cartItems: CartItemData[];
+  setNumberOfTires: (count: number) => void;
+  totalAmount: number;
+  handleOrder: () => void;
+};
 
 export function CartInfo({
   checkoutItemDetails,
@@ -18,7 +18,7 @@ export function CartInfo({
   setNumberOfTires,
   totalAmount,
   handleOrder,
-}: any) {
+}: CartInfoProps) {
   const { t } = useTranslation();
 
   const StyledButton = styled(Button)({
@@ -36,9 +36,8 @@ export function CartInfo({
 
   return (
     <Stack
-      maxHeight={checkoutItemDetails?.length <= 5 ? '100%' : '69.2rem'}
+      maxHeight={'100%'}
       bgcolor={BASE_COLORS.BACKGROUND_WHITE}
-      p={'2rem'}
       borderRadius={'0.5rem'}
       sx={{
         '@media (max-width: 918px)': {
@@ -48,12 +47,12 @@ export function CartInfo({
       <Typography
         variant="h6"
         fontWeight={600}
-        fontFamily={FONTS.BOLD_TEXT_FAMILY}
-        pb={'1rem'}>
+        m={'2rem 2rem 1rem 2rem'}
+        fontFamily={FONTS.BOLD_TEXT_FAMILY}>
         {t('yourOder')}
       </Typography>
-      <Box sx={{ overflowY: 'auto' }}>
-        {checkoutItemDetails?.map((cartItem: CartItemData, index: any) => (
+      <Box mx={'1.3rem'} sx={{ overflowY: 'auto' }}>
+        {checkoutItemDetails?.map((cartItem: CartItemData, index: number) => (
           <Box
             key={index}
             sx={{ borderBottom: `1px solid ${BASE_COLORS.DEFAULT_BLUE}` }}>
@@ -70,7 +69,7 @@ export function CartInfo({
           </Box>
         ))}
       </Box>
-      <Box pt={'1rem'}>
+      <Box m={'1.3rem'}>
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography
             variant="h6"

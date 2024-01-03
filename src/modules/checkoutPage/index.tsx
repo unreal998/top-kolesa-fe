@@ -135,7 +135,7 @@ export function CheckoutPage() {
       m={'3% auto 5%'}
       gap={'3%'}
       maxWidth={'70rem'}
-      height={'72.8rem'}
+      height={'72.2rem'}
       sx={{
         '@media (max-width: 918px)': {
           flexDirection: 'column',
