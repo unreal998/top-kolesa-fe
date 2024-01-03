@@ -180,8 +180,7 @@ export function CheckoutPage() {
         sx={{
           '@media (max-width: 918px)': {
             width: '80%',
-            margin: '1rem auto',
-            gap: '1rem',
+            margin: '0 auto',
           },
           '@media (max-width: 500px)': {
             width: '90%',
