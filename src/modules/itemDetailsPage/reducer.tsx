@@ -9,7 +9,7 @@ export const itemDetailsSlice = createSlice({
   name: 'itemDetailsSliceData',
   initialState,
   reducers: {
-    fetchBuyItemAction(state, { payload }: PayloadAction<OrderItemProps>) {},
+    fetchBuyItemAction(state, { payload }: PayloadAction<OrderItemProps[]>) {},
     fetchBuyItemActionSuccess(state, { payload }: PayloadAction<string>) {},
     fetchBuyItemActionFailed(state, { payload }: PayloadAction<string>) {},
   },

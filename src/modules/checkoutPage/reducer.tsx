@@ -16,6 +16,10 @@ type CheckoutPage = {
   cityDataResponce: CityListResponceData;
 };
 
+type BuyItemResponce = {
+  orderId: string;
+};
+
 const initialState: CheckoutPage = {
   cityInputData: '',
   warehouseInputData: '',
@@ -61,8 +65,11 @@ export const checkoutSlice = createSlice({
     fetchWarehouseListByInputFailed(state, { payload }: PayloadAction<string>) {
       state.error = payload;
     },
-    fetchBuyItemAction(state, { payload }: PayloadAction<OrderItemProps>) {},
-    fetchBuyItemActionSuccess(state, { payload }: PayloadAction<string>) {},
+    fetchBuyItemAction(state, { payload }: PayloadAction<OrderItemProps[]>) {},
+    fetchBuyItemActionSuccess(
+      state,
+      { payload }: PayloadAction<BuyItemResponce>,
+    ) {},
     fetchBuyItemActionFailed(state, { payload }: PayloadAction<string>) {},
   },
 });

@@ -77,7 +77,7 @@ export function CheckoutPage() {
     if (checkoutItemDetails) {
       dispatch(
         actions.fetchBuyItemAction(
-          itemBuyDataBuilder(checkoutItemDetails[0], {
+          itemBuyDataBuilder(checkoutItemDetails, {
             city: inputedCityName,
             address: selectedWarehouse,
             email: inputedEmail,

@@ -35,8 +35,8 @@ export function* fetchBuyItemSaga({
   payload,
 }: ActionType<typeof actions.fetchBuyItemAction>) {
   try {
-    yield call(fetchItemBuy, payload);
-    yield put(actions.fetchBuyItemActionSuccess(''));
+    const orderId = yield call(fetchItemBuy, payload);
+    yield put(actions.fetchBuyItemActionSuccess(orderId));
   } catch (error) {
     yield put(actions.fetchBuyItemActionFailed(error as string));
   }
