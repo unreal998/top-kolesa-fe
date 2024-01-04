@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 import { getType } from '@reduxjs/toolkit';
-import { actions } from './reducer';
+import { BuyItemResponce, actions } from './reducer';
 import { CityListResponce, WarehouseListResponce } from './types';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { fetchCityByInput, fetchWarehouseByInput } from './api';
@@ -35,7 +35,7 @@ export function* fetchBuyItemSaga({
   payload,
 }: ActionType<typeof actions.fetchBuyItemAction>) {
   try {
-    const orderId = yield call(fetchItemBuy, payload);
+    const orderId: BuyItemResponce = yield call(fetchItemBuy, payload);
     yield put(actions.fetchBuyItemActionSuccess(orderId));
   } catch (error) {
     yield put(actions.fetchBuyItemActionFailed(error as string));

@@ -16,7 +16,7 @@ type CheckoutPage = {
   cityDataResponce: CityListResponceData;
 };
 
-type BuyItemResponce = {
+export type BuyItemResponce = {
   orderId: string;
 };
 
