@@ -1,14 +1,4 @@
-import {
-  Autocomplete,
-  Button,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Stack } from '@mui/material';
 import {
   SyntheticEvent,
   useCallback,
@@ -23,17 +13,16 @@ import {
   selectCityListData,
   selectWarehoutListData,
 } from './selectors';
-import {
-  selectSelectedItemData,
-  selectShopItemsList,
-} from '../shopPage/selectors';
+import { selectShopItemsList } from '../shopPage/selectors';
 import { itemBuyDataBuilder } from '../itemDetailsPage/utils/itemBuyDataBuilder';
-import { useTranslation } from 'react-i18next';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../constants';
-import { CartItem } from '../../shared/components/header/CartItem';
-import { CartItemData, CartStorageData } from '../../shared/types';
-import { FILTER_COLORS } from '../../shared/constants';
+import { CartStorageData } from '../../shared/types';
 import { ShopItemAPI } from '../../shared/types';
+import { CartInfo } from './components/CartInfo';
+import { ContactInfo } from './components/ContactInfo';
+import { DeliveryInfo } from './components/DeliveryInfo';
+import { PaymentInfo } from './components/PaymentInfo';
+import { Comment } from './components/Comment';
 
 export function CheckoutPage() {
   const dispatch = useDispatch();
@@ -54,7 +43,6 @@ export function CheckoutPage() {
   const [inputedLastName, setInputedLastName] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [totalAmount, setTotalAmount] = useState(0);
-  const { t } = useTranslation();
 
   const handleCityTextChange = useCallback(
     (e: SyntheticEvent) => {
@@ -141,171 +129,70 @@ export function CheckoutPage() {
   }, [warehouseData]);
 
   return (
-    <Stack direction="row" justifyContent="center" gap="5%" padding="2% 10%">
-      <Stack gap="10px" width="40%">
-        <Stack gap="5px">
-          <Typography variant="h6"> {t('contactDestails')} </Typography>
-          <Stack gap="10px">
-            <TextField
-              label={t('name')}
-              required={true}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setInputedFirstName(e.target.value)
-              }
-            />
-            <TextField
-              label={t('secondName')}
-              required={true}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setInputedLastName(e.target.value)
-              }
-            />
-            <TextField
-              label={t('number')}
-              required={true}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setInputedPhone(e.target.value)
-              }
-            />
-            <TextField
-              label={t('email')}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setInputedEmail(e.target.value)
-              }
-            />
-          </Stack>
-        </Stack>
-        <Stack>
-          <Typography variant="h6"> {t('delivery')} </Typography>
-          <FormControl>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="post"
-              name="radio-buttons-group"
-              onChange={(e, value) => changeDeliveryState(value)}>
-              <FormControlLabel
-                value="self"
-                control={<Radio />}
-                label={t('pickup')}
-              />
-              {deliveryState === 'self' && (
-                <FormControl sx={{ ml: '20px' }}>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue={t('headerAddress')}
-                    name="radio-buttons-group"
-                    onChange={(e, value) => {
-                      setInputedCityName('м. Вінниця');
-                      setSelectedWarehouse(value);
-                    }}>
-                    <FormControlLabel
-                      value={t('headerAddress')}
-                      control={<Radio />}
-                      label={t('headerAddress')}
-                    />
-                    <FormControlLabel
-                      value={t('headerAddress2')}
-                      control={<Radio />}
-                      label={t('headerAddress2')}
-                    />
-                  </RadioGroup>
-                </FormControl>
-              )}
-              <FormControlLabel
-                value="post"
-                control={<Radio />}
-                label={t('novaPoshta')}
-              />
-            </RadioGroup>
-          </FormControl>
-          {deliveryState === 'post' && (
-            <Stack gap="10px">
-              <Autocomplete
-                freeSolo
-                disableClearable
-                disablePortal
-                options={optionsData}
-                onSelect={(e) => handleCityTextChange(e)}
-                renderInput={(params: any) => (
-                  <TextField {...params} label={t('city')} />
-                )}
-              />
-              <Autocomplete
-                freeSolo
-                disableClearable
-                disablePortal
-                onSelect={(e) => handleWarehouseTextChange(e)}
-                options={optionsWarehouseData}
-                renderInput={(params: any) => (
-                  <TextField {...params} label={t('warehouse')} />
-                )}
-              />
-            </Stack>
-          )}
-        </Stack>
-        <Stack>
-          <Typography variant="h6"> {t('pay')} </Typography>
-          <FormControl>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="cash"
-              name="radio-buttons-group"
-              onChange={(e, value) => changePaymentState(value)}>
-              <FormControlLabel
-                value="cash"
-                control={<Radio />}
-                label={t('cash')}
-              />
-              <FormControlLabel
-                value="card"
-                control={<Radio />}
-                label={t('transfer')}
-              />
-            </RadioGroup>
-          </FormControl>
-        </Stack>
-        <Stack gap="15px">
-          <Typography variant="h6">{t('addComment')}</Typography>
-          <TextField
-            multiline
-            label=""
-            rows={4}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setInputedComment(e.target.value)
-            }
-          />
-        </Stack>
+    <Stack
+      direction="row"
+      justifyContent="center"
+      m={'3% auto 5%'}
+      gap={'3%'}
+      maxWidth={'70rem'}
+      height={'72.2rem'}
+      sx={{
+        '@media (max-width: 918px)': {
+          flexDirection: 'column',
+          gap: '0',
+          height: 'auto',
+        },
+      }}>
+      <Stack
+        gap="1%"
+        width="45%"
+        sx={{
+          '@media (max-width: 918px)': {
+            width: '80%',
+            margin: '1rem auto',
+            gap: '1rem',
+          },
+          '@media (max-width: 500px)': {
+            width: '90%',
+          },
+        }}>
+        <ContactInfo
+          setInputedFirstName={setInputedFirstName}
+          setInputedLastName={setInputedLastName}
+          setInputedPhone={setInputedPhone}
+          setInputedEmail={setInputedEmail}
+        />
+        <DeliveryInfo
+          changeDeliveryState={changeDeliveryState}
+          deliveryState={deliveryState}
+          setInputedCityName={setInputedCityName}
+          setSelectedWarehouse={setSelectedWarehouse}
+          optionsData={optionsData}
+          handleCityTextChange={handleCityTextChange}
+          handleWarehouseTextChange={handleWarehouseTextChange}
+          optionsWarehouseData={optionsWarehouseData}
+        />
+        <PaymentInfo changePaymentState={changePaymentState} />
+        <Comment setInputedComment={setInputedComment} />
       </Stack>
-      <Stack width="40%">
-        <Stack>
-          <Typography variant="h6" padding="0 15px">
-            Your order
-          </Typography>
-          {checkoutItemDetails?.map((cartItem: CartItemData, index: any) => (
-            <CartItem
-              index={index}
-              cartItemData={cartItem}
-              setNumberOfTires={setNumberOfTires}
-              cartItems={cartItems}
-              containerStyles={{
-                border: 'none',
-                margin: 0,
-              }}
-            />
-          ))}
-          <Stack margin="0 0 0 15px" bgcolor={FILTER_COLORS.BORDER}>
-            <Typography variant="body1">
-              Total amount: {totalAmount} uah
-            </Typography>
-            <Button
-              sx={{ width: '100%' }}
-              variant="contained"
-              onClick={handleOrder}>
-              {' '}
-              {t('buy')}
-            </Button>
-          </Stack>
-        </Stack>
+      <Stack
+        width="45%"
+        sx={{
+          '@media (max-width: 918px)': {
+            width: '80%',
+            margin: '0 auto',
+          },
+          '@media (max-width: 500px)': {
+            width: '90%',
+          },
+        }}>
+        <CartInfo
+          checkoutItemDetails={checkoutItemDetails}
+          setNumberOfTires={setNumberOfTires}
+          cartItems={cartItems}
+          totalAmount={totalAmount}
+          handleOrder={handleOrder}
+        />
       </Stack>
     </Stack>
   );
