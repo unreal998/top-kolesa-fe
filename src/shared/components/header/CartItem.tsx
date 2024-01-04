@@ -59,9 +59,9 @@ export function CartItem({
       item.tireId === tireId
         ? { ...item, numberOfTires: item.numberOfTires + 1 }
         : item,
-    ).length;
+    );
     localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
-    setNumberOfTires(updatedCartItems);
+    setNumberOfTires(updatedCartItems.length);
   }, []);
 
   const handleDecreaseQuantity = useCallback((tireId: number) => {
@@ -72,9 +72,9 @@ export function CartItem({
             numberOfTires: Math.max(1, item.numberOfTires - 1),
           }
         : item,
-    ).length;
+    );
     localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
-    setNumberOfTires(updatedCartItems);
+    setNumberOfTires(updatedCartItems.length);
   }, []);
 
   const handleDeleteItem = useCallback((tireId: number) => {
