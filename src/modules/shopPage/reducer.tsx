@@ -150,9 +150,6 @@ export const shopPageSlice = createSlice({
     setCartItemCount: (state, action: PayloadAction<number>) => {
       state.cartItemCount = action.payload;
     },
-    setResetCartItemCount: (state) => {
-      state.cartItemCount = 0;
-    },
     setStuddedChange: (state, action: PayloadAction<string[]>) => {
       state.selectedStudded = action.payload;
     },

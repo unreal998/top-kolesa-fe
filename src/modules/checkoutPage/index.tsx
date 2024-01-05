@@ -1,4 +1,3 @@
-import { Stack } from '@mui/material';
 import {
   SyntheticEvent,
   useCallback,
@@ -6,35 +5,36 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import useLocalStorageItem from '../../hooks/useLocalStorageWatcher';
 import { actions } from './reducer';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectFetchedCityName,
   selectCityListData,
   selectWarehoutListData,
 } from './selectors';
-import { selectShopItemsList } from '../shopPage/selectors';
+
+import { Box, Stack } from '@mui/material';
+
 import { itemBuyDataBuilder } from '../itemDetailsPage/utils/itemBuyDataBuilder';
-import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../constants';
-import { CartStorageData } from '../../shared/types';
-import { ShopItemAPI } from '../../shared/types';
 import { CartInfo } from './components/CartInfo';
 import { ContactInfo } from './components/ContactInfo';
 import { DeliveryInfo } from './components/DeliveryInfo';
 import { PaymentInfo } from './components/PaymentInfo';
 import { Comment } from './components/Comment';
+import EmptyCart from '../../shared/components/header/EmptyCart';
 
 export function CheckoutPage() {
   const dispatch = useDispatch();
   const cityListData = useSelector(selectCityListData());
   const warehouseData = useSelector(selectWarehoutListData());
   const fetchedCityName = useSelector(selectFetchedCityName());
-  const shopItemsList = useSelector(selectShopItemsList());
+  const cartItems = useLocalStorageItem('cartItem');
+  const history = useNavigate();
   const [deliveryState, changeDeliveryState] = useState('post');
-  const [numberOfTires, setNumberOfTires] = useState<number>(0);
   const [paymentState, changePaymentState] = useState('cash');
-  const [cartItems, setCartItems] = useState([]);
-  const [checkoutItemDetails, setСheckoutItemDetails] = useState<any>([]);
+  const [checkoutItemDetails, setCheckoutItemDetails] = useState<any>([]);
   const [inputedCityName, setInputedCityName] = useState('');
   const [inputedEmail, setInputedEmail] = useState('');
   const [inputedPhone, setInputedPhone] = useState('');
@@ -42,7 +42,17 @@ export function CheckoutPage() {
   const [inputedFirstName, setInputedFirstName] = useState('');
   const [inputedLastName, setInputedLastName] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
-  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      const timer = setTimeout(() => {
+        history(`/shop`, { replace: true });
+      }, 3000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [history, cartItems]);
 
   const handleCityTextChange = useCallback(
     (e: SyntheticEvent) => {
@@ -91,35 +101,6 @@ export function CheckoutPage() {
     [fetchedCityName, dispatch],
   );
 
-  useEffect(() => {
-    const cartItems = JSON.parse(localStorage.getItem('cartItem') || '[]');
-
-    const checkoutItemDetails: any = cartItems.map(
-      (cartItem: CartStorageData) => {
-        const item = shopItemsList.find(
-          (item: ShopItemAPI) => item.id === cartItem.tireId,
-        );
-        return {
-          ...cartItem,
-          ...item,
-          fullName: `${item?.brand} ${item?.name} ${item?.width}/${item?.height} R${item?.diametr}`,
-          price: item?.price_uah,
-          article: item?.id,
-          image: item
-            ? `${SHOP_ITEM_TIRES_IMG_PREFIX}${item.image_file}`
-            : './imgs/noPhotoImg.jpg',
-        };
-      },
-    );
-    setCartItems(cartItems);
-    setСheckoutItemDetails(checkoutItemDetails);
-    let totalAmountSumm = 0;
-    checkoutItemDetails.forEach((element: any) => {
-      totalAmountSumm += element?.price;
-    });
-    setTotalAmount(totalAmountSumm);
-  }, [shopItemsList]);
-
   const optionsData = useMemo(() => {
     return cityListData ? cityListData.map((option) => option.title) : [];
   }, [cityListData]);
@@ -129,71 +110,73 @@ export function CheckoutPage() {
   }, [warehouseData]);
 
   return (
-    <Stack
-      direction="row"
-      justifyContent="center"
-      m={'3% auto 5%'}
-      gap={'3%'}
-      maxWidth={'70rem'}
-      height={'72.2rem'}
-      sx={{
-        '@media (max-width: 918px)': {
-          flexDirection: 'column',
-          gap: '0',
-          height: 'auto',
-        },
-      }}>
-      <Stack
-        gap="1%"
-        width="45%"
-        sx={{
-          '@media (max-width: 918px)': {
-            width: '80%',
-            margin: '1rem auto',
-            gap: '1rem',
-          },
-          '@media (max-width: 500px)': {
-            width: '90%',
-          },
-        }}>
-        <ContactInfo
-          setInputedFirstName={setInputedFirstName}
-          setInputedLastName={setInputedLastName}
-          setInputedPhone={setInputedPhone}
-          setInputedEmail={setInputedEmail}
-        />
-        <DeliveryInfo
-          changeDeliveryState={changeDeliveryState}
-          deliveryState={deliveryState}
-          setInputedCityName={setInputedCityName}
-          setSelectedWarehouse={setSelectedWarehouse}
-          optionsData={optionsData}
-          handleCityTextChange={handleCityTextChange}
-          handleWarehouseTextChange={handleWarehouseTextChange}
-          optionsWarehouseData={optionsWarehouseData}
-        />
-        <PaymentInfo changePaymentState={changePaymentState} />
-        <Comment setInputedComment={setInputedComment} />
-      </Stack>
-      <Stack
-        width="45%"
-        sx={{
-          '@media (max-width: 918px)': {
-            width: '80%',
-            margin: '0 auto',
-          },
-          '@media (max-width: 500px)': {
-            width: '90%',
-          },
-        }}>
-        <CartInfo
-          checkoutItemDetails={checkoutItemDetails}
-          setNumberOfTires={setNumberOfTires}
-          cartItems={cartItems}
-          totalAmount={totalAmount}
-          handleOrder={handleOrder}
-        />
-      </Stack>
-    </Stack>
+    <>
+      {cartItems.length > 0 ? (
+        <Stack
+          direction="row"
+          justifyContent="center"
+          m={'3% auto 5%'}
+          gap={'3%'}
+          maxWidth={'70rem'}
+          height={'72.2rem'}
+          sx={{
+            '@media (max-width: 918px)': {
+              flexDirection: 'column',
+              gap: '0',
+              height: 'auto',
+            },
+          }}>
+          <Stack
+            gap="1%"
+            width="45%"
+            sx={{
+              '@media (max-width: 918px)': {
+                width: '80%',
+                margin: '1rem auto',
+                gap: '1rem',
+              },
+              '@media (max-width: 500px)': {
+                width: '90%',
+              },
+            }}>
+            <ContactInfo
+              setInputedFirstName={setInputedFirstName}
+              setInputedLastName={setInputedLastName}
+              setInputedPhone={setInputedPhone}
+              setInputedEmail={setInputedEmail}
+            />
+            <DeliveryInfo
+              changeDeliveryState={changeDeliveryState}
+              deliveryState={deliveryState}
+              setInputedCityName={setInputedCityName}
+              setSelectedWarehouse={setSelectedWarehouse}
+              optionsData={optionsData}
+              handleCityTextChange={handleCityTextChange}
+              handleWarehouseTextChange={handleWarehouseTextChange}
+              optionsWarehouseData={optionsWarehouseData}
+            />
+            <PaymentInfo changePaymentState={changePaymentState} />
+            <Comment setInputedComment={setInputedComment} />
+          </Stack>
+          <Stack
+            width="45%"
+            sx={{
+              '@media (max-width: 918px)': {
+                width: '80%',
+                margin: '0 auto',
+              },
+              '@media (max-width: 500px)': {
+                width: '90%',
+              },
+            }}>
+            <CartInfo handleOrder={handleOrder} />
+          </Stack>
+        </Stack>
+      ) : (
+        <Box display={'flex'} alignItems={'center'} height={'70vh'}>
+          <EmptyCart />
+        </Box>
+      )}
+    </>
   );
 }

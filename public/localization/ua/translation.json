@@ -167,6 +167,7 @@
   "characteristics": "Характеристики",
   "studdedCharacteristics": "Шипи",
   "cart": "Кошик",
+  "cartEmpty": "Ваш кошик порожній",
   "totalCoast": "Загальна вартість",
   "makeAnOrder": "Оформити замовлення",
   "filters": "Фільтри",

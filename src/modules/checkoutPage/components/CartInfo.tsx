@@ -1,38 +1,65 @@
-import { Box, Button, Stack, Typography, styled } from '@mui/material';
+import {
+  Box,
+  Button,
+  ListItem,
+  Stack,
+  Typography,
+  styled,
+} from '@mui/material';
 import { CartItem } from '../../../shared/components/header/CartItem';
-import { CartItemData } from '../../../shared/types';
+import { CartItemData, ShopItemAPI } from '../../../shared/types';
 import { BASE_COLORS, FONTS } from '../../../shared/constants';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectShopItemsList } from '../../shopPage/selectors';
+import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../../constants';
+import useLocalStorageItem from '../../../hooks/useLocalStorageWatcher';
+
+const StyledButton = styled(Button)({
+  width: '100%',
+  fontFamily: FONTS.BOLD_TEXT_FAMILY,
+  fontWeight: 'bold',
+  background: BASE_COLORS.DEFAULT_BLUE,
+  '&:hover': {
+    background: BASE_COLORS.DEFAULT_BLUE,
+  },
+  '@media (max-width: 600px)': {
+    fontSize: '14px',
+  },
+});
 
 type CartInfoProps = {
-  checkoutItemDetails: any;
-  cartItems: CartItemData[];
-  setNumberOfTires: (count: number) => void;
-  totalAmount: number;
   handleOrder: () => void;
 };
 
-export function CartInfo({
-  checkoutItemDetails,
-  cartItems,
-  setNumberOfTires,
-  totalAmount,
-  handleOrder,
-}: CartInfoProps) {
+export function CartInfo({ handleOrder }: CartInfoProps) {
   const { t } = useTranslation();
+  const shopItemsList = useSelector(selectShopItemsList());
+  const cartItems = useLocalStorageItem('cartItem');
 
-  const StyledButton = styled(Button)({
-    width: '100%',
-    fontFamily: FONTS.BOLD_TEXT_FAMILY,
-    fontWeight: 'bold',
-    background: BASE_COLORS.DEFAULT_BLUE,
-    '&:hover': {
-      background: BASE_COLORS.DEFAULT_BLUE,
-    },
-    '@media (max-width: 600px)': {
-      fontSize: '14px',
-    },
+  const cartItemDetails = cartItems.map((cartItem: CartItemData) => {
+    const item = shopItemsList.find(
+      (item: ShopItemAPI) => item.id === cartItem.tireId,
+    );
+    return {
+      ...cartItem,
+      fullName: `${item?.brand} ${item?.name} ${item?.width}/${item?.height} R${item?.diametr}`,
+      price: item?.price_uah,
+      article: item?.id,
+      image: item
+        ? `${SHOP_ITEM_TIRES_IMG_PREFIX}${item.image_file}`
+        : './imgs/noPhotoImg.jpg',
+    };
   });
+
+  const totalAmount = cartItems.reduce(
+    (total: number, cartItem: CartItemData) => {
+      const item = shopItemsList.find((item) => item.id === cartItem.tireId);
+      return total + (item ? item.price_uah * cartItem.numberOfTires : 0);
+    },
+    0,
+  );
 
   return (
     <Stack
@@ -52,21 +79,10 @@ export function CartInfo({
         {t('yourOder')}
       </Typography>
       <Box mx={'1.3rem'} sx={{ overflowY: 'auto' }}>
-        {checkoutItemDetails?.map((cartItem: CartItemData, index: number) => (
-          <Box
-            key={index}
-            sx={{ borderBottom: `1px solid ${BASE_COLORS.DEFAULT_BLUE}` }}>
-            <CartItem
-              index={index}
-              cartItemData={cartItem}
-              setNumberOfTires={setNumberOfTires}
-              cartItems={cartItems}
-              containerStyles={{
-                border: 'none',
-                margin: 0,
-              }}
-            />
-          </Box>
+        {cartItemDetails?.map((cartItem: CartItemData, index: number) => (
+          <ListItem key={index} disablePadding>
+            <CartItem cartItemData={cartItem} />
+          </ListItem>
         ))}
       </Box>
       <Box m={'1.3rem'}>
@@ -86,7 +102,6 @@ export function CartInfo({
           </Typography>
         </Box>
         <StyledButton variant="contained" onClick={handleOrder}>
-          {' '}
           {t('buy')}
         </StyledButton>
       </Box>

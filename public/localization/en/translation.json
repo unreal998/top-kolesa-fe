@@ -167,6 +167,7 @@
   "characteristics": "Characteristics",
   "studdedCharacteristics": "Studded",
   "cart": "Cart",
+  "cartEmpty": "Cart is empty",
   "totalCoast": "Total coast",
   "makeAnOrder": "Make an order",
   "filters": "Filters",

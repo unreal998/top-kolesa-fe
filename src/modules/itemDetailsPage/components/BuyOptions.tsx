@@ -58,10 +58,6 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
     dispatch(actions.setSelectedItemId(selectedItemId || ''));
   }, [dispatch]);
 
-  const handleFastBuy = useCallback(() => {
-    history(`/checkout`, { replace: true });
-  }, [history]);
-
   const handleNumberOfTires = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const numValue = Number(value);
@@ -72,7 +68,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
     }
   };
 
-  const handleAddToCart = () => {
+  const updateCartItems = (addition: number) => {
     const existingCartItemsString = localStorage.getItem('cartItem');
     const existingCartItems = existingCartItemsString
       ? JSON.parse(existingCartItemsString)
@@ -83,15 +79,24 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
     );
 
     if (itemIndex > -1) {
-      existingCartItems[itemIndex].numberOfTires += numberOfTires;
+      existingCartItems[itemIndex].numberOfTires += addition;
     } else {
-      existingCartItems.push({ tireId, numberOfTires });
+      existingCartItems.push({ tireId, numberOfTires: addition });
     }
 
     localStorage.setItem('cartItem', JSON.stringify(existingCartItems));
 
     const cartItems = JSON.parse(localStorage.getItem('cartItem') || '').length;
     dispatch(actions.setCartItemCount(cartItems));
+  };
+
+  const handleAddToCart = () => {
+    updateCartItems(numberOfTires);
+  };
+
+  const handleFastBuy = () => {
+    updateCartItems(numberOfTires);
+    history(`/checkout`, { replace: true });
   };
 
   const buttonInfo = [
@@ -123,7 +128,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
             fontSize: '2.2rem',
           },
         }}>
-        {(Number(selectedItemData?.price_uah) / 4) * numberOfTires} {t('uah')}
+        {Number(selectedItemData?.price_uah) * numberOfTires} {t('uah')}
       </Typography>
       <Box
         display={'flex'}

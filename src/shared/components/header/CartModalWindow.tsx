@@ -12,6 +12,7 @@ import {
   Drawer,
   IconButton,
   List,
+  ListItem,
   Typography,
   styled,
 } from '@mui/material';
@@ -25,6 +26,9 @@ import { actions } from '../../../modules/shopPage/reducer';
 import { ShopItemAPI } from '../../../shared/types';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../../constants';
 import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../constants';
+import EmptyCart from './EmptyCart';
+import { useNavigate } from 'react-router-dom';
+import useLocalStorageItem from '../../../hooks/useLocalStorageWatcher';
 
 const StyledCartModalWindow = styled(Box)({
   width: '25vw',
@@ -56,14 +60,13 @@ export default function CartModalWindow() {
   const dispatch = useDispatch();
   const cartModalWindowOpen = useSelector(selectCartModalWindowOpen);
   const shopItemsList = useSelector(selectShopItemsList());
-  const [numberOfTires, setNumberOfTires] = useState<number>(0);
+  const history = useNavigate();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const cartItems = useLocalStorageItem('cartItem');
 
   useEffect(() => {
     setOpenDrawer(cartModalWindowOpen);
   }, [cartModalWindowOpen]);
-
-  const cartItems = JSON.parse(localStorage.getItem('cartItem') || '[]');
 
   const cartItemDetails = cartItems.map((cartItem: CartItemData) => {
     const item = shopItemsList.find(
@@ -83,10 +86,15 @@ export default function CartModalWindow() {
   const totalAmount = cartItems.reduce(
     (total: number, cartItem: CartItemData) => {
       const item = shopItemsList.find((item) => item.id === cartItem.tireId);
-      return total + (item ? (item.price_uah * cartItem.numberOfTires) / 4 : 0);
+      return total + (item ? item.price_uah * cartItem.numberOfTires : 0);
     },
     0,
   );
+
+  const handleGoToCheckout = useCallback(() => {
+    history(`/checkout`, { replace: true });
+    dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen));
+  }, [history]);
 
   const handleCloseCartModalWindow = () => {
     dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen));
@@ -133,43 +141,49 @@ export default function CartModalWindow() {
               />
             </IconButton>
           </Box>
-          <List
-            sx={{
-              padding: 0,
-              overflowY: 'auto',
-              flex: 1,
-            }}>
-            {cartItemDetails.map((cartItem: CartItemData, index: number) => (
-              <CartItem
-                key={index}
-                index={index}
-                cartItemData={cartItem}
-                setNumberOfTires={setNumberOfTires}
-                cartItems={cartItems}
-              />
-            ))}
-          </List>
-          <Box
-            sx={{
-              padding: '20px 10px',
-            }}>
-            <Box display={'flex'} justifyContent={'space-between'}>
-              <Typography
-                variant="h6"
-                fontWeight={600}
-                fontFamily={FONTS.BOLD_TEXT_FAMILY}>
-                {t('totalCoast')}:
-              </Typography>
-              <Typography
-                variant="h6"
-                fontWeight={600}
-                fontFamily={FONTS.BOLD_TEXT_FAMILY}
-                color={BASE_COLORS.DEFAULT_BLUE}>
-                {`${totalAmount} ${t('uah')}`}
-              </Typography>
-            </Box>
-            <StyledButton variant="contained">{t('makeAnOrder')}</StyledButton>
-          </Box>
+          {cartItems?.length > 0 ? (
+            <>
+              <List
+                sx={{
+                  padding: 0,
+                  overflowY: 'auto',
+                  flex: 1,
+                }}>
+                {cartItemDetails.map(
+                  (cartItem: CartItemData, index: number) => (
+                    <ListItem key={index} disablePadding>
+                      <CartItem cartItemData={cartItem} />
+                    </ListItem>
+                  ),
+                )}
+              </List>
+              <Box
+                sx={{
+                  padding: '20px 10px',
+                }}>
+                <Box display={'flex'} justifyContent={'space-between'}>
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    fontFamily={FONTS.BOLD_TEXT_FAMILY}>
+                    {t('totalCoast')}:
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    fontFamily={FONTS.BOLD_TEXT_FAMILY}
+                    color={BASE_COLORS.DEFAULT_BLUE}>
+                    {`${totalAmount} ${t('uah')}`}
+                  </Typography>
+                </Box>
+                <StyledButton variant="contained" onClick={handleGoToCheckout}>
+                  {t('makeAnOrder')}
+                </StyledButton>
+              </Box>
+            </>
+          ) : (
+            <EmptyCart />
+          )}
         </StyledCartModalWindow>
       </Drawer>
     </Box>

@@ -8,6 +8,7 @@ import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import i18next from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { TypographyWithIcon } from '../../../modules/mainPage/components/TypographyWithIcon';
+import useLocalStorageItem from '../../../hooks/useLocalStorageWatcher';
 
 import {
   Box,
@@ -78,11 +79,12 @@ type MenuItemData = {
 };
 
 export function Header() {
-  const dispatch = useDispatch();
-  const cartItemCount = useSelector(selectCartItemCount);
-  const cartModalWindowOpen = useSelector(selectCartModalWindowOpen);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const cartItemCountRedux = useSelector(selectCartItemCount);
+  const cartModalWindowOpen = useSelector(selectCartModalWindowOpen);
+  const cartItems = useLocalStorageItem('cartItem');
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const currentLanguageCode = localStorage.getItem('i18nextLng') || 'en';
   const languages = [
     {
@@ -119,12 +121,9 @@ export function Header() {
   ];
 
   useEffect(() => {
-    const cartItemsCountFromStorage = JSON.parse(
-      localStorage.getItem('cartItem') || '[]',
-    ).length;
-
-    dispatch(actions.setCartItemCount(cartItemsCountFromStorage));
-  }, [dispatch, cartItemCount, cartModalWindowOpen]);
+    cartItems.length;
+    dispatch(actions.setCartItemCount(cartItems.length));
+  }, [dispatch, cartItems]);
 
   useEffect(() => {
     dispatch(actions.getShopItems(''));
@@ -251,7 +250,7 @@ export function Header() {
               },
             }}>
             <Badge
-              badgeContent={cartItemCount}
+              badgeContent={cartItemCountRedux}
               sx={{
                 color: '#FFF',
                 '& .MuiBadge-badge': {
