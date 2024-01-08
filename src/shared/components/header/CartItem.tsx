@@ -16,7 +16,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../constants';
 import { CartItemData } from '../../types';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 const StyledCartItem = styled(Box)({
   borderBottom: `1px solid ${BASE_COLORS.DEFAULT_BLUE}`,
@@ -42,52 +42,62 @@ const StyledIconButton = styled(IconButton)({
 type CartItemProps = {
   index: number;
   cartItemData: CartItemData;
-  setNumberOfTires: (count: number) => void;
+  updateCartItems: (data: CartItemData[]) => void;
   cartItems: CartItemData[];
   containerStyles?: SxProps<Theme>;
 };
 
-export function CartItem({
+export const CartItem: React.FC<CartItemProps> = ({
   index,
   cartItemData,
-  setNumberOfTires,
   cartItems,
   containerStyles,
-}: CartItemProps) {
-  const handleIncreaseQuantity = useCallback((tireId: number) => {
-    const updatedCartItems = cartItems.map((item: CartItemData) =>
-      item.tireId === tireId
-        ? { ...item, numberOfTires: item.numberOfTires + 1 }
-        : item,
-    );
-    localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
-    setNumberOfTires(updatedCartItems.length);
-  }, []);
-
-  const handleDecreaseQuantity = useCallback((tireId: number) => {
-    const updatedCartItems = cartItems.map((item: CartItemData) =>
-      item.tireId === tireId
-        ? {
-            ...item,
-            numberOfTires: Math.max(1, item.numberOfTires - 1),
-          }
-        : item,
-    );
-    localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
-    setNumberOfTires(updatedCartItems.length);
-  }, []);
-
-  const handleDeleteItem = useCallback((tireId: number) => {
-    const updatedCartItems = cartItems.filter(
-      (item: CartItemData) => item.tireId !== tireId,
-    );
-
-    if (updatedCartItems.length === 0) {
-      localStorage.removeItem('cartItem');
-    } else {
+  updateCartItems,
+}) => {
+  const handleIncreaseQuantity = useCallback(
+    (tireId: number) => {
+      const updatedCartItems = cartItems.map((item: CartItemData) =>
+        item.tireId === tireId
+          ? { ...item, numberOfTires: item.numberOfTires + 1 }
+          : item,
+      );
       localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
-    }
-  }, []);
+      updateCartItems(updatedCartItems);
+    },
+    [cartItems],
+  );
+
+  const handleDecreaseQuantity = useCallback(
+    (tireId: number) => {
+      const updatedCartItems = cartItems.map((item: CartItemData) =>
+        item.tireId === tireId
+          ? {
+              ...item,
+              numberOfTires: Math.max(1, item.numberOfTires - 1),
+            }
+          : item,
+      );
+      localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
+      updateCartItems(updatedCartItems);
+    },
+    [cartItems],
+  );
+
+  const handleDeleteItem = useCallback(
+    (tireId: number) => {
+      const updatedCartItems = cartItems.filter(
+        (item: CartItemData) => item.tireId !== tireId,
+      );
+
+      if (updatedCartItems.length === 0) {
+        localStorage.removeItem('cartItem');
+      } else {
+        localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
+      }
+      updateCartItems(updatedCartItems);
+    },
+    [cartItems],
+  );
 
   return (
     <ListItem key={index} disablePadding>
@@ -189,4 +199,4 @@ export function CartItem({
       </StyledCartItem>
     </ListItem>
   );
-}
+};

@@ -5,17 +5,15 @@ import { BASE_COLORS, FONTS } from '../../../shared/constants';
 import { useTranslation } from 'react-i18next';
 
 type CartInfoProps = {
-  checkoutItemDetails: any;
   cartItems: CartItemData[];
-  setNumberOfTires: (count: number) => void;
+  updateCartItems: (data: CartItemData[]) => void;
   totalAmount: number;
   handleOrder: () => void;
 };
 
 export function CartInfo({
-  checkoutItemDetails,
   cartItems,
-  setNumberOfTires,
+  updateCartItems,
   totalAmount,
   handleOrder,
 }: CartInfoProps) {
@@ -52,14 +50,14 @@ export function CartInfo({
         {t('yourOder')}
       </Typography>
       <Box mx={'1.3rem'} sx={{ overflowY: 'auto' }}>
-        {checkoutItemDetails?.map((cartItem: CartItemData, index: number) => (
+        {cartItems.map((cartItem: CartItemData, index: number) => (
           <Box
             key={index}
             sx={{ borderBottom: `1px solid ${BASE_COLORS.DEFAULT_BLUE}` }}>
             <CartItem
               index={index}
               cartItemData={cartItem}
-              setNumberOfTires={setNumberOfTires}
+              updateCartItems={updateCartItems}
               cartItems={cartItems}
               containerStyles={{
                 border: 'none',

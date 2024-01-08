@@ -16,7 +16,11 @@ import {
 import { selectShopItemsList } from '../shopPage/selectors';
 import { itemBuyDataBuilder } from '../itemDetailsPage/utils/itemBuyDataBuilder';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../constants';
-import { CartStorageData } from '../../shared/types';
+import {
+  CartItemData,
+  CartStorageData,
+  CheckoutItemData,
+} from '../../shared/types';
 import { ShopItemAPI } from '../../shared/types';
 import { CartInfo } from './components/CartInfo';
 import { ContactInfo } from './components/ContactInfo';
@@ -31,10 +35,12 @@ export function CheckoutPage() {
   const fetchedCityName = useSelector(selectFetchedCityName());
   const shopItemsList = useSelector(selectShopItemsList());
   const [deliveryState, changeDeliveryState] = useState('post');
-  const [numberOfTires, setNumberOfTires] = useState<number>(0);
   const [paymentState, changePaymentState] = useState('cash');
-  const [cartItems, setCartItems] = useState([]);
-  const [checkoutItemDetails, setСheckoutItemDetails] = useState<any>([]);
+  const [checkoutItemsDetails, setCheckoutItemsDetails] = useState<
+    CheckoutItemData[]
+  >([]);
+  const [cartItems, updateCartItems] = useState<CartStorageData[]>([]);
+  const [cartItemDetails, setCartItemDetails] = useState<CartItemData[]>([]);
   const [inputedCityName, setInputedCityName] = useState('');
   const [inputedEmail, setInputedEmail] = useState('');
   const [inputedPhone, setInputedPhone] = useState('');
@@ -56,10 +62,10 @@ export function CheckoutPage() {
   );
 
   const handleOrder = useCallback(() => {
-    if (checkoutItemDetails) {
+    if (checkoutItemsDetails) {
       dispatch(
         actions.fetchBuyItemAction(
-          itemBuyDataBuilder(checkoutItemDetails, {
+          itemBuyDataBuilder(checkoutItemsDetails, {
             city: inputedCityName,
             address: selectedWarehouse,
             email: inputedEmail,
@@ -72,7 +78,7 @@ export function CheckoutPage() {
     }
   }, [
     dispatch,
-    checkoutItemDetails,
+    checkoutItemsDetails,
     inputedCityName,
     selectedWarehouse,
     inputedEmail,
@@ -92,33 +98,78 @@ export function CheckoutPage() {
   );
 
   useEffect(() => {
-    const cartItems = JSON.parse(localStorage.getItem('cartItem') || '[]');
+    const localStorageCartItems = JSON.parse(
+      localStorage.getItem('cartItem') || '[]',
+    );
 
-    const checkoutItemDetails: any = cartItems.map(
+    const cartItemDetails: CartItemData[] = localStorageCartItems.map(
       (cartItem: CartStorageData) => {
         const item = shopItemsList.find(
           (item: ShopItemAPI) => item.id === cartItem.tireId,
         );
-        return {
-          ...cartItem,
-          ...item,
-          fullName: `${item?.brand} ${item?.name} ${item?.width}/${item?.height} R${item?.diametr}`,
-          price: item?.price_uah,
-          article: item?.id,
-          image: item
-            ? `${SHOP_ITEM_TIRES_IMG_PREFIX}${item.image_file}`
-            : './imgs/noPhotoImg.jpg',
-        };
+        if (item) {
+          return {
+            ...cartItem,
+            name: item.name,
+            fullName: `${item.brand} ${item.name} ${item.width}/${item.height} R${item.diametr}`,
+            price: item.price_uah,
+            article: item.id,
+            image: item
+              ? `${SHOP_ITEM_TIRES_IMG_PREFIX}${item.image_file}`
+              : './imgs/noPhotoImg.jpg',
+          };
+        } else {
+          return {
+            ...cartItem,
+            fullName: `unknown/unknown Runknown`,
+            name: '',
+            price: NaN,
+            article: NaN,
+            image: './imgs/noPhotoImg.jpg',
+          };
+        }
       },
     );
-    setCartItems(cartItems);
-    setСheckoutItemDetails(checkoutItemDetails);
-    let totalAmountSumm = 0;
-    checkoutItemDetails.forEach((element: any) => {
-      totalAmountSumm += element?.price;
-    });
+    const checkoutItemsDetails: CheckoutItemData[] = localStorageCartItems.map(
+      (cartItem: CartStorageData) => {
+        const item = shopItemsList.find(
+          (item: ShopItemAPI) => item.id === cartItem.tireId,
+        );
+        if (item) {
+          return {
+            ...cartItem,
+            ...item,
+            name: item.name,
+            fullName: `${item.brand} ${item.name} ${item.width}/${item.height} R${item.diametr}`,
+            price: item.price_uah,
+            article: item.id,
+            image: item
+              ? `${SHOP_ITEM_TIRES_IMG_PREFIX}${item.image_file}`
+              : './imgs/noPhotoImg.jpg',
+          };
+        } else {
+          return {
+            ...cartItem,
+            fullName: `unknown/unknown Runknown`,
+            name: '',
+            price: NaN,
+            article: NaN,
+            image: './imgs/noPhotoImg.jpg',
+          };
+        }
+      },
+    );
+    setCheckoutItemsDetails(checkoutItemsDetails);
+    setCartItemDetails(cartItemDetails);
+    let totalAmountSumm = cartItems.reduce(
+      (total: number, cartItem: CartStorageData) => {
+        const item = shopItemsList.find((item) => item.id === cartItem.tireId);
+        return total + (item ? item.price_uah * cartItem.numberOfTires : 0);
+      },
+      0,
+    );
     setTotalAmount(totalAmountSumm);
-  }, [shopItemsList]);
+  }, [shopItemsList, cartItems]);
 
   const optionsData = useMemo(() => {
     return cityListData ? cityListData.map((option) => option.title) : [];
@@ -187,9 +238,8 @@ export function CheckoutPage() {
           },
         }}>
         <CartInfo
-          checkoutItemDetails={checkoutItemDetails}
-          setNumberOfTires={setNumberOfTires}
-          cartItems={cartItems}
+          updateCartItems={updateCartItems}
+          cartItems={cartItemDetails}
           totalAmount={totalAmount}
           handleOrder={handleOrder}
         />

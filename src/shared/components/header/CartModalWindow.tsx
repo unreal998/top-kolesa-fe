@@ -20,7 +20,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { CartItem } from './CartItem';
-import { CartItemData } from '../../types';
+import { CartItemData, CartStorageData } from '../../types';
 import { actions } from '../../../modules/shopPage/reducer';
 import { ShopItemAPI } from '../../../shared/types';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../../constants';
@@ -56,37 +56,54 @@ export default function CartModalWindow() {
   const dispatch = useDispatch();
   const cartModalWindowOpen = useSelector(selectCartModalWindowOpen);
   const shopItemsList = useSelector(selectShopItemsList());
-  const [numberOfTires, setNumberOfTires] = useState<number>(0);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [cartItems, updateCartItems] = useState<CartStorageData[]>([]);
+  const [cartItemDetails, updateCartItemDetails] = useState<CartItemData[]>([]);
+  const [totalAmount, updateTotalAmount] = useState<number>(0);
 
   useEffect(() => {
     setOpenDrawer(cartModalWindowOpen);
-  }, [cartModalWindowOpen]);
-
-  const cartItems = JSON.parse(localStorage.getItem('cartItem') || '[]');
-
-  const cartItemDetails = cartItems.map((cartItem: CartItemData) => {
-    const item = shopItemsList.find(
-      (item: ShopItemAPI) => item.id === cartItem.tireId,
+    const localStorageCartItems: CartStorageData[] = JSON.parse(
+      localStorage.getItem('cartItem') || '[]',
     );
-    return {
-      ...cartItem,
-      fullName: `${item?.brand} ${item?.name} ${item?.width}/${item?.height} R${item?.diametr}`,
-      price: item?.price_uah,
-      article: item?.id,
-      image: item
-        ? `${SHOP_ITEM_TIRES_IMG_PREFIX}${item.image_file}`
-        : './imgs/noPhotoImg.jpg',
-    };
-  });
-
-  const totalAmount = cartItems.reduce(
-    (total: number, cartItem: CartItemData) => {
-      const item = shopItemsList.find((item) => item.id === cartItem.tireId);
-      return total + (item ? (item.price_uah * cartItem.numberOfTires) / 4 : 0);
-    },
-    0,
-  );
+    const cartItemDetails: CartItemData[] = localStorageCartItems.map(
+      (cartItem: CartStorageData) => {
+        const item = shopItemsList.find(
+          (item: ShopItemAPI) => item.id === cartItem.tireId,
+        );
+        if (item) {
+          return {
+            ...cartItem,
+            fullName: `${item.brand} ${item.name} ${item.width}/${item.height} R${item.diametr}`,
+            name: item.name,
+            price: item.price_uah,
+            article: item.id,
+            image: item
+              ? `${SHOP_ITEM_TIRES_IMG_PREFIX}${item.image_file}`
+              : './imgs/noPhotoImg.jpg',
+          };
+        } else {
+          return {
+            ...cartItem,
+            fullName: `unknown/unknown Runknown`,
+            name: '',
+            price: NaN,
+            article: NaN,
+            image: './imgs/noPhotoImg.jpg',
+          };
+        }
+      },
+    );
+    const totalAmount = localStorageCartItems.reduce(
+      (total: number, cartItem: CartStorageData) => {
+        const item = shopItemsList.find((item) => item.id === cartItem.tireId);
+        return total + (item ? item.price_uah * cartItem.numberOfTires : 0);
+      },
+      0,
+    );
+    updateTotalAmount(totalAmount);
+    updateCartItemDetails(cartItemDetails);
+  }, [cartModalWindowOpen, cartItems]);
 
   const handleCloseCartModalWindow = () => {
     dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen));
@@ -144,8 +161,8 @@ export default function CartModalWindow() {
                 key={index}
                 index={index}
                 cartItemData={cartItem}
-                setNumberOfTires={setNumberOfTires}
-                cartItems={cartItems}
+                updateCartItems={updateCartItems}
+                cartItems={cartItemDetails}
               />
             ))}
           </List>
