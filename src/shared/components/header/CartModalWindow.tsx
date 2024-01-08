@@ -21,7 +21,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { CartItem } from './CartItem';
-import { CartItemData } from '../../types';
+import { CartItemData, CartStorageData } from '../../types';
 import { actions } from '../../../modules/shopPage/reducer';
 import { ShopItemAPI } from '../../../shared/types';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../../constants';
@@ -90,7 +90,7 @@ export default function CartModalWindow() {
     },
     0,
   );
-
+  
   const handleGoToCheckout = useCallback(() => {
     history(`/checkout`, { replace: true });
     dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen));

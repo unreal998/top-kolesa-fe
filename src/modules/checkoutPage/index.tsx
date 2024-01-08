@@ -66,10 +66,10 @@ export function CheckoutPage() {
   );
 
   const handleOrder = useCallback(() => {
-    if (checkoutItemDetails) {
+    if (checkoutItemsDetails) {
       dispatch(
         actions.fetchBuyItemAction(
-          itemBuyDataBuilder(checkoutItemDetails, {
+          itemBuyDataBuilder(checkoutItemsDetails, {
             city: inputedCityName,
             address: selectedWarehouse,
             email: inputedEmail,
@@ -82,7 +82,7 @@ export function CheckoutPage() {
     }
   }, [
     dispatch,
-    checkoutItemDetails,
+    checkoutItemsDetails,
     inputedCityName,
     selectedWarehouse,
     inputedEmail,

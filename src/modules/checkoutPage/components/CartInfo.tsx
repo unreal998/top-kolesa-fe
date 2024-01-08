@@ -30,6 +30,7 @@ const StyledButton = styled(Button)({
 });
 
 type CartInfoProps = {
+
   handleOrder: () => void;
 };
 

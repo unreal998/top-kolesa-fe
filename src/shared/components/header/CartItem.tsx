@@ -83,6 +83,7 @@ export function CartItem({ cartItemData }: CartItemProps) {
     window.dispatchEvent(new Event('cartUpdated'));
   };
 
+
   return (
     <StyledCartItem>
       <StyledIconButton onClick={handleDeleteItem}>
@@ -170,4 +171,4 @@ export function CartItem({ cartItemData }: CartItemProps) {
       </Box>
     </StyledCartItem>
   );
-}
+};
