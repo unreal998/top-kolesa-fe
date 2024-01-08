@@ -8,6 +8,7 @@ import { Footer } from './shared/components/footer/Footer';
 import { ItemDetailsPage } from './modules/itemDetailsPage';
 import { CheckoutPage } from './modules/checkoutPage';
 import { ContactPage } from './modules/contactPage';
+import { CheckoutOrderPage } from './modules/checkoutOrderPage';
 import './App.css';
 import AboutPage from './modules/aboutPage';
 
@@ -22,14 +23,17 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/item" element={<ItemDetailsPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/item" element={<ItemDetailsPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/checkoutorder" element={<CheckoutOrderPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </BrowserRouter>
       <Footer />
     </BrowserRouter>
   );
