@@ -170,5 +170,9 @@
   "totalCoast": "Total coast",
   "makeAnOrder": "Make an order",
   "filters": "Filters",
-  "yourOder": "Your order"
+  "yourOder": "Your order",
+  "shippingAddress": "Shipping address",
+  "orderThank": "Thank you for your order",
+  "managerCall": "Our manager call you soon to confirm your order",
+  "orderNumber": "Order number"
 }
