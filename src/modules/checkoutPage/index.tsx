@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import {
   SyntheticEvent,
   useCallback,
@@ -27,6 +27,7 @@ import { ContactInfo } from './components/ContactInfo';
 import { DeliveryInfo } from './components/DeliveryInfo';
 import { PaymentInfo } from './components/PaymentInfo';
 import { Comment } from './components/Comment';
+import EmptyCart from '../../shared/components/header/EmptyCart';
 
 export function CheckoutPage() {
   const dispatch = useDispatch();
@@ -180,70 +181,78 @@ export function CheckoutPage() {
   }, [warehouseData]);
 
   return (
-    <Stack
-      direction="row"
-      justifyContent="center"
-      m={'3% auto 5%'}
-      gap={'3%'}
-      maxWidth={'70rem'}
-      height={'72.2rem'}
-      sx={{
-        '@media (max-width: 918px)': {
-          flexDirection: 'column',
-          gap: '0',
-          height: 'auto',
-        },
-      }}>
-      <Stack
-        gap="1%"
-        width="45%"
-        sx={{
-          '@media (max-width: 918px)': {
-            width: '80%',
-            margin: '1rem auto',
-            gap: '1rem',
-          },
-          '@media (max-width: 500px)': {
-            width: '90%',
-          },
-        }}>
-        <ContactInfo
-          setInputedFirstName={setInputedFirstName}
-          setInputedLastName={setInputedLastName}
-          setInputedPhone={setInputedPhone}
-          setInputedEmail={setInputedEmail}
-        />
-        <DeliveryInfo
-          changeDeliveryState={changeDeliveryState}
-          deliveryState={deliveryState}
-          setInputedCityName={setInputedCityName}
-          setSelectedWarehouse={setSelectedWarehouse}
-          optionsData={optionsData}
-          handleCityTextChange={handleCityTextChange}
-          handleWarehouseTextChange={handleWarehouseTextChange}
-          optionsWarehouseData={optionsWarehouseData}
-        />
-        <PaymentInfo changePaymentState={changePaymentState} />
-        <Comment setInputedComment={setInputedComment} />
-      </Stack>
-      <Stack
-        width="45%"
-        sx={{
-          '@media (max-width: 918px)': {
-            width: '80%',
-            margin: '0 auto',
-          },
-          '@media (max-width: 500px)': {
-            width: '90%',
-          },
-        }}>
-        <CartInfo
-          updateCartItems={updateCartItems}
-          cartItems={cartItemDetails}
-          totalAmount={totalAmount}
-          handleOrder={handleOrder}
-        />
-      </Stack>
-    </Stack>
+    <>
+      {cartItems.length > 0 ? (
+        <Stack
+          direction="row"
+          justifyContent="center"
+          m={'3% auto 5%'}
+          gap={'3%'}
+          maxWidth={'70rem'}
+          height={'72.2rem'}
+          sx={{
+            '@media (max-width: 918px)': {
+              flexDirection: 'column',
+              gap: '0',
+              height: 'auto',
+            },
+          }}>
+          <Stack
+            gap="1%"
+            width="45%"
+            sx={{
+              '@media (max-width: 918px)': {
+                width: '80%',
+                margin: '1rem auto',
+                gap: '1rem',
+              },
+              '@media (max-width: 500px)': {
+                width: '90%',
+              },
+            }}>
+            <ContactInfo
+              setInputedFirstName={setInputedFirstName}
+              setInputedLastName={setInputedLastName}
+              setInputedPhone={setInputedPhone}
+              setInputedEmail={setInputedEmail}
+            />
+            <DeliveryInfo
+              changeDeliveryState={changeDeliveryState}
+              deliveryState={deliveryState}
+              setInputedCityName={setInputedCityName}
+              setSelectedWarehouse={setSelectedWarehouse}
+              optionsData={optionsData}
+              handleCityTextChange={handleCityTextChange}
+              handleWarehouseTextChange={handleWarehouseTextChange}
+              optionsWarehouseData={optionsWarehouseData}
+            />
+            <PaymentInfo changePaymentState={changePaymentState} />
+            <Comment setInputedComment={setInputedComment} />
+          </Stack>
+          <Stack
+            width="45%"
+            sx={{
+              '@media (max-width: 918px)': {
+                width: '80%',
+                margin: '0 auto',
+              },
+              '@media (max-width: 500px)': {
+                width: '90%',
+              },
+            }}>
+            <CartInfo
+              updateCartItems={updateCartItems}
+              cartItems={cartItemDetails}
+              totalAmount={totalAmount}
+              handleOrder={handleOrder}
+            />
+          </Stack>
+        </Stack>
+      ) : (
+        <Box display={'flex'} alignItems={'center'} height={'70vh'}>
+          <EmptyCart />
+        </Box>
+      )}
+    </>
   );
 }

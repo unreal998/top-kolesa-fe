@@ -25,6 +25,7 @@ import { actions } from '../../../modules/shopPage/reducer';
 import { ShopItemAPI } from '../../../shared/types';
 import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../../constants';
 import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../constants';
+import EmptyCart from './EmptyCart';
 
 const StyledCartModalWindow = styled(Box)({
   width: '25vw',
@@ -60,6 +61,9 @@ export default function CartModalWindow() {
   const [cartItems, updateCartItems] = useState<CartStorageData[]>([]);
   const [cartItemDetails, updateCartItemDetails] = useState<CartItemData[]>([]);
   const [totalAmount, updateTotalAmount] = useState<number>(0);
+  const [localStorageCartItems, setLocalStorageCartItems] = useState<
+    CartStorageData[]
+  >([]);
 
   useEffect(() => {
     setOpenDrawer(cartModalWindowOpen);
@@ -101,6 +105,7 @@ export default function CartModalWindow() {
       },
       0,
     );
+    setLocalStorageCartItems(localStorageCartItems);
     updateTotalAmount(totalAmount);
     updateCartItemDetails(cartItemDetails);
   }, [cartModalWindowOpen, cartItems]);
@@ -150,43 +155,53 @@ export default function CartModalWindow() {
               />
             </IconButton>
           </Box>
-          <List
-            sx={{
-              padding: 0,
-              overflowY: 'auto',
-              flex: 1,
-            }}>
-            {cartItemDetails.map((cartItem: CartItemData, index: number) => (
-              <CartItem
-                key={index}
-                index={index}
-                cartItemData={cartItem}
-                updateCartItems={updateCartItems}
-                cartItems={cartItemDetails}
-              />
-            ))}
-          </List>
-          <Box
-            sx={{
-              padding: '20px 10px',
-            }}>
-            <Box display={'flex'} justifyContent={'space-between'}>
-              <Typography
-                variant="h6"
-                fontWeight={600}
-                fontFamily={FONTS.BOLD_TEXT_FAMILY}>
-                {t('totalCoast')}:
-              </Typography>
-              <Typography
-                variant="h6"
-                fontWeight={600}
-                fontFamily={FONTS.BOLD_TEXT_FAMILY}
-                color={BASE_COLORS.DEFAULT_BLUE}>
-                {`${totalAmount} ${t('uah')}`}
-              </Typography>
-            </Box>
-            <StyledButton variant="contained">{t('makeAnOrder')}</StyledButton>
-          </Box>
+          {localStorageCartItems?.length > 0 ? (
+            <>
+              <List
+                sx={{
+                  padding: 0,
+                  overflowY: 'auto',
+                  flex: 1,
+                }}>
+                {cartItemDetails.map(
+                  (cartItem: CartItemData, index: number) => (
+                    <CartItem
+                      key={index}
+                      index={index}
+                      cartItemData={cartItem}
+                      updateCartItems={updateCartItems}
+                      cartItems={cartItemDetails}
+                    />
+                  ),
+                )}
+              </List>
+              <Box
+                sx={{
+                  padding: '20px 10px',
+                }}>
+                <Box display={'flex'} justifyContent={'space-between'}>
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    fontFamily={FONTS.BOLD_TEXT_FAMILY}>
+                    {t('totalCoast')}:
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    fontFamily={FONTS.BOLD_TEXT_FAMILY}
+                    color={BASE_COLORS.DEFAULT_BLUE}>
+                    {`${totalAmount} ${t('uah')}`}
+                  </Typography>
+                </Box>
+                <StyledButton variant="contained">
+                  {t('makeAnOrder')}
+                </StyledButton>
+              </Box>
+            </>
+          ) : (
+            <EmptyCart />
+          )}
         </StyledCartModalWindow>
       </Drawer>
     </Box>
