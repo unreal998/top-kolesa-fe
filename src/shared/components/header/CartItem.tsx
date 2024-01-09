@@ -150,7 +150,7 @@ export const CartItem: React.FC<CartItemProps> = ({
                 fontWeight={600}
                 fontFamily={FONTS.BOLD_TEXT_FAMILY}
                 color={BASE_COLORS.DEFAULT_BLUE}>
-                {`${(cartItemData.price * cartItemData.numberOfTires) / 4} ${t(
+                {`${cartItemData.price * cartItemData.numberOfTires} ${t(
                   'uah',
                 )}`}
               </Typography>

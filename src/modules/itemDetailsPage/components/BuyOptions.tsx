@@ -123,7 +123,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
             fontSize: '2.2rem',
           },
         }}>
-        {(Number(selectedItemData?.price_uah) / 4) * numberOfTires} {t('uah')}
+        {Number(selectedItemData?.price_uah) * numberOfTires} {t('uah')}
       </Typography>
       <Box
         display={'flex'}
