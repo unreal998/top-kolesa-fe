@@ -171,6 +171,7 @@
   "makeAnOrder": "Make an order",
   "filters": "Filters",
   "yourOder": "Your order",
+  "cartEmpty": "Your cart is empty",
   "shippingAddress": "Shipping address",
   "orderThank": "Thank you for your order",
   "managerCall": "Our manager call you soon to confirm your order",
