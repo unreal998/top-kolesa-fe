@@ -169,7 +169,7 @@ export function Footer() {
           '@media (max-width: 1024px)': {
             justifyContent: 'center',
             alignItems: 'center',
-            margin: '0',
+            margin: '0 auto',
             padding: '1.4rem 0',
           },
         }}>
