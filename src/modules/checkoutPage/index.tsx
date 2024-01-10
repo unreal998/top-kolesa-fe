@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from './reducer';
+import { actions as actions2 } from '../shopPage/reducer';
 import {
   selectFetchedCityName,
   selectCityListData,
@@ -42,6 +43,9 @@ export function CheckoutPage() {
   >([]);
   const [cartItems, updateCartItems] = useState<CartStorageData[]>([]);
   const [cartItemDetails, setCartItemDetails] = useState<CartItemData[]>([]);
+  const [localStorageCartItems, setLocalStorageCartItems] = useState<
+    CartStorageData[]
+  >([]);
   const [inputedCityName, setInputedCityName] = useState('');
   const [inputedEmail, setInputedEmail] = useState('');
   const [inputedPhone, setInputedPhone] = useState('');
@@ -160,17 +164,20 @@ export function CheckoutPage() {
         }
       },
     );
+
+    setLocalStorageCartItems(localStorageCartItems);
     setCheckoutItemsDetails(checkoutItemsDetails);
     setCartItemDetails(cartItemDetails);
-    let totalAmountSumm = cartItems.reduce(
+    const totalAmount = localStorageCartItems.reduce(
       (total: number, cartItem: CartStorageData) => {
         const item = shopItemsList.find((item) => item.id === cartItem.tireId);
         return total + (item ? item.price_uah * cartItem.numberOfTires : 0);
       },
       0,
     );
-    setTotalAmount(totalAmountSumm);
-  }, [shopItemsList, cartItems]);
+    setTotalAmount(totalAmount);
+    dispatch(actions2.setCartItemCount(localStorageCartItems.length));
+  }, [shopItemsList, cartItems, dispatch]);
 
   const optionsData = useMemo(() => {
     return cityListData ? cityListData.map((option) => option.title) : [];
@@ -182,7 +189,7 @@ export function CheckoutPage() {
 
   return (
     <>
-      {cartItems.length > 0 ? (
+      {localStorageCartItems?.length > 0 ? (
         <Stack
           direction="row"
           justifyContent="center"

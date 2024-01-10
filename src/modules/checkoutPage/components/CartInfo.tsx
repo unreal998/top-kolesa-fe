@@ -1,8 +1,11 @@
 import { Box, Button, Stack, Typography, styled } from '@mui/material';
 import { CartItem } from '../../../shared/components/header/CartItem';
-import { CartItemData } from '../../../shared/types';
+import { CartItemData, CartStorageData } from '../../../shared/types';
 import { BASE_COLORS, FONTS } from '../../../shared/constants';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCartItemCount } from '../../shopPage/selectors';
 
 type CartInfoProps = {
   cartItems: CartItemData[];
@@ -34,7 +37,7 @@ export function CartInfo({
 
   return (
     <Stack
-      maxHeight={'100%'}
+      maxHeight={'70.7rem'}
       bgcolor={BASE_COLORS.BACKGROUND_WHITE}
       borderRadius={'0.5rem'}
       sx={{
@@ -44,12 +47,12 @@ export function CartInfo({
       }}>
       <Typography
         variant="h6"
+        p={'2rem 2rem 1rem 2rem'}
         fontWeight={600}
-        m={'2rem 2rem 1rem 2rem'}
         fontFamily={FONTS.BOLD_TEXT_FAMILY}>
         {t('yourOder')}
       </Typography>
-      <Box mx={'1.3rem'} sx={{ overflowY: 'auto' }}>
+      <Box m={'0 1.3rem '} sx={{ overflowY: 'auto' }} height={'90%'}>
         {cartItems.map((cartItem: CartItemData, index: number) => (
           <Box
             key={index}

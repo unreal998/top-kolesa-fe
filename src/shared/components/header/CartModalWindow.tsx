@@ -5,6 +5,7 @@ import {
   selectShopItemsList,
 } from '../../../modules/shopPage/selectors';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Box,
@@ -55,6 +56,7 @@ const StyledButton = styled(Button)({
 export default function CartModalWindow() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const history = useNavigate();
   const cartModalWindowOpen = useSelector(selectCartModalWindowOpen);
   const shopItemsList = useSelector(selectShopItemsList());
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -113,6 +115,12 @@ export default function CartModalWindow() {
   const handleCloseCartModalWindow = () => {
     dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen));
   };
+
+  const goToCheckOutPage = useCallback(() => {
+    history(`/checkout`, { replace: true });
+    setOpenDrawer(false);
+    dispatch(actions.setCartModalWindowOpen(false));
+  }, [history, dispatch]);
 
   return (
     <Box>
@@ -194,7 +202,7 @@ export default function CartModalWindow() {
                     {`${totalAmount} ${t('uah')}`}
                   </Typography>
                 </Box>
-                <StyledButton variant="contained">
+                <StyledButton variant="contained" onClick={goToCheckOutPage}>
                   {t('makeAnOrder')}
                 </StyledButton>
               </Box>
