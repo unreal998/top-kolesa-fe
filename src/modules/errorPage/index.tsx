@@ -1,17 +1,7 @@
-import {
-  Box,
-  Button,
-  List,
-  ListItem,
-  Stack,
-  Typography,
-  styled,
-} from '@mui/material';
+import { Box, Button, Typography, styled } from '@mui/material';
 import { FONTS, BASE_COLORS } from '../../shared/constants';
-import CheckIcon from '@mui/icons-material/Check';
 import { useTranslation } from 'react-i18next';
 import { ButtonWithIcon } from '../../shared/components/ButtonWithIcon';
-import { MapsHomeWork } from '@mui/icons-material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useNavigate } from 'react-router-dom';
 
