@@ -175,5 +175,10 @@
   "shippingAddress": "Shipping address",
   "orderThank": "Thank you for your order",
   "managerCall": "Our manager call you soon to confirm your order",
-  "orderNumber": "Order number"
+  "orderNumber": "Order number",
+  "oops": "Oops...",
+  "somethingWentWrong": "Something went wrong :(",
+  "404": "404 - Page not found",
+  "404Text": "Unfortunately, the page you are looking for might have been removed, had its name changed or is temporarily unavailable. Try return to the previous page.",
+  "backHome": "Go to homepage"
 }
