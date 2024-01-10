@@ -162,13 +162,11 @@ export function CheckoutPage() {
     );
     setCheckoutItemsDetails(checkoutItemsDetails);
     setCartItemDetails(cartItemDetails);
-    let totalAmountSumm = cartItems.reduce(
-      (total: number, cartItem: CartStorageData) => {
-        const item = shopItemsList.find((item) => item.id === cartItem.tireId);
-        return total + (item ? item.price_uah * cartItem.numberOfTires : 0);
-      },
-      0,
-    );
+    let totalAmountSumm = 0;
+    cartItemDetails.forEach((cartItem: CartStorageData) => {
+      const item = shopItemsList.find((item) => item.id === cartItem.tireId);
+      totalAmountSumm += item ? item.price_uah * cartItem.numberOfTires : 0;
+    });
     setTotalAmount(totalAmountSumm);
   }, [shopItemsList, cartItems]);
 
@@ -182,7 +180,7 @@ export function CheckoutPage() {
 
   return (
     <>
-      {cartItems.length > 0 ? (
+      {checkoutItemsDetails.length > 0 ? (
         <Stack
           direction="row"
           justifyContent="center"

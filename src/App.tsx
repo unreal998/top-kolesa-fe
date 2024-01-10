@@ -8,7 +8,7 @@ import { Footer } from './shared/components/footer/Footer';
 import { ItemDetailsPage } from './modules/itemDetailsPage';
 import { CheckoutPage } from './modules/checkoutPage';
 import { ContactPage } from './modules/contactPage';
-import { CheckoutOrderPage } from './modules/checkoutOrderPage';
+import { OrderPage } from './modules/orderPage';
 import './App.css';
 import AboutPage from './modules/aboutPage';
 
@@ -29,7 +29,7 @@ function App() {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/item" element={<ItemDetailsPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/checkoutorder" element={<CheckoutOrderPage />} />
+          <Route path="/order" element={<OrderPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>

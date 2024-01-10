@@ -2,6 +2,10 @@ import { Box, Typography, styled } from '@mui/material';
 import { FONTS, BASE_COLORS } from '../../shared/constants';
 import { useTranslation } from 'react-i18next';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from './reducer';
+import { selectOrderData } from './selectors';
 
 const StyledHeadingText = styled(Typography)({
   fontFamily: `${FONTS.BOLD_TEXT_FAMILY}`,
@@ -9,28 +13,18 @@ const StyledHeadingText = styled(Typography)({
   fontWeight: '700',
 });
 
-export function CheckoutOrderPage() {
+export function OrderPage() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const orderData = useSelector(selectOrderData());
 
-  const shippingData = ['{full name}', '{street}', '{city+zip}'];
-
-  const items = [
-    {
-      name: '{item1}',
-      price: '{price}',
-      items: '{how many}',
-    },
-    {
-      name: '{item2}',
-      price: '{price}',
-      items: '{how many}',
-    },
-    {
-      name: '{item3}',
-      price: '{price}',
-      items: '{how many}',
-    },
-  ];
+  useEffect(() => {
+    const searchParams = new URLSearchParams(document.location.search);
+    const orderId = searchParams.get('id');
+    if (orderId) {
+      dispatch(actions.fetchOrderData(orderId));
+    }
+  }, [dispatch]);
 
   return (
     <Box
@@ -61,9 +55,9 @@ export function CheckoutOrderPage() {
             }}
           />
           <Box>
-            <StyledHeadingText>{`${t(
-              'orderThank',
-            )}, {name}`}</StyledHeadingText>
+            <StyledHeadingText>{`${t('orderThank')}, ${
+              orderData.userName
+            }`}</StyledHeadingText>
             <Typography
               variant="subtitle1"
               fontWeight={500}
@@ -85,7 +79,7 @@ export function CheckoutOrderPage() {
           mb={'1rem'}
           gap={'2rem'}>
           <Typography variant="h5" fontWeight={600}>
-            {`${t('orderNumber')}: {id}`}
+            {`${t('orderNumber')}: ${orderData.orderId}`}
           </Typography>
         </Box>
         <Box display={'flex'} flexDirection={'column'} gap={'1rem'}>
@@ -93,17 +87,16 @@ export function CheckoutOrderPage() {
             <Typography variant="subtitle1" fontWeight={600}>
               {t('shippingAddress')}:
             </Typography>
-            {shippingData.map((data, i) => (
-              <Typography key={i} variant="subtitle1" fontWeight={500}>
-                {data}
-              </Typography>
-            ))}
+
+            <Typography variant="subtitle1" fontWeight={500}>
+              {orderData.deliveryAddress}
+            </Typography>
           </Box>
           <Box width={'25rem'}>
             <Typography variant="subtitle1" fontWeight={600}>
               {t('yourOder')}:
             </Typography>
-            {items.map((item, i) => (
+            {orderData.itemsList.map((item, i) => (
               <Box
                 key={i}
                 display={'flex'}
@@ -117,14 +110,14 @@ export function CheckoutOrderPage() {
                   fontWeight={500}
                   textAlign={'start'}
                   width={'15rem'}>
-                  {item.name} ({item.items}):
+                  {item.brand} {item.name} {item.size}:
                 </Typography>
                 <Typography
                   variant="subtitle1"
                   fontWeight={600}
                   textAlign={'start'}
                   width={'8rem'}>
-                  {item.price} {t('uah')}
+                  {item.count} x {item.price} {t('uah')}
                 </Typography>
               </Box>
             ))}
@@ -148,7 +141,7 @@ export function CheckoutOrderPage() {
               fontWeight={600}
               textAlign={'start'}
               width={'10rem'}>
-              {` {amount} ${t('uah')}`}
+              {` ${orderData.totalAmount}.00 ${t('uah')}`}
             </Typography>
           </Box>
         </Box>
