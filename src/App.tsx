@@ -11,6 +11,7 @@ import { ContactPage } from './modules/contactPage';
 import { OrderPage } from './modules/orderPage';
 import './App.css';
 import AboutPage from './modules/aboutPage';
+import ErrorPage from './modules/errorPage';
 
 function App() {
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/order" element={<OrderPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
       <Footer />
