@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FILTER_COLORS, FONTS } from '../../constants';
+import { useLocation } from 'react-router-dom';
+import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../constants';
 import {
   SwipeableDrawer,
   Box,
@@ -25,9 +26,16 @@ export default function MenuModalWindow({
   menuData: MenuItemData[];
 }) {
   const { t } = useTranslation();
+  const location = useLocation();
   const [state, setState] = useState({
     right: false,
   });
+
+  const isActiveLink = (link: string) => {
+    return (
+      location.pathname === link || location.pathname.startsWith(`${link}/`)
+    );
+  };
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -83,8 +91,19 @@ export default function MenuModalWindow({
                 variant="body1"
                 fontFamily={FONTS.MAIN_TEXT_FAMILY}
                 fontSize={'1.5rem'}
+                fontWeight={isActiveLink(menuItem.link) ? 600 : 500}
                 textAlign={'center'}
+                borderBottom={
+                  isActiveLink(menuItem.link)
+                    ? `1px solid  ${BASE_COLORS.DEFAULT_BLUE}`
+                    : 'none'
+                }
                 m={'auto'}
+                color={
+                  isActiveLink(menuItem.link)
+                    ? BASE_COLORS.DEFAULT_BLUE
+                    : '#000'
+                }
                 sx={{
                   '@media (max-width: 600px)': {
                     fontSize: '1.8rem',
