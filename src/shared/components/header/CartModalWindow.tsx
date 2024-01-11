@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   selectCartModalWindowOpen,
   selectShopItemsList,
@@ -55,6 +56,7 @@ const StyledButton = styled(Button)({
 export default function CartModalWindow() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const history = useNavigate();
   const cartModalWindowOpen = useSelector(selectCartModalWindowOpen);
   const shopItemsList = useSelector(selectShopItemsList());
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -113,6 +115,12 @@ export default function CartModalWindow() {
   const handleCloseCartModalWindow = () => {
     dispatch(actions.setCartModalWindowOpen(!cartModalWindowOpen));
   };
+
+  const handletoCheckOutPage = useCallback(() => {
+    history(`/checkout`, { replace: true });
+    setOpenDrawer(false);
+    dispatch(actions.setCartModalWindowOpen(false));
+  }, [history, dispatch]);
 
   return (
     <Box>
@@ -194,7 +202,9 @@ export default function CartModalWindow() {
                     {`${totalAmount} ${t('uah')}`}
                   </Typography>
                 </Box>
-                <StyledButton variant="contained">
+                <StyledButton
+                  variant="contained"
+                  onClick={handletoCheckOutPage}>
                   {t('makeAnOrder')}
                 </StyledButton>
               </Box>

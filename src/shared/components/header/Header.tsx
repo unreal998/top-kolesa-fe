@@ -8,6 +8,7 @@ import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import i18next from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { TypographyWithIcon } from '../../../modules/mainPage/components/TypographyWithIcon';
+import { useLocation } from 'react-router-dom';
 
 import {
   Box,
@@ -81,9 +82,37 @@ export function Header() {
   const dispatch = useDispatch();
   const cartItemCount = useSelector(selectCartItemCount);
   const cartModalWindowOpen = useSelector(selectCartModalWindowOpen);
+  const location = useLocation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
   const currentLanguageCode = localStorage.getItem('i18nextLng') || 'en';
+
+  useEffect(() => {
+    const cartItemsCountFromStorage = JSON.parse(
+      localStorage.getItem('cartItem') || '[]',
+    ).length;
+
+    dispatch(actions.setCartItemCount(cartItemsCountFromStorage));
+  }, [dispatch, cartItemCount, cartModalWindowOpen]);
+
+  useEffect(() => {
+    dispatch(actions.getShopItems(''));
+  }, [dispatch]);
+
+  const handleLanguageClick = useCallback((event: SyntheticEvent) => {
+    setAnchorEl(event.target as HTMLElement);
+  }, []);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const isActiveLink = (link: string) => {
+    return (
+      location.pathname === link || location.pathname.startsWith(`${link}/`)
+    );
+  };
+
   const languages = [
     {
       code: 'en',
@@ -117,26 +146,6 @@ export function Header() {
       link: '/contact',
     },
   ];
-
-  useEffect(() => {
-    const cartItemsCountFromStorage = JSON.parse(
-      localStorage.getItem('cartItem') || '[]',
-    ).length;
-
-    dispatch(actions.setCartItemCount(cartItemsCountFromStorage));
-  }, [dispatch, cartItemCount, cartModalWindowOpen]);
-
-  useEffect(() => {
-    dispatch(actions.getShopItems(''));
-  }, [dispatch]);
-
-  const handleLanguageClick = useCallback((event: SyntheticEvent) => {
-    setAnchorEl(event.target as HTMLElement);
-  }, []);
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
     <Box display="flex" flexDirection="column" width={'100%'}>
@@ -220,10 +229,17 @@ export function Header() {
               key={index}
               underline="none"
               href={menuItem.link}
+              color={location.pathname === menuItem.link ? 'green' : 'red'}
               sx={{
-                color: '#000',
+                color: isActiveLink(menuItem.link)
+                  ? BASE_COLORS.DEFAULT_BLUE
+                  : '#000',
                 fontFamily: FONTS.MAIN_TEXT_FAMILY,
+                borderBottom: isActiveLink(menuItem.link)
+                  ? `1px solid  ${BASE_COLORS.DEFAULT_BLUE}`
+                  : 'none',
                 fontSize: '1.1rem',
+                fontWeight: isActiveLink(menuItem.link) ? 600 : 400,
               }}>
               {t(menuItem.name)}
             </Link>
