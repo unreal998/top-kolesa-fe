@@ -22,12 +22,13 @@ export function ShopPage() {
     if (searchParams.size > 0) {
       dispatch(
         actions.getShopItems({
-          price: searchParams.get('price'),
-          width: searchParams.get('width'),
-          profile: searchParams.get('profile'),
-          diametr: searchParams.get('diametr'),
-          season: searchParams.get('season'),
-          brand: searchParams.get('brand'),
+          price: searchParams.get('price') || undefined,
+          width: searchParams.get('width') || undefined,
+          profile: searchParams.get('profile') || undefined,
+          diametr: searchParams.get('diametr') || undefined,
+          season: searchParams.get('season') || undefined,
+          brand: searchParams.get('brand') || undefined,
+          studded: searchParams.get('studded') || undefined,
         }),
       );
     } else {

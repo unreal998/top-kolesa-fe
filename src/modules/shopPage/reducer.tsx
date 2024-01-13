@@ -45,6 +45,16 @@ type ShopPageState = {
   cartModalWindowOpen: boolean;
 };
 
+export type FilterParams = {
+  price?: string;
+  width?: string;
+  profile?: string;
+  diametr?: string;
+  season?: string;
+  brand?: string;
+  studded?: string;
+};
+
 const initialState: ShopPageState = {
   currentPage: 1,
   itemsList: [],
@@ -72,7 +82,7 @@ export const shopPageSlice = createSlice({
   name: 'shopPageSliceData',
   initialState,
   reducers: {
-    getShopItems(state, { payload }: PayloadAction<any>) {},
+    getShopItems(state, { payload }: PayloadAction<FilterParams | ''>) {},
     getShopItemsSuccess(state, { payload }: PayloadAction<ShopData>) {
       state.itemsList = payload.tiresList;
     },

@@ -93,7 +93,7 @@
   "city": "City",
   "warehouse": "Warehouse",
   "pay": "Payment type",
-  "cash": "Cash",
+  "cash": "Cash on delivery",
   "transfer": "Transfer",
   "addComment": "Comment for your order",
   "buy": "Buy",
