@@ -49,7 +49,7 @@ function NoFilterResults() {
         color={`${BASE_COLORS.DEFAULT_BLUE}`}
         fontFamily={`${FONTS.BOLD_TEXT_FAMILY}`}
         textAlign={'center'}>
-        That's a miss
+        {t('noResultsHeader')}
       </Typography>
 
       <Box
@@ -59,10 +59,8 @@ function NoFilterResults() {
             width: '90%',
           },
         }}>
-        <StyledHeadingText>
-          Sorry, that filter combination has no results.
-        </StyledHeadingText>
-        <StyledHeadingText>Please try different criteria</StyledHeadingText>
+        <StyledHeadingText>{t('noResultsText1')} </StyledHeadingText>
+        <StyledHeadingText>{t('noResultsText2')}</StyledHeadingText>
       </Box>
     </Box>
   );
