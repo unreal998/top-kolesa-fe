@@ -43,6 +43,7 @@ type ShopPageState = {
   cartItemCount: number;
   selectedStudded: string[];
   cartModalWindowOpen: boolean;
+  isLoading: boolean;
 };
 
 export type FilterParams = {
@@ -76,18 +77,23 @@ const initialState: ShopPageState = {
   cartItemCount: 0,
   selectedStudded: [],
   cartModalWindowOpen: false,
+  isLoading: false,
 };
 
 export const shopPageSlice = createSlice({
   name: 'shopPageSliceData',
   initialState,
   reducers: {
-    getShopItems(state, { payload }: PayloadAction<FilterParams | ''>) {},
+    getShopItems(state, { payload }: PayloadAction<FilterParams | ''>) {
+      state.isLoading = true;
+    },
     getShopItemsSuccess(state, { payload }: PayloadAction<ShopData>) {
       state.itemsList = payload.tiresList;
+      state.isLoading = false;
     },
     getShopItemsFailure(state, { payload }: PayloadAction<string>) {
       console.log(payload);
+      state.isLoading = false;
     },
     setSelectedItemId(state, { payload }: PayloadAction<string>) {
       state.selectedItemId = payload;

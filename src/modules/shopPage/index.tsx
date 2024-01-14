@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from './reducer';
@@ -17,6 +17,9 @@ export function ShopPage() {
   const [searchParams] = useSearchParams();
   const isFullMenuOpen = useSelector(selectIsFullMenuOpen);
   const filtersParams = useSelector(selectFilterData());
+  const [isInitialized, setIsInitialized] = useState<boolean>(true);
+
+  console.log('isInitialized', isInitialized);
 
   useEffect(() => {
     if (searchParams.size > 0) {
@@ -38,10 +41,18 @@ export function ShopPage() {
   }, [dispatch, searchParams]);
 
   useEffect(() => {
-    const minPrice = Math.min(...filtersParams.prices);
-    const maxPrice = Math.max(...filtersParams.prices);
-    dispatch(actions.initializePriceRange([minPrice, maxPrice]));
-  }, [dispatch, filtersParams.prices]);
+    if (isInitialized) {
+      const minPrice = Math.min(...filtersParams.prices);
+      const maxPrice = Math.max(...filtersParams.prices);
+      dispatch(actions.initializePriceRange([minPrice, maxPrice]));
+    }
+  }, [dispatch, filtersParams.prices, isInitialized]);
+
+  useEffect(() => {
+    if (filtersParams.prices.length > 0) {
+      setIsInitialized(false);
+    }
+  }, [filtersParams.prices]);
 
   const handleCloseMenu = () => {
     dispatch(actions.toggleFullMenu());

@@ -88,3 +88,6 @@ export const selectSelectedStudded = ({ shopPageSliceData }: ShopSliceStore) =>
 export const selectCartModalWindowOpen = ({
   shopPageSliceData,
 }: ShopSliceStore) => shopPageSliceData.cartModalWindowOpen;
+
+export const selectIsLoading = ({ shopPageSliceData }: ShopSliceStore) =>
+  shopPageSliceData.isLoading;
