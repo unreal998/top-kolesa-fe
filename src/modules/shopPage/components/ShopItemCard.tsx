@@ -53,7 +53,16 @@ const hoverAnimationBack = {
       ease: 'easeInOut',
     },
   },
+  tap: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+      ease: 'easeInOut',
+    },
+  },
 };
+
 const hoverAnimationText = {
   rest: {
     opacity: 0,
@@ -195,7 +204,16 @@ export function ShopItemCard({
               {price} {t('uah')}
             </Typography>
           </Box>
-          <HoverableBox variants={hoverAnimationBack}>
+          <HoverableBox
+            variants={hoverAnimationBack}
+            whileTap={{
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: 'easeInOut',
+              },
+            }}>
             <Box
               width={'100%'}
               px={'20%'}
@@ -219,9 +237,9 @@ export function ShopItemCard({
                   fontSize="large"
                   sx={{ color: BASE_COLORS.DEFAULT_BLUE }}
                 />
-                <StyledTextBold>Short Info</StyledTextBold>
+                <StyledTextBold>{t('shortInfo')}</StyledTextBold>
               </Box>
-              <motion.div variants={hoverAnimationText}>
+              <motion.div>
                 {tableData.map((item, index) => (
                   <Box
                     key={index}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Link, Rating, Stack, Typography, styled } from '@mui/material';
 import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../../shared/constants';
 import { ShopItem } from '../reducer';
@@ -35,6 +35,14 @@ const hoverAnimationBack = {
   },
   hover: {
     x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+      ease: 'easeInOut',
+    },
+  },
+  tap: {
+    y: 0,
     opacity: 1,
     transition: {
       duration: 0.3,
@@ -85,7 +93,7 @@ export function ShopItemTable({
   year,
 }: ShopItem) {
   const { t } = useTranslation();
-  const [value, setValue] = React.useState<number | null>(2);
+  const [value, setValue] = useState<number | null>(2);
 
   useEffect(() => {
     setValue(rating);
@@ -128,6 +136,9 @@ export function ShopItemTable({
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'contain',
               backgroundPosition: 'center',
+              '@media (max-width: 1150px)': {
+                width: '20rem',
+              },
             }}
           />
           <Stack
@@ -167,7 +178,16 @@ export function ShopItemTable({
               {price} {t('uah')}
             </Typography>
           </Stack>
-          <HoverableBox variants={hoverAnimationBack}>
+          <HoverableBox
+            variants={hoverAnimationBack}
+            whileTap={{
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: 'easeInOut',
+              },
+            }}>
             <Box
               width={'130%'}
               px={'1.5rem'}
@@ -196,7 +216,7 @@ export function ShopItemTable({
                   fontSize="medium"
                   sx={{ color: BASE_COLORS.DEFAULT_BLUE }}
                 />
-                <StyledTextBold>Short Info</StyledTextBold>
+                <StyledTextBold>{t('shortInfo')}</StyledTextBold>
               </Box>
               <motion.div variants={hoverAnimationText}>
                 {tableData.map((item, index) => (
