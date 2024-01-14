@@ -125,6 +125,7 @@ function TiresFilter() {
     dispatch(actions.setSelectedDiametr(diametr));
     dispatch(actions.setSeasonChange([season]));
     dispatch(actions.setBrandChange([brand]));
+
     history(
       `shop/?price=${JSON.stringify([
         Math.min.apply(null, filtersParams.prices),
@@ -136,7 +137,9 @@ function TiresFilter() {
           ? 'summer'
           : season === t('winter')
           ? 'winter'
-          : 'all-season',
+          : season === t('all-season')
+          ? 'all-season'
+          : '',
       )}&brand=${JSON.stringify(brand)}`,
       { replace: true },
     );
@@ -160,30 +163,34 @@ function TiresFilter() {
         reason: AutocompleteChangeReason,
       ) => {
         if (typeof value !== 'string') return;
-        switch (type) {
-          case 'width':
-            setWidthValue(value);
-            break;
-          case 'profile':
-            setProfileValue(value);
-            break;
-          case 'diametr':
-            setDiametrValue(value);
-            break;
-          case 'season':
-            setSeasonValue(
-              value === t('all-season')
-                ? 'all-season'
-                : value === t('summer')
-                ? 'summer'
-                : 'winter',
-            );
-            break;
-          case 'brand':
-            setBrandValue(value);
-            break;
-          default:
-            break;
+        else if (value !== 'string' || value === null) {
+          switch (type) {
+            case 'width':
+              setWidthValue(value);
+              break;
+            case 'profile':
+              setProfileValue(value);
+              break;
+            case 'diametr':
+              setDiametrValue(value);
+              break;
+            case 'season':
+              setSeasonValue(
+                value === t('summer')
+                  ? 'summer'
+                  : value === t('winter')
+                  ? 'winter'
+                  : value === t('all-season')
+                  ? 'all-season'
+                  : '',
+              );
+              break;
+            case 'brand':
+              setBrandValue(value);
+              break;
+            default:
+              break;
+          }
         }
       },
     [],

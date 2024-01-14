@@ -87,7 +87,8 @@ function FilterShortMenuColumn({
 }: FilterShortMenuColumnProps) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const visableParams = params.length > 0;
+  const visableParams =
+    params.length > 0 && (params.length > 1 || params[0] !== '');
 
   const handleMenuToggle = () => {
     let tabIndex;
@@ -171,64 +172,71 @@ function FilterShortMenuColumn({
         <ArrowForwardIosIcon sx={{ height: '20px' }} />
       </StyledButtonMain>
       {visableParams &&
-        params.map((param) => (
-          <StyledButtonSecondary
-            key={param}
-            disableRipple={true}
-            sx={{
-              borderTop: visableParams
-                ? 'none'
-                : `1px solid ${FILTER_COLORS.BORDER}`,
-              '&:hover': {
+        params
+          .filter((param) => param !== '')
+          .map((param) => (
+            <StyledButtonSecondary
+              key={param}
+              disableRipple={true}
+              sx={{
                 borderTop: visableParams
                   ? 'none'
                   : `1px solid ${FILTER_COLORS.BORDER}`,
-              },
-              '&:active': {
-                borderTop: visableParams
-                  ? 'none'
-                  : `1px solid ${FILTER_COLORS.BORDER}`,
-              },
-            }}>
-            <Box display="flex" alignItems="center" sx={{ padding: '0 12px' }}>
-              <Box
-                display="flex"
-                alignItems="center"
-                sx={{
-                  padding: '1px',
-                  color: 'red',
-                  cursor: 'pointer',
-                  borderRadius: '50%',
-                  transition: 'all 0.5s',
-                  '&:hover': {
-                    backgroundColor: FILTER_COLORS.BACKGROUND_GREY,
-                    transition: 'all 0.3s',
-                  },
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClick(param);
-                }}>
-                <ClearIcon fontSize="inherit" />
-              </Box>
-              {filterName === 'Season' ? (
-                <Typography variant="body2">
-                  {param === 'winter'
-                    ? t('winter')
-                    : param === 'summer'
-                    ? t('summer')
-                    : t('all-season')}
-                </Typography>
-              ) : filterName === 'Studded' ? (
-                <Typography variant="body2">
-                  {param === 'studded' ? t('studded') : t('studless')}
-                </Typography>
-              ) : (
-                <Typography variant="body2">{param}</Typography>
-              )}
-            </Box>
-          </StyledButtonSecondary>
-        ))}
+                '&:hover': {
+                  borderTop: visableParams
+                    ? 'none'
+                    : `1px solid ${FILTER_COLORS.BORDER}`,
+                },
+                '&:active': {
+                  borderTop: visableParams
+                    ? 'none'
+                    : `1px solid ${FILTER_COLORS.BORDER}`,
+                },
+              }}>
+              {
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  sx={{ padding: '0 12px' }}>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    sx={{
+                      padding: '1px',
+                      color: 'red',
+                      cursor: 'pointer',
+                      borderRadius: '50%',
+                      transition: 'all 0.5s',
+                      '&:hover': {
+                        backgroundColor: FILTER_COLORS.BACKGROUND_GREY,
+                        transition: 'all 0.3s',
+                      },
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onClick(param);
+                    }}>
+                    <ClearIcon fontSize="inherit" />
+                  </Box>
+                  {filterName === 'Season' ? (
+                    <Typography variant="body2">
+                      {param === 'winter'
+                        ? t('winter')
+                        : param === 'summer'
+                        ? t('summer')
+                        : t('all-season')}
+                    </Typography>
+                  ) : filterName === 'Studded' ? (
+                    <Typography variant="body2">
+                      {param === 'studded' ? t('studded') : t('studless')}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2">{param}</Typography>
+                  )}
+                </Box>
+              }
+            </StyledButtonSecondary>
+          ))}
     </ButtonGroup>
   );
 }

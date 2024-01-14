@@ -4,7 +4,6 @@ import {
   Box,
   IconButton,
   List,
-  ListItem,
   SwipeableDrawer,
   TextField,
   Typography,
@@ -16,7 +15,7 @@ import {
 } from '../../../../shared/constants';
 import Button from '@mui/material/Button';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import { SyntheticEvent, useCallback, useState } from 'react';
+import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { inputLabelClasses } from '@mui/material/InputLabel';
 import styled from '@emotion/styled';
@@ -25,8 +24,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectFilterData } from '../../../mainPage/selectors';
 import CloseIcon from '@mui/icons-material/Close';
-import { use } from 'i18next';
-import { text } from 'stream/consumers';
+import {
+  selectSelectedBrand,
+  selectSelectedDiametr,
+  selectSelectedProfile,
+  selectSelectedSeason,
+  selectSelectedStudded,
+  selectSelectedWidth,
+} from '../../selectors';
 
 type FieldType =
   | 'width'
@@ -38,6 +43,7 @@ type FieldType =
 
 type AutocompleteOptionType = {
   id: FieldType;
+  value: any;
   options: string[] | number[];
   label: string;
   onChange: (
@@ -116,16 +122,38 @@ export function MobileFilter() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useNavigate();
+  const selectWidth = useSelector(selectSelectedWidth);
+  const selectProfile = useSelector(selectSelectedProfile);
+  const selectDiametr = useSelector(selectSelectedDiametr);
+  const selectedSeason = useSelector(selectSelectedSeason);
+  const selectedBrand = useSelector(selectSelectedBrand);
+  const selectedStudded = useSelector(selectSelectedStudded);
   const filtersParams = useSelector(selectFilterData());
   const [width, setWidthValue] = useState('');
   const [profile, setProfileValue] = useState('');
   const [diametr, setDiametrValue] = useState('');
   const [season, setSeasonValue] = useState('');
+  const [originalSeason, setOriginalSeason] = useState('');
   const [brand, setBrandValue] = useState('');
   const [studded, setStuddedValue] = useState('');
+  const [originalStudded, setOriginalStudded] = useState('');
   const [openFilter, setOpenFilter] = useState({
     left: false,
   });
+
+  useEffect(() => {
+    setWidthValue(selectWidth);
+    setProfileValue(selectProfile);
+    setDiametrValue(selectDiametr);
+    setSeasonValue(selectedSeason.length > 0 ? selectedSeason[0] : '');
+    setStuddedValue(selectedStudded.length > 0 ? selectedStudded[0] : '');
+  }, [
+    selectDiametr,
+    selectProfile,
+    selectWidth,
+    selectedBrand,
+    selectedSeason,
+  ]);
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -145,12 +173,13 @@ export function MobileFilter() {
     dispatch(actions.setSelectedWidth(width));
     dispatch(actions.setSelectedProfile(profile));
     dispatch(actions.setSelectedDiametr(diametr));
-    dispatch(actions.setSeasonChange([season]));
+    dispatch(actions.setSeasonChange([originalSeason]));
     dispatch(actions.setBrandChange([brand]));
-    dispatch(actions.setStuddedChange([studded]));
+    dispatch(actions.setStuddedChange([originalStudded]));
+
     setOpenFilter({ left: false });
     history(
-      `shop/?price=${JSON.stringify([
+      `?price=${JSON.stringify([
         Math.min.apply(null, filtersParams.prices),
         Math.max.apply(null, filtersParams.prices),
       ])}&width=${JSON.stringify(width)}&profile=${JSON.stringify(
@@ -160,8 +189,10 @@ export function MobileFilter() {
           ? 'summer'
           : season === t('winter')
           ? 'winter'
-          : 'all-season',
-      )}&brand=${JSON.stringify(brand)}&studded=${JSON.stringify(studded)}`,
+          : season === t('all-season')
+          ? 'all-season'
+          : '',
+      )}&brand=${JSON.stringify(brand)}`,
       { replace: true },
     );
   };
@@ -174,27 +205,47 @@ export function MobileFilter() {
         reason: AutocompleteChangeReason,
       ) => {
         if (typeof value !== 'string') return;
-        switch (type) {
-          case 'width':
-            setWidthValue(value);
-            break;
-          case 'profile':
-            setProfileValue(value);
-            break;
-          case 'diametr':
-            setDiametrValue(value);
-            break;
-          case 'season':
-            setSeasonValue(value);
-            break;
-          case 'brand':
-            setBrandValue(value);
-            break;
-          case 'studded':
-            setStuddedValue(value);
-            break;
-          default:
-            break;
+        else if (value !== 'string') {
+          switch (type) {
+            case 'width':
+              setWidthValue(value);
+              break;
+            case 'profile':
+              setProfileValue(value);
+              break;
+            case 'diametr':
+              setDiametrValue(value);
+              break;
+            case 'season':
+              const originalValueSeason = value;
+              setSeasonValue(t(value));
+              setOriginalSeason(
+                originalValueSeason === t('summer')
+                  ? 'summer'
+                  : originalValueSeason === t('winter')
+                  ? 'winter'
+                  : originalValueSeason === t('all-season')
+                  ? 'all-season'
+                  : '',
+              );
+              break;
+            case 'brand':
+              setBrandValue(value);
+              break;
+            case 'studded':
+              const originalValueStudded = value;
+              setStuddedValue(t(value));
+              setOriginalStudded(
+                originalValueStudded === t('studded')
+                  ? 'studded'
+                  : originalValueStudded === t('studless')
+                  ? 'studless'
+                  : '',
+              );
+              break;
+            default:
+              break;
+          }
         }
       },
     [],
@@ -202,13 +253,15 @@ export function MobileFilter() {
 
   const sortOptions = useCallback((options: (string | number)[]) => {
     const optionsCopy = [...options];
-    return optionsCopy.sort((a, b) => {
-      const aStr = a.toString();
-      const bStr = b.toString();
-      return isNaN(Number(a)) || isNaN(Number(b))
-        ? aStr.localeCompare(bStr)
-        : Number(a) - Number(b);
-    });
+    return optionsCopy
+      .filter((param) => param !== '')
+      .sort((a, b) => {
+        const aStr = a.toString();
+        const bStr = b.toString();
+        return isNaN(Number(a)) || isNaN(Number(b))
+          ? aStr.localeCompare(bStr)
+          : Number(a) - Number(b);
+      });
   }, []);
 
   const handleCleareAllFilters = () => {
@@ -229,36 +282,42 @@ export function MobileFilter() {
   const autocompleteOptions: AutocompleteOptionType[] = [
     {
       id: 'width',
-      options: filtersParams?.width.slice(1),
+      value: width,
+      options: filtersParams?.width,
       label: t('width'),
       onChange: handleAutocompleteChange('width'),
     },
     {
       id: 'profile',
-      options: filtersParams?.height.slice(1),
+      value: profile,
+      options: filtersParams?.height,
       label: t('profile'),
       onChange: handleAutocompleteChange('profile'),
     },
     {
       id: 'diametr',
-      options: filtersParams?.diametr.slice(1),
+      value: diametr,
+      options: filtersParams?.diametr,
       label: t('diametr'),
       onChange: handleAutocompleteChange('diametr'),
     },
     {
       id: 'season',
+      value: season,
       options: [t('summer'), t('winter'), t('all-season')],
       label: t('season'),
       onChange: handleAutocompleteChange('season'),
     },
     {
       id: 'brand',
+      value: brand,
       options: filtersParams?.brands,
       label: t('brand'),
       onChange: handleAutocompleteChange('brand'),
     },
     {
       id: 'studded',
+      value: studded,
       options: [t('studded'), t('studless')],
       label: t('studded'),
       onChange: handleAutocompleteChange('studded'),
@@ -347,31 +406,34 @@ export function MobileFilter() {
               marginLeft: '8%',
               marginTop: '1rem',
             }}>
-            {autocompleteOptions.map(({ id, options, label, onChange }) => (
-              <StyledAutocomplete
-                key={id}
-                disablePortal
-                onChange={onChange}
-                options={
-                  id === 'width' || id === 'brand'
-                    ? sortOptions(options)
-                    : options
-                }
-                renderInput={(params) => (
-                  <TextField
-                    label={t(label)}
-                    {...params}
-                    InputLabelProps={{
-                      ...params.InputLabelProps,
-                      children: undefined,
-                    }}
-                  />
-                )}
-                sx={{
-                  width: '90%',
-                }}
-              />
-            ))}
+            {autocompleteOptions.map(
+              ({ id, value, options, label, onChange }) => (
+                <StyledAutocomplete
+                  key={id}
+                  value={t(value)}
+                  disablePortal
+                  onChange={onChange}
+                  options={
+                    id === 'width' || id === 'brand'
+                      ? sortOptions(options)
+                      : options
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      label={t(label)}
+                      {...params}
+                      InputLabelProps={{
+                        ...params.InputLabelProps,
+                        children: undefined,
+                      }}
+                    />
+                  )}
+                  sx={{
+                    width: '90%',
+                  }}
+                />
+              ),
+            )}
             <Box display={'flex'} width={'91%'} justifyContent={'space-around'}>
               <StyledButton
                 variant="contained"
