@@ -85,7 +85,7 @@ export function Header() {
   const location = useLocation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
-  const currentLanguageCode = localStorage.getItem('i18nextLng') || 'en';
+  const currentLanguageCode = localStorage.getItem('i18nextLng') || 'ua';
 
   useEffect(() => {
     const cartItemsCountFromStorage = JSON.parse(

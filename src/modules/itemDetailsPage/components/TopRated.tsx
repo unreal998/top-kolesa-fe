@@ -9,6 +9,7 @@ import { BASE_COLORS, FONTS } from '../../../shared/constants';
 import { selectCurrentPageItemList } from '../../shopPage/selectors';
 import { ShopItemCard } from '../../shopPage/components/ShopItemCard';
 import { useRef, WheelEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const settings = {
   dots: true,
@@ -52,6 +53,7 @@ export default function TopRated() {
   const shopItems = useSelector(selectCurrentPageItemList());
   const similarItems = shopItems.sort((a, b) => b.rate - a.rate).slice(0, 9);
   const sliderRef = useRef<Slider | null>(null);
+  const { t } = useTranslation();
 
   const onWheel = (e: WheelEvent<HTMLDivElement>) => {
     if (sliderRef.current) {
@@ -91,7 +93,7 @@ export default function TopRated() {
             paddingLeft: '0',
           },
         }}>
-        Top Rated
+        {t('topRated')}
       </Typography>
       <SlyderBox onWheel={onWheel}>
         <Slider {...settings} ref={sliderRef}>
