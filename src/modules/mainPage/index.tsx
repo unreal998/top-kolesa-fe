@@ -10,21 +10,10 @@ import Loader from '../../shared/components/Loader';
 
 export function MainPage() {
   const dispatch = useDispatch();
-  /*   const filtersParams = useSelector(selectFilterData());
-  const [isLoading, setIsLoading] = useState(true); */
 
   useEffect(() => {
     dispatch(actions.getFilterData());
   }, [dispatch]);
-
-  /* useEffect(() => {
-    const allDataLoaded = Object.values(filtersParams).every(
-      (array) => array.length > 0,
-    );
-    if (allDataLoaded) {
-      setIsLoading(false);
-    }
-  }, [filtersParams]); */
 
   return (
     <Box>
