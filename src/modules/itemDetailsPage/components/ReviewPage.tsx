@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 import { ArrowRight } from '@mui/icons-material';
 
-import { ReviewItem } from './ReviewItem';
 import { BASE_COLORS, FONTS } from '../../../shared/constants';
 import { ButtonWithIcon } from '../../../shared/components/ButtonWithIcon';
 
@@ -54,7 +53,6 @@ export default function ReviewPage() {
           padding: '0 5%',
         },
       }}>
-      <ReviewItem />
       <Stack gap="15px" m={'auto'} width={'100%'}>
         <Typography
           fontWeight="600"
