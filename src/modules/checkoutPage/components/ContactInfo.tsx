@@ -78,7 +78,7 @@ export function ContactInfo({
         fontFamily={FONTS.BOLD_TEXT_FAMILY}>
         {t('contactDestails')}
       </Typography>
-      <Stack gap="0.5rem">
+      <Stack gap="1.5rem">
         {textFields.map((textField, i) => (
           <StyledTextField
             key={i}
