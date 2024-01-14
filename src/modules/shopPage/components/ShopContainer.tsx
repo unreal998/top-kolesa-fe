@@ -1,18 +1,20 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { ShopHeaderBar } from './laptopShopHeaderBar/ShopHeaderBar';
-import { Grid, Pagination, Stack, styled } from '@mui/material';
+import { Box, Grid, Pagination, Stack, styled } from '@mui/material';
 import { ShopItemCard } from './ShopItemCard';
 import { ShopItemTable } from './ShopItemTable';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCardView,
   selectCurrentPageItemList,
+  selectIsLoading,
   selectPagesCount,
   selectSortParams,
 } from '../selectors';
 import { actions } from '../reducer';
 import { MobileShopHeaderBar } from './mobileShopHeaderBar/MobileShopHeaderBar';
 import { BASE_COLORS, FONTS } from '../../../shared/constants';
+import Loader from '../../../shared/components/Loader';
 
 const StyledGridBox = styled(Grid)({
   '@media (min-width: 2050px)': {
@@ -51,6 +53,7 @@ export function ShopContainer() {
   const shopItems = useSelector(selectCurrentPageItemList());
   const cardView = useSelector(selectCardView);
   const sortParams = useSelector(selectSortParams());
+  const isLoading = useSelector(selectIsLoading);
   const [siblingCount, setSiblingCount] = useState(1);
 
   useEffect(() => {
@@ -106,65 +109,78 @@ export function ShopContainer() {
       }}>
       <ShopHeaderBar />
       <MobileShopHeaderBar />
-      <StyledGridBox container spacing={2}>
-        {shopItems &&
-          sorterShopItems.map((item) => (
-            <Grid item={true} key={item.id}>
-              {cardView ? (
-                <ShopItemCard
-                  id={item.id}
-                  brand={item.brand}
-                  name={item.name}
-                  width={item.width}
-                  height={item.height}
-                  diametr={item.diametr}
-                  rating={item.rate}
-                  price={item.price_uah}
-                  imgName={item.image_file}
-                  country={item.country}
-                  season={item.season}
-                  year={item.year}
-                />
-              ) : (
-                <ShopItemTable
-                  id={item.id}
-                  brand={item.brand}
-                  name={item.name}
-                  width={item.width}
-                  height={item.height}
-                  diametr={item.diametr}
-                  rating={item.rate}
-                  price={item.price_uah}
-                  imgName={item.image_file}
-                  country={item.country}
-                  season={item.season}
-                  year={item.year}
-                />
-              )}
-            </Grid>
-          ))}
-      </StyledGridBox>
-      <Pagination
-        onChange={handlePageChange}
-        count={pagesCount}
-        variant="outlined"
-        shape="rounded"
-        siblingCount={siblingCount}
-        sx={{
-          '& .MuiPaginationItem-root': {
-            fontFamily: FONTS.MAIN_TEXT_FAMILY,
-            fontSize: '1rem',
-          },
-          '& .Mui-selected': {
-            color: '#fff',
-            backgroundColor: BASE_COLORS.DEFAULT_BLUE + ' !important',
-          },
-          '& .MuiPaginationItem-page:hover': {
-            backgroundColor: BASE_COLORS.DEFAULT_BLUE + ' !important',
-            color: '#fff',
-          },
-        }}
-      />
+      {isLoading ? (
+        <Box
+          display={'flex'}
+          flexDirection={'column'}
+          alignItems={'center'}
+          justifyContent={'center'}
+          height={'50vh'}>
+          <Loader />
+        </Box>
+      ) : (
+        <>
+          <StyledGridBox container spacing={2}>
+            {shopItems &&
+              sorterShopItems.map((item) => (
+                <Grid item={true} key={item.id}>
+                  {cardView ? (
+                    <ShopItemCard
+                      id={item.id}
+                      brand={item.brand}
+                      name={item.name}
+                      width={item.width}
+                      height={item.height}
+                      diametr={item.diametr}
+                      rating={item.rate}
+                      price={item.price_uah}
+                      imgName={item.image_file}
+                      country={item.country}
+                      season={item.season}
+                      year={item.year}
+                    />
+                  ) : (
+                    <ShopItemTable
+                      id={item.id}
+                      brand={item.brand}
+                      name={item.name}
+                      width={item.width}
+                      height={item.height}
+                      diametr={item.diametr}
+                      rating={item.rate}
+                      price={item.price_uah}
+                      imgName={item.image_file}
+                      country={item.country}
+                      season={item.season}
+                      year={item.year}
+                    />
+                  )}
+                </Grid>
+              ))}
+          </StyledGridBox>
+          <Pagination
+            onChange={handlePageChange}
+            count={pagesCount}
+            variant="outlined"
+            shape="rounded"
+            siblingCount={siblingCount}
+            sx={{
+              '& .MuiPaginationItem-root': {
+                fontFamily: FONTS.MAIN_TEXT_FAMILY,
+                fontSize: '1rem',
+              },
+              '& .Mui-selected': {
+                color: '#fff',
+                backgroundColor: BASE_COLORS.DEFAULT_BLUE + ' !important',
+              },
+              '& .MuiPaginationItem-page:hover': {
+                backgroundColor: BASE_COLORS.DEFAULT_BLUE + ' !important',
+                color: '#fff',
+              },
+            }}
+          />
+        </>
+      )}
     </Stack>
   );
 }
