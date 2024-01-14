@@ -15,6 +15,7 @@ import { actions } from '../reducer';
 import { MobileShopHeaderBar } from './mobileShopHeaderBar/MobileShopHeaderBar';
 import { BASE_COLORS, FONTS } from '../../../shared/constants';
 import Loader from '../../../shared/components/Loader';
+import NoFilterResults from './NoFilterResults';
 
 const StyledGridBox = styled(Grid)({
   '@media (min-width: 2050px)': {
@@ -120,8 +121,9 @@ export function ShopContainer() {
         </Box>
       ) : (
         <>
+          {/* <NoFilterResults /> */}
           <StyledGridBox container spacing={2}>
-            {shopItems &&
+            {shopItems && shopItems.length > 0 ? (
               sorterShopItems.map((item) => (
                 <Grid item={true} key={item.id}>
                   {cardView ? (
@@ -156,7 +158,10 @@ export function ShopContainer() {
                     />
                   )}
                 </Grid>
-              ))}
+              ))
+            ) : (
+              <NoFilterResults />
+            )}
           </StyledGridBox>
           <Pagination
             onChange={handlePageChange}
