@@ -6,6 +6,7 @@ import { BASE_COLORS, FONTS } from '../../../shared/constants';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import { useTranslation } from 'react-i18next';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { GOOGLE_MAP_KEY } from '../../../constants';
 
 const StyledHeadingText = styled(Typography)({
   fontFamily: `${FONTS.BOLD_TEXT_FAMILY}`,
@@ -215,7 +216,7 @@ function GoogleMapBox() {
                   width: '150%',
                 },
               }}>
-              <Wrapper apiKey="AIzaSyD4GZ_2q8aJK28ASr6ZNbpgYAymWP0Vlxw">
+              <Wrapper apiKey={GOOGLE_MAP_KEY}>
                 <GoogleMaps
                   center={
                     address1
@@ -324,7 +325,7 @@ function GoogleMapBox() {
                   width: '150%',
                 },
               }}>
-              <Wrapper apiKey="AIzaSyD4GZ_2q8aJK28ASr6ZNbpgYAymWP0Vlxw">
+              <Wrapper apiKey={GOOGLE_MAP_KEY}>
                 <GoogleMaps
                   center={{
                     lat: 49.207908075179304,
