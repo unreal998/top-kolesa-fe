@@ -92,8 +92,10 @@ const FilterShortMenuContainer = () => {
     selectWidth.length > 0 ||
     selectProfile.length > 0 ||
     selectDiametr.length > 0 ||
-    selectedSeason.length > 0 ||
-    selectedBrand.length > 0 ||
+    (selectedSeason.length > 0 &&
+      (selectedSeason.length > 1 || selectedSeason[0] !== '')) ||
+    (selectedBrand.length > 0 &&
+      (selectedBrand.length > 1 || selectedBrand[0] !== '')) ||
     selectedStudded.length > 0;
 
   const handleClearRowsFilters = () => {
