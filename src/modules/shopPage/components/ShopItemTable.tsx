@@ -24,8 +24,8 @@ const HoverableBox = styled(motion.div)({
   },
 });
 
-const hoverAnimationBack = {
-  rest: {
+const hoverAnimationBackVariants = {
+  initial: {
     x: 100,
     opacity: 0,
     transition: {
@@ -42,25 +42,19 @@ const hoverAnimationBack = {
     },
   },
   tap: {
-    y: 0,
+    x: 0,
     opacity: 1,
     transition: {
       duration: 0.3,
       ease: 'easeInOut',
     },
   },
-};
-const hoverAnimationText = {
   rest: {
+    x: 100,
     opacity: 0,
     transition: {
-      duration: 0.1,
-    },
-  },
-  hover: {
-    opacity: 1,
-    transition: {
       duration: 0.3,
+      ease: 'easeInOut',
     },
   },
 };
@@ -179,15 +173,12 @@ export function ShopItemTable({
             </Typography>
           </Stack>
           <HoverableBox
-            variants={hoverAnimationBack}
-            whileTap={{
-              y: 0,
-              opacity: 1,
-              transition: {
-                duration: 0.3,
-                ease: 'easeInOut',
-              },
-            }}>
+            variants={hoverAnimationBackVariants}
+            initial="initial"
+            whileHover="hover"
+            animate="rest"
+            whileTap="tap"
+            exit="rest">
             <Box
               width={'130%'}
               px={'1.5rem'}
@@ -218,7 +209,7 @@ export function ShopItemTable({
                 />
                 <StyledTextBold>{t('shortInfo')}</StyledTextBold>
               </Box>
-              <motion.div variants={hoverAnimationText}>
+              <Box>
                 {tableData.map((item, index) => (
                   <Box
                     key={index}
@@ -228,7 +219,7 @@ export function ShopItemTable({
                     <StyledTextBold>{item.info}</StyledTextBold>
                   </Box>
                 ))}
-              </motion.div>
+              </Box>
             </Box>
           </HoverableBox>
         </motion.div>
