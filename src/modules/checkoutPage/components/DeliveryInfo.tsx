@@ -181,7 +181,7 @@ export function DeliveryInfo({
         </RadioGroup>
       </FormControl>
       {deliveryState === 'post' && (
-        <Stack gap="10px">
+        <Stack gap="1.5rem">
           <StyledAutocomplete
             freeSolo
             disableClearable
