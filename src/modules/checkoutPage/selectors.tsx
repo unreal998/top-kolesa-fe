@@ -21,3 +21,9 @@ export const selectFetchedCityName =
   ({ checkoutSliceData }: CheckoutSliceStore) => {
     return checkoutSliceData.cityDataResponce.Addresses[0]?.MainDescription;
   };
+
+export const selectCreatedOrderId =
+  () =>
+  ({ checkoutSliceData }: CheckoutSliceStore) => {
+    return checkoutSliceData.createdOrderId;
+  };

@@ -3,6 +3,7 @@ import { Wrapper } from '@googlemaps/react-wrapper';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FONTS } from '../../../shared/constants';
+import { GOOGLE_MAP_KEY } from '../../../constants';
 
 function MyMapComponent({
   center,
@@ -234,7 +235,7 @@ export function GoogleMap() {
             </Typography>
           </Stack>
         </Stack>
-        <Wrapper apiKey="AIzaSyD4GZ_2q8aJK28ASr6ZNbpgYAymWP0Vlxw">
+        <Wrapper apiKey={GOOGLE_MAP_KEY}>
           <MyMapComponent center={center} zoom={zoom} />
         </Wrapper>
       </Box>

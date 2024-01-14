@@ -12,6 +12,7 @@ import {
   selectFetchedCityName,
   selectCityListData,
   selectWarehoutListData,
+  selectCreatedOrderId,
 } from './selectors';
 import { selectShopItemsList } from '../shopPage/selectors';
 import { itemBuyDataBuilder } from '../itemDetailsPage/utils/itemBuyDataBuilder';
@@ -28,6 +29,7 @@ import { DeliveryInfo } from './components/DeliveryInfo';
 import { PaymentInfo } from './components/PaymentInfo';
 import { Comment } from './components/Comment';
 import EmptyCart from '../../shared/components/header/EmptyCart';
+import { useNavigate } from 'react-router-dom';
 
 export function CheckoutPage() {
   const dispatch = useDispatch();
@@ -50,6 +52,8 @@ export function CheckoutPage() {
   const [inputedLastName, setInputedLastName] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [totalAmount, setTotalAmount] = useState(0);
+  const createdOrderId = useSelector(selectCreatedOrderId());
+  const history = useNavigate();
 
   const handleCityTextChange = useCallback(
     (e: SyntheticEvent) => {
@@ -97,6 +101,13 @@ export function CheckoutPage() {
     },
     [fetchedCityName, dispatch],
   );
+
+  useEffect(() => {
+    if (createdOrderId !== '') {
+      localStorage.removeItem('cartItem');
+      history(`/order?id=${createdOrderId}`);
+    }
+  }, [createdOrderId]);
 
   useEffect(() => {
     const localStorageCartItems = JSON.parse(

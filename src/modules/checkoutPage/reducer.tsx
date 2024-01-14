@@ -13,11 +13,12 @@ type CheckoutPage = {
   cityData: AutocompleateData[];
   warehouseData: AutocompleateData[];
   error: string;
+  createdOrderId: string;
   cityDataResponce: CityListResponceData;
 };
 
 export type BuyItemResponce = {
-  orderId: string;
+  orderId: number;
 };
 
 const initialState: CheckoutPage = {
@@ -30,6 +31,7 @@ const initialState: CheckoutPage = {
     TotalCount: 0,
     Addresses: [],
   },
+  createdOrderId: '',
 };
 
 export const checkoutSlice = createSlice({
@@ -69,7 +71,9 @@ export const checkoutSlice = createSlice({
     fetchBuyItemActionSuccess(
       state,
       { payload }: PayloadAction<BuyItemResponce>,
-    ) {},
+    ) {
+      state.createdOrderId = payload.orderId.toString();
+    },
     fetchBuyItemActionFailed(state, { payload }: PayloadAction<string>) {},
   },
 });
