@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import WebFont from 'webfontloader';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MainPage } from './modules/mainPage';
@@ -12,8 +12,15 @@ import { OrderPage } from './modules/orderPage';
 import './App.css';
 import AboutPage from './modules/aboutPage';
 import ErrorPage from './modules/errorPage';
+import { useSelector } from 'react-redux';
+import { selectFilterData } from './modules/mainPage/selectors';
+import { Box } from '@mui/material';
+import Loader from './shared/components/Loader';
 
 function App() {
+  const filtersParams = useSelector(selectFilterData());
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     WebFont.load({
       google: {
@@ -21,9 +28,38 @@ function App() {
       },
     });
   }, []);
+
+  useEffect(() => {
+    const allDataLoaded = Object.values(filtersParams).every(
+      (array) => array.length > 0,
+    );
+    if (allDataLoaded) {
+      setIsLoading(false);
+    }
+  }, [filtersParams]);
   return (
     <>
       <BrowserRouter>
+        {isLoading && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              zIndex: 9999,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              backgroundImage: "url('/imgs/ourServiceImgs/bg.jpg')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}>
+            <Loader />
+          </Box>
+        )}
         <Header />
         <Routes>
           <Route path="/" element={<MainPage />} />
