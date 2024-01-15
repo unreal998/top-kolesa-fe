@@ -59,8 +59,27 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
   }, [dispatch]);
 
   const handleFastBuy = useCallback(() => {
+    const existingCartItemsString = localStorage.getItem('cartItem');
+    const existingCartItems = existingCartItemsString
+      ? JSON.parse(existingCartItemsString)
+      : [];
+
+    const itemIndex = existingCartItems.findIndex(
+      (item: CartItemData) => item.tireId === tireId,
+    );
+
+    if (itemIndex > -1) {
+      existingCartItems[itemIndex].numberOfTires += numberOfTires;
+    } else {
+      existingCartItems.push({ tireId, numberOfTires });
+    }
+
+    localStorage.setItem('cartItem', JSON.stringify(existingCartItems));
+
+    const cartItems = JSON.parse(localStorage.getItem('cartItem') || '').length;
+    dispatch(actions.setCartItemCount(cartItems));
     history(`/checkout`, { replace: true });
-  }, [history]);
+  }, [dispatch, history]);
 
   const handleNumberOfTires = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
