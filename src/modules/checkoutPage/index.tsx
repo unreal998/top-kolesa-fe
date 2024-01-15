@@ -77,7 +77,13 @@ export function CheckoutPage() {
     } else {
       return !!inputedPhone && !!inputedFirstName;
     }
-  }, [inputedPhone, inputedFirstName, inputedCityName, selectedWarehouse]);
+  }, [
+    deliveryState,
+    inputedPhone,
+    inputedFirstName,
+    inputedCityName,
+    selectedWarehouse,
+  ]);
 
   const handleOrder = useCallback(() => {
     if (checkoutItemsDetails) {
