@@ -66,6 +66,19 @@ export function CheckoutPage() {
     [dispatch],
   );
 
+  const isRequiredFieldsPassed = useCallback(() => {
+    if (deliveryState === 'post') {
+      return (
+        !!inputedPhone &&
+        !!inputedFirstName &&
+        !!inputedCityName &&
+        !!selectedWarehouse
+      );
+    } else {
+      return !!inputedPhone && !!inputedFirstName;
+    }
+  }, [inputedPhone, inputedFirstName, inputedCityName, selectedWarehouse]);
+
   const handleOrder = useCallback(() => {
     if (checkoutItemsDetails) {
       dispatch(
@@ -250,6 +263,7 @@ export function CheckoutPage() {
               },
             }}>
             <CartInfo
+              isBuyButtonDisabled={!isRequiredFieldsPassed()}
               updateCartItems={updateCartItems}
               cartItems={cartItemDetails}
               totalAmount={totalAmount}

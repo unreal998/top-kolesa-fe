@@ -189,7 +189,7 @@ export function DeliveryInfo({
             options={optionsData}
             onSelect={(e) => handleCityTextChange(e)}
             renderInput={(params: any) => (
-              <StyledTextField {...params} label={t('city')} />
+              <StyledTextField required={true} {...params} label={t('city')} />
             )}
           />
           <StyledAutocomplete
@@ -199,7 +199,11 @@ export function DeliveryInfo({
             onSelect={(e) => handleWarehouseTextChange(e)}
             options={optionsWarehouseData}
             renderInput={(params: any) => (
-              <StyledTextField {...params} label={t('warehouse')} />
+              <StyledTextField
+                required={true}
+                {...params}
+                label={t('warehouse')}
+              />
             )}
           />
         </Stack>

@@ -9,6 +9,7 @@ type CartInfoProps = {
   updateCartItems: (data: CartItemData[]) => void;
   totalAmount: number;
   handleOrder: () => void;
+  isBuyButtonDisabled: boolean;
 };
 
 export function CartInfo({
@@ -16,6 +17,7 @@ export function CartInfo({
   updateCartItems,
   totalAmount,
   handleOrder,
+  isBuyButtonDisabled,
 }: CartInfoProps) {
   const { t } = useTranslation();
 
@@ -83,7 +85,10 @@ export function CartInfo({
             {`${totalAmount} ${t('uah')}`}
           </Typography>
         </Box>
-        <StyledButton variant="contained" onClick={handleOrder}>
+        <StyledButton
+          disabled={isBuyButtonDisabled}
+          variant="contained"
+          onClick={handleOrder}>
           {' '}
           {t('buy')}
         </StyledButton>

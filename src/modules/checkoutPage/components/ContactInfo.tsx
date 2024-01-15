@@ -49,7 +49,7 @@ export function ContactInfo({
     },
     {
       label: t('secondName'),
-      required: true,
+      required: false,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
         setInputedLastName(e.target.value),
     },
