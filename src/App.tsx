@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import { selectFilterData } from './modules/mainPage/selectors';
 import { Box } from '@mui/material';
 import Loader from './shared/components/Loader';
+import { BASE_COLORS } from './shared/constants';
 
 function App() {
   const filtersParams = useSelector(selectFilterData());
@@ -52,8 +53,7 @@ function App() {
               width: '100%',
               height: '100%',
               zIndex: 9999,
-              backgroundColor: 'rgba(0,0,0,0.5)',
-              backgroundImage: "url('/imgs/ourServiceImgs/bg.jpg')",
+              backgroundColor: BASE_COLORS.BACKGROUND_WHITE,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}>
