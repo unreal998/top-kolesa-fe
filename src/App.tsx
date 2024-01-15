@@ -19,9 +19,6 @@ import Loader from './shared/components/Loader';
 import { BASE_COLORS } from './shared/constants';
 
 function App() {
-  const filtersParams = useSelector(selectFilterData());
-  const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     WebFont.load({
       google: {
@@ -30,36 +27,9 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    const allDataLoaded = Object.values(filtersParams).every(
-      (array) => array.length > 0,
-    );
-    if (allDataLoaded) {
-      setIsLoading(false);
-    }
-  }, [filtersParams]);
   return (
     <>
       <BrowserRouter>
-        {isLoading && (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: 9999,
-              backgroundColor: BASE_COLORS.BACKGROUND_WHITE,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}>
-            <Loader />
-          </Box>
-        )}
         <Header />
         <Routes>
           <Route path="/" element={<MainPage />} />
