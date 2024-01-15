@@ -54,7 +54,7 @@ export function PaymentInfo({
             }
           />
           <FormControlLabel
-            value="card"
+            value="transfer"
             control={<StyledRadio />}
             label={
               <Typography

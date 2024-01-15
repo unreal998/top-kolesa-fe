@@ -63,7 +63,13 @@ export function itemBuyDataBuilder(
       updatedAt: new Date().toISOString(),
       shipmentFrom: '0000-00-00 00:00:00',
       shipmentUntil: '0000-00-00 00:00:00',
-      comment: userData.comment + ' test comment DEVELOP!!!!!',
+      comment:
+        userData.comment +
+          ' test comment DEVELOP!!!!!' +
+          userData.paymentType ===
+        'transfer'
+          ? ' хоче розрахуватись переказом'
+          : ' хоче розрахуватися готівкою',
       source: 'new site develop',
       referer: 'localhost',
       forPrint: 0,

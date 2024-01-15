@@ -21,6 +21,7 @@ export type UserData = {
   userName: string;
   email: string;
   comment: string;
+  paymentType: string;
 };
 
 export type CheckoutItemData = CartItemData & ShopItemAPI;

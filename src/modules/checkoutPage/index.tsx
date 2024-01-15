@@ -96,6 +96,7 @@ export function CheckoutPage() {
             comment: inputedComment,
             phone: inputedPhone,
             userName: `${inputedFirstName} ${inputedLastName}`,
+            paymentType: paymentState,
           }),
         ),
       );
