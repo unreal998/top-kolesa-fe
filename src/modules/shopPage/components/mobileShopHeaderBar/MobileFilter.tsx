@@ -411,6 +411,7 @@ export function MobileFilter() {
                 <StyledAutocomplete
                   key={id}
                   value={t(value)}
+                  clearIcon={value ? undefined : false}
                   disablePortal
                   onChange={onChange}
                   options={
