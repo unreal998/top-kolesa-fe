@@ -46,6 +46,7 @@ export type ShopItemAPI = {
   size_id: number;
   supplier_id: number;
   param: string; // studded
+  in_stock: number;
 };
 
 export type CartStorageData = {

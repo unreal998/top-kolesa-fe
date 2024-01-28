@@ -49,11 +49,16 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
   const dispatch = useDispatch();
   const selectedItemData = useSelector(selectSelectedItemData());
   const history = useNavigate();
-  const [numberOfTires, setNumberOfTires] = useState<number>(4);
+  const [numberOfTires, setNumberOfTires] = useState<number | undefined>(4);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(document.location.search);
     const selectedItemId = searchParams.get('id');
+
+    selectedItemData && selectedItemData?.in_stock >= 4
+      ? setNumberOfTires(4)
+      : setNumberOfTires(selectedItemData?.in_stock);
+
     dispatch(actions.getShopItems(''));
     dispatch(actions.setSelectedItemId(selectedItemId || ''));
   }, [dispatch]);
@@ -83,12 +88,14 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
 
   const handleNumberOfTires = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    const numValue = Number(value);
-    if (numValue >= 1) {
-      setNumberOfTires(numValue);
-    } else {
-      setNumberOfTires(1);
-    }
+    let numValue = Number(value);
+
+    numValue = Math.max(numValue, 1);
+
+    const maxAvailable = selectedItemData?.in_stock ?? 1;
+    numValue = Math.min(numValue, maxAvailable);
+
+    setNumberOfTires(numValue);
   };
 
   const handleAddToCart = () => {
@@ -142,7 +149,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
             fontSize: '2.2rem',
           },
         }}>
-        {Number(selectedItemData?.price_uah) * numberOfTires} {t('uah')}
+        {Number(selectedItemData?.price_uah) * (numberOfTires ?? 1)} {t('uah')}
       </Typography>
       <Box
         display={'flex'}
