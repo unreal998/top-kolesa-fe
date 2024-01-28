@@ -30,8 +30,8 @@ function MyMapComponent({
         title: 'Hello World!',
       });
       const mySeccondLatLng = {
-        lat: 49.207908075179304,
-        lng: 28.500303753907346,
+        lat: 49.203685,
+        lng: 28.498228,
       };
       new google.maps.Marker({
         position: mySeccondLatLng,

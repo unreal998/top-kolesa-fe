@@ -2,7 +2,7 @@
   "headerCity": "Vinnytsia",
   "headerAddress": "Mechnikova str 1a",
   "headerAddress2": "Tyvrivske shose str 2-3",
-  "workHours": "Mon-Fri: 9:00 - 18:00, Sat: 10:00 - 16:00",
+  "workHours": "Mon-Fri: 9:00 - 18:00, Sat: 9:00 - 16:00",
   "homeLabel": "Home",
   "shopLabel": "Shop",
   "aboutLabel": "About",
@@ -187,5 +187,6 @@
   "noResultsText2": "Please try other filter options",
   "topRated": "Top Rated",
   "tireCenterGlobal": "'Global' - Tire center 'Global'",
-  "tireCenterTyrePlus": "'Tyre Plus' - Tire center 'Tyre Plus'"
+  "tireCenterTyrePlus": "'Tyre Plus' - Tire center 'Tyre Plus'",
+  "officialRepresentative": "Official representative"
 }

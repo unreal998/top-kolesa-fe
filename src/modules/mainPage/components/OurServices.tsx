@@ -12,7 +12,7 @@ import styled from '@emotion/styled';
 import { useRef, WheelEvent } from 'react';
 
 const settings = {
-  dots: false,
+  dots: true,
   infinite: true,
   speed: 500,
   slidesToShow: 4,
@@ -44,6 +44,16 @@ const settings = {
 const StyledServicesBox = styled(Box)({
   width: '80rem',
   margin: '2rem auto',
+  '.slick-dots li button:before': {
+    color: BASE_COLORS.DEFAULT_BLUE,
+    fontSize: '8px',
+  },
+  '.slick-dots li.slick-active button:before': {
+    color: BASE_COLORS.DEFAULT_BLUE,
+  },
+  '.slick-slide > div': {
+    margin: '0 10px',
+  },
   '@media (min-width: 2400px)': {
     width: '110rem',
   },

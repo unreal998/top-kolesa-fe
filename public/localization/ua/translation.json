@@ -2,7 +2,7 @@
   "headerCity": "Вінниця",
   "headerAddress": "вул. Мечнікова 1a",
   "headerAddress2": "вул. Тиврівське шосе 2-З",
-  "workHours": "Пн - Пт: 9:00 - 18:00, Сб: 10:00 - 16:00",
+  "workHours": "Пн - Пт: 9:00 - 18:00, Сб: 9:00 - 16:00",
   "homeLabel": "Головна",
   "shopLabel": "Магазин",
   "aboutLabel": "Про нас",
@@ -136,7 +136,7 @@
   "set": "Застосувати",
   "noMatchesFound": "Збігів не знайдено",
   "studdedFilter": "Шипы",
-  "studded": "Шиповані",
+  "studded": "Шипування",
   "studless": "Нешиповані",
   "review": "Відгук",
   "reviews": "Відгуки",
@@ -187,5 +187,7 @@
   "noResultsText2": "Спробуйте інші параметри фільтра.",
   "topRated": "Популярні",
   "tireCenterGlobal": "'Глобал' - Шинний центр 'Глобал'",
-  "tireCenterTyrePlus": "'Tyre Plus' - Шинний центр 'Tyre Plus'"
+  "tireCenterTyrePlus": "'Tyre Plus' - Шинний центр 'Tyre Plus'",
+  "officialRepresentative": "Офіційний представник"
+
 }

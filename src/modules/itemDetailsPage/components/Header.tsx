@@ -60,24 +60,6 @@ export default function Header() {
             {t('inStock')}
           </Typography>
         </Box>
-        <Box display={'flex'}>
-          <Typography
-            fontSize="0.8rem"
-            fontFamily={FONTS.BOLD_TEXT_FAMILY}
-            fontWeight={600}
-            color={BASE_COLORS.DEFAULT_GREY}
-            variant="body1">
-            {t('article')}:
-          </Typography>
-          <Typography
-            fontSize="0.8rem"
-            color={BASE_COLORS.DEFAULT_GREY}
-            variant="body1"
-            fontFamily={FONTS.MAIN_TEXT_FAMILY}
-            pl={0.5}>
-            {selectedItemData?.id}
-          </Typography>
-        </Box>
       </Box>
     </>
   );

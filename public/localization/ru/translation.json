@@ -2,7 +2,7 @@
   "headerCity": "Винница",
   "headerAddress": "ул. Мечникова 1a",
   "headerAddress2": "ул. Тивровское шосе 2-З",
-  "workHours": "Пн - Пт: 9:00 - 18:00, Сб: 10:00 - 16:00",
+  "workHours": "Пн - Пт: 9:00 - 18:00, Сб: 9:00 - 16:00",
   "homeLabel": "Главная",
   "shopLabel": "Магазин",
   "aboutLabel": "О нас",
@@ -136,7 +136,7 @@
   "set": "Применить",
   "noMatchesFound": "Совпадений не найдено",
   "studdedFilter": "Шипы",
-  "studded": "Шипованные",
+  "studded": "Шипирование",
   "studless": "Нешипованные",
   "review": "Отзыв",
   "reviews": "Отзывы",
@@ -187,5 +187,6 @@
   "noResultsText2": "Пожалуйста, попробуйте другие варианты фильтра.",
   "topRated": "Популярные",
   "tireCenterGlobal": "'Глобал' - Шинный центр 'Глобал'",
-  "tireCenterTyrePlus": "'Tyre Plus' - Шинный центр 'Tyre Plus'"
+  "tireCenterTyrePlus": "'Tyre Plus' - Шинный центр 'Tyre Plus'",
+  "officialRepresentative": "Официальный представитель"
 }

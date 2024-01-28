@@ -9,6 +9,7 @@ import i18next from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { TypographyWithIcon } from '../../../modules/mainPage/components/TypographyWithIcon';
 import { useLocation } from 'react-router-dom';
+import PhoneIcon from '@mui/icons-material/Phone';
 
 import {
   Box,
@@ -182,13 +183,9 @@ export function Header() {
             }
           />
           <TypographyWithIcon
-            icon={<MapsHomeWorkOutlined sx={{ fill: '#FFF', width: '2rem' }} />}
+            icon={<PhoneIcon sx={{ fill: '#FFF', width: '2rem' }} />}
             typography={
-              <StyledTextMain>
-                {`${t('headerCity')}, ${t('headerAddress')} / ${t(
-                  'headerAddress2',
-                )}`}
-              </StyledTextMain>
+              <StyledTextMain>(063/097/099) 273-77-44</StyledTextMain>
             }
           />
           <TypographyWithIcon
