@@ -2,6 +2,7 @@
   "headerCity": "Вінниця",
   "headerAddress": "вул. Мечнікова 1a",
   "headerAddress2": "вул. Тиврівське шосе 2-З",
+  "pickupAddress2": "вул. Данила Нечая 2-З",
   "workHours": "Пн - Пт: 9:00 - 18:00, Сб: 9:00 - 16:00",
   "homeLabel": "Головна",
   "shopLabel": "Магазин",
@@ -186,5 +187,6 @@
   "noResultsText1": "Ми не можемо знайти жодного результату, який відповідає критеріям фільтра.",
   "noResultsText2": "Спробуйте інші параметри фільтра.",
   "topRated": "Популярні",
-  "officialRepresentative": "Офіційний представник"
+  "officialRepresentative": "Офіційний представник",
+  "paymentUponReceipt": "Оплата при отриманні"
 }

@@ -2,6 +2,7 @@ import { Stack, TextField, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { BASE_COLORS, FONTS } from '../../../shared/constants';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
 const StyledTextField = styled(TextField)({
   '& .MuiInputBase-input': {
@@ -39,6 +40,34 @@ export function ContactInfo({
   setInputedEmail,
 }: ContactInfoProps) {
   const { t } = useTranslation();
+  const [phoneValue, setPhoneValue] = useState('+380 (__) ___ __ __');
+
+  const applyPhoneMask = (value: string) => {
+    let maskedValue = '+380 ';
+    let numericValue = value.replace(/\D/g, '').slice(3);
+
+    if (numericValue.length > 0) {
+      maskedValue += ` (${numericValue.slice(0, 2)}`;
+    }
+    if (numericValue.length > 2) {
+      maskedValue += `) ${numericValue.slice(2, 5)}`;
+    }
+    if (numericValue.length > 5) {
+      maskedValue += ` ${numericValue.slice(5, 7)}`;
+    }
+    if (numericValue.length > 7) {
+      maskedValue += ` ${numericValue.slice(7, 9)}`;
+    }
+
+    return maskedValue;
+  };
+
+  const handlePhoneChange = (event: any) => {
+    const { value } = event.target;
+    const maskedValue = applyPhoneMask(value);
+    setPhoneValue(maskedValue);
+    setInputedPhone(maskedValue);
+  };
 
   const textFields = [
     {
@@ -49,15 +78,16 @@ export function ContactInfo({
     },
     {
       label: t('secondName'),
-      required: false,
+      required: true,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
         setInputedLastName(e.target.value),
     },
     {
+      id: 'phone',
       label: t('number'),
       required: true,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setInputedPhone(e.target.value),
+      onChange: handlePhoneChange,
+      value: phoneValue,
     },
     {
       label: t('email'),
@@ -85,6 +115,7 @@ export function ContactInfo({
             label={textField.label}
             required={textField.required}
             onChange={textField.onChange}
+            value={textField.value}
           />
         ))}
       </Stack>

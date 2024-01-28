@@ -2,6 +2,7 @@
   "headerCity": "Vinnytsia",
   "headerAddress": "Mechnikova str 1a",
   "headerAddress2": "Tyvrivske shose str 2-3",
+  "pickupAddress2": "Danyla Nechaya str 2-З",
   "workHours": "Mon-Fri: 9:00 - 18:00, Sat: 9:00 - 16:00",
   "homeLabel": "Home",
   "shopLabel": "Shop",
@@ -186,5 +187,6 @@
   "noResultsText1": "We can't find any results that match your filter criteria.",
   "noResultsText2": "Please try other filter options",
   "topRated": "Top Rated",
-  "officialRepresentative": "Official representative"
+  "officialRepresentative": "Official representative",
+  "paymentUponReceipt": "Payment upon receipt"
 }

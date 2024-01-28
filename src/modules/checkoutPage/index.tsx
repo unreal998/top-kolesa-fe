@@ -52,6 +52,7 @@ export function CheckoutPage() {
   const [inputedLastName, setInputedLastName] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [totalAmount, setTotalAmount] = useState(0);
+  const [pickup, setPickup] = useState<boolean>(true);
   const createdOrderId = useSelector(selectCreatedOrderId());
   const history = useNavigate();
 
@@ -209,6 +210,16 @@ export function CheckoutPage() {
     return warehouseData ? warehouseData.map((option) => option.title) : [];
   }, [warehouseData]);
 
+  const handlePickup = () => {
+    setPickup(true);
+  };
+
+  const handleDelivery = () => {
+    setPickup(false);
+  };
+
+  console.log('delivery', pickup);
+
   return (
     <>
       {checkoutItemsDetails.length > 0 ? (
@@ -254,8 +265,13 @@ export function CheckoutPage() {
               handleCityTextChange={handleCityTextChange}
               handleWarehouseTextChange={handleWarehouseTextChange}
               optionsWarehouseData={optionsWarehouseData}
+              handlePickup={handlePickup}
+              handleDelivery={handleDelivery}
             />
-            <PaymentInfo changePaymentState={changePaymentState} />
+            <PaymentInfo
+              changePaymentState={changePaymentState}
+              pickup={pickup}
+            />
             <Comment setInputedComment={setInputedComment} />
           </Stack>
           <Stack
