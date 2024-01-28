@@ -218,8 +218,6 @@ export function CheckoutPage() {
     setPickup(false);
   };
 
-  console.log('delivery', pickup);
-
   return (
     <>
       {checkoutItemsDetails.length > 0 ? (
