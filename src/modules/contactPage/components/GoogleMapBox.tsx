@@ -33,6 +33,7 @@ function GoogleMapBox() {
 
   return (
     <Box
+      id="googleMapBox"
       sx={{
         '@media (max-width: 800px)': {
           width: '90%',
