@@ -16,7 +16,6 @@ const HoverableBox = styled(motion.div)({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  opacity: 0,
   height: '100%',
 
   '@media (max-width: 2000px)': {
@@ -88,6 +87,7 @@ export function ShopItemTable({
 }: ShopItem) {
   const { t } = useTranslation();
   const [value, setValue] = useState<number | null>(2);
+  const [hoverWindow, setHoverWindow] = useState<boolean>(false);
 
   useEffect(() => {
     setValue(rating);
@@ -102,15 +102,28 @@ export function ShopItemTable({
     { title: t('year'), info: year },
   ];
 
+  const handleHoverOpen = () => {
+    setHoverWindow(true);
+  };
+
+  const handleHoverClose = () => {
+    setHoverWindow(false);
+  };
+
   return (
     <Link
-      href={`/item?id=${id.toString()}`}
+      /* href={`/item?id=${id.toString()}`} */
       sx={{
         textDecoration: 'none',
         outline: 'none',
         textAlign: 'center',
       }}>
-      <Box position="relative">
+      <Box
+        position="relative"
+        onMouseEnter={handleHoverOpen}
+        onMouseLeave={handleHoverClose}
+        onTouchStart={handleHoverOpen}
+        onTouchEnd={handleHoverClose}>
         <motion.div
           initial="rest"
           whileHover="hover"
@@ -173,11 +186,13 @@ export function ShopItemTable({
             </Typography>
           </Stack>
           <HoverableBox
+            sx={{
+              opacity: hoverWindow ? 1 : 0,
+            }}
             variants={hoverAnimationBackVariants}
             initial="initial"
             whileHover="hover"
             animate="rest"
-            whileTap="tap"
             exit="rest">
             <Box
               width={'130%'}

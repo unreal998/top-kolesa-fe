@@ -6,6 +6,7 @@ import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../../constants';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { Opacity } from '@mui/icons-material';
 
 const HoverableBox = styled(motion.div)({
   position: 'absolute',
@@ -17,7 +18,7 @@ const HoverableBox = styled(motion.div)({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  opacity: 0,
+  opacity: 1,
 
   '@media (max-width: 1050px)': {
     with: '1rem',
@@ -100,6 +101,7 @@ export function ShopItemCard({
 }: ShopItem) {
   const { t } = useTranslation();
   const [value, setValue] = useState<number | null>(2);
+  const [hoverWindow, setHoverWindow] = useState<boolean>(false);
 
   useEffect(() => {
     setValue(rating);
@@ -114,6 +116,14 @@ export function ShopItemCard({
     { title: t('year'), info: year },
   ];
 
+  const handleHoverOpen = () => {
+    setHoverWindow(true);
+  };
+
+  const handleHoverClose = () => {
+    setHoverWindow(false);
+  };
+
   return (
     <Link
       href={`/item?id=${id.toString()}`}
@@ -127,7 +137,11 @@ export function ShopItemCard({
         gap="1rem"
         alignItems="center"
         justifyContent="center"
-        position="relative">
+        position="relative"
+        onMouseEnter={handleHoverOpen}
+        onMouseLeave={handleHoverClose}
+        onTouchStart={handleHoverOpen}
+        onTouchEnd={handleHoverClose}>
         <motion.div
           initial="rest"
           whileHover="hover"
@@ -198,11 +212,13 @@ export function ShopItemCard({
             </Typography>
           </Box>
           <HoverableBox
+            sx={{
+              opacity: hoverWindow ? 1 : 0,
+            }}
             variants={hoverAnimationBackVariants}
             initial="initial"
             whileHover="hover"
             animate="rest"
-            whileTap="tap"
             exit="rest">
             <Box
               width={'100%'}
