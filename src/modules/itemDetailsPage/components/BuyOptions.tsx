@@ -6,7 +6,15 @@ import { useTranslation } from 'react-i18next';
 import { actions } from '../../shopPage/reducer';
 import { selectSelectedItemData } from '../../shopPage/selectors';
 
-import { Box, Button, TextField, Typography, styled } from '@mui/material';
+import {
+  Box,
+  Button,
+  ClickAwayListener,
+  TextField,
+  Tooltip,
+  Typography,
+  styled,
+} from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 
@@ -49,6 +57,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
   const dispatch = useDispatch();
   const selectedItemData = useSelector(selectSelectedItemData());
   const history = useNavigate();
+  const [tooltipOpen, setTooltipOpen] = useState<boolean>(false);
   const [numberOfTires, setNumberOfTires] = useState<number | undefined>(4);
 
   useEffect(() => {
@@ -120,6 +129,17 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
     dispatch(actions.setCartItemCount(cartItems));
   };
 
+  const handleTooltipClose = () => {
+    setTooltipOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    setTooltipOpen(numberOfTires === selectedItemData?.in_stock);
+    setTimeout(() => {
+      setTooltipOpen(false);
+    }, 4000);
+  };
+
   const buttonInfo = [
     {
       text: t('addToCart'),
@@ -171,13 +191,31 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
             gap: '4rem',
           },
         }}>
-        <StyledTextField
-          id="outlined-basic"
-          variant="outlined"
-          type="number"
-          value={numberOfTires}
-          onChange={handleNumberOfTires}
-        />
+        <ClickAwayListener onClickAway={handleTooltipClose}>
+          <Tooltip
+            PopperProps={{
+              disablePortal: true,
+            }}
+            onClose={handleTooltipClose}
+            open={tooltipOpen}
+            disableFocusListener
+            disableHoverListener
+            disableTouchListener
+            placement="bottom"
+            title={t('maxCountTires')}
+            sx={{
+              paddingBottom: '0.5rem',
+            }}>
+            <StyledTextField
+              id="outlined-basic"
+              variant="outlined"
+              type="number"
+              value={numberOfTires}
+              onChange={handleNumberOfTires}
+              onClick={handleTooltipOpen}
+            />
+          </Tooltip>
+        </ClickAwayListener>
         <Box
           display={'flex'}
           gap={'1rem'}

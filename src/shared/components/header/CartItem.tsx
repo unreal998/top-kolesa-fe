@@ -2,11 +2,13 @@ import { t } from 'i18next';
 
 import {
   Box,
+  ClickAwayListener,
   IconButton,
   Link,
   ListItem,
   SxProps,
   Theme,
+  Tooltip,
   Typography,
   styled,
 } from '@mui/material';
@@ -16,7 +18,9 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../constants';
 import { CartItemData } from '../../types';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectSelectedItemData } from '../../../modules/shopPage/selectors';
 
 const StyledCartItem = styled(Box)({
   borderBottom: `1px solid ${BASE_COLORS.DEFAULT_BLUE}`,
@@ -54,15 +58,26 @@ export const CartItem: React.FC<CartItemProps> = ({
   containerStyles,
   updateCartItems,
 }) => {
+  const selectedItemData = useSelector(selectSelectedItemData());
+  const [tooltipOpen, setTooltipOpen] = useState<boolean>(false);
+
   const handleIncreaseQuantity = useCallback(
     (tireId: number) => {
-      const updatedCartItems = cartItems.map((item: CartItemData) =>
-        item.tireId === tireId
-          ? { ...item, numberOfTires: item.numberOfTires + 1 }
-          : item,
-      );
-      localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
-      updateCartItems(updatedCartItems);
+      if (cartItemData.numberOfTires === selectedItemData?.in_stock) {
+        setTooltipOpen(true);
+        setTimeout(() => {
+          setTooltipOpen(false);
+        }, 4000);
+        return;
+      } else {
+        const updatedCartItems = cartItems.map((item: CartItemData) =>
+          item.tireId === tireId
+            ? { ...item, numberOfTires: item.numberOfTires + 1 }
+            : item,
+        );
+        localStorage.setItem('cartItem', JSON.stringify(updatedCartItems));
+        updateCartItems(updatedCartItems);
+      }
     },
     [cartItems],
   );
@@ -98,6 +113,10 @@ export const CartItem: React.FC<CartItemProps> = ({
     },
     [cartItems],
   );
+
+  const handleTooltipClose = () => {
+    setTooltipOpen(false);
+  };
 
   return (
     <ListItem key={index} disablePadding>
@@ -154,38 +173,52 @@ export const CartItem: React.FC<CartItemProps> = ({
                   'uah',
                 )}`}
               </Typography>
-              <Box
-                display={'flex'}
-                alignItems={'center'}
-                justifyContent={'space-between'}
-                width={'7rem'}>
-                <IconButton
-                  onClick={() => {
-                    handleIncreaseQuantity(cartItemData.tireId);
-                  }}>
-                  <AddCircleOutlineIcon
-                    sx={{
-                      color: BASE_COLORS.DEFAULT_BLUE,
-                    }}
-                  />
-                </IconButton>
-                <Typography
-                  variant="h6"
-                  fontWeight={600}
-                  fontFamily={FONTS.BOLD_TEXT_FAMILY}>
-                  {cartItemData.numberOfTires}
-                </Typography>
-                <IconButton
-                  onClick={() => {
-                    handleDecreaseQuantity(cartItemData.tireId);
-                  }}>
-                  <RemoveCircleOutlineIcon
-                    sx={{
-                      color: BASE_COLORS.DEFAULT_BLUE,
-                    }}
-                  />
-                </IconButton>
-              </Box>
+              <ClickAwayListener onClickAway={handleTooltipClose}>
+                <Tooltip
+                  PopperProps={{
+                    disablePortal: true,
+                  }}
+                  onClose={handleTooltipClose}
+                  open={tooltipOpen}
+                  disableFocusListener
+                  disableHoverListener
+                  disableTouchListener
+                  title={t('maxCountTires')}>
+                  <Box
+                    display={'flex'}
+                    alignItems={'center'}
+                    justifyContent={'space-between'}
+                    width={'7rem'}>
+                    <IconButton
+                      onClick={() => {
+                        handleIncreaseQuantity(cartItemData.tireId);
+                      }}>
+                      <AddCircleOutlineIcon
+                        sx={{
+                          color: BASE_COLORS.DEFAULT_BLUE,
+                        }}
+                      />
+                    </IconButton>
+
+                    <Typography
+                      variant="h6"
+                      fontWeight={600}
+                      fontFamily={FONTS.BOLD_TEXT_FAMILY}>
+                      {cartItemData.numberOfTires}
+                    </Typography>
+                    <IconButton
+                      onClick={() => {
+                        handleDecreaseQuantity(cartItemData.tireId);
+                      }}>
+                      <RemoveCircleOutlineIcon
+                        sx={{
+                          color: BASE_COLORS.DEFAULT_BLUE,
+                        }}
+                      />
+                    </IconButton>
+                  </Box>
+                </Tooltip>
+              </ClickAwayListener>
               <Typography
                 variant="subtitle2"
                 fontWeight={500}
