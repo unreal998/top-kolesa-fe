@@ -8,6 +8,7 @@ export type FilterParams = {
   weight: string[];
   brands: string[];
   prices: number[];
+  vechileType: string[];
 };
 
 type MainPageState = {
@@ -23,6 +24,7 @@ const initialState: MainPageState = {
     weight: [],
     brands: [],
     prices: [],
+    vechileType: [],
   },
 };
 

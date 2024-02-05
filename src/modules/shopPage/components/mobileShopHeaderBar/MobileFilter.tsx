@@ -30,6 +30,7 @@ import {
   selectSelectedProfile,
   selectSelectedSeason,
   selectSelectedStudded,
+  selectSelectedVechileType,
   selectSelectedWidth,
 } from '../../selectors';
 
@@ -39,7 +40,8 @@ type FieldType =
   | 'diametr'
   | 'season'
   | 'brand'
-  | 'studded';
+  | 'studded'
+  | 'vechileType';
 
 type AutocompleteOptionType = {
   id: FieldType;
@@ -128,6 +130,7 @@ export function MobileFilter() {
   const selectedSeason = useSelector(selectSelectedSeason);
   const selectedBrand = useSelector(selectSelectedBrand);
   const selectedStudded = useSelector(selectSelectedStudded);
+  const selectedVechileType = useSelector(selectSelectedVechileType);
   const filtersParams = useSelector(selectFilterData());
   const [width, setWidthValue] = useState('');
   const [profile, setProfileValue] = useState('');
@@ -136,6 +139,7 @@ export function MobileFilter() {
   const [originalSeason, setOriginalSeason] = useState('');
   const [brand, setBrandValue] = useState('');
   const [studded, setStuddedValue] = useState('');
+  const [vechileType, setVechileTypeValue] = useState('');
   const [originalStudded, setOriginalStudded] = useState('');
   const [openFilter, setOpenFilter] = useState({
     left: false,
@@ -147,12 +151,14 @@ export function MobileFilter() {
     setDiametrValue(selectDiametr);
     setSeasonValue(selectedSeason.length > 0 ? selectedSeason[0] : '');
     setStuddedValue(selectedStudded.length > 0 ? selectedStudded[0] : '');
+    setVechileTypeValue(vechileType);
   }, [
     selectDiametr,
     selectProfile,
     selectWidth,
     selectedBrand,
     selectedSeason,
+    selectedVechileType,
   ]);
 
   const toggleDrawer =
@@ -176,6 +182,7 @@ export function MobileFilter() {
     dispatch(actions.setSeasonChange([originalSeason]));
     dispatch(actions.setBrandChange([brand]));
     dispatch(actions.setStuddedChange([originalStudded]));
+    dispatch(actions.setVechileTypeChange(vechileType));
 
     setOpenFilter({ left: false });
     history(
@@ -192,7 +199,7 @@ export function MobileFilter() {
           : season === t('all-season')
           ? 'all-season'
           : '',
-      )}&brand=${JSON.stringify(brand)}`,
+      )}&brand=${JSON.stringify(brand)}&vechileType=${vechileType}`,
       { replace: true },
     );
   };
@@ -243,6 +250,9 @@ export function MobileFilter() {
                   : '',
               );
               break;
+            case 'vechileType':
+              setVechileTypeValue(vechileType);
+              break;
             default:
               break;
           }
@@ -271,12 +281,14 @@ export function MobileFilter() {
     setSeasonValue('');
     setBrandValue('');
     setStuddedValue('');
+    setVechileTypeValue('');
     dispatch(actions.setClearSelectedWidth());
     dispatch(actions.setClearSelectedProfile());
     dispatch(actions.setClearSelectedDiametr());
     dispatch(actions.setResetSeason());
     dispatch(actions.setResetBrand());
     dispatch(actions.setResetStudded());
+    dispatch(actions.setVechileTypeChange(''));
   };
 
   const autocompleteOptions: AutocompleteOptionType[] = [
@@ -321,6 +333,13 @@ export function MobileFilter() {
       options: [t('studded'), t('studless')],
       label: t('studded'),
       onChange: handleAutocompleteChange('studded'),
+    },
+    {
+      id: 'vechileType',
+      value: vechileType,
+      options: [t('light'), t('lightTruck'), t('cargo')],
+      label: t('vechileType'),
+      onChange: handleAutocompleteChange('vechileType'),
     },
   ];
 

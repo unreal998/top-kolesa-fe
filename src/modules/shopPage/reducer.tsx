@@ -34,6 +34,7 @@ type ShopPageState = {
   isFullMenuOpen: boolean;
   activeTabIndex: number;
   searchInput: string;
+  selectedVechileType: string;
   selectedWidth: string;
   selectedProfile: string;
   selectedDiametr: string;
@@ -54,6 +55,7 @@ export type FilterParams = {
   season?: string;
   brand?: string;
   studded?: string;
+  vechileType?: string;
 };
 
 const initialState: ShopPageState = {
@@ -71,6 +73,7 @@ const initialState: ShopPageState = {
   selectedWidth: '',
   selectedProfile: '',
   selectedDiametr: '',
+  selectedVechileType: '',
   selectedPrice: [0, 0],
   selectedSeason: [],
   selectedBrand: [],
@@ -92,7 +95,6 @@ export const shopPageSlice = createSlice({
       state.isLoading = false;
     },
     getShopItemsFailure(state, { payload }: PayloadAction<string>) {
-      console.log(payload);
       state.isLoading = false;
     },
     setSelectedItemId(state, { payload }: PayloadAction<string>) {
@@ -171,6 +173,9 @@ export const shopPageSlice = createSlice({
     },
     setStuddedChange: (state, action: PayloadAction<string[]>) => {
       state.selectedStudded = action.payload;
+    },
+    setVechileTypeChange: (state, action: PayloadAction<string>) => {
+      state.selectedVechileType = action.payload;
     },
     setResetStudded: (state) => {
       state.selectedStudded = [];
