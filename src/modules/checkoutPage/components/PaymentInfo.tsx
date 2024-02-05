@@ -18,8 +18,10 @@ const StyledRadio = styled(Radio)({
 
 export function PaymentInfo({
   changePaymentState,
+  pickup,
 }: {
   changePaymentState: (value: string) => void;
+  pickup: boolean;
 }) {
   const { t } = useTranslation();
   return (
@@ -49,7 +51,7 @@ export function PaymentInfo({
                 variant="subtitle1"
                 fontSize={'1.1rem'}
                 fontFamily={FONTS.MAIN_TEXT_FAMILY}>
-                {t('cash')}
+                {pickup ? t('paymentUponReceipt') : t('cash')}
               </Typography>
             }
           />

@@ -85,6 +85,10 @@ export const selectCartItemCount = ({ shopPageSliceData }: ShopSliceStore) =>
 export const selectSelectedStudded = ({ shopPageSliceData }: ShopSliceStore) =>
   shopPageSliceData.selectedStudded;
 
+export const selectSelectedVechileType = ({
+  shopPageSliceData,
+}: ShopSliceStore) => shopPageSliceData.selectedVechileType;
+
 export const selectCartModalWindowOpen = ({
   shopPageSliceData,
 }: ShopSliceStore) => shopPageSliceData.cartModalWindowOpen;

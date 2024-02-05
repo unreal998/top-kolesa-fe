@@ -16,7 +16,6 @@ import {
   styled,
 } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 
 import { ButtonWithIcon } from '../../../shared/components/ButtonWithIcon';
 import { BASE_COLORS, FONTS } from '../../../shared/constants';
@@ -47,7 +46,7 @@ const StyledButton = styled(Button)({
   fontFamily: 'PT Sans, sans-serif',
   borderRadius: '999px',
   padding: '16px 40px',
-  '@media (max-width: 630px)': {
+  '@media (max-width: 918px)': {
     width: '100%',
   },
 });
@@ -71,29 +70,6 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
     dispatch(actions.getShopItems(''));
     dispatch(actions.setSelectedItemId(selectedItemId || ''));
   }, [dispatch]);
-
-  const handleFastBuy = useCallback(() => {
-    const existingCartItemsString = localStorage.getItem('cartItem');
-    const existingCartItems = existingCartItemsString
-      ? JSON.parse(existingCartItemsString)
-      : [];
-
-    const itemIndex = existingCartItems.findIndex(
-      (item: CartItemData) => item.tireId === tireId,
-    );
-
-    if (itemIndex > -1) {
-      existingCartItems[itemIndex].numberOfTires += numberOfTires;
-    } else {
-      existingCartItems.push({ tireId, numberOfTires });
-    }
-
-    localStorage.setItem('cartItem', JSON.stringify(existingCartItems));
-
-    const cartItems = JSON.parse(localStorage.getItem('cartItem') || '').length;
-    dispatch(actions.setCartItemCount(cartItems));
-    history(`/checkout`, { replace: true });
-  }, [dispatch, history]);
 
   const handleNumberOfTires = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -146,11 +122,6 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
       function: handleAddToCart,
       icon: <ShoppingCartOutlinedIcon sx={{ height: '14px', width: '14px' }} />,
     },
-    {
-      text: t('fastBuy'),
-      function: handleFastBuy,
-      icon: <ShoppingBagOutlinedIcon sx={{ height: '14px', width: '14px' }} />,
-    },
   ];
 
   return (
@@ -163,7 +134,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
         fontFamily={FONTS.BOLD_TEXT_FAMILY}
         mt={'2rem'}
         sx={{
-          '@media (max-width: 630px)': {
+          '@media (max-width: 918px)': {
             margin: 'auto',
             marginY: '1rem',
             fontSize: '2.2rem',
@@ -176,15 +147,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
         margin={'2.5rem 0'}
         gap={'1rem'}
         sx={{
-          '@media (max-width: 990px)': {
-            flexDirection: 'column',
-            gap: '3rem',
-            marginTop: '1.5rem',
-          },
           '@media (max-width: 918px)': {
-            flexDirection: 'row',
-          },
-          '@media (max-width: 630px)': {
             flexDirection: 'column',
             alignItems: 'center',
             width: '100%',
@@ -220,7 +183,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
           display={'flex'}
           gap={'1rem'}
           sx={{
-            '@media (max-width: 630px)': {
+            '@media (max-width: 918px)': {
               flexDirection: 'column',
               margin: 'auto',
               width: '100%',

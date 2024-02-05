@@ -203,10 +203,10 @@ export function TiresInput() {
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
 
-            '@media (max-width: 1500px)': {
+            '@media (max-width: 1560px)': {
               backgroundPosition: 'right',
             },
-            '@media (max-width: 1030px)': {
+            '@media (max-width: 1260px)': {
               backgroundPosition: 'center',
             },
           }}>
@@ -230,17 +230,14 @@ export function TiresInput() {
                 variant="h2"
                 m={'auto'}
                 sx={{
-                  '@media (max-width: 620px)': {
+                  '@media (max-width: 700px)': {
                     fontSize: '3rem',
                   },
-                  '@media (max-width: 430px)': {
-                    fontSize: '2.8rem',
-                  },
-                  '@media (max-width: 350px)': {
-                    fontSize: '2.5rem',
+                  '@media (max-width: 570px)': {
+                    fontSize: '2.4rem',
                   },
                 }}>
-                {t('popularBrands')}
+                {t('officialRepresentative')}
               </Typography>
             </Stack>
             <StyledServicesBox>

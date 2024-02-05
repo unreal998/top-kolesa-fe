@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import WebFont from 'webfontloader';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MainPage } from './modules/mainPage';
@@ -12,11 +12,6 @@ import { OrderPage } from './modules/orderPage';
 import './App.css';
 import AboutPage from './modules/aboutPage';
 import ErrorPage from './modules/errorPage';
-import { useSelector } from 'react-redux';
-import { selectFilterData } from './modules/mainPage/selectors';
-import { Box } from '@mui/material';
-import Loader from './shared/components/Loader';
-import { BASE_COLORS } from './shared/constants';
 
 function App() {
   useEffect(() => {

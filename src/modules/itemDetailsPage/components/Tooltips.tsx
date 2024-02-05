@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Stack, Tooltip, Typography } from '@mui/material';
@@ -26,12 +26,33 @@ export default function Tooltips() {
   const [guarantiePopupHover, setGuarantiePopupHover] =
     useState<boolean>(false);
   const [revertPopupHover, setRevertPopupHover] = useState<boolean>(false);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        tooltipRef.current &&
+        !tooltipRef.current.contains(event.target as Node)
+      ) {
+        setDeliveryPopupHover(false);
+        setGuarantiePopupHover(false);
+        setRevertPopupHover(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [tooltipRef]);
 
   return (
     <Stack justifyContent="space-between" direction="row">
       <Tooltip
+        ref={tooltipRef}
         onMouseEnter={() => setDeliveryPopupHover(true)}
         onMouseLeave={() => setDeliveryPopupHover(false)}
+        onClick={() => setDeliveryPopupHover(!deliveryPopupHover)}
+        open={deliveryPopupHover}
         color={BASE_COLORS.DEFAULT_BLUE}
         title={
           <Stack padding="10px">
@@ -66,9 +87,12 @@ export default function Tooltips() {
         </Stack>
       </Tooltip>
       <Tooltip
+        ref={tooltipRef}
         color={BASE_COLORS.DEFAULT_BLUE}
         onMouseEnter={() => setGuarantiePopupHover(true)}
         onMouseLeave={() => setGuarantiePopupHover(false)}
+        onClick={() => setGuarantiePopupHover(!guarantiePopupHover)}
+        open={guarantiePopupHover}
         title={
           <Stack padding="10px">
             <Typography variant="h6" fontFamily={FONTS.BOLD_TEXT_FAMILY}>
@@ -89,9 +113,12 @@ export default function Tooltips() {
         </Stack>
       </Tooltip>
       <Tooltip
+        ref={tooltipRef}
         color={BASE_COLORS.DEFAULT_BLUE}
         onMouseEnter={() => setRevertPopupHover(true)}
         onMouseLeave={() => setRevertPopupHover(false)}
+        onClick={() => setRevertPopupHover(!revertPopupHover)}
+        open={revertPopupHover}
         title={
           <Stack padding="10px">
             <Typography variant="h6" fontFamily={FONTS.BOLD_TEXT_FAMILY}>

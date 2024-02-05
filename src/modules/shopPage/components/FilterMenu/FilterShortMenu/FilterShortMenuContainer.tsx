@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import { actions } from '../../../reducer';
 import {
   selectSelectedBrand,
@@ -7,6 +8,7 @@ import {
   selectSelectedProfile,
   selectSelectedSeason,
   selectSelectedStudded,
+  selectSelectedVechileType,
   selectSelectedWidth,
 } from '../../../selectors';
 import { selectFilterData } from '../../../../mainPage/selectors';
@@ -40,6 +42,7 @@ const FilterShortMenuContainer = () => {
   const selectedSeason = useSelector(selectSelectedSeason);
   const selectedBrand = useSelector(selectSelectedBrand);
   const selectedStudded = useSelector(selectSelectedStudded);
+  const selectedVechileType = useSelector(selectSelectedVechileType);
   const filtersParams = useSelector(selectFilterData());
   const minPrice = Math.min(...filtersParams.prices);
   const maxPrice = Math.max(...filtersParams.prices);
@@ -54,7 +57,8 @@ const FilterShortMenuContainer = () => {
       selectedBrand.length === 0 &&
       selectedStudded.length === 0 &&
       selectedPrice[0] === minPrice &&
-      selectedPrice[1] === maxPrice;
+      selectedPrice[1] === maxPrice &&
+      selectedVechileType === '';
 
     if (isFilterBackToInitial) {
       history('/shop', { replace: true });
@@ -69,7 +73,7 @@ const FilterShortMenuContainer = () => {
           selectedSeason,
         )}&brand=${JSON.stringify(selectedBrand)}&studded=${JSON.stringify(
           selectedStudded,
-        )}`,
+        )}&vechileType=${selectedVechileType}`,
         { replace: true },
       );
     }
@@ -82,6 +86,7 @@ const FilterShortMenuContainer = () => {
     selectedPrice,
     selectedSeason,
     selectedStudded,
+    selectedVechileType,
     minPrice,
     maxPrice,
   ]);
@@ -96,12 +101,13 @@ const FilterShortMenuContainer = () => {
       (selectedSeason.length > 1 || selectedSeason[0] !== '')) ||
     (selectedBrand.length > 0 &&
       (selectedBrand.length > 1 || selectedBrand[0] !== '')) ||
-    selectedStudded.length > 0;
+    selectedStudded.length > 0 ||
+    selectedVechileType !== '';
 
   const handleClearRowsFilters = () => {
     return (
       e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-      filterAction: () => PayloadAction<string, void>,
+      filterAction: () => PayloadAction<string, void | string>,
     ) => {
       e.stopPropagation();
       dispatch(filterAction());
@@ -139,6 +145,7 @@ const FilterShortMenuContainer = () => {
     dispatch(actions.setResetSeason());
     dispatch(actions.setResetBrand());
     dispatch(actions.setResetStudded());
+    dispatch(actions.setVechileTypeChange(''));
   }
 
   return (
@@ -216,6 +223,14 @@ const FilterShortMenuContainer = () => {
             param,
             actions.setStuddedChange,
           )()
+        }
+      />
+      <FilterShortMenuRow
+        icon={<DriveEtaIcon />}
+        filterName="Vechile Type"
+        params={selectedVechileType}
+        onClick={(e) =>
+          handleClearRowsFilters()(e, () => actions.setVechileTypeChange(''))
         }
       />
       {visableResetButton && (

@@ -11,6 +11,7 @@ import {
   BASE_COLORS,
 } from '../../../../../shared/constants';
 import { useTranslation } from 'react-i18next';
+import { useCallback } from 'react';
 
 const StyledButtonMain = styled(Button)({
   display: 'flex',
@@ -105,6 +106,21 @@ function FilterShortMenuColumn({
     dispatch(actions.toggleFullMenu(tabIndex));
   };
 
+  const getFilterName = useCallback((filterName: string) => {
+    switch (filterName) {
+      case 'Season':
+        return t('season');
+      case 'Brand':
+        return t('brand');
+      case 'Studded':
+        return t('studded');
+      case 'Vechile Type':
+        return t('vechileType');
+      default:
+        console.error('Unknown filter name');
+    }
+  }, []);
+
   return (
     <ButtonGroup
       orientation="vertical"
@@ -162,11 +178,7 @@ function FilterShortMenuColumn({
                 : FILTER_COLORS.TEXT_SHORT_MENU,
               transition: 'color 0.2s ease',
             }}>
-            {filterName === 'Season'
-              ? t('season')
-              : filterName === 'Brand'
-              ? t('brand')
-              : t('studded')}
+            {getFilterName(filterName)}
           </Typography>
         </Box>
         <ArrowForwardIosIcon sx={{ height: '20px' }} />
@@ -218,7 +230,7 @@ function FilterShortMenuColumn({
                     }}>
                     <ClearIcon fontSize="inherit" />
                   </Box>
-                  {filterName === 'Season' ? (
+                  {filterName === 'Season' && (
                     <Typography variant="body2">
                       {param === 'winter'
                         ? t('winter')
@@ -226,11 +238,13 @@ function FilterShortMenuColumn({
                         ? t('summer')
                         : t('all-season')}
                     </Typography>
-                  ) : filterName === 'Studded' ? (
+                  )}
+                  {filterName === 'Studded' && (
                     <Typography variant="body2">
                       {param === 'studded' ? t('studded') : t('studless')}
                     </Typography>
-                  ) : (
+                  )}
+                  {filterName !== 'Studded' && filterName !== 'Season' && (
                     <Typography variant="body2">{param}</Typography>
                   )}
                 </Box>
