@@ -40,14 +40,6 @@ const hoverAnimationBackVariants = {
       ease: 'easeInOut',
     },
   },
-  tap: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.3,
-      ease: 'easeInOut',
-    },
-  },
   rest: {
     x: 100,
     opacity: 0,
@@ -112,7 +104,7 @@ export function ShopItemTable({
 
   return (
     <Link
-      /* href={`/item?id=${id.toString()}`} */
+      href={`/item?id=${id.toString()}`}
       sx={{
         textDecoration: 'none',
         outline: 'none',
@@ -124,10 +116,7 @@ export function ShopItemTable({
         onMouseLeave={handleHoverClose}
         onTouchStart={handleHoverOpen}
         onTouchEnd={handleHoverClose}>
-        <motion.div
-          initial="rest"
-          whileHover="hover"
-          animate="rest"
+        <Box
           style={{
             width: '100%',
             display: 'flex',
@@ -186,14 +175,12 @@ export function ShopItemTable({
             </Typography>
           </Stack>
           <HoverableBox
+            variants={hoverAnimationBackVariants}
+            animate={hoverWindow ? 'hover' : 'rest'}
+            exit="rest"
             sx={{
               opacity: hoverWindow ? 1 : 0,
-            }}
-            variants={hoverAnimationBackVariants}
-            initial="initial"
-            whileHover="hover"
-            animate="rest"
-            exit="rest">
+            }}>
             <Box
               width={'130%'}
               px={'1.5rem'}
@@ -237,7 +224,7 @@ export function ShopItemTable({
               </Box>
             </Box>
           </HoverableBox>
-        </motion.div>
+        </Box>
       </Box>
     </Link>
   );

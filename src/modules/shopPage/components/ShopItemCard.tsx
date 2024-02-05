@@ -54,14 +54,6 @@ const hoverAnimationBackVariants = {
       ease: 'easeInOut',
     },
   },
-  tap: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.3,
-      ease: 'easeInOut',
-    },
-  },
   rest: {
     y: 100,
     opacity: 0,
@@ -142,11 +134,7 @@ export function ShopItemCard({
         onMouseLeave={handleHoverClose}
         onTouchStart={handleHoverOpen}
         onTouchEnd={handleHoverClose}>
-        <motion.div
-          initial="rest"
-          whileHover="hover"
-          animate="rest"
-          style={{ width: '100%' }}>
+        <Box style={{ width: '100%' }}>
           <Box
             sx={{
               backgroundImage: imgName
@@ -212,14 +200,12 @@ export function ShopItemCard({
             </Typography>
           </Box>
           <HoverableBox
+            variants={hoverAnimationBackVariants}
+            animate={hoverWindow ? 'hover' : 'rest'}
+            exit="rest"
             sx={{
               opacity: hoverWindow ? 1 : 0,
-            }}
-            variants={hoverAnimationBackVariants}
-            initial="initial"
-            whileHover="hover"
-            animate="rest"
-            exit="rest">
+            }}>
             <Box
               width={'100%'}
               px={'20%'}
@@ -258,7 +244,7 @@ export function ShopItemCard({
               </Box>
             </Box>
           </HoverableBox>
-        </motion.div>
+        </Box>
       </Stack>
     </Link>
   );
