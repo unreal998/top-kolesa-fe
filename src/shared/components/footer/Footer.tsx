@@ -6,6 +6,7 @@ import { Copyright } from './Copyright';
 import { BASE_COLORS, FONTS } from '../../constants';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useCallback } from 'react';
 
 const StyledTextBox = styled(Stack)({
   width: '30%',
@@ -53,7 +54,7 @@ export function Footer() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleShowMap = () => {
+  const handleShowMap = useCallback(() => {
     if (location.pathname !== '/contact' && location.pathname !== '/') {
       navigate('/contact', { state: { scrollToMap: true } });
     } else if (location.pathname === '/contact') {
@@ -61,21 +62,21 @@ export function Footer() {
     } else if (location.pathname === '/') {
       scrollToMapMain();
     }
-  };
+  }, [navigate, location.pathname]);
 
-  const scrollToMapContact = () => {
+  const scrollToMapContact = useCallback(() => {
     const mapBox = document.getElementById('googleMapBox');
     if (mapBox) {
       mapBox.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
-  const scrollToMapMain = () => {
+  const scrollToMapMain = useCallback(() => {
     const mapBox = document.getElementById('mapMainPages');
     if (mapBox) {
       mapBox.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
   const contactPhones = [
     {
