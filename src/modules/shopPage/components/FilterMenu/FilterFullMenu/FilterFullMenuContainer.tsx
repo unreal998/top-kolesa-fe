@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import { selectActiveTabIndex } from '../../../selectors';
 import { actions } from '../../../reducer';
 
@@ -31,6 +32,7 @@ import DiametrIcon from '../../../../../shared/components/Icons/DiametrIcon';
 import StuddedTireIcon from '../../../../../shared/components/Icons/StuddedTireIcon';
 
 import { FONTS, BASE_COLORS } from '../../../../../shared/constants';
+import FilterFullMenuVechileTypeData from './FilterFullMenuVechileTypeData';
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -165,6 +167,14 @@ function FilterFullMenuContainer() {
       text1: t('filterAsideText1Studded'),
       text2: t('filterAsideText2Studded'),
     },
+    VechileType: {
+      inputComponent: FilterFullMenuInput,
+      dataComponent: FilterFullMenuVechileTypeData,
+      headerTitle: t('filterHeaderTitleVechileType'),
+      asideHeader: t('filterAsideHeaderVechileType'),
+      text1: t('filterAsideText1VechileType'),
+      text2: t('filterAsideText2VechileType'),
+    },
   };
 
   const tabsIcons = [
@@ -175,6 +185,7 @@ function FilterFullMenuContainer() {
     { label: <SeasonIcon /> },
     { label: <BrandIcon /> },
     { label: <StuddedTireIcon /> },
+    { label: <DriveEtaIcon /> },
   ];
 
   const menuKeys = Object.keys(menuData);

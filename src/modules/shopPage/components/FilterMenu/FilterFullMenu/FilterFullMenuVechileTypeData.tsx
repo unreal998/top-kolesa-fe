@@ -1,15 +1,16 @@
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSelectedStudded } from '../../../selectors';
+import { selectSelectedVechileType } from '../../../selectors';
 import { actions } from '../../../reducer';
 
 import styled from '@emotion/styled';
 import {
   Box,
   Button,
-  Checkbox,
   FormControlLabel,
   FormGroup,
+  Radio,
+  RadioGroup,
   Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -30,31 +31,28 @@ const CheckBoxContainer = styled(FormGroup)({
   width: '362px',
 });
 
-function FilterFullMenuStuddedData() {
+function FilterFullMenuVechileTypeData() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const selectedStudded = useSelector(selectSelectedStudded);
-  const [studded, setStudded] = useState(selectedStudded);
-  const studdedTypes = [t('studded'), t('studless')];
+  const selectedVechileType = useSelector(selectSelectedVechileType);
+  const vechileTypes = ['light', 'lightTruck', 'cargo'];
+  const [vechileType, setVechileType] = useState(selectedVechileType);
 
-  const handleSeasonChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, studdedOption: string) => {
-      const updatedStudded = e.target.checked
-        ? [...studded, studdedOption]
-        : studded.filter((s) => s !== studdedOption);
-      setStudded(updatedStudded);
+  const handleTypeChange = useCallback(
+    (_: unknown, type: string) => {
+      setVechileType(type);
     },
-    [studded],
+    [vechileType],
   );
 
   const handleSubmit = () => {
-    dispatch(actions.setStuddedChange(studded));
+    dispatch(actions.setVechileTypeChange(vechileType));
     dispatch(actions.toggleFullMenu());
   };
 
   const handleResetFilterSeason = () => {
-    dispatch(actions.setResetStudded());
-    setStudded([]);
+    dispatch(actions.setVechileTypeChange(''));
+    setVechileType('');
   };
 
   return (
@@ -67,12 +65,9 @@ function FilterFullMenuStuddedData() {
           fontSize: '12px',
           marginBottom: '12px',
           width: 'fit-content',
-          cursor:
-            studded.length > 0 || selectedStudded.length > 0
-              ? 'pointer'
-              : 'default',
+          cursor: vechileType !== '' ? 'pointer' : 'default',
           color:
-            studded.length > 0 || selectedStudded.length > 0
+            vechileType !== ''
               ? FILTER_COLORS.TEXT_MAIN
               : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
           transition: 'all 0.2s ease',
@@ -80,7 +75,7 @@ function FilterFullMenuStuddedData() {
         <ClearIcon
           style={{
             color:
-              studded.length > 0 || selectedStudded.length > 0
+              vechileType !== ''
                 ? FILTER_COLORS.BUTTON_RESET_FILTER
                 : FILTER_COLORS.BUTTON_RESET_FILTER_INACTIVE,
             transition: 'all 0.2s ease',
@@ -96,33 +91,32 @@ function FilterFullMenuStuddedData() {
         </Typography>
       </Box>
       <CheckBoxContainer>
-        {studdedTypes.map((type, i) => (
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={studded.includes(i === 0 ? 'studded' : 'studless')}
-                onChange={(e) =>
-                  handleSeasonChange(e, i === 0 ? 'studded' : 'studless')
-                }
-                sx={{
-                  '&.Mui-checked': {
-                    color: BASE_COLORS.DEFAULT_BLUE,
-                    '&:after': {
-                      backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+        <RadioGroup onChange={handleTypeChange}>
+          {vechileTypes.map((type) => (
+            <FormControlLabel
+              control={
+                <Radio
+                  value={type}
+                  sx={{
+                    '&.Mui-checked': {
+                      color: BASE_COLORS.DEFAULT_BLUE,
+                      '&:after': {
+                        backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+                      },
                     },
-                  },
-                }}
-              />
-            }
-            label={type}
-            key={type}
-            sx={{
-              '& .MuiTypography-root': {
-                fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              },
-            }}
-          />
-        ))}
+                  }}
+                />
+              }
+              label={t(type)}
+              key={type}
+              sx={{
+                '& .MuiTypography-root': {
+                  fontFamily: FONTS.MAIN_TEXT_FAMILY,
+                },
+              }}
+            />
+          ))}
+        </RadioGroup>
       </CheckBoxContainer>
       <Button
         onClick={handleSubmit}
@@ -142,4 +136,4 @@ function FilterFullMenuStuddedData() {
   );
 }
 
-export default FilterFullMenuStuddedData;
+export default FilterFullMenuVechileTypeData;

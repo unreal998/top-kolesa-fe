@@ -11,6 +11,7 @@ import {
   BASE_COLORS,
 } from '../../../../../shared/constants';
 import { useTranslation } from 'react-i18next';
+import { useCallback } from 'react';
 
 const StyledButton = styled(Button)({
   display: 'flex',
@@ -38,12 +39,12 @@ const StyledButton = styled(Button)({
 });
 
 type FilterShortMenuRowProps = {
-  filterName: 'Width' | 'Profile' | 'Diametr';
+  filterName: 'Width' | 'Profile' | 'Diametr' | 'Vechile Type';
   icon: React.ReactNode;
   params: string;
   onClick: (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  ) => void | undefined;
+  ) => void | undefined | string;
 };
 
 function FilterShortMenuRow({
@@ -60,6 +61,24 @@ function FilterShortMenuRow({
       filterName === 'Width' ? 0 : filterName === 'Profile' ? 1 : 2;
     dispatch(actions.toggleFullMenu(tabIndex));
   };
+
+  const setFilterName = useCallback(
+    (filterName: string) => {
+      switch (filterName) {
+        case 'Width':
+          return t('width');
+        case 'Profile':
+          return t('profile');
+        case 'Diametr':
+          return t('diametr');
+        case 'Vechile Type':
+          return t('vechileType');
+        default:
+          throw new Error('Unknown filter param');
+      }
+    },
+    [filterName],
+  );
 
   return (
     <StyledButton onClick={handleMenuToggle}>
@@ -94,11 +113,7 @@ function FilterShortMenuRow({
                 : '13px'
             }`,
           }}>
-          {filterName === 'Width'
-            ? t('width')
-            : filterName === 'Profile'
-            ? t('profile')
-            : t('diametr')}
+          {setFilterName(filterName)}
         </Typography>
       </Box>
       {params.length > 0 && (

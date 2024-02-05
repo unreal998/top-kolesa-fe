@@ -66,6 +66,7 @@ export function GoogleMap() {
   const center = { lat: 49.23290247396144, lng: 28.458753231671704 };
   const [zoom, setZoom] = useState(12);
   const { t } = useTranslation();
+  const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     function handleResize() {
@@ -97,6 +98,8 @@ export function GoogleMap() {
 
   return (
     <Box
+      id="mapMainPages"
+      ref={ref}
       sx={{
         backgroundImage: 'url(./imgs/ourServiceImgs/bg.jpg)',
         backgroundSize: 'contain',
@@ -161,7 +164,7 @@ export function GoogleMap() {
                   fontSize: '1.1rem',
                 },
               }}>
-              Глобал
+              {t('tireCenterGlobal')}: {t('headerAddress')}
             </Typography>
             <Typography
               variant="body1"
@@ -174,7 +177,7 @@ export function GoogleMap() {
                   fontSize: '1.1rem',
                 },
               }}>
-              Tyre Plus
+              {t('tireCenterTyrePlus')}: {t('headerAddress2')}
             </Typography>
           </Stack>
           <Stack>
