@@ -6,11 +6,19 @@ import { useTranslation } from 'react-i18next';
 import { actions } from '../../shopPage/reducer';
 import { selectSelectedItemData } from '../../shopPage/selectors';
 
-import { Box, Button, TextField, Typography, styled } from '@mui/material';
+import {
+  Box,
+  Button,
+  ClickAwayListener,
+  TextField,
+  Tooltip,
+  Typography,
+  styled,
+} from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 import { ButtonWithIcon } from '../../../shared/components/ButtonWithIcon';
-import { BASE_COLORS, FONTS } from '../../../shared/constants';
+import { BASE_COLORS, FONTS, TOOLTIP_TIMEOUT } from '../../../shared/constants';
 import { CartItemData } from '../../../shared/types';
 
 const StyledTextField = styled(TextField)({
@@ -47,23 +55,32 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const selectedItemData = useSelector(selectSelectedItemData());
-  const [numberOfTires, setNumberOfTires] = useState<number>(4);
+  const history = useNavigate();
+  const [tooltipOpen, setTooltipOpen] = useState<boolean>(false);
+  const [numberOfTires, setNumberOfTires] = useState<number | undefined>(4);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(document.location.search);
     const selectedItemId = searchParams.get('id');
+
+    selectedItemData && selectedItemData?.in_stock >= 4
+      ? setNumberOfTires(4)
+      : setNumberOfTires(selectedItemData?.in_stock);
+
     dispatch(actions.getShopItems(''));
     dispatch(actions.setSelectedItemId(selectedItemId || ''));
   }, [dispatch]);
 
   const handleNumberOfTires = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    const numValue = Number(value);
-    if (numValue >= 1) {
-      setNumberOfTires(numValue);
-    } else {
-      setNumberOfTires(1);
-    }
+    let numValue = Number(value);
+
+    numValue = Math.max(numValue, 1);
+
+    const maxAvailable = selectedItemData?.in_stock ?? 1;
+    numValue = Math.min(numValue, maxAvailable);
+
+    setNumberOfTires(numValue);
   };
 
   const handleAddToCart = () => {
@@ -86,6 +103,17 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
 
     const cartItems = JSON.parse(localStorage.getItem('cartItem') || '').length;
     dispatch(actions.setCartItemCount(cartItems));
+  };
+
+  const handleTooltipClose = () => {
+    setTooltipOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    setTooltipOpen(numberOfTires === selectedItemData?.in_stock);
+    setTimeout(() => {
+      setTooltipOpen(false);
+    }, TOOLTIP_TIMEOUT);
   };
 
   const buttonInfo = [
@@ -112,7 +140,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
             fontSize: '2.2rem',
           },
         }}>
-        {Number(selectedItemData?.price_uah) * numberOfTires} {t('uah')}
+        {Number(selectedItemData?.price_uah) * (numberOfTires ?? 1)} {t('uah')}
       </Typography>
       <Box
         display={'flex'}
@@ -126,13 +154,31 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
             gap: '4rem',
           },
         }}>
-        <StyledTextField
-          id="outlined-basic"
-          variant="outlined"
-          type="number"
-          value={numberOfTires}
-          onChange={handleNumberOfTires}
-        />
+        <ClickAwayListener onClickAway={handleTooltipClose}>
+          <Tooltip
+            PopperProps={{
+              disablePortal: true,
+            }}
+            onClose={handleTooltipClose}
+            open={tooltipOpen}
+            disableFocusListener
+            disableHoverListener
+            disableTouchListener
+            placement="bottom"
+            title={t('maxCountTires')}
+            sx={{
+              paddingBottom: '0.5rem',
+            }}>
+            <StyledTextField
+              id="outlined-basic"
+              variant="outlined"
+              type="number"
+              value={numberOfTires}
+              onChange={handleNumberOfTires}
+              onClick={handleTooltipOpen}
+            />
+          </Tooltip>
+        </ClickAwayListener>
         <Box
           display={'flex'}
           gap={'1rem'}
