@@ -2,6 +2,7 @@
   "headerCity": "Винница",
   "headerAddress": "ул. Мечникова 1a",
   "headerAddress2": "ул. Тивровское шосе 2-З",
+  "pickupAddress2": "ул. Данила Нечая 2-З",
   "workHours": "Пн - Пт: 9:00 - 18:00, Сб: 9:00 - 16:00",
   "homeLabel": "Главная",
   "shopLabel": "Магазин",
@@ -194,5 +195,6 @@
   "noResultsText1": "Мы не можем найти результаты, соответствующие критериям вашего фильтра.",
   "noResultsText2": "Пожалуйста, попробуйте другие варианты фильтра.",
   "topRated": "Популярные",
-  "officialRepresentative": "Официальный представитель"
+  "officialRepresentative": "Официальный представитель",
+  "paymentUponReceipt": "Оплата при получении"
 }
