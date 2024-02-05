@@ -16,7 +16,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
-import { BASE_COLORS, FILTER_COLORS, FONTS } from '../../constants';
+import {
+  BASE_COLORS,
+  FILTER_COLORS,
+  FONTS,
+  TOOLTIP_TIMEOUT,
+} from '../../constants';
 import { CartItemData } from '../../types';
 import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -67,7 +72,7 @@ export const CartItem: React.FC<CartItemProps> = ({
         setTooltipOpen(true);
         setTimeout(() => {
           setTooltipOpen(false);
-        }, 4000);
+        }, TOOLTIP_TIMEOUT);
         return;
       } else {
         const updatedCartItems = cartItems.map((item: CartItemData) =>

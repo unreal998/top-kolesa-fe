@@ -18,7 +18,7 @@ import {
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 import { ButtonWithIcon } from '../../../shared/components/ButtonWithIcon';
-import { BASE_COLORS, FONTS } from '../../../shared/constants';
+import { BASE_COLORS, FONTS, TOOLTIP_TIMEOUT } from '../../../shared/constants';
 import { CartItemData } from '../../../shared/types';
 
 const StyledTextField = styled(TextField)({
@@ -113,7 +113,7 @@ export default function BuyOptions({ tireId }: { tireId: number | undefined }) {
     setTooltipOpen(numberOfTires === selectedItemData?.in_stock);
     setTimeout(() => {
       setTooltipOpen(false);
-    }, 4000);
+    }, TOOLTIP_TIMEOUT);
   };
 
   const buttonInfo = [
