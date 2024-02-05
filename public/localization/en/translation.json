@@ -65,7 +65,7 @@
   "popularBrandsSubtitle": "We have a big choice of the most popular tire brands",
   "ourServices": "Our Services",
   "ourServicesSubtitle": "Dramatically target proactive infrastructures before interactive growth strategies. Compellingly fashion global leadership skills and multidisciplinary infrastructures.",
-  "officeBased": "Our central offices based in Vinnytsia:",
+  "officeBased": "Our stores based in Vinnytsia:",
   "waitingForCall": "We're waiting for your call!",
   "howToFindUS": "How to find us ?",
   "ourMail": "Our e-mail:",
@@ -196,6 +196,8 @@
   "noResultsText2": "Please try other filter options",
   "topRated": "Top Rated",
   "maxCountTires": "Maximum tire count reached in stock",
+  "tireCenterGlobal": "Tire center 'Global'",
+  "tireCenterTyrePlus": "Tire center 'Tyre Plus'",
   "officialRepresentative": "Official representative",
   "paymentUponReceipt": "Payment upon receipt"
 }

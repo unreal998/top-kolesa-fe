@@ -164,7 +164,7 @@ export function GoogleMap() {
                   fontSize: '1.1rem',
                 },
               }}>
-              Глобал
+              {t('tireCenterGlobal')}: {t('headerAddress')}
             </Typography>
             <Typography
               variant="body1"
@@ -177,7 +177,7 @@ export function GoogleMap() {
                   fontSize: '1.1rem',
                 },
               }}>
-              Tyre Plus
+              {t('tireCenterTyrePlus')}: {t('headerAddress2')}
             </Typography>
           </Stack>
           <Stack>
