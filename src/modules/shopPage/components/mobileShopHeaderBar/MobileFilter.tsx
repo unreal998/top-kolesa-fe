@@ -146,21 +146,11 @@ export function MobileFilter() {
     left: false,
   });
 
-  console.log('diametr', studded);
-
   useEffect(() => {
     setWidthValue(selectWidth);
     setProfileValue(selectProfile);
     setDiametrValue(selectDiametr);
-    setSeasonValue(selectedSeason.length > 0 ? selectedSeason[0] : '');
-    setStuddedValue(selectedStudded.length > 0 ? selectedStudded[0] : '');
-  }, [
-    selectDiametr,
-    selectProfile,
-    selectWidth,
-    selectedBrand,
-    selectedSeason,
-  ]);
+  }, [selectDiametr, selectProfile, selectWidth, selectedBrand]);
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
