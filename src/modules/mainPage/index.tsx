@@ -8,11 +8,22 @@ import { actions } from './reducer';
 import { selectFilterData } from './selectors';
 import Loader from '../../shared/components/Loader';
 import { BASE_COLORS } from '../../shared/constants';
+import { useLocation } from 'react-router-dom';
 
 export function MainPage() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const filtersParams = useSelector(selectFilterData());
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (location.state?.scrollToMap) {
+      const mapBox = document.getElementById('googleMapBox');
+      if (mapBox) {
+        mapBox.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
 
   useEffect(() => {
     dispatch(actions.getFilterData());
