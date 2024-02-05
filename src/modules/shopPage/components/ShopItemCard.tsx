@@ -6,6 +6,7 @@ import { SHOP_ITEM_TIRES_IMG_PREFIX } from '../../../constants';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { Opacity } from '@mui/icons-material';
 
 const HoverableBox = styled(motion.div)({
   position: 'absolute',
@@ -17,7 +18,7 @@ const HoverableBox = styled(motion.div)({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  opacity: 0,
+  opacity: 1,
 
   '@media (max-width: 1050px)': {
     with: '1rem',
@@ -46,14 +47,6 @@ const hoverAnimationBackVariants = {
     },
   },
   hover: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.3,
-      ease: 'easeInOut',
-    },
-  },
-  tap: {
     y: 0,
     opacity: 1,
     transition: {
@@ -100,6 +93,7 @@ export function ShopItemCard({
 }: ShopItem) {
   const { t } = useTranslation();
   const [value, setValue] = useState<number | null>(2);
+  const [hoverWindow, setHoverWindow] = useState<boolean>(false);
 
   useEffect(() => {
     setValue(rating);
@@ -114,6 +108,14 @@ export function ShopItemCard({
     { title: t('year'), info: year },
   ];
 
+  const handleHoverOpen = () => {
+    setHoverWindow(true);
+  };
+
+  const handleHoverClose = () => {
+    setHoverWindow(false);
+  };
+
   return (
     <Link
       href={`/item?id=${id.toString()}`}
@@ -127,12 +129,12 @@ export function ShopItemCard({
         gap="1rem"
         alignItems="center"
         justifyContent="center"
-        position="relative">
-        <motion.div
-          initial="rest"
-          whileHover="hover"
-          animate="rest"
-          style={{ width: '100%' }}>
+        position="relative"
+        onMouseEnter={handleHoverOpen}
+        onMouseLeave={handleHoverClose}
+        onTouchStart={handleHoverOpen}
+        onTouchEnd={handleHoverClose}>
+        <Box style={{ width: '100%' }}>
           <Box
             sx={{
               backgroundImage: imgName
@@ -199,11 +201,11 @@ export function ShopItemCard({
           </Box>
           <HoverableBox
             variants={hoverAnimationBackVariants}
-            initial="initial"
-            whileHover="hover"
-            animate="rest"
-            whileTap="tap"
-            exit="rest">
+            animate={hoverWindow ? 'hover' : 'rest'}
+            exit="rest"
+            sx={{
+              opacity: hoverWindow ? 1 : 0,
+            }}>
             <Box
               width={'100%'}
               px={'20%'}
@@ -242,7 +244,7 @@ export function ShopItemCard({
               </Box>
             </Box>
           </HoverableBox>
-        </motion.div>
+        </Box>
       </Stack>
     </Link>
   );

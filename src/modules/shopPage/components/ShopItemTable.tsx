@@ -16,7 +16,6 @@ const HoverableBox = styled(motion.div)({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  opacity: 0,
   height: '100%',
 
   '@media (max-width: 2000px)': {
@@ -34,14 +33,6 @@ const hoverAnimationBackVariants = {
     },
   },
   hover: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.3,
-      ease: 'easeInOut',
-    },
-  },
-  tap: {
     x: 0,
     opacity: 1,
     transition: {
@@ -88,6 +79,7 @@ export function ShopItemTable({
 }: ShopItem) {
   const { t } = useTranslation();
   const [value, setValue] = useState<number | null>(2);
+  const [hoverWindow, setHoverWindow] = useState<boolean>(false);
 
   useEffect(() => {
     setValue(rating);
@@ -102,6 +94,14 @@ export function ShopItemTable({
     { title: t('year'), info: year },
   ];
 
+  const handleHoverOpen = () => {
+    setHoverWindow(true);
+  };
+
+  const handleHoverClose = () => {
+    setHoverWindow(false);
+  };
+
   return (
     <Link
       href={`/item?id=${id.toString()}`}
@@ -110,11 +110,13 @@ export function ShopItemTable({
         outline: 'none',
         textAlign: 'center',
       }}>
-      <Box position="relative">
-        <motion.div
-          initial="rest"
-          whileHover="hover"
-          animate="rest"
+      <Box
+        position="relative"
+        onMouseEnter={handleHoverOpen}
+        onMouseLeave={handleHoverClose}
+        onTouchStart={handleHoverOpen}
+        onTouchEnd={handleHoverClose}>
+        <Box
           style={{
             width: '100%',
             display: 'flex',
@@ -174,11 +176,11 @@ export function ShopItemTable({
           </Stack>
           <HoverableBox
             variants={hoverAnimationBackVariants}
-            initial="initial"
-            whileHover="hover"
-            animate="rest"
-            whileTap="tap"
-            exit="rest">
+            animate={hoverWindow ? 'hover' : 'rest'}
+            exit="rest"
+            sx={{
+              opacity: hoverWindow ? 1 : 0,
+            }}>
             <Box
               width={'130%'}
               px={'1.5rem'}
@@ -222,7 +224,7 @@ export function ShopItemTable({
               </Box>
             </Box>
           </HoverableBox>
-        </motion.div>
+        </Box>
       </Box>
     </Link>
   );
