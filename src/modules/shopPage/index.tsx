@@ -19,8 +19,6 @@ export function ShopPage() {
   const filtersParams = useSelector(selectFilterData());
   const [isInitialized, setIsInitialized] = useState<boolean>(true);
 
-  console.log('isInitialized', isInitialized);
-
   useEffect(() => {
     if (searchParams.size > 0) {
       dispatch(
@@ -32,6 +30,7 @@ export function ShopPage() {
           season: searchParams.get('season') || undefined,
           brand: searchParams.get('brand') || undefined,
           studded: searchParams.get('studded') || undefined,
+          vechileType: searchParams.get('vechileType') || undefined,
         }),
       );
     } else {

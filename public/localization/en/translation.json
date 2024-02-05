@@ -2,6 +2,7 @@
   "headerCity": "Vinnytsia",
   "headerAddress": "Mechnikova str 1a",
   "headerAddress2": "Tyvrivske shose str 2-3",
+  "pickupAddress2": "Danyla Nechaya str 2-З",
   "workHours": "Mon-Fri: 9:00 - 18:00, Sat: 9:00 - 16:00",
   "homeLabel": "Home",
   "shopLabel": "Shop",
@@ -131,6 +132,10 @@
   "filterAsideHeaderStudded": "What types of tires do you prefer?",
   "filterAsideText1Studded": "Do you drive in severe winter conditions? Consider studded tires for enhanced grip on ice and snow.",
   "filterAsideText2Studded": "Prefer quieter, more versatile tires? Choose studless for improved performance in diverse settings.",
+  "filterHeaderTitleVechileType": "Choose Vechile Type",
+  "filterAsideHeaderVechileType": "What vechile type do you use?",
+  "filterAsideText1VechileType": "Do you drive in severe winter conditions? Consider studded tires for enhanced grip on ice and snow.",
+  "filterAsideText2VechileType": "Prefer quieter, more versatile tires? Choose studless for improved performance in diverse settings.",
   "where": "where ",
   "search": "Search...",
   "set": "Set",
@@ -138,6 +143,10 @@
   "studdedFilter": "Studded",
   "studded": "Studded",
   "studless": "Studless",
+  "vechileType": "Vechile Type",
+  "light": "Light",
+  "lightTruck": "Light-Track",
+  "cargo": "Cargo",
   "review": "Review",
   "reviews": "Reviews",
   "addReviewButton": "Add review",
@@ -188,5 +197,6 @@
   "topRated": "Top Rated",
   "tireCenterGlobal": "Tire center 'Global'",
   "tireCenterTyrePlus": "Tire center 'Tyre Plus'",
-  "officialRepresentative": "Official representative"
+  "officialRepresentative": "Official representative",
+  "paymentUponReceipt": "Payment upon receipt"
 }

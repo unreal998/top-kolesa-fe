@@ -82,6 +82,8 @@ type DeliveryInfoProps = {
   handleCityTextChange: (e: SyntheticEvent) => void;
   handleWarehouseTextChange: (e: SyntheticEvent) => void;
   optionsWarehouseData: OptionType[] | string[];
+  handlePickup: () => void;
+  handleDelivery: () => void;
 };
 
 export function DeliveryInfo({
@@ -93,8 +95,11 @@ export function DeliveryInfo({
   handleCityTextChange,
   handleWarehouseTextChange,
   optionsWarehouseData,
+  handlePickup,
+  handleDelivery,
 }: DeliveryInfoProps) {
   const { t } = useTranslation();
+
   return (
     <Stack
       gap="5px"
@@ -119,6 +124,7 @@ export function DeliveryInfo({
           <FormControlLabel
             value="self"
             control={<StyledRadio />}
+            onClick={handlePickup}
             label={
               <Typography
                 variant="subtitle1"
@@ -131,6 +137,7 @@ export function DeliveryInfo({
           <FormControlLabel
             value="post"
             control={<StyledRadio />}
+            onClick={handleDelivery}
             label={
               <Typography
                 variant="subtitle1"
@@ -164,14 +171,14 @@ export function DeliveryInfo({
                   }
                 />
                 <FormControlLabel
-                  value={t('headerAddress2')}
+                  value={t('pickupAddress2')}
                   control={<StyledRadio />}
                   label={
                     <Typography
                       variant="subtitle1"
                       fontSize={'1.1rem'}
                       fontFamily={FONTS.MAIN_TEXT_FAMILY}>
-                      {t('headerAddress2')}
+                      {t('pickupAddress2')}
                     </Typography>
                   }
                 />

@@ -1,9 +1,23 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { Box } from '@mui/material';
 
 import { ContactMainInfo } from './components/ContactMainInfo';
 import GoogleMapBox from './components/GoogleMapBox';
 
 export function ContactPage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollToMap) {
+      const mapBox = document.getElementById('googleMapBox');
+      if (mapBox) {
+        mapBox.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+
   return (
     <Box
       m={'3% auto 10%'}
