@@ -51,6 +51,11 @@ type AutocompleteOptionType = {
     value: unknown,
     reason: AutocompleteChangeReason,
   ) => void;
+  onInputChange?: (
+    event: SyntheticEvent,
+    value: string,
+    reason: string,
+  ) => void;
 };
 
 const StyledAutocomplete = styled(Autocomplete)({
@@ -141,6 +146,8 @@ export function MobileFilter() {
     left: false,
   });
 
+  console.log('diametr', studded);
+
   useEffect(() => {
     setWidthValue(selectWidth);
     setProfileValue(selectProfile);
@@ -178,6 +185,24 @@ export function MobileFilter() {
     dispatch(actions.setStuddedChange([originalStudded]));
 
     setOpenFilter({ left: false });
+
+    let seasonParam = '';
+
+    switch (season) {
+      case t('summer'):
+        seasonParam = 'summer';
+        break;
+      case t('winter'):
+        seasonParam = 'winter';
+        break;
+      case t('all-season'):
+        seasonParam = 'all-season';
+        break;
+      default:
+        seasonParam = '';
+        break;
+    }
+
     history(
       `?price=${JSON.stringify([
         Math.min.apply(null, filtersParams.prices),
@@ -185,13 +210,7 @@ export function MobileFilter() {
       ])}&width=${JSON.stringify(width)}&profile=${JSON.stringify(
         profile,
       )}&diametr=${JSON.stringify(diametr)}&season=${JSON.stringify(
-        season === t('summer')
-          ? 'summer'
-          : season === t('winter')
-          ? 'winter'
-          : season === t('all-season')
-          ? 'all-season'
-          : '',
+        seasonParam,
       )}&brand=${JSON.stringify(brand)}`,
       { replace: true },
     );
@@ -205,50 +224,96 @@ export function MobileFilter() {
         reason: AutocompleteChangeReason,
       ) => {
         if (typeof value !== 'string') return;
-        else if (value !== 'string') {
+
+        switch (type) {
+          case 'width':
+            setWidthValue(value);
+            break;
+          case 'profile':
+            setProfileValue(value);
+            break;
+          case 'diametr':
+            setDiametrValue(value);
+            break;
+          case 'season':
+            const originalValueSeason = value;
+            setSeasonValue(t(value));
+            switch (originalValueSeason) {
+              case t('summer'):
+                setOriginalSeason('summer');
+                break;
+              case t('winter'):
+                setOriginalSeason('winter');
+                break;
+              case t('all-season'):
+                setOriginalSeason('all-season');
+                break;
+              default:
+                setOriginalSeason('');
+                break;
+            }
+            break;
+          case 'brand':
+            setBrandValue(value);
+            break;
+          case 'studded':
+            const originalValueStudded = value;
+            setStuddedValue(t(value));
+            switch (originalValueStudded) {
+              case t('studded'):
+                setOriginalStudded('studded');
+                break;
+              case t('studless'):
+                setOriginalStudded('studless');
+                break;
+              default:
+                setOriginalStudded('');
+                break;
+            }
+            break;
+          default:
+            break;
+        }
+      },
+    [],
+  );
+
+  const handleAutocompleteInputChange = useCallback(
+    (type: FieldType) => {
+      return (event: SyntheticEvent, value: string, reason: string) => {
+        if (reason === 'clear') {
           switch (type) {
             case 'width':
-              setWidthValue(value);
+              setWidthValue('');
+              dispatch(actions.setClearSelectedWidth());
               break;
             case 'profile':
-              setProfileValue(value);
+              setProfileValue('');
+              dispatch(actions.setClearSelectedProfile());
               break;
             case 'diametr':
-              setDiametrValue(value);
+              setDiametrValue('');
+              dispatch(actions.setClearSelectedDiametr());
               break;
             case 'season':
-              const originalValueSeason = value;
-              setSeasonValue(t(value));
-              setOriginalSeason(
-                originalValueSeason === t('summer')
-                  ? 'summer'
-                  : originalValueSeason === t('winter')
-                  ? 'winter'
-                  : originalValueSeason === t('all-season')
-                  ? 'all-season'
-                  : '',
-              );
+              setSeasonValue('');
+              dispatch(actions.setResetSeason());
               break;
             case 'brand':
-              setBrandValue(value);
+              setBrandValue('');
+              dispatch(actions.setResetBrand());
               break;
             case 'studded':
-              const originalValueStudded = value;
-              setStuddedValue(t(value));
-              setOriginalStudded(
-                originalValueStudded === t('studded')
-                  ? 'studded'
-                  : originalValueStudded === t('studless')
-                  ? 'studless'
-                  : '',
-              );
+              setStuddedValue('');
+              dispatch(actions.setResetStudded());
               break;
             default:
               break;
           }
         }
-      },
-    [],
+      };
+    },
+    [dispatch],
   );
 
   const sortOptions = useCallback((options: (string | number)[]) => {
@@ -286,6 +351,7 @@ export function MobileFilter() {
       options: filtersParams?.width,
       label: t('width'),
       onChange: handleAutocompleteChange('width'),
+      onInputChange: handleAutocompleteInputChange('width'),
     },
     {
       id: 'profile',
@@ -293,6 +359,7 @@ export function MobileFilter() {
       options: filtersParams?.height,
       label: t('profile'),
       onChange: handleAutocompleteChange('profile'),
+      onInputChange: handleAutocompleteInputChange('profile'),
     },
     {
       id: 'diametr',
@@ -300,6 +367,7 @@ export function MobileFilter() {
       options: filtersParams?.diametr,
       label: t('diametr'),
       onChange: handleAutocompleteChange('diametr'),
+      onInputChange: handleAutocompleteInputChange('diametr'),
     },
     {
       id: 'season',
@@ -307,6 +375,7 @@ export function MobileFilter() {
       options: [t('summer'), t('winter'), t('all-season')],
       label: t('season'),
       onChange: handleAutocompleteChange('season'),
+      onInputChange: handleAutocompleteInputChange('season'),
     },
     {
       id: 'brand',
@@ -314,6 +383,7 @@ export function MobileFilter() {
       options: filtersParams?.brands,
       label: t('brand'),
       onChange: handleAutocompleteChange('brand'),
+      onInputChange: handleAutocompleteInputChange('brand'),
     },
     {
       id: 'studded',
@@ -321,6 +391,7 @@ export function MobileFilter() {
       options: [t('studded'), t('studless')],
       label: t('studded'),
       onChange: handleAutocompleteChange('studded'),
+      onInputChange: handleAutocompleteInputChange('studded'),
     },
   ];
 
@@ -414,6 +485,7 @@ export function MobileFilter() {
                   clearIcon={value ? undefined : false}
                   disablePortal
                   onChange={onChange}
+                  onInputChange={handleAutocompleteInputChange(id)}
                   options={
                     id === 'width' || id === 'brand'
                       ? sortOptions(options)
