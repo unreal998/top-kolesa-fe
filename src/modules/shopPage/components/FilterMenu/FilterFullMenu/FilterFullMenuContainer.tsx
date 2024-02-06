@@ -106,6 +106,20 @@ function FilterFullMenuContainer() {
   };
 
   const menuData: { [key: string]: MenuData } = {
+    Price: {
+      dataComponent: FilterFullMenuPriceData,
+      headerTitle: t('filterHeaderTitlePrice'),
+      asideHeader: t('filterAsideHeaderPrice'),
+      text1: t('filterAsideText1Price'),
+    },
+    Season: {
+      dataComponent: FilterFullMenuSeasonData,
+      headerTitle: t('filterHeaderTitleSeason'),
+      asideHeader: t('filterAsideHeaderSeason'),
+      text1: t('filterAsideText1Season'),
+      text2: t('filterAsideText2Season'),
+      text3: t('filterAsideText3Season'),
+    },
     Width: {
       inputComponent: FilterFullMenuInput,
       dataComponent: FilterFullMenuWidthData,
@@ -136,21 +150,6 @@ function FilterFullMenuContainer() {
       parametr: '16',
       textForParametr: t('filterAsideText3Diametr'),
     },
-    Price: {
-      dataComponent: FilterFullMenuPriceData,
-      headerTitle: t('filterHeaderTitlePrice'),
-      asideHeader: t('filterAsideHeaderPrice'),
-      text1: t('filterAsideText1Price'),
-    },
-    Season: {
-      inputComponent: FilterFullMenuInput,
-      dataComponent: FilterFullMenuSeasonData,
-      headerTitle: t('filterHeaderTitleSeason'),
-      asideHeader: t('filterAsideHeaderSeason'),
-      text1: t('filterAsideText1Season'),
-      text2: t('filterAsideText2Season'),
-      text3: t('filterAsideText3Season'),
-    },
     Brand: {
       inputComponent: FilterFullMenuInput,
       dataComponent: FilterFullMenuBrandData,
@@ -159,33 +158,31 @@ function FilterFullMenuContainer() {
       text1: t('filterAsideText1Brand'),
       text2: t('filterAsideText2Brand'),
     },
-    Studded: {
-      inputComponent: FilterFullMenuInput,
-      dataComponent: FilterFullMenuStuddedData,
-      headerTitle: t('filterHeaderTitleStudded'),
-      asideHeader: t('filterAsideHeaderStudded'),
-      text1: t('filterAsideText1Studded'),
-      text2: t('filterAsideText2Studded'),
-    },
     VechileType: {
-      inputComponent: FilterFullMenuInput,
       dataComponent: FilterFullMenuVechileTypeData,
       headerTitle: t('filterHeaderTitleVechileType'),
       asideHeader: t('filterAsideHeaderVechileType'),
       text1: t('filterAsideText1VechileType'),
       text2: t('filterAsideText2VechileType'),
     },
+    Studded: {
+      dataComponent: FilterFullMenuStuddedData,
+      headerTitle: t('filterHeaderTitleStudded'),
+      asideHeader: t('filterAsideHeaderStudded'),
+      text1: t('filterAsideText1Studded'),
+      text2: t('filterAsideText2Studded'),
+    },
   };
 
   const tabsIcons = [
+    { label: <PriceIcon /> },
+    { label: <SeasonIcon /> },
     { label: <WidthIcon /> },
     { label: <ProfileIcon /> },
     { label: <DiametrIcon /> },
-    { label: <PriceIcon /> },
-    { label: <SeasonIcon /> },
     { label: <BrandIcon /> },
-    { label: <StuddedTireIcon /> },
     { label: <DriveEtaIcon /> },
+    { label: <StuddedTireIcon /> },
   ];
 
   const menuKeys = Object.keys(menuData);

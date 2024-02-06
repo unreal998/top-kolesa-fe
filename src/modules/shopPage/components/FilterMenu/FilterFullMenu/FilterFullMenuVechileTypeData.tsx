@@ -35,8 +35,8 @@ function FilterFullMenuVechileTypeData() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const selectedVechileType = useSelector(selectSelectedVechileType);
-  const vechileTypes = ['light', 'lightTruck', 'cargo'];
   const [vechileType, setVechileType] = useState(selectedVechileType);
+  const vechileTypes = ['light', 'lightTruck', 'cargo'];
 
   const handleTypeChange = useCallback(
     (_: unknown, type: string) => {
@@ -90,13 +90,14 @@ function FilterFullMenuVechileTypeData() {
           {t('resetFilter')}
         </Typography>
       </Box>
-      <CheckBoxContainer>
-        <RadioGroup onChange={handleTypeChange}>
+      <RadioGroup onChange={handleTypeChange}>
+        <CheckBoxContainer>
           {vechileTypes.map((type) => (
             <FormControlLabel
               control={
                 <Radio
                   value={type}
+                  checked={vechileType === type}
                   sx={{
                     '&.Mui-checked': {
                       color: BASE_COLORS.DEFAULT_BLUE,
@@ -116,8 +117,8 @@ function FilterFullMenuVechileTypeData() {
               }}
             />
           ))}
-        </RadioGroup>
-      </CheckBoxContainer>
+        </CheckBoxContainer>
+      </RadioGroup>
       <Button
         onClick={handleSubmit}
         variant="contained"

@@ -121,7 +121,6 @@ export function ShopContainer() {
         </Box>
       ) : (
         <>
-          {/* <NoFilterResults /> */}
           <StyledGridBox container spacing={2}>
             {shopItems && shopItems.length > 0 ? (
               sorterShopItems.map((item) => (
