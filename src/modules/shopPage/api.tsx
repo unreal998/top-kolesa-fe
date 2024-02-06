@@ -20,7 +20,9 @@ export async function getShopPageItems(params: '' | FilterParams) {
         JSON.parse(price as string)[0],
       )}-${JSON.stringify(
         JSON.parse(price as string)[1],
-      )}&width=${width}&profile=${profile}&diametr=${diametr}&season=${season}&brand=${brand}&studded=${studded}&vechileType=${vechileType}`,
+      )}&width=${width}&profile=${profile}&diametr=${diametr}&season=${season}&brand=${brand}&studded=${studded}&vechileType=${
+        vechileType || ''
+      }`,
     );
     return response.data;
   } else {
