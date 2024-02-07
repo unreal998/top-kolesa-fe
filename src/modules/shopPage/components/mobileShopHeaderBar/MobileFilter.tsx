@@ -156,7 +156,6 @@ export function MobileFilter() {
     setDiametrValue(selectDiametr);
   }, [selectDiametr, selectProfile, selectWidth, selectedBrand]);
 
-
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       event.stopPropagation();
@@ -177,7 +176,7 @@ export function MobileFilter() {
     dispatch(actions.setSelectedDiametr(diametr));
     dispatch(actions.setSeasonChange([originalSeason]));
     dispatch(actions.setBrandChange([brand]));
-    dispatch(actions.setStuddedChange([originalStudded]));
+    dispatch(actions.setStuddedChange(originalStudded));
     dispatch(actions.setVechileTypeChange(vechileType));
 
     setOpenFilter({ left: false });
@@ -267,6 +266,24 @@ export function MobileFilter() {
                 break;
             }
             break;
+          case 'vechileType':
+            const originalValueVechileType = value;
+            setVechileTypeValue(t(value));
+            switch (originalValueVechileType) {
+              case t('light'):
+                setVechileTypeValue('light');
+                break;
+              case t('lightTruck'):
+                setVechileTypeValue('lightTruck');
+                break;
+              case t('cargo'):
+                setVechileTypeValue('cargo');
+                break;
+              default:
+                setVechileTypeValue('');
+                break;
+            }
+            break;
           default:
             break;
         }
@@ -304,6 +321,7 @@ export function MobileFilter() {
               dispatch(actions.setResetStudded());
               break;
             case 'vechileType':
+              setVechileTypeValue('');
               setVechileTypeValue(vechileType);
               break;
             default:
@@ -387,19 +405,20 @@ export function MobileFilter() {
       onInputChange: handleAutocompleteInputChange('brand'),
     },
     {
+      id: 'vechileType',
+      value: vechileType,
+      options: [t('light'), t('lightTruck'), t('cargo')],
+      label: t('vechileType'),
+      onChange: handleAutocompleteChange('vechileType'),
+      onInputChange: handleAutocompleteInputChange('vechileType'),
+    },
+    {
       id: 'studded',
       value: studded,
       options: [t('studded'), t('studless')],
       label: t('studded'),
       onChange: handleAutocompleteChange('studded'),
       onInputChange: handleAutocompleteInputChange('studded'),
-    },
-    {
-      id: 'vechileType',
-      value: vechileType,
-      options: [t('light'), t('lightTruck'), t('cargo')],
-      label: t('vechileType'),
-      onChange: handleAutocompleteChange('vechileType'),
     },
   ];
 

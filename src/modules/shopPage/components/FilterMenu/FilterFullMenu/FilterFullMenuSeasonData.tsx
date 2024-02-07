@@ -10,6 +10,7 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
+  Radio,
   Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -106,7 +107,7 @@ function FilterFullMenuSeasonData() {
           filteredSeasons.map((seasonName, i) => (
             <FormControlLabel
               control={
-                <Checkbox
+                <Radio
                   checked={season.includes(
                     i === 0 ? 'winter' : i === 1 ? 'summer' : 'all-season',
                   )}

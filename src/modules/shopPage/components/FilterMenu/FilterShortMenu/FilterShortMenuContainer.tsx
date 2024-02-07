@@ -123,15 +123,19 @@ const FilterShortMenuContainer = () => {
 
   const handleClearColumnFilters = useCallback(
     (
-      filterItems: string[],
+      filterItems: string[] | string,
       itemToRemove: string,
-      updateAction: (updatedItems: string[]) => PayloadActionRedux<string[]>,
+      updateAction: any,
     ) => {
       return () => {
-        const updatedItems = filterItems.filter(
-          (item) => item !== itemToRemove,
-        );
-        dispatch(updateAction(updatedItems));
+        if (Array.isArray(filterItems)) {
+          const updatedItems = filterItems.filter(
+            (item) => item !== itemToRemove,
+          );
+          dispatch(updateAction(updatedItems));
+        } else {
+          dispatch(updateAction(''));
+        }
       };
     },
     [dispatch],
@@ -153,12 +157,29 @@ const FilterShortMenuContainer = () => {
       orientation="vertical"
       fullWidth
       variant="outlined"
-      aria-label="vertical contained button group"
       sx={{
         '@media (max-width: 918px)': {
           display: 'none',
         },
       }}>
+      <FilterShortMenuColumnPrice
+        icon={<PriceIcon />}
+        filterName="Price"
+        params={selectedPrice}
+        onClick={handleClearPrice}
+      />
+      <FilterShortMenuColumn
+        icon={<SeasonIcon />}
+        filterName="Season"
+        params={selectedSeason}
+        onClick={(param) =>
+          handleClearColumnFilters(
+            selectedSeason,
+            param,
+            actions.setSeasonChange,
+          )()
+        }
+      />
       <FilterShortMenuRow
         icon={<WidthIcon />}
         filterName="Width"
@@ -183,24 +204,6 @@ const FilterShortMenuContainer = () => {
           handleClearRowsFilters()(e, actions.setClearSelectedDiametr)
         }
       />
-      <FilterShortMenuColumnPrice
-        icon={<PriceIcon />}
-        filterName="Price"
-        params={selectedPrice}
-        onClick={handleClearPrice}
-      />
-      <FilterShortMenuColumn
-        icon={<SeasonIcon />}
-        filterName="Season"
-        params={selectedSeason}
-        onClick={(param) =>
-          handleClearColumnFilters(
-            selectedSeason,
-            param,
-            actions.setSeasonChange,
-          )()
-        }
-      />
       <FilterShortMenuColumn
         icon={<BrandIcon />}
         filterName="Brand"
@@ -214,6 +217,12 @@ const FilterShortMenuContainer = () => {
         }
       />
       <FilterShortMenuColumn
+        icon={<DriveEtaIcon />}
+        filterName="Vechile Type"
+        params={selectedVechileType}
+        onClick={() => dispatch(actions.setVechileTypeChange(''))}
+      />
+      <FilterShortMenuColumn
         icon={<StuddedTireIcon />}
         filterName="Studded"
         params={selectedStudded}
@@ -223,14 +232,6 @@ const FilterShortMenuContainer = () => {
             param,
             actions.setStuddedChange,
           )()
-        }
-      />
-      <FilterShortMenuRow
-        icon={<DriveEtaIcon />}
-        filterName="Vechile Type"
-        params={selectedVechileType}
-        onClick={(e) =>
-          handleClearRowsFilters()(e, () => actions.setVechileTypeChange(''))
         }
       />
       {visableResetButton && (

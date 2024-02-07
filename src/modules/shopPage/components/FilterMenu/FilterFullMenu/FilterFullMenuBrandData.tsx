@@ -10,6 +10,7 @@ import {
   Button,
   Checkbox,
   FormControlLabel,
+  Radio,
   Typography,
   styled,
 } from '@mui/material';
@@ -107,7 +108,7 @@ function FilterFullMenuBrandData() {
           filteredBrands.map((brand) => (
             <FormControlLabel
               control={
-                <Checkbox
+                <Radio
                   checked={brands.includes(brand)}
                   onChange={(e) => handleBrandChange(e, brand)}
                   sx={{

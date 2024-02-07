@@ -54,7 +54,9 @@ const StyledButtonSecondary = styled(Button)({
   color: FILTER_COLORS.TEXT_SHORT_MENU,
   fontFamily: FONTS.BOLD_TEXT_FAMILY,
   cursor: 'default',
+  borderTop: 'none',
   borderBottom: 'none',
+
   '& p': {
     color: FILTER_COLORS.TEXT_MAIN,
     fontFamily: FONTS.MAIN_TEXT_FAMILY,
@@ -63,20 +65,22 @@ const StyledButtonSecondary = styled(Button)({
   '&:hover': {
     backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
+    borderTop: 'none',
     borderBottom: 'none',
   },
   '&:active': {
     backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
     boxShadow: 'none',
+    borderTop: 'none',
     borderBottom: 'none',
   },
 });
 
 type FilterShortMenuColumnProps = {
-  filterName: 'Season' | 'Brand' | 'Studded';
+  filterName: string;
   icon: React.ReactNode;
-  params: string[];
+  params: string[] | string;
   onClick: (param: string) => void;
 };
 
@@ -90,18 +94,22 @@ function FilterShortMenuColumn({
   const { t } = useTranslation();
   const visableParams =
     params.length > 0 && (params.length > 1 || params[0] !== '');
+  const checkArr = Array.isArray(params) ? params : [params];
 
   const handleMenuToggle = () => {
     let tabIndex;
     switch (filterName) {
       case 'Season':
-        tabIndex = 4;
+        tabIndex = 1;
         break;
       case 'Brand':
         tabIndex = 5;
         break;
-      default:
+      case 'Vechile Type':
         tabIndex = 6;
+        break;
+      default:
+        tabIndex = 7;
     }
     dispatch(actions.toggleFullMenu(tabIndex));
   };
@@ -120,6 +128,25 @@ function FilterShortMenuColumn({
         console.error('Unknown filter name');
     }
   }, []);
+
+  function getTextParam(param: string) {
+    switch (param) {
+      case 'winter':
+        return t('winter');
+      case 'summer':
+        return t('summer');
+      case 'all-season':
+        return t('all-season');
+      case 'light':
+        return t('light');
+      case 'lightTruck':
+        return t('lightTruck');
+      case 'cargo':
+        return t('cargo');
+      default:
+        return param;
+    }
+  }
 
   return (
     <ButtonGroup
@@ -184,7 +211,7 @@ function FilterShortMenuColumn({
         <ArrowForwardIosIcon sx={{ height: '20px' }} />
       </StyledButtonMain>
       {visableParams &&
-        params
+        checkArr
           .filter((param) => param !== '')
           .map((param) => (
             <StyledButtonSecondary
@@ -232,11 +259,7 @@ function FilterShortMenuColumn({
                   </Box>
                   {filterName === 'Season' && (
                     <Typography variant="body2">
-                      {param === 'winter'
-                        ? t('winter')
-                        : param === 'summer'
-                        ? t('summer')
-                        : t('all-season')}
+                      {getTextParam(param)}
                     </Typography>
                   )}
                   {filterName === 'Studded' && (
@@ -244,9 +267,16 @@ function FilterShortMenuColumn({
                       {param === 'studded' ? t('studded') : t('studless')}
                     </Typography>
                   )}
-                  {filterName !== 'Studded' && filterName !== 'Season' && (
-                    <Typography variant="body2">{param}</Typography>
+                  {filterName === 'Vechile Type' && (
+                    <Typography variant="body2">
+                      {getTextParam(param)}
+                    </Typography>
                   )}
+                  {filterName !== 'Studded' &&
+                    filterName !== 'Season' &&
+                    filterName !== 'Vechile Type' && (
+                      <Typography variant="body2">{param}</Typography>
+                    )}
                 </Box>
               }
             </StyledButtonSecondary>

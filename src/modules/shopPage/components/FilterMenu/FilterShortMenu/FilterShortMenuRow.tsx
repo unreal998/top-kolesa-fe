@@ -25,15 +25,29 @@ const StyledButton = styled(Button)({
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
   fontFamily: FONTS.BOLD_TEXT_FAMILY,
+  position: 'relative',
+  borderTop: 'none',
   borderBottom: 'none',
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    borderTop: `1px solid ${FILTER_COLORS.BORDER}`,
+    transition: 'transform 0.2s ease',
+  },
+
   '&:hover': {
     backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
+    borderTop: 'none',
     borderBottom: 'none',
   },
   '&:active': {
     backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
+    borderTop: 'none',
     borderBottom: 'none',
   },
 });
@@ -57,8 +71,18 @@ function FilterShortMenuRow({
   const { t } = useTranslation();
 
   const handleMenuToggle = () => {
-    const tabIndex =
-      filterName === 'Width' ? 0 : filterName === 'Profile' ? 1 : 2;
+    let tabIndex;
+    switch (filterName) {
+      case 'Width':
+        tabIndex = 2;
+        break;
+      case 'Profile':
+        tabIndex = 3;
+        break;
+      case 'Diametr':
+        tabIndex = 4;
+        break;
+    }
     dispatch(actions.toggleFullMenu(tabIndex));
   };
 

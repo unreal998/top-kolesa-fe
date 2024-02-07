@@ -10,6 +10,8 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
+  Radio,
+  RadioGroup,
   Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -35,14 +37,11 @@ function FilterFullMenuStuddedData() {
   const { t } = useTranslation();
   const selectedStudded = useSelector(selectSelectedStudded);
   const [studded, setStudded] = useState(selectedStudded);
-  const studdedTypes = [t('studded'), t('studless')];
+  const studdedTypes = ['studded', 'studless'];
 
   const handleSeasonChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, studdedOption: string) => {
-      const updatedStudded = e.target.checked
-        ? [...studded, studdedOption]
-        : studded.filter((s) => s !== studdedOption);
-      setStudded(updatedStudded);
+    (_: unknown, type: string) => {
+      setStudded(type);
     },
     [studded],
   );
@@ -54,7 +53,7 @@ function FilterFullMenuStuddedData() {
 
   const handleResetFilterSeason = () => {
     dispatch(actions.setResetStudded());
-    setStudded([]);
+    setStudded('');
   };
 
   return (
@@ -95,35 +94,35 @@ function FilterFullMenuStuddedData() {
           {t('resetFilter')}
         </Typography>
       </Box>
-      <CheckBoxContainer>
-        {studdedTypes.map((type, i) => (
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={studded.includes(i === 0 ? 'studded' : 'studless')}
-                onChange={(e) =>
-                  handleSeasonChange(e, i === 0 ? 'studded' : 'studless')
-                }
-                sx={{
-                  '&.Mui-checked': {
-                    color: BASE_COLORS.DEFAULT_BLUE,
-                    '&:after': {
-                      backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+      <RadioGroup onChange={handleSeasonChange}>
+        <CheckBoxContainer>
+          {studdedTypes.map((type, i) => (
+            <FormControlLabel
+              control={
+                <Radio
+                  value={type}
+                  checked={studded === type}
+                  sx={{
+                    '&.Mui-checked': {
+                      color: BASE_COLORS.DEFAULT_BLUE,
+                      '&:after': {
+                        backgroundColor: BASE_COLORS.DEFAULT_BLUE,
+                      },
                     },
-                  },
-                }}
-              />
-            }
-            label={type}
-            key={type}
-            sx={{
-              '& .MuiTypography-root': {
-                fontFamily: FONTS.MAIN_TEXT_FAMILY,
-              },
-            }}
-          />
-        ))}
-      </CheckBoxContainer>
+                  }}
+                />
+              }
+              label={t(type)}
+              key={type}
+              sx={{
+                '& .MuiTypography-root': {
+                  fontFamily: FONTS.MAIN_TEXT_FAMILY,
+                },
+              }}
+            />
+          ))}
+        </CheckBoxContainer>
+      </RadioGroup>
       <Button
         onClick={handleSubmit}
         variant="contained"

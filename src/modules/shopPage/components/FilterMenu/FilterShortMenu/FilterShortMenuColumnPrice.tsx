@@ -26,15 +26,18 @@ const StyledButtonMain = styled(Button)({
   color: FILTER_COLORS.TEXT_SHORT_MENU,
   fontFamily: FONTS.BOLD_TEXT_FAMILY,
   borderTop: 'none',
+  borderBottom: 'none',
   '&:hover': {
     backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
     borderTop: 'none',
+    borderBottom: 'none',
   },
   '&:active': {
     backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
     borderTop: 'none',
+    borderBottom: 'none',
   },
 });
 
@@ -47,7 +50,6 @@ const StyledButtonSecondary = styled(Button)({
   borderColor: FILTER_COLORS.BORDER,
   color: FILTER_COLORS.TEXT_SHORT_MENU,
   fontFamily: FONTS.BOLD_TEXT_FAMILY,
-  borderTop: 'none',
   cursor: 'default',
   '& p': {
     color: FILTER_COLORS.TEXT_MAIN,
@@ -91,7 +93,7 @@ function FilterShortMenuColumnPrice({
     maxPrice === params[1] && minPrice === params[0] ? false : true;
 
   const handleMenuToggle = () => {
-    dispatch(actions.toggleFullMenu(3));
+    dispatch(actions.toggleFullMenu(0));
   };
 
   return (
