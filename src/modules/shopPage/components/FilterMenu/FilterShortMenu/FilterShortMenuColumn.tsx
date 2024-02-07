@@ -40,7 +40,7 @@ const StyledButtonMain = styled(Button)({
   '&:active': {
     backgroundColor: 'transparent',
     borderColor: FILTER_COLORS.BORDER,
-    borderBoborderTopttom: 'none',
+    borderTop: 'none',
   },
 });
 
