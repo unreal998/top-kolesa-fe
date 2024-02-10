@@ -12,6 +12,7 @@ import { OrderPage } from './modules/orderPage';
 import './App.css';
 import AboutPage from './modules/aboutPage';
 import ErrorPage from './modules/errorPage';
+import { t } from 'i18next';
 
 function App() {
   useEffect(() => {

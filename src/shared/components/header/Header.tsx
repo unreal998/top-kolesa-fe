@@ -87,7 +87,7 @@ export function Header() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
   const currentLanguageCode = localStorage.getItem('i18nextLng') || 'ua';
-
+  document.title = t('title');
   useEffect(() => {
     const cartItemsCountFromStorage = JSON.parse(
       localStorage.getItem('cartItem') || '[]',
