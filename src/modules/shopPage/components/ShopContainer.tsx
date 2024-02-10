@@ -9,7 +9,6 @@ import {
   selectCurrentPageItemList,
   selectIsLoading,
   selectPagesCount,
-  selectSortParams,
 } from '../selectors';
 import { actions } from '../reducer';
 import { MobileShopHeaderBar } from './mobileShopHeaderBar/MobileShopHeaderBar';
@@ -53,7 +52,6 @@ export function ShopContainer() {
   const pagesCount = useSelector(selectPagesCount());
   const shopItems = useSelector(selectCurrentPageItemList());
   const cardView = useSelector(selectCardView);
-  const sortParams = useSelector(selectSortParams());
   const isLoading = useSelector(selectIsLoading);
   const [siblingCount, setSiblingCount] = useState(1);
 
@@ -77,24 +75,6 @@ export function ShopContainer() {
     },
     [dispatch],
   );
-
-  const sorterShopItems = [...shopItems];
-  switch (sortParams.sortBy) {
-    case 'priceHigh':
-      sorterShopItems.sort((a, b) => b.price_uah - a.price_uah);
-      break;
-    case 'priceLow':
-      sorterShopItems.sort((a, b) => a.price_uah - b.price_uah);
-      break;
-    case 'rated':
-      sorterShopItems.sort((a, b) => b.rate - a.rate);
-      break;
-    case 'date':
-      sorterShopItems.sort((a, b) => b.year - a.year);
-      break;
-    default:
-      break;
-  }
 
   return (
     <Stack
@@ -123,7 +103,7 @@ export function ShopContainer() {
         <>
           <StyledGridBox container spacing={2}>
             {shopItems && shopItems.length > 0 ? (
-              sorterShopItems.map((item) => (
+              shopItems.map((item) => (
                 <Grid item={true} key={item.id}>
                   {cardView ? (
                     <ShopItemCard

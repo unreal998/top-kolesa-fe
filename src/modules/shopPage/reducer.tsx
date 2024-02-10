@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { CheckoutItemData, ShopItemAPI } from '../../shared/types';
+import { sortItemsList } from './utils';
 
 export type ShopItem = {
   id: number;
@@ -91,7 +92,10 @@ export const shopPageSlice = createSlice({
       state.isLoading = true;
     },
     getShopItemsSuccess(state, { payload }: PayloadAction<ShopData>) {
-      state.itemsList = payload.tiresList;
+      state.itemsList = sortItemsList(
+        state.sortParams.sortBy,
+        payload.tiresList,
+      );
       state.isLoading = false;
     },
     getShopItemsFailure(state, { payload }: PayloadAction<string>) {
@@ -105,6 +109,7 @@ export const shopPageSlice = createSlice({
     },
     setSortParams(state, { payload }: PayloadAction<SortParams>) {
       state.sortParams = payload;
+      state.itemsList = sortItemsList(payload.sortBy, state.itemsList);
     },
     setCurrentPage(state, { payload }: PayloadAction<number>) {
       state.currentPage = payload;

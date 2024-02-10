@@ -71,9 +71,9 @@ const FilterShortMenuContainer = () => {
           selectProfile,
         )}&diametr=${JSON.stringify(selectDiametr)}&season=${JSON.stringify(
           selectedSeason,
-        )}&brand=${JSON.stringify(selectedBrand)}&studded=${JSON.stringify(
-          selectedStudded,
-        )}&vechileType=${selectedVechileType}`,
+        )}&brand=${JSON.stringify(
+          selectedBrand,
+        )}&studded=${selectedStudded}&vechileType=${selectedVechileType}`,
         { replace: true },
       );
     }

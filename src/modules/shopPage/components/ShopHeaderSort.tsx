@@ -82,7 +82,7 @@ export function ShopHeaderSort() {
           }}>
           <StyledInputLabel>{t('sortBy')}</StyledInputLabel>
           <Select
-            defaultValue={'rated'}
+            defaultValue={sortParams.sortBy || 'rated'}
             onChange={handleChangeSortBy}
             MenuProps={{
               sx: {

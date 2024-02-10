@@ -39,13 +39,7 @@ const StyledFilterBox = styled(Stack)({
   },
 });
 
-type FieldType =
-  | 'width'
-  | 'profile'
-  | 'diametr'
-  | 'season'
-  | 'brand'
-  | 'vechileType';
+type FieldType = 'width' | 'profile' | 'diametr' | 'season' | 'brand';
 
 type AutocompleteOptionType = {
   id: FieldType;
@@ -124,7 +118,6 @@ function TiresFilter() {
   const [diametr, setDiametrValue] = useState('');
   const [season, setSeasonValue] = useState('');
   const [brand, setBrandValue] = useState('');
-  const [vechileType, setVechileTypeValue] = useState('');
 
   const handleSearchButton = useCallback(() => {
     dispatch(actions.setSelectedWidth(width));
@@ -132,7 +125,6 @@ function TiresFilter() {
     dispatch(actions.setSelectedDiametr(diametr));
     dispatch(actions.setSeasonChange([season]));
     dispatch(actions.setBrandChange([brand]));
-    dispatch(actions.setVechileTypeChange(vechileType));
 
     history(
       `shop/?price=${JSON.stringify([
@@ -148,7 +140,7 @@ function TiresFilter() {
           : season === t('all-season')
           ? 'all-season'
           : '',
-      )}&brand=${JSON.stringify(brand)}&vechileType=${vechileType}`,
+      )}&brand=${JSON.stringify(brand)}`,
       { replace: true },
     );
   }, [
@@ -195,9 +187,6 @@ function TiresFilter() {
               break;
             case 'brand':
               setBrandValue(value);
-              break;
-            case 'vechileType':
-              setVechileTypeValue(vechileType);
               break;
             default:
               break;
@@ -248,12 +237,6 @@ function TiresFilter() {
       options: filtersParams?.brands,
       label: t('brand'),
       onChange: handleAutocompleteChange('brand'),
-    },
-    {
-      id: 'vechileType',
-      options: filtersParams?.vechileType,
-      label: t('vechileType'),
-      onChange: handleAutocompleteChange('vechileType'),
     },
   ];
 
