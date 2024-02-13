@@ -107,7 +107,7 @@ function FilterFullMenuSeasonData() {
           filteredSeasons.map((seasonName, i) => (
             <FormControlLabel
               control={
-                <Radio
+                <Checkbox
                   checked={season.includes(
                     i === 0 ? 'winter' : i === 1 ? 'summer' : 'all-season',
                   )}
