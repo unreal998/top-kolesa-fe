@@ -166,7 +166,7 @@ export const CartItem: React.FC<CartItemProps> = ({
             />
             <Box
               display={'flex'}
-              justifyContent={'space-around'}
+              justifyContent={'center'}
               flexDirection={'column'}
               width={'100%'}>
               <Typography
@@ -204,7 +204,6 @@ export const CartItem: React.FC<CartItemProps> = ({
                         }}
                       />
                     </IconButton>
-
                     <Typography
                       variant="h6"
                       fontWeight={600}
@@ -224,13 +223,6 @@ export const CartItem: React.FC<CartItemProps> = ({
                   </Box>
                 </Tooltip>
               </ClickAwayListener>
-              <Typography
-                variant="subtitle2"
-                fontWeight={500}
-                fontFamily={FONTS.MAIN_TEXT_FAMILY}
-                color={FILTER_COLORS.TEXT_MAIN}>
-                {t('article')}: {cartItemData.article}
-              </Typography>
             </Box>
           </Box>
         </Box>
