@@ -416,7 +416,7 @@ export function MobileFilter() {
       id: 'studded',
       value: studded,
       options: [t('studded'), t('studless')],
-      label: t('studded'),
+      label: t('studdedFilterName'),
       onChange: handleAutocompleteChange('studded'),
       onInputChange: handleAutocompleteInputChange('studded'),
     },
