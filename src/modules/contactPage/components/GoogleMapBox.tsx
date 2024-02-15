@@ -91,12 +91,14 @@ function GoogleMapBox() {
                 flexDirection={'column'}
                 p={2}
                 sx={{
+                  cursor: 'pointer',
                   borderTopLeftRadius: '20px',
                   '@media (max-width: 800px)': {
                     display: 'inline-block',
                     height: '100%',
                     borderTopLeftRadius: '6px',
                     borderTopRightRadius: '6px',
+                    cursor: 'default',
                   },
                 }}>
                 <Box
@@ -155,9 +157,11 @@ function GoogleMapBox() {
                 flexDirection={'column'}
                 p={2}
                 sx={{
+                  cursor: 'pointer',
                   borderBottomLeftRadius: '20px',
                   '@media (max-width: 800px)': {
                     display: 'none',
+                    cursor: 'default',
                   },
                 }}>
                 <Box
@@ -226,8 +230,8 @@ function GoogleMapBox() {
                           lng: 28.403964997993405,
                         }
                       : {
-                          lat: 49.207908075179304,
-                          lng: 28.500303753907346,
+                          lat: 49.20398,
+                          lng: 28.49831,
                         }
                   }
                   zoom={16}
@@ -329,8 +333,8 @@ function GoogleMapBox() {
               <Wrapper apiKey={GOOGLE_MAP_KEY}>
                 <GoogleMaps
                   center={{
-                    lat: 49.207908075179304,
-                    lng: 28.500303753907346,
+                    lat: 49.203685111,
+                    lng: 28.498228111,
                   }}
                   zoom={16}
                 />
