@@ -15,6 +15,8 @@ export type ShopItem = {
   country: string;
   season: string;
   year: number;
+  speed: string;
+  weight: string;
 };
 
 export type ShopData = {

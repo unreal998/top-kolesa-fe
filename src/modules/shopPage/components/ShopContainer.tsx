@@ -119,6 +119,8 @@ export function ShopContainer() {
                       country={item.country}
                       season={item.season}
                       year={item.year}
+                      speed={item.speed}
+                      weight={item.weight}
                     />
                   ) : (
                     <ShopItemTable
@@ -134,6 +136,8 @@ export function ShopContainer() {
                       country={item.country}
                       season={item.season}
                       year={item.year}
+                      speed={item.speed}
+                      weight={item.weight}
                     />
                   )}
                 </Grid>

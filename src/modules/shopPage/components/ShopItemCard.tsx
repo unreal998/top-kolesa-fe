@@ -90,6 +90,8 @@ export function ShopItemCard({
   country,
   season,
   year,
+  speed,
+  weight,
 }: ShopItem) {
   const { t } = useTranslation();
   const [value, setValue] = useState<number | null>(2);
@@ -189,7 +191,19 @@ export function ShopItemCard({
               display={'flex'}
               justifyContent={'center'}
               alignItems={'center'}>
-              {brand} {name} {width}/{height} R{diametr}
+              {brand} {name}
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              fontFamily={FONTS.BOLD_TEXT_FAMILY}
+              fontWeight="600"
+              color="#000"
+              height={'3rem'}
+              display={'flex'}
+              justifyContent={'center'}
+              alignItems={'center'}>
+              {width}/{height} R{diametr} {weight}
+              {speed}
             </Typography>
             <Typography
               variant="h6"

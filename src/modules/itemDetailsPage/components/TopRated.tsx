@@ -112,6 +112,8 @@ export default function TopRated() {
                 country={item.country}
                 season={item.season}
                 year={item.year}
+                speed={item.speed}
+                weight={item.weight}
               />
             </Box>
           ))}
