@@ -121,7 +121,7 @@ function FilterShortMenuColumn({
       case 'Brand':
         return t('brand');
       case 'Studded':
-        return t('studded');
+        return t('studdedFilterName');
       case 'Vechile Type':
         return t('vechileType');
       default:
