@@ -13,6 +13,7 @@ function MyMapComponent({
   zoom: number;
 }) {
   const ref = useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (ref !== null) {
@@ -27,16 +28,16 @@ function MyMapComponent({
       new google.maps.Marker({
         position: myLatLng,
         map,
-        title: 'Hello World!',
+        title: t('tireCenterGlobal'),
       });
       const mySeccondLatLng = {
-        lat: 49.203685,
-        lng: 28.498228,
+        lat: 49.20398,
+        lng: 28.49831,
       };
       new google.maps.Marker({
         position: mySeccondLatLng,
         map,
-        title: 'Hello World!',
+        title: t('tireCenterTyrePlus'),
       });
     }
   });

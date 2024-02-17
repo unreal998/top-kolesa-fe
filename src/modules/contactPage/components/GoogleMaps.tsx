@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export function GoogleMaps({
   center,
@@ -9,6 +10,7 @@ export function GoogleMaps({
   zoom: number;
 }) {
   const ref = useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (ref !== null) {
@@ -23,16 +25,16 @@ export function GoogleMaps({
       new google.maps.Marker({
         position: myLatLng,
         map,
-        title: 'Hello World!',
+        title: t('tireCenterGlobal'),
       });
       const mySeccondLatLng = {
-        lat: 49.207908075179304,
-        lng: 28.500303753907346,
+        lat: 49.203685,
+        lng: 28.498228,
       };
       new google.maps.Marker({
         position: mySeccondLatLng,
         map,
-        title: 'Hello World!',
+        title: t('tireCenterTyrePlus'),
       });
     }
   });
