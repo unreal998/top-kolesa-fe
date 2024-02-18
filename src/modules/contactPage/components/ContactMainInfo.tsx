@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, styled } from '@mui/material';
+import { Box, Grid, Link, Typography, styled } from '@mui/material';
 import { FONTS, BASE_COLORS } from '../../../shared/constants';
 import { useTranslation } from 'react-i18next';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -21,6 +21,24 @@ const StyledText = styled(Typography)({
 
 export function ContactMainInfo() {
   const { t } = useTranslation();
+
+  const contactPhones = [
+    {
+      phone: '(063) 253-77-44',
+      link: 'tel:+380632537744',
+      operator: 'Life',
+    },
+    {
+      phone: '(097) 273-77-44',
+      link: 'tel:+380972737744',
+      operator: 'Kyivstar',
+    },
+    {
+      phone: '(099) 273-77-44',
+      link: 'tel:+380992737744',
+      operator: 'Vodafone',
+    },
+  ];
 
   return (
     <>
@@ -74,60 +92,34 @@ export function ContactMainInfo() {
                   <StyledHeadingText>{t('contactUs')}</StyledHeadingText>
                 </Box>
                 <Box display={'flex'} flexDirection={'column'} p={2}>
-                  <Box
-                    display={'flex'}
-                    justifyContent={'space-between'}
-                    sx={{
-                      '@media (max-width: 830px)': {
-                        justifyContent: 'center',
-                      },
-                    }}>
-                    <StyledText
+                  {contactPhones.map((item, i) => (
+                    <Box
+                      key={i}
+                      display={'flex'}
+                      justifyContent={'space-between'}
                       sx={{
                         '@media (max-width: 830px)': {
-                          display: 'none',
+                          justifyContent: 'center',
                         },
                       }}>
-                      Vodafone
-                    </StyledText>
-                    <StyledText>+38 (099) 273-77-44</StyledText>
-                  </Box>
-                  <Box
-                    display={'flex'}
-                    justifyContent={'space-between'}
-                    sx={{
-                      '@media (max-width: 830px)': {
-                        justifyContent: 'center',
-                      },
-                    }}>
-                    <StyledText
-                      sx={{
-                        '@media (max-width: 830px)': {
-                          display: 'none',
-                        },
-                      }}>
-                      Kyivstar
-                    </StyledText>
-                    <StyledText>+38 (097) 273-77-44</StyledText>
-                  </Box>
-                  <Box
-                    display={'flex'}
-                    justifyContent={'space-between'}
-                    sx={{
-                      '@media (max-width: 830px)': {
-                        justifyContent: 'center',
-                      },
-                    }}>
-                    <StyledText
-                      sx={{
-                        '@media (max-width: 830px)': {
-                          display: 'none',
-                        },
-                      }}>
-                      Life
-                    </StyledText>
-                    <StyledText>+38 (063) 253-77-44</StyledText>
-                  </Box>
+                      <StyledText
+                        sx={{
+                          '@media (max-width: 830px)': {
+                            display: 'none',
+                          },
+                        }}>
+                        {item.operator}
+                      </StyledText>
+                      <StyledText>
+                        <Link
+                          href={item.link}
+                          color="inherit"
+                          style={{ textDecoration: 'none' }}>
+                          {item.phone}
+                        </Link>
+                      </StyledText>
+                    </Box>
+                  ))}
                 </Box>
               </Box>
             </Grid>

@@ -185,7 +185,10 @@ export function Header() {
           <TypographyWithIcon
             icon={<PhoneIcon sx={{ fill: '#FFF', width: '2rem' }} />}
             typography={
-              <StyledTextMain>(063/097/099) 273-77-44</StyledTextMain>
+              <>
+                <StyledTextMain>{'(063) 253-77-44'}</StyledTextMain>
+                <StyledTextMain>{'(097/099) 273-77-44, '}</StyledTextMain>
+              </>
             }
           />
           <TypographyWithIcon
