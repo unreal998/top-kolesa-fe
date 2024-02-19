@@ -7,6 +7,7 @@ import { BASE_COLORS, FONTS } from '../../constants';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCallback } from 'react';
+import { contactPhones } from '../../constants';
 
 const StyledTextBox = styled(Stack)({
   width: '30%',
@@ -77,21 +78,6 @@ export function Footer() {
       mapBox.scrollIntoView({ behavior: 'smooth' });
     }
   }, []);
-
-  const contactPhones = [
-    {
-      phone: '(063) 253-77-44',
-      link: 'tel:+380632537744',
-    },
-    {
-      phone: '(097) 273-77-44',
-      link: 'tel:+380972737744',
-    },
-    {
-      phone: '(099) 273-77-44',
-      link: 'tel:+380992737744',
-    },
-  ];
 
   return (
     <Box

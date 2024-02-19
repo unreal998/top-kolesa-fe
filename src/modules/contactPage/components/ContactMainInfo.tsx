@@ -5,6 +5,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import { contactPhones } from '../../../shared/constants';
 
 const StyledHeadingText = styled(Typography)({
   fontFamily: `${FONTS.BOLD_TEXT_FAMILY}`,
@@ -21,24 +22,6 @@ const StyledText = styled(Typography)({
 
 export function ContactMainInfo() {
   const { t } = useTranslation();
-
-  const contactPhones = [
-    {
-      phone: '(063) 253-77-44',
-      link: 'tel:+380632537744',
-      operator: 'Life',
-    },
-    {
-      phone: '(097) 273-77-44',
-      link: 'tel:+380972737744',
-      operator: 'Kyivstar',
-    },
-    {
-      phone: '(099) 273-77-44',
-      link: 'tel:+380992737744',
-      operator: 'Vodafone',
-    },
-  ];
 
   return (
     <>
