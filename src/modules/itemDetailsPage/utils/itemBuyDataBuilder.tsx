@@ -32,7 +32,7 @@ export function itemBuyDataBuilder(
       shipmentCost: '0.00',
       shipmentCostType: 0,
       driverId: 0,
-      shipmentComment: 'test shipment comment',
+      shipmentComment: 'коментар для доставки',
       shipmentCompId: 0,
       driverCost: 0,
       driverCostType: 0,
@@ -42,7 +42,7 @@ export function itemBuyDataBuilder(
       discount: 0,
       sellSum: 0,
       profit: 0,
-      nameFirm: 'test name firm',
+      nameFirm: '(тільки для юр. осіб)',
       name: userData.userName,
       tireName: item.name,
       phone: userData.phone,
@@ -53,7 +53,7 @@ export function itemBuyDataBuilder(
       inWarehous: 0,
       email: userData.email,
       addressCity: userData.city,
-      address: userData.address,
+      address: `${userData.city} ${userData.address}`,
       shipment: '0000-00-00 00:00:00',
       productType: PRODUCT_TYPE.TIRE,
       quantity: item.numberOfTires, // USER BUY COUNT
@@ -63,15 +63,9 @@ export function itemBuyDataBuilder(
       updatedAt: new Date().toISOString(),
       shipmentFrom: '0000-00-00 00:00:00',
       shipmentUntil: '0000-00-00 00:00:00',
-      comment:
-        userData.comment +
-          ' test comment DEVELOP!!!!!' +
-          userData.paymentType ===
-        'transfer'
-          ? ' хоче розрахуватись переказом'
-          : ' хоче розрахуватися готівкою',
-      source: 'new site develop',
-      referer: 'localhost',
+      comment: userData.comment + getPaymentType(userData.paymentType),
+      source: window.location.href,
+      referer: window.location.href,
       forPrint: 0,
       forExport: 0,
       checkNum: 0,
@@ -84,4 +78,10 @@ export function itemBuyDataBuilder(
     };
   });
   return orderData;
+}
+
+function getPaymentType(paymentType: string) {
+  return paymentType === 'transfer'
+    ? ' хоче розрахуватись переказом'
+    : ' хоче розрахуватися готівкою';
 }

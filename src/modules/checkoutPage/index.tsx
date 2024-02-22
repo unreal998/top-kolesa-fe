@@ -112,6 +112,7 @@ export function CheckoutPage() {
     inputedPhone,
     inputedFirstName,
     inputedLastName,
+    paymentState,
   ]);
 
   const handleWarehouseTextChange = useCallback(
