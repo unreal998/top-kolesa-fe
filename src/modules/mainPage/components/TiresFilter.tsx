@@ -162,38 +162,36 @@ function TiresFilter() {
         value: unknown,
         reason: AutocompleteChangeReason,
       ) => {
-        if (typeof value !== 'string') return;
-        else if (value !== 'string' || value === null) {
-          switch (type) {
-            case 'width':
-              setWidthValue(value);
-              break;
-            case 'profile':
-              setProfileValue(value);
-              break;
-            case 'diametr':
-              setDiametrValue(value);
-              break;
-            case 'season':
-              setSeasonValue(
-                value === t('summer')
-                  ? 'summer'
-                  : value === t('winter')
-                  ? 'winter'
-                  : value === t('all-season')
-                  ? 'all-season'
-                  : '',
-              );
-              break;
-            case 'brand':
-              setBrandValue(value);
-              break;
-            default:
-              break;
-          }
+        const newValue = typeof value === 'string' ? value : '';
+        switch (type) {
+          case 'width':
+            setWidthValue(newValue);
+            break;
+          case 'profile':
+            setProfileValue(newValue);
+            break;
+          case 'diametr':
+            setDiametrValue(newValue);
+            break;
+          case 'season':
+            setSeasonValue(
+              value === t('summer')
+                ? 'summer'
+                : value === t('winter')
+                ? 'winter'
+                : value === t('all-season')
+                ? 'all-season'
+                : '',
+            );
+            break;
+          case 'brand':
+            setBrandValue(newValue);
+            break;
+          default:
+            break;
         }
       },
-    [],
+    [t],
   );
 
   const sortOptions = useCallback((options: (string | number)[]) => {
@@ -255,7 +253,8 @@ function TiresFilter() {
           <StyledAutocomplete
             key={id}
             disablePortal
-            onChange={onChange}
+            clearOnBlur={false}
+            onChange={handleAutocompleteChange(id)}
             options={
               id === 'width' || id === 'brand' ? sortOptions(options) : options
             }
