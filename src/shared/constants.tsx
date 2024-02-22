@@ -22,3 +22,21 @@ export const FILTER_COLORS = {
 };
 
 export const TOOLTIP_TIMEOUT = 4000;
+
+export const contactPhones = [
+  {
+    phone: '(063) 253-77-44',
+    link: 'tel:+380632537744',
+    operator: 'Life',
+  },
+  {
+    phone: '(097) 273-77-44',
+    link: 'tel:+380972737744',
+    operator: 'Kyivstar',
+  },
+  {
+    phone: '(099) 273-77-44',
+    link: 'tel:+380992737744',
+    operator: 'Vodafone',
+  },
+];

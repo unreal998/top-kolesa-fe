@@ -84,16 +84,16 @@ export function GoogleMap() {
 
   const contactPhones = [
     {
-      phone: '(099) 273-77-44',
-      link: 'tel:+380992737744',
+      phone: '(063) 253-77-44',
+      link: 'tel:+380632537744',
     },
     {
       phone: '(097) 273-77-44',
       link: 'tel:+380972737744',
     },
     {
-      phone: '(063) 253-77-44',
-      link: 'tel:+380632537744',
+      phone: '(099) 273-77-44',
+      link: 'tel:+380992737744',
     },
   ];
 
