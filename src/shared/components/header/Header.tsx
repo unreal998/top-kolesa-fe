@@ -187,7 +187,7 @@ export function Header() {
             typography={
               <>
                 <StyledTextMain>{'(063) 253-77-44'}</StyledTextMain>
-                <StyledTextMain>{'(097/099) 273-77-44, '}</StyledTextMain>
+                <StyledTextMain>{'(097/099) 273-77-44'}</StyledTextMain>
               </>
             }
           />
