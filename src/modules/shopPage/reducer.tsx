@@ -17,6 +17,7 @@ export type ShopItem = {
   year: number;
   speed: string;
   weight: string;
+  param: string;
 };
 
 export type ShopData = {

@@ -76,6 +76,9 @@ export function ShopItemTable({
   country,
   season,
   year,
+  speed,
+  weight,
+  param,
 }: ShopItem) {
   const { t } = useTranslation();
   const [value, setValue] = useState<number | null>(2);
@@ -164,7 +167,8 @@ export function ShopItemTable({
               display={'flex'}
               justifyContent={'center'}
               alignItems={'center'}>
-              {brand} {name} {width}/{height} R{diametr}
+              {brand} {name} {width}/{height} R{diametr} {weight}
+              {speed} {param}
             </Typography>
             <Typography
               variant="h6"

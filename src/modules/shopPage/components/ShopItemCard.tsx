@@ -92,6 +92,7 @@ export function ShopItemCard({
   year,
   speed,
   weight,
+  param,
 }: ShopItem) {
   const { t } = useTranslation();
   const [value, setValue] = useState<number | null>(2);
@@ -203,7 +204,7 @@ export function ShopItemCard({
               justifyContent={'center'}
               alignItems={'center'}>
               {width}/{height} R{diametr} {weight}
-              {speed}
+              {speed} {param}
             </Typography>
             <Typography
               variant="h6"

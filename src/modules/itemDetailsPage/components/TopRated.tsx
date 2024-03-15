@@ -114,6 +114,7 @@ export default function TopRated() {
                 year={item.year}
                 speed={item.speed}
                 weight={item.weight}
+                param={item.param}
               />
             </Box>
           ))}
